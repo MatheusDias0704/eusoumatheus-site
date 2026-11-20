@@ -445,7 +445,8 @@ dialog.zoom .fechar { position: absolute; top: 10px; right: 10px; }
 .barra .miolo { display: flex; align-items: center; justify-content: space-between; gap: 14px; }
 .barra .p { display: grid; line-height: 1.15; }
 .barra .p b { font-weight: 700; font-size: 22px; letter-spacing: -.03em; }
-.barra .p small { color: var(--tinta-2); font-size: 13px; }
+.barra .p small { color: var(--tinta-2); font-size: 13px; white-space: nowrap; }
+.barra .botao { white-space: nowrap; }
 .barra .botao { min-height: 52px; padding: 0 22px; font-size: 16px; }
 
 .aviso-link { position: fixed; left: 50%; bottom: calc(var(--barra-h) + 18px + env(safe-area-inset-bottom, 0px)); transform: translate(-50%, 10px); z-index: 30; padding: 12px 16px; border-radius: var(--r-m); background: var(--chapa-2); border: 1px solid var(--fio-forte); font-size: 15px; opacity: 0; pointer-events: none; transition: opacity .25s, transform .35s var(--suave); width: max-content; max-width: calc(100vw - 32px); }
@@ -532,6 +533,81 @@ dialog.zoom .fechar { position: absolute; top: 10px; right: 10px; }
 .faq details p { margin: 0 0 20px; color: var(--tinta-2); max-width: 62ch; }
 
 .fechamento-in { display: grid; justify-items: start; }
+
+/* ---------- a caixa ---------- */
+.contagem-caixa { margin: 18px 0 0; color: var(--tinta-2); font-size: 16px; }
+.contagem-caixa b { color: var(--laranja); font-weight: 700; font-size: 20px; }
+.contagem-caixa span { margin: 0 6px; color: var(--tinta-3); }
+.caixa { display: grid; gap: 18px; margin-top: 32px; }
+.arvore { border-radius: var(--r-l); background: var(--chapa); border: 1px solid var(--fio-forte); overflow: hidden; }
+.arvore-topo, .janela-mac { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-bottom: 1px solid var(--fio); font: 500 13px/1 var(--f-tempo); color: var(--tinta-2); }
+.pontos { display: inline-flex; gap: 6px; }
+.pontos i { width: 10px; height: 10px; border-radius: 50%; background: #ff5f57; }
+.pontos i:nth-child(2) { background: #febc2e; } .pontos i:nth-child(3) { background: #28c840; }
+.arvore ul { list-style: none; margin: 0; padding: 0; }
+.raiz { padding: 8px 6px 10px; }
+.arvore ul ul { padding-left: 18px; border-left: 1px solid var(--fio); margin-left: 16px; }
+.arq, .arvore summary { display: grid; grid-template-columns: 18px minmax(0, auto) minmax(0, 1fr); align-items: baseline; gap: 4px 10px; padding: 7px 10px; border-radius: 8px; font-size: 14px; }
+.arvore .ic { width: 16px; height: 16px; color: var(--tinta-3); align-self: center; }
+.arvore .nome { font-family: var(--f-tempo); font-size: 13px; color: var(--tinta); white-space: nowrap; }
+.arvore .oque { color: var(--tinta-2); font-size: 13px; min-width: 0; }
+.arq.destaque { background: var(--laranja-fundo); }
+.arq.destaque .ic, .arq.destaque .nome { color: var(--laranja); }
+.arvore summary { cursor: pointer; list-style: none; }
+.arvore summary::-webkit-details-marker { display: none; }
+.arvore summary:hover, .arq:hover { background: var(--chapa-2); }
+.arvore details[open] > summary .ic { color: var(--laranja); }
+@media (max-width: 560px) { .arq, .arvore summary { grid-template-columns: 18px 1fr; } .arvore .oque { grid-column: 2; } }
+@media (prefers-reduced-motion: no-preference) {
+  .js-caixa:not(.aberta) .arq { opacity: 0; transform: translateX(-8px); }
+  .js-caixa.aberta .arq { transition: opacity .45s var(--suave), transform .45s var(--suave); transition-delay: calc(var(--i) * 45ms); }
+}
+.painel-print { margin: 0; border-radius: var(--r-l); overflow: hidden; background: var(--chapa); border: 1px solid var(--fio-forte); }
+.painel-print img { width: 100%; height: auto; }
+.painel-print figcaption { padding: 14px 16px; font-size: 14px; color: var(--tinta-2); border-top: 1px solid var(--fio); }
+@media (min-width: 960px) { .caixa { grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); align-items: start; } }
+
+/* ---------- sua máquina roda? ---------- */
+.maquina { display: grid; gap: 24px; }
+.detectado { margin: 18px 0 0; font-size: 15px; color: var(--tinta-2); }
+.detectado b { color: var(--verde); }
+.checa { list-style: none; margin: 18px 0 0; padding: 0; display: grid; gap: 10px; }
+.req { width: 100%; display: grid; grid-template-columns: 30px 1fr; gap: 14px; align-items: start; text-align: left; padding: 16px; border-radius: var(--r-m); background: var(--chapa); border: 1px solid var(--fio-forte); color: var(--tinta); cursor: pointer; font: inherit; transition: border-color .25s, background-color .25s, transform .15s var(--suave); }
+.req:active { transform: scale(.985); }
+.req b { display: block; font-size: 17px; font-weight: 600; letter-spacing: -.015em; }
+.req small { display: block; margin-top: 3px; font-size: 14px; color: var(--tinta-2); line-height: 1.4; }
+.caixinha { width: 30px; height: 30px; border-radius: 9px; border: 2px solid var(--fio-forte); display: grid; place-items: center; transition: background-color .25s, border-color .25s; }
+.caixinha svg { width: 18px; height: 18px; color: #021a08; opacity: 0; transform: scale(.4); transition: opacity .2s, transform .3s cubic-bezier(.3,1.6,.5,1); }
+.req[aria-pressed="true"] { border-color: rgba(48,209,88,.55); background: linear-gradient(var(--verde-fundo), var(--verde-fundo)), var(--chapa); }
+.req[aria-pressed="true"] .caixinha { background: var(--verde); border-color: var(--verde); }
+.req[aria-pressed="true"] .caixinha svg { opacity: 1; transform: none; }
+.veredito { display: grid; gap: 12px; align-content: start; padding: clamp(22px, 4vw, 32px); border-radius: var(--r-l); background: var(--chapa); border: 1px solid var(--fio-forte); transition: border-color .3s; }
+.veredito[data-estado="3"] { border-color: rgba(48,209,88,.6); }
+.medidor { height: 8px; border-radius: 4px; background: var(--chapa-2); overflow: hidden; }
+.medidor i { display: block; height: 100%; width: 100%; background: var(--laranja); transform-origin: left; transform: scaleX(0); transition: transform .5s var(--suave), background-color .3s; }
+.veredito[data-estado="3"] .medidor i { background: var(--verde); }
+.veredito-titulo { margin: 4px 0 0; font-size: 28px; font-weight: 700; letter-spacing: -.035em; }
+.veredito[data-estado="3"] .veredito-titulo { color: var(--verde); }
+.veredito-texto { margin: 0; color: var(--tinta-2); }
+.veredito .botao { justify-self: start; }
+.ficha { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 12px 0 0; padding-top: 16px; border-top: 1px solid var(--fio); }
+.ficha div { display: grid; gap: 2px; }
+.ficha dt { font-size: 12px; color: var(--tinta-3); }
+.ficha dd { margin: 0; font-size: 15px; font-weight: 600; }
+@media (min-width: 900px) { .maquina { grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: 48px; align-items: center; } }
+
+/* ---------- pavio do lançamento ---------- */
+.pavio { display: grid; gap: 12px; padding: 16px; margin-bottom: 22px; border-radius: var(--r-m); background: var(--laranja-fundo); border: 1px solid rgba(255,122,26,.35); }
+.pavio-topo { margin: 0; display: flex; align-items: center; gap: 10px; font-size: 15px; color: var(--tinta-2); }
+.pavio-topo b { color: var(--tinta); }
+.relogio { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.relogio div { display: grid; justify-items: center; padding: 10px 4px; border-radius: 10px; background: rgba(8,8,10,.6); }
+.relogio b { font-size: 28px; font-weight: 700; letter-spacing: -.03em; font-variant-numeric: tabular-nums; line-height: 1; }
+.relogio span { margin-top: 4px; font-size: 11px; color: var(--tinta-2); }
+.queima { height: 6px; border-radius: 3px; background: rgba(8,8,10,.6); overflow: hidden; }
+.queima i { display: block; height: 100%; width: 100%; background: linear-gradient(90deg, var(--laranja), var(--vermelho)); transform-origin: left; transform: scaleX(var(--q, 0)); }
+.pavio-pe { margin: 0; font-size: 13px; color: var(--tinta-2); }
+.pavio.acabou .relogio, .pavio.acabou .queima { display: none; }
 </style>
 
 <div class="lido" aria-hidden="true"></div>
@@ -568,15 +644,15 @@ dialog.zoom .fechar { position: absolute; top: 10px; right: 10px; }
       </div>
 
       <div class="hero-acao">
-        <p class="sub">Você escreve o tema em uma frase. <b>A Fábrica escreve o roteiro, narra, anima cada cena, corta para TikTok, Reels e Shorts e faz a capa.</b> Seu primeiro vídeo pode sair hoje.</p>
+        <p class="sub">Você escreve o tema em uma frase. <b>A Fábrica escreve o roteiro, narra, anima cada cena, corta para TikTok, Reels e Shorts e faz a capa.</b> Instalou, o primeiro vídeo sai em cerca de uma hora.</p>
         <div class="trio">
           <div><b>1 frase</b><span>é o que você escreve</span></div>
-          <div><b>8 IAs</b><span>fazem todo o resto</span></div>
+          <div><b>13 agentes</b><span>fazem todo o resto</span></div>
           <div><b>0 edição</b><span>feita por você</span></div>
         </div>
         <div class="acoes">
           <a class="botao brilha js-comprar-rolar" id="cta-hero" href="#oferta">Quero a Fábrica <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-          <p class="micro"><span>R$ 47,90</span><span>Pagamento único</span><span>7 dias de garantia</span></p>
+          <p class="micro"><span>R$ 47,90 até 30/11</span><span>Pagamento único</span><span>7 dias de garantia</span></p>
         </div>
       </div>
     </div>
@@ -737,7 +813,7 @@ dialog.zoom .fechar { position: absolute; top: 10px; right: 10px; }
       <p class="chamada-frase">Enquanto você lê isto, a Fábrica já poderia estar montando o vídeo de amanhã.</p>
       <div class="chamada-acao">
         <a class="botao brilha js-comprar-rolar" href="#oferta">Quero a Fábrica <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        <p class="micro"><span>R$ 47,90</span><span>Pagamento único</span><span>7 dias de garantia</span></p>
+        <p class="micro"><span>R$ 47,90 até 30/11</span><span>Pagamento único</span><span>7 dias de garantia</span></p>
       </div>
     </div>
   </section>
@@ -803,7 +879,7 @@ dialog.zoom .fechar { position: absolute; top: 10px; right: 10px; }
       <p class="chamada-frase">Todo vídeo desses começou do mesmo jeito: uma frase digitada.</p>
       <div class="chamada-acao">
         <a class="botao brilha js-comprar-rolar" href="#oferta">Quero a Fábrica <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        <p class="micro"><span>R$ 47,90</span><span>Pagamento único</span><span>7 dias de garantia</span></p>
+        <p class="micro"><span>R$ 47,90 até 30/11</span><span>Pagamento único</span><span>7 dias de garantia</span></p>
       </div>
     </div>
   </section>
@@ -854,7 +930,7 @@ dialog.zoom .fechar { position: absolute; top: 10px; right: 10px; }
       <p class="chamada-frase">A diferença entre postar às vezes e postar todo dia é a edição. Tire ela do caminho.</p>
       <div class="chamada-acao">
         <a class="botao brilha js-comprar-rolar" href="#oferta">Quero a Fábrica <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        <p class="micro"><span>R$ 47,90</span><span>Pagamento único</span><span>7 dias de garantia</span></p>
+        <p class="micro"><span>R$ 47,90 até 30/11</span><span>Pagamento único</span><span>7 dias de garantia</span></p>
       </div>
     </div>
   </section>
@@ -895,6 +971,63 @@ dialog.zoom .fechar { position: absolute; top: 10px; right: 10px; }
     </div>
   </section>
 
+  <!-- O QUE VEM NA CAIXA -->
+  <section class="secao faixa" id="caixa">
+    <div class="miolo">
+      <h2 class="acende js-palavras">Abra a caixa. É tudo isso.</h2>
+      <p class="lead">Não é curso para você montar sozinho. É a Fábrica funcionando, do jeito que eu uso, com o passo a passo em vídeo para instalar.</p>
+      <p class="contagem-caixa"><b>13</b> agentes <span>·</span> <b>3</b> skills <span>·</span> <b>1</b> painel <span>·</span> passo a passo em vídeo</p>
+      <div class="caixa">
+        <div class="arvore js-caixa" aria-label="Arquivos que você recebe">
+          <div class="arvore-topo"><span class="pontos" aria-hidden="true"><i></i><i></i><i></i></span><span>fabrica-de-videos-ia/</span></div>
+          <ul class="raiz">
+            <li class="arq destaque" style="--i:0"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M10 9.5v5l4.5-2.5z" fill="currentColor"/></svg><span class="nome">Vídeo de instalação</span><span class="oque">o passo a passo, do zero ao primeiro vídeo</span></li>
+            <li class="arq " style="--i:0"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/></svg><span class="nome">COMECE-AQUI.md</span><span class="oque">como operar, em português simples</span></li>
+            <li class="grupo"><details open><summary><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M3 6.5A1.5 1.5 0 0 1 4.5 5h4l2 2h9A1.5 1.5 0 0 1 21 8.5v9a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 17.5z"/></svg><span class="nome">.claude/agents/</span><span class="oque">13 agentes, um para cada etapa</span></summary><ul><li class="arq " style="--i:1"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/></svg><span class="nome">pauteiro.md</span><span class="oque">transforma seu tema em pauta</span></li><li class="arq " style="--i:2"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/></svg><span class="nome">roteirista.md</span><span class="oque">escreve com gancho e história</span></li><li class="arq " style="--i:3"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/></svg><span class="nome">editor-historia.md</span><span class="oque">lê como espectador e dá nota</span></li><li class="arq " style="--i:4"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/></svg><span class="nome">conferente.md</span><span class="oque">confere cada frase com a fonte</span></li><li class="arq " style="--i:5"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/></svg><span class="nome">narrador.md</span><span class="oque">grava a voz e regrava o que sair errado</span></li><li class="arq " style="--i:6"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/></svg><span class="nome">cenografo.md</span><span class="oque">desenha os cenários</span></li><li class="arq " style="--i:7"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/></svg><span class="nome">montador.md</span><span class="oque">anima e põe o som</span></li><li class="arq " style="--i:8"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/></svg><span class="nome">critico.md</span><span class="oque">revê quadro a quadro</span></li><li class="arq " style="--i:9"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/></svg><span class="nome">cortes.md</span><span class="oque">corta para cada rede</span></li><li class="arq " style="--i:10"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/></svg><span class="nome">capista.md</span><span class="oque">faz a capa e a thumbnail</span></li><li class="arq " style="--i:11"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/></svg><span class="nome">agenda.md</span><span class="oque">escolhe dia e hora</span></li><li class="arq " style="--i:12"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/></svg><span class="nome">triagem.md</span><span class="oque">lê seu pedido de ajuste</span></li><li class="arq " style="--i:13"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/></svg><span class="nome">analista.md</span><span class="oque">lê os números e aprende</span></li></ul></details></li>
+            <li class="grupo"><details><summary><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M3 6.5A1.5 1.5 0 0 1 4.5 5h4l2 2h9A1.5 1.5 0 0 1 21 8.5v9a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 17.5z"/></svg><span class="nome">.claude/skills/</span><span class="oque">3 skills prontas</span></summary><ul><li class="arq " style="--i:14"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M3 6.5A1.5 1.5 0 0 1 4.5 5h4l2 2h9A1.5 1.5 0 0 1 21 8.5v9a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 17.5z"/></svg><span class="nome">fabrica/</span><span class="oque">liga a linha de produção</span></li><li class="arq " style="--i:15"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M3 6.5A1.5 1.5 0 0 1 4.5 5h4l2 2h9A1.5 1.5 0 0 1 21 8.5v9a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 17.5z"/></svg><span class="nome">postador/</span><span class="oque">programa os aprovados nas redes</span></li><li class="arq " style="--i:16"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M3 6.5A1.5 1.5 0 0 1 4.5 5h4l2 2h9A1.5 1.5 0 0 1 21 8.5v9a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 17.5z"/></svg><span class="nome">analista/</span><span class="oque">lê os resultados uma vez por semana</span></li></ul></details></li>
+            <li class="arq " style="--i:17"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/></svg><span class="nome">.claude/workflows/producao.js</span><span class="oque">a ordem que nunca pula etapa</span></li>
+            <li class="arq " style="--i:18"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M3 6.5A1.5 1.5 0 0 1 4.5 5h4l2 2h9A1.5 1.5 0 0 1 21 8.5v9a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 17.5z"/></svg><span class="nome">painel/</span><span class="oque">a tela onde você pede e aprova</span></li>
+            <li class="arq " style="--i:19"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M3 6.5A1.5 1.5 0 0 1 4.5 5h4l2 2h9A1.5 1.5 0 0 1 21 8.5v9a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 17.5z"/></svg><span class="nome">motor/</span><span class="oque">voz, imagem, música, vídeo e a trava que protege o Mac</span></li>
+            <li class="arq " style="--i:20"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M3 6.5A1.5 1.5 0 0 1 4.5 5h4l2 2h9A1.5 1.5 0 0 1 21 8.5v9a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 17.5z"/></svg><span class="nome">estilos/</span><span class="oque">o molde visual dos bonecos</span></li>
+          </ul>
+        </div>
+        <figure class="painel-print">
+          <div class="janela-mac"><span class="pontos" aria-hidden="true"><i></i><i></i><i></i></span><span>Painel da Fábrica</span></div>
+          <img src="midia/painel.jpg" alt="O painel da Fábrica: vídeos na fábrica, para revisar, para postar e publicados" loading="lazy">
+          <figcaption>O painel de verdade: você pede o tema, assiste e aprova. O resto aparece andando sozinho.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- SUA MÁQUINA RODA? -->
+  <section class="secao faixa" id="maquina">
+    <div class="miolo maquina">
+      <div>
+        <h2 class="acende js-palavras">Sua máquina roda a Fábrica?</h2>
+        <p class="lead">Ela trabalha no seu Mac, não na nuvem de ninguém. Confira em 10 segundos antes de comprar.</p>
+        <p class="detectado" id="detectado" aria-live="polite">Toque nos itens que você tem.</p>
+        <ul class="checa" id="checa">
+          <li><button type="button" class="req" data-req="mac" aria-pressed="false"><span class="caixinha" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span><b>Mac com chip da Apple</b><small>M1, M2, M3 ou M4. Não roda no Windows nem no celular.</small></span></button></li>
+          <li><button type="button" class="req" data-req="disco" aria-pressed="false"><span class="caixinha" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span><b>72 GB livres no disco</b><small>Para as IAs de voz, imagem e vídeo. Confira em Ajustes do Sistema › Geral › Armazenamento.</small></span></button></li>
+          <li><button type="button" class="req" data-req="claude" aria-pressed="false"><span class="caixinha" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span><b>Plano pago do Claude</b><small>É o Claude que comanda os 13 agentes.</small></span></button></li>
+        </ul>
+      </div>
+      <div class="veredito" id="veredito" data-estado="0">
+        <div class="medidor" aria-hidden="true"><i id="medidor"></i></div>
+        <p class="veredito-titulo" id="veredito-titulo">Faltam 3 itens</p>
+        <p class="veredito-texto" id="veredito-texto">Marque o que você já tem.</p>
+        <a class="botao js-comprar-rolar" id="veredito-cta" href="#oferta" hidden>Quero a Fábrica <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <dl class="ficha">
+          <div><dt>Cada vídeo</dt><dd>45 a 90 min</dd></div>
+          <div><dt>Ao mesmo tempo</dt><dd>2 vídeos</dd></div>
+          <div><dt>Para postar sozinho</dt><dd>Chrome aberto</dd></div>
+          <div><dt>Testada em</dt><dd>Mac M1 Max, 32 GB</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
   <!-- GARANTIA -->
   <section class="secao faixa" id="garantia">
     <div class="miolo garantia">
@@ -912,13 +1045,19 @@ dialog.zoom .fechar { position: absolute; top: 10px; right: 10px; }
       <h2 class="acende js-palavras">Leve a Fábrica inteira</h2>
       <div class="cartao js-luz">
         <ul class="lista">
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>As 8 IAs da linha de produção, cada uma na sua etapa</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Uma IA que confere a outra: fala sem fonte não passa</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>O painel para pedir o tema e aprovar o vídeo</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>A Fábrica completa: painel, motor e linha de produção</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>13 agentes e 3 skills prontos, um conferindo o outro</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Passo a passo em vídeo para instalar no seu Mac</li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Vídeo pronto para TikTok, Reels e Shorts, com título, legenda e capa</li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>7 dias de garantia</li>
         </ul>
         <div>
+          <div class="pavio" id="pavio">
+            <p class="pavio-topo"><span class="lampada" aria-hidden="true"></span><b>Preço de lançamento</b> até 30/11</p>
+            <div class="relogio" id="relogio" aria-live="off"><div><b data-u="d">10</b><span>dias</span></div><div><b data-u="h">00</b><span>horas</span></div><div><b data-u="m">00</b><span>min</span></div><div><b data-u="s">00</b><span>seg</span></div></div>
+            <div class="queima" aria-hidden="true"><i id="queima"></i></div>
+            <p class="pavio-pe" id="pavio-pe">O mês de lançamento já está passando.</p>
+          </div>
           <div class="preco"><span class="rs">R$</span><span class="v">47,90</span></div>
           <p class="nota">Pagamento único · menos que um jantar fora</p>
           <a class="botao brilha js-comprar" href="#oferta">Quero a Fábrica <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
@@ -935,10 +1074,11 @@ dialog.zoom .fechar { position: absolute; top: 10px; right: 10px; }
       <p class="lead">Entendo. Está tudo aqui, em um lugar só.</p>
       <ul class="lista">
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Você escreve uma frase, a Fábrica entrega o vídeo pronto</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>8 IAs: roteiro, conferência, voz, cenas, animação, cortes e capa</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>13 agentes: roteiro, conferência, voz, cenas, animação, cortes, capa e agenda</li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Pronto para TikTok, Reels e Shorts</li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Sem gravar, sem editar, sem aparecer</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>R$ 47,90, pagamento único, com 7 dias de garantia</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Roda no Mac com chip da Apple, com o passo a passo em vídeo</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>R$ 47,90 só até 30/11, pagamento único, com 7 dias de garantia</li>
       </ul>
       <div class="acoes">
         <a class="botao brilha js-comprar-rolar" href="#oferta">Quero a Fábrica <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
@@ -954,6 +1094,9 @@ dialog.zoom .fechar { position: absolute; top: 10px; right: 10px; }
         <details><summary>Preciso saber editar?</summary><p>Não. Você escreve o tema e aprova. Roteiro, voz, animação, cortes e capa ficam com a Fábrica.</p></details>
         <details><summary>Preciso aparecer ou gravar minha voz?</summary><p>Não. A narração é feita com uma voz própria do canal, sintética, sempre a mesma.</p></details>
         <details><summary>A IA não vai inventar coisa?</summary><p>É exatamente para isso que existe a conferência: uma IA escreve, outra confere cada frase contra a fonte. O que não tem fonte volta para ser reescrito.</p></details>
+        <details><summary>Roda no Windows ou no celular?</summary><p>Não. A Fábrica roda no Mac com chip da Apple (M1, M2, M3 ou M4). Pelo celular você compra agora e instala no Mac depois.</p></details>
+        <details><summary>Quanto tempo leva cada vídeo?</summary><p>De 45 a 90 minutos, dois vídeos por vez. Você pode usar o Mac enquanto isso: as IAs pesadas rodam uma de cada vez.</p></details>
+        <details><summary>Por que R$ 47,90?</summary><p>É o preço do mês de lançamento. Vale até 30/11.</p></details>
         <details><summary>E se eu não gostar?</summary><p>Você tem 7 dias. Peça o dinheiro de volta e recebe tudo.</p></details>
         <details><summary>Meus vídeos vão ter esses mesmos números?</summary><p>Não dá para prometer. Os números da página são reais, mas cada canal tem seu tema e seu ritmo, e só cresce quem posta com constância. O que a Fábrica tira de você é a parte difícil: fazer o vídeo todo dia.</p></details>
       </div>
@@ -964,10 +1107,10 @@ dialog.zoom .fechar { position: absolute; top: 10px; right: 10px; }
   <section class="secao fechamento faixa">
     <div class="miolo fechamento-in">
       <h2 class="acende js-palavras">Se você leu até aqui, não foi por acaso.</h2>
-      <p class="lead">Talvez você queira começar um canal. Talvez queira transformar vídeo em renda. Ou só parar de perder a noite editando. Custa R$ 47,90, o primeiro vídeo pode sair hoje, e você tem 7 dias para desistir.</p>
+      <p class="lead">Talvez você queira começar um canal. Talvez queira transformar vídeo em renda. Ou só parar de perder a noite editando. Custa R$ 47,90 só até 30/11, o primeiro vídeo sai em cerca de uma hora depois de instalar, e você tem 7 dias para desistir.</p>
       <div class="acoes">
         <a class="botao brilha js-comprar-rolar" href="#oferta">Quero a Fábrica <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        <p class="micro"><span>R$ 47,90</span><span>Pagamento único</span><span>7 dias de garantia</span></p>
+        <p class="micro"><span>R$ 47,90 até 30/11</span><span>Pagamento único</span><span>7 dias de garantia</span></p>
       </div>
     </div>
   </section>
@@ -977,7 +1120,7 @@ dialog.zoom .fechar { position: absolute; top: 10px; right: 10px; }
 
 <div class="barra escondida" id="barra" role="region" aria-label="Comprar">
   <div class="miolo">
-    <div class="p"><b>R$ 47,90</b><small>a Fábrica inteira</small></div>
+    <div class="p"><b>R$ 47,90</b><small id="barra-prazo">lançamento até 30/11</small></div>
     <a class="botao js-comprar js-comprar-rolar-barra" href="#oferta">Quero a Fábrica
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
     </a>
@@ -1099,12 +1242,14 @@ dialog.zoom .fechar { position: absolute; top: 10px; right: 10px; }
   }
 
   // As posições são medidas só ao abrir e ao mudar o tamanho da tela; na rolagem só se compara números.
-  let topos = [], zonas = [], linhaY = 0, barraEscondida = true, pedido = false;
+  let topos = [], zonas = [], linhaY = 0, topoCaixa = Infinity, barraEscondida = true, pedido = false;
+  const caixaEl = $(".js-caixa");
   function mapear() {
     const y = scrollY;
     topos = passos.map(p => p.getBoundingClientRect().top + y);
     zonas = [ctaHero, $("#oferta .cartao"), $(".fechamento")].map(el => { const r = el.getBoundingClientRect(); return [r.top + y, r.bottom + y]; });
     linhaY = innerWidth >= 900 ? innerHeight * 0.55 : innerHeight - 76 - 210;
+    topoCaixa = caixaEl ? caixaEl.getBoundingClientRect().top + y : Infinity;
     quadro();
   }
   function quadro() {
@@ -1115,6 +1260,7 @@ dialog.zoom .fechar { position: absolute; top: 10px; right: 10px; }
     if (esconder !== barraEscondida) { barraEscondida = esconder; barra.classList.toggle("escondida", esconder); }
     let escolhido = 1;
     for (let i = 0; i < topos.length; i++) if (topos[i] - y < linhaY) escolhido = i + 1;
+    if (caixaEl && topoCaixa - y < innerHeight * .9) caixaEl.classList.add("aberta");
     ir(escolhido);
   }
   addEventListener("scroll", () => { if (!pedido) { pedido = true; requestAnimationFrame(quadro); } }, { passive: true });
@@ -1183,6 +1329,66 @@ dialog.zoom .fechar { position: absolute; top: 10px; right: 10px; }
     }), { threshold: 0.6 });
     valores.forEach(el => io.observe(el));
   }
+
+
+  /* ---- a caixa abre quando aparece ---- */
+  if (caixaEl) {
+    if (calmo || !("IntersectionObserver" in window)) caixaEl.classList.add("aberta");
+    else { const ioC = new IntersectionObserver(([en]) => { if (en.isIntersecting) { caixaEl.classList.add("aberta"); ioC.disconnect(); } }, { threshold: .15 }); ioC.observe(caixaEl); }
+  }
+
+  /* ---- sua máquina roda? ---- */
+  const reqs = $$(".req"), vered = $("#veredito"), vTit = $("#veredito-titulo"), vTxt = $("#veredito-texto"), vCta = $("#veredito-cta"), medidor = $("#medidor"), detectado = $("#detectado");
+  const FALTA = { mac: "um Mac com chip da Apple", disco: "72 GB livres", claude: "um plano pago do Claude" };
+  function avaliar() {
+    const tem = reqs.filter(b => b.getAttribute("aria-pressed") === "true");
+    const n = tem.length, faltam = reqs.filter(b => b.getAttribute("aria-pressed") !== "true").map(b => FALTA[b.dataset.req]);
+    vered.dataset.estado = n; medidor.style.transform = `scaleX(${n / 3})`;
+    if (n === 3) { vTit.textContent = "Sua máquina roda a Fábrica"; vTxt.textContent = "Está tudo pronto. Instalou, o primeiro vídeo sai em cerca de uma hora."; vCta.hidden = false; }
+    else { vTit.textContent = faltam.length === 1 ? "Falta 1 item" : `Faltam ${faltam.length} itens`; vTxt.textContent = "Ainda falta: " + faltam.join(", ") + "."; vCta.hidden = true; }
+  }
+  reqs.forEach(b => b.addEventListener("click", () => { b.setAttribute("aria-pressed", b.getAttribute("aria-pressed") === "true" ? "false" : "true"); avaliar(); }));
+  avaliar();
+  function detectar() {
+    const ua = navigator.userAgent || "";
+    if (/iPhone|iPad|Android/i.test(ua)) { detectado.innerHTML = "Você está no celular. Tudo bem: compre agora e instale no Mac depois."; return; }
+    if (/Windows/i.test(ua)) { detectado.innerHTML = "Você está num computador com Windows. A Fábrica roda só no Mac com chip da Apple."; return; }
+    if (!/Mac/i.test(ua)) return;
+    try {
+      const c = document.createElement("canvas"), gl = c.getContext("webgl");
+      const ext = gl && gl.getExtension("WEBGL_debug_renderer_info");
+      const r = ext ? gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) : "";
+      const chip = (r.match(/Apple (M\d[\w ]*?)(?:,|\)|$)/) || [])[1];
+      gl && gl.getExtension("WEBGL_lose_context")?.loseContext();
+      if (chip) {
+        detectado.innerHTML = `Encontramos um <b>Apple ${chip.trim()}</b> neste Mac. O primeiro item já está marcado.`;
+        const b = reqs.find(x => x.dataset.req === "mac"); b.setAttribute("aria-pressed", "true"); avaliar();
+      } else detectado.textContent = "Você está num Mac. Confira se o chip é da Apple em Menu Apple › Sobre este Mac.";
+    } catch (_) {}
+  }
+  const maq = $("#maquina");
+  if ("IntersectionObserver" in window) { const ioM = new IntersectionObserver(([en]) => { if (en.isIntersecting) { detectar(); ioM.disconnect(); } }, { rootMargin: "200px" }); ioM.observe(maq); } else detectar();
+
+  /* ---- preço de lançamento até 30/11 ---- */
+  const INICIO = new Date("2026-11-01T00:00:00-03:00").getTime(), FIM = new Date("2026-11-30T23:59:59-03:00").getTime();
+  const pavioEl = $("#pavio"), queima = $("#queima"), pePavio = $("#pavio-pe"), barraPrazo = $("#barra-prazo");
+  const uni = { d: $('[data-u="d"]'), h: $('[data-u="h"]'), m: $('[data-u="m"]'), s: $('[data-u="s"]') };
+  const dois = n => String(n).padStart(2, "0");
+  function tique() {
+    const agora = Date.now(), resta = FIM - agora;
+    if (resta <= 0) {
+      pavioEl.classList.add("acabou"); pePavio.textContent = "O preço de lançamento acabou."; barraPrazo.textContent = "lançamento encerrado";
+      return false;
+    }
+    const d = Math.floor(resta / 864e5), h = Math.floor(resta / 36e5) % 24, m = Math.floor(resta / 6e4) % 60, sg = Math.floor(resta / 1e3) % 60;
+    uni.d.textContent = dois(d); uni.h.textContent = dois(h); uni.m.textContent = dois(m); uni.s.textContent = dois(sg);
+    const q = Math.min(1, Math.max(0, (agora - INICIO) / (FIM - INICIO)));
+    queima.style.setProperty("--q", q.toFixed(4));
+    pePavio.textContent = `O mês de lançamento já passou ${Math.round(q * 100)}%. Depois de 30/11, este preço sai do ar.`;
+    barraPrazo.textContent = `lançamento acaba em ${d}d ${dois(h)}h`;
+    return true;
+  }
+  if (tique()) { const t = setInterval(() => { if (!tique()) clearInterval(t); }, 1000); }
 
   /* ---- prints ---- */
   const car = $("#carrossel");
