@@ -2,621 +2,260 @@
 <html lang="pt-BR">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta property="og:title" content="Links · Eu sou Matheus">
-<meta property="og:description" content="Fábrica de Vídeos IA e Clipador: duas máquinas de IA que trabalham por você.">
-<meta property="og:image" content="https://eusoumatheus.com.br/links/midia/fabrica-loop.jpg">
+<meta property="og:title" content="Links do Matheus · sistemas de IA sob medida">
+<meta property="og:description" content="Eu tirei R$ 500 mil de gasto de uma empresa usando IA. O site, o WhatsApp, a Fábrica e o Clipador.">
+<meta property="og:image" content="https://eusoumatheus.com.br/links/midia/compartilhar.jpg">
 <meta property="og:url" content="https://eusoumatheus.com.br/links/">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
-<title>Links da Fábrica IA</title>
+<title>Links do Matheus · sistemas de IA</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="Fábrica de Vídeos IA e Clipador: duas máquinas de IA que trabalham por você.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Inter:wght@400..600&family=JetBrains+Mono:wght@500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Caveat:wght@500;700&family=JetBrains+Mono:wght@500&display=swap">
 <style>
-/* Layout: uma sala de render escura. No celular, coluna única; no computador, frase à esquerda e as duas máquinas à direita.
-   Cada máquina tem sua cor (Fábrica laranja, Clipador verde) e mostra o que faz ao vivo. Fora delas, tudo quieto. */
+/* Layout: uma folha de caderno no celular. Mesma identidade do site (papel quadriculado, caneta roxa,
+   letra gigante), com os links em ordem de importância: site, WhatsApp, os dois prontos, Instagram. */
 :root {
-  color-scheme: dark;
-  --chao: #0b0a09;
-  --chapa: #141311;
-  --chapa-2: #1c1a17;
-  --fio: rgba(255, 240, 225, .09);
-  --fio-forte: rgba(255, 240, 225, .18);
-  --tinta: #f6f3ef;
-  --tinta-2: #aaa49c;
-  --tinta-3: #948d84;
-  --laranja: #ff7a1a;
-  --laranja-fundo: rgba(255, 122, 26, .13);
-  --verde: #3ddc84;
-  --verde-fundo: rgba(61, 220, 132, .12);
-  --rec: #ff453a;
-  --sobre-cor: #140800;
-
-  --f-titulo: "Bricolage Grotesque", "Inter", -apple-system, "Helvetica Neue", Arial, sans-serif;
-  --f-texto: "Inter", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
-  --f-tempo: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
-
-  --r-s: 10px; --r-m: 18px; --r-l: 26px;
-  --suave: cubic-bezier(.22, 1, .36, 1);
-  --mola: cubic-bezier(.34, 1.56, .64, 1);
+  --paper: #f2f1ed;
+  --grid: rgba(44, 40, 78, .085);
+  --grid-major: rgba(44, 40, 78, .15);
+  --ink: #131218;
+  --ink-2: #4b4957;
+  --pen: #6b2fe2;
+  --pen-deep: #3d1a8f;
+  --pen-soft: #b59af6;
+  --machine: #100e17;
+  --on-machine: #f0edfa;
+  --on-machine-2: #a29db8;
+  --tape: rgba(236, 226, 178, .8);
+  --f-display: "Archivo", "Arial Narrow", system-ui, sans-serif;
+  --f-hand: "Caveat", "Comic Sans MS", cursive;
+  --f-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  --ease: cubic-bezier(.2, .8, .2, 1);
+  color-scheme: light;
 }
 * { box-sizing: border-box; }
-html { scrollbar-color: var(--fio-forte) var(--chao); }
+html, body { background: var(--paper); color: var(--ink); }
 body {
-  background: var(--chao); color: var(--tinta);
-  font: 400 16px/1.5 var(--f-texto); letter-spacing: -.01em;
-  -webkit-font-smoothing: antialiased; overflow-x: hidden;
+  margin: 0; font-family: var(--f-display); font-size: 16px; line-height: 1.45; -webkit-font-smoothing: antialiased; min-height: 100vh;
+  background-color: var(--paper);
+  background-image:
+    linear-gradient(var(--grid-major) 1px, transparent 1px), linear-gradient(90deg, var(--grid-major) 1px, transparent 1px),
+    linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 120px 120px, 120px 120px, 24px 24px, 24px 24px;
+  overflow-x: clip;
 }
-::selection { background: var(--laranja); color: var(--sobre-cor); }
-a { color: inherit; text-decoration: none; }
-:focus-visible { outline: 2px solid var(--tinta); outline-offset: 4px; border-radius: 6px; }
-
-/* Fundo: parede de LEDs que acende perto do dedo/mouse */
-#led { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
-
-/* Linha de render que desce ao abrir */
-.render {
-  position: fixed; left: 0; right: 0; top: 0; height: 1px; z-index: 5; pointer-events: none;
-  background: var(--tinta);
-  box-shadow: 0 -60px 80px 10px rgba(255, 240, 225, .05);
-  animation: render 1s var(--suave) forwards;
+body::after {
+  content: ""; position: fixed; inset: 0; z-index: 50; pointer-events: none; mix-blend-mode: multiply; opacity: .45;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='900' height='900'><filter id='f'><feTurbulence type='fractalNoise' baseFrequency='.0065' numOctaves='5' seed='11'/><feDiffuseLighting lighting-color='%23ffffff' surfaceScale='2.4'><feDistantLight azimuth='225' elevation='58'/></feDiffuseLighting></filter><rect width='100%25' height='100%25' filter='url(%23f)'/></svg>");
+  background-size: 900px 900px;
 }
-@keyframes render { from { transform: translateY(0); } 92% { opacity: 1; } to { transform: translateY(100vh); opacity: 0; } }
+::selection { background: var(--pen); color: #fff; }
+:focus-visible { outline: 2px dashed var(--pen); outline-offset: 4px; border-radius: 2px; }
+img, video { max-width: 100%; display: block; }
+a { color: inherit; }
+.pix { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
 
-.pilha {
-  position: relative; z-index: 1;
-  max-width: 1120px; margin: 0 auto;
+.page {
+  position: relative; z-index: 1; max-width: 480px; margin: 0 auto;
+  padding-block: 34px 56px;
   padding-left: max(16px, env(safe-area-inset-left, 0px));
   padding-right: max(16px, env(safe-area-inset-right, 0px));
-  padding-block: 20px 40px;
-  display: grid; gap: 28px;
+  display: grid; gap: 18px;
 }
+.hand { font-family: var(--f-hand); font-weight: 500; color: var(--pen); line-height: 1.05; }
 
-/* Topo */
-.topo { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
-.rec {
-  display: inline-flex; align-items: center; gap: 10px;
-  font: 700 12px/1 var(--f-tempo); letter-spacing: .08em; color: var(--tinta-2);
-  padding: 9px 12px; border: 1px solid var(--fio); border-radius: 999px; background: rgba(20, 19, 17, .7);
-  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-}
-.rec .ponto { width: 8px; height: 8px; border-radius: 50%; background: var(--rec); animation: pisca 1.2s steps(2, jump-none) infinite; }
-@keyframes pisca { 50% { opacity: .25; } }
-.rec .tc { color: var(--tinta); font-variant-numeric: tabular-nums; min-width: 11ch; }
-.arroba { display: inline-flex; align-items: center; min-height: 44px; font: 600 14px/1 var(--f-texto); color: var(--tinta-2); padding: 0 4px; transition: color .2s; }
-.arroba:hover { color: var(--tinta); }
+/* ---------- cabeçalho ---------- */
+.head { display: grid; justify-items: center; text-align: center; gap: 6px; margin-bottom: 6px; }
+.avatar { position: relative; width: 128px; height: 128px; }
+.avatar .ring { position: absolute; inset: -8px; overflow: visible; }
+.avatar .clip { position: absolute; inset: 0; border-radius: 50%; overflow: hidden; background: var(--pen); }
+.avatar .clip::before { content: ""; position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.16) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.16) 1px, transparent 1px); background-size: 12px 12px; }
+.avatar img { position: absolute; left: 50%; top: 10px; width: 132%; max-width: none; transform: translateX(-50%); }
+.name { font-family: var(--f-hand); font-weight: 700; font-size: 58px; line-height: .9; margin: 10px 0 0; transform: rotate(-3deg); color: var(--ink); }
+.role { font: 900 15px/1 var(--f-display); font-stretch: 125%; text-transform: uppercase; letter-spacing: .02em; margin: 4px 0 0; }
+.claim { margin: 6px 0 0; font-size: 15px; color: var(--ink-2); max-width: 32ch; }
+.claim b { position: relative; color: var(--ink); white-space: nowrap; }
+.claim b svg { position: absolute; inset: -6px -8px; width: calc(100% + 16px); height: calc(100% + 12px); overflow: visible; pointer-events: none; }
 
-/* Abertura */
-.abre { display: grid; gap: 12px; align-content: start; }
-.titulo {
-  margin: 0; font: 800 clamp(38px, 10.6vw, 84px)/.94 var(--f-titulo);
-  font-variation-settings: "opsz" 96; letter-spacing: -.045em; text-wrap: balance;
-}
-.titulo .l { display: inline; }
-.titulo .l + .l::before { content: " "; }
-.titulo .c1 { color: var(--laranja); }
-.titulo .c2 { color: var(--verde); }
-.sub { margin: 0; max-width: 34ch; color: var(--tinta-2); font-size: 17px; text-wrap: pretty; }
-.sub b { color: var(--tinta); font-weight: 600; }
+/* ---------- links ---------- */
+.lk { position: relative; display: block; text-decoration: none; color: var(--ink); transition: transform .3s var(--ease); }
+.lk:active { transform: scale(.985); }
 
-/* Máquinas */
-.maquinas, .direita { display: grid; gap: 16px; min-width: 0; }
-.maquina {
-  --cor: var(--laranja); --cor-fundo: var(--laranja-fundo);
-  --mx: 50%; --my: 0%; --rx: 0deg; --ry: 0deg;
-  position: relative; display: grid; min-width: 0;
-  background: var(--chapa); border: 1px solid var(--fio); border-radius: var(--r-l);
-  overflow: hidden; isolation: isolate;
-  transform: perspective(1000px) rotateX(var(--rx)) rotateY(var(--ry));
-  transition: transform .5s var(--suave), border-color .3s;
-  animation: sobe .8s var(--suave) both;
-}
-.maquina.clip { --cor: var(--verde); --cor-fundo: var(--verde-fundo); }
-.maquina:nth-child(1) { animation-delay: .5s; }
-.maquina:nth-child(2) { animation-delay: .62s; }
-@keyframes sobe { from { translate: 0 28px; } }
-.maquina::after {
-  content: ""; position: absolute; inset: 0; z-index: 3; pointer-events: none; border-radius: inherit;
-  background: radial-gradient(420px circle at var(--mx) var(--my), rgba(255, 245, 235, .07), transparent 60%);
-  opacity: 0; transition: opacity .3s;
-}
-.maquina:active { transform: perspective(1000px) rotateX(var(--rx)) rotateY(var(--ry)) scale(.985); }
-@media (hover: hover) {
-  .maquina:hover { border-color: var(--fio-forte); transition: transform .12s linear, border-color .3s; }
-  .maquina:hover::after { opacity: 1; }
-}
+/* 1. site (destaque com thumb) */
+.site { margin-top: 26px; background: #fff; padding: 10px 10px 16px; box-shadow: 4px 10px 24px rgba(19, 18, 24, .14); transform: rotate(-.8deg); }
+.site:hover { transform: rotate(0) translateY(-3px); }
+.site .tape { top: -12px; left: 50%; transform: translateX(-50%) rotate(3deg); }
+.site .thumb { position: relative; overflow: hidden; border: 2px solid var(--ink); }
+.site .thumb img { width: 100%; aspect-ratio: 1200 / 630; object-fit: cover; transition: transform .6s var(--ease); }
+.site:hover .thumb img { transform: scale(1.04); }
+.site .row { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 14px 4px 0; }
+.site .t { font: 900 clamp(20px, 5.4vw, 24px)/1.02 var(--f-display); font-stretch: 112%; text-transform: uppercase; }
+.site .s { font-size: 14px; color: var(--ink-2); margin-top: 4px; }
+.go { flex: none; width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; background: var(--ink); color: #fff; transition: background .2s var(--ease), transform .3s var(--ease); }
+.lk:hover .go { background: var(--pen); transform: rotate(-45deg); }
+.go svg { width: 20px; height: 20px; }
+.tag { position: absolute; z-index: 3; font-family: var(--f-hand); font-size: 25px; font-weight: 700; color: var(--pen); }
+.site .tag { left: -6px; top: -36px; transform: rotate(-6deg); }
 
-.palco { position: relative; aspect-ratio: 16 / 9; overflow: hidden; background: #0e0d0c; border-bottom: 1px solid var(--fio); }
-.info { display: grid; gap: 10px; padding: 20px 20px 22px; }
-.info h2 { margin: 0; font: 800 clamp(28px, 7.4vw, 36px)/1 var(--f-titulo); letter-spacing: -.035em; }
-.info .apelido { font: 700 12px/1 var(--f-tempo); letter-spacing: .06em; color: var(--cor); text-transform: uppercase; }
-.info p { margin: 0; color: var(--tinta-2); max-width: 46ch; text-wrap: pretty; }
-.rodape-card { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-top: 6px; }
-.nota { font: 500 12px/1.3 var(--f-tempo); color: var(--tinta-3); }
-.cta {
-  display: inline-flex; align-items: center; gap: 10px;
-  min-height: 48px; padding: 0 20px; border-radius: 999px;
-  background: var(--cor); color: var(--sobre-cor);
-  font: 700 16px/1 var(--f-texto); letter-spacing: -.01em;
-}
-.cta svg { width: 18px; height: 18px; transition: transform .35s var(--mola); }
-@media (hover: hover) { .maquina:hover .cta svg { transform: translateX(5px); } }
-.selo {
-  position: absolute; z-index: 2; top: 12px; left: 12px;
-  font: 700 10.5px/1 var(--f-tempo); letter-spacing: .08em; text-transform: uppercase; color: var(--tinta-2);
-  padding: 6px 8px; border-radius: 6px; background: rgba(11, 10, 9, .72); border: 1px solid var(--fio);
-}
+/* 2. whatsapp */
+.wpp { display: flex; align-items: center; justify-content: space-between; gap: 12px; background: var(--pen); color: #fff; padding: 18px 18px 18px 20px; border-radius: 4px; box-shadow: 4px 6px 0 var(--ink); overflow: hidden; isolation: isolate; }
+.wpp::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(105deg, transparent 35%, rgba(255, 255, 255, .32) 50%, transparent 65%); transform: translateX(-130%); animation: shine 4.4s var(--ease) 1.6s infinite; }
+@keyframes shine { 0%, 70% { transform: translateX(-130%); } 100% { transform: translateX(130%); } }
+.wpp .t { font: 900 19px/1.05 var(--f-display); font-stretch: 112%; text-transform: uppercase; }
+.wpp .s { font-size: 14px; opacity: .88; margin-top: 3px; }
+.wpp .go { background: #fff; color: var(--pen); }
+.lk.wpp:hover .go { background: var(--ink); color: #fff; }
 
-/* Palco da Fábrica: fita de filme com capas reais + celular rodando um vídeo feito por ela */
-.fita {
-  position: absolute; left: -12%; right: -12%; top: 50%; height: 62%;
-  transform: translateY(-50%) rotate(-7deg); opacity: .5;
-  background: #070605; padding: 14px 0;
-}
-.fita::before, .fita::after {
-  content: ""; position: absolute; left: 0; right: 0; height: 6px;
-  background: repeating-linear-gradient(90deg, transparent 0 8px, rgba(255, 240, 225, .5) 8px 16px);
-}
-.fita::before { top: 4px; } .fita::after { bottom: 4px; }
-.trilho { display: flex; gap: 8px; height: 100%; width: max-content; animation: corre 26s linear infinite; }
-.trilho img { height: 100%; aspect-ratio: 9 / 16; width: auto; object-fit: cover; border-radius: 3px; filter: saturate(.85); }
-@keyframes corre { to { transform: translateX(-50%); } }
-.palco.fab::before {
-  content: ""; position: absolute; inset: 0; z-index: 1;
-  background: linear-gradient(90deg, rgba(14, 13, 12, .92) 0%, rgba(14, 13, 12, .55) 48%, rgba(14, 13, 12, .2) 100%);
-}
-.etapas {
-  position: absolute; z-index: 2; left: 16px; top: 50%; transform: translateY(-46%);
-  list-style: none; margin: 0; padding: 0; display: grid; gap: 7px;
-  font: 700 12px/1 var(--f-tempo); letter-spacing: .04em; text-transform: uppercase;
-}
-.etapas li { display: flex; align-items: center; gap: 8px; color: var(--tinta-3); transition: color .25s; }
-.etapas li::before {
-  content: ""; width: 14px; height: 14px; border-radius: 4px; border: 1.5px solid currentColor; flex: none;
-  transition: background .25s, border-color .25s;
-}
-.etapas li.feita { color: var(--tinta-2); }
-.etapas li.feita::before { background: var(--tinta-2); border-color: var(--tinta-2); }
-.etapas li.agora { color: var(--laranja); }
-.etapas li.agora::before { border-color: var(--laranja); background: var(--laranja); animation: pulsa .7s ease-in-out infinite alternate; }
-@keyframes pulsa { to { transform: scale(.7); } }
-.cel {
-  position: absolute; z-index: 2; right: 9%; top: 6%; height: 88%; aspect-ratio: 9 / 16;
-  border-radius: 16px; overflow: hidden; background: #000;
-  border: 3px solid #26231f; box-shadow: 0 20px 50px rgba(0, 0, 0, .6);
-  transform: rotate(3deg); transition: transform .6s var(--mola);
-}
-@media (hover: hover) { .maquina:hover .cel { transform: rotate(0deg) scale(1.04); } }
-.cel video, .cel img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.cel .barra { position: absolute; left: 6px; right: 6px; bottom: 6px; height: 3px; border-radius: 3px; background: rgba(255, 255, 255, .25); overflow: hidden; }
-.cel .barra i { display: block; height: 100%; width: 0; background: var(--laranja); }
+/* 3. prontos */
+.sub { text-align: center; font-size: 26px; margin: 12px 0 0; }
+.duo { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.prod { background: #fff; padding: 9px 9px 12px; box-shadow: 3px 8px 20px rgba(19, 18, 24, .13); display: grid; gap: 8px; }
+.prod:nth-child(1) { transform: rotate(-1.3deg); }
+.prod:nth-child(2) { transform: rotate(1.3deg); }
+.prod:hover { transform: rotate(0) translateY(-3px); }
+.prod .tape { top: -11px; left: 30%; width: 70px; transform: rotate(-4deg); }
+.prod:nth-child(2) .tape { transform: rotate(4deg); left: 26%; }
+.prod .scr { background: #000; border-radius: 14px; padding: 4px; border: 2px solid #2b2840; }
+.prod video { width: 100%; aspect-ratio: 9 / 13; object-fit: cover; border-radius: 10px; background: #1c1928; }
+.prod .n { font: 900 15px/1.05 var(--f-display); font-stretch: 112%; text-transform: uppercase; }
+.prod .d { font-size: 13px; color: var(--ink-2); line-height: 1.3; }
+.prod .p { display: flex; justify-content: space-between; align-items: center; font-family: var(--f-mono); font-size: 14px; font-variant-numeric: tabular-nums; }
+.prod .p span { font-family: var(--f-display); font-weight: 800; font-size: 13px; color: var(--pen); }
 
-/* Palco do Clipador: desenhado em canvas */
-#corte { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
-.contador {
-  position: absolute; z-index: 2; right: 12px; bottom: 12px;
-  font: 700 11px/1 var(--f-tempo); letter-spacing: .05em; color: var(--tinta-2); text-transform: uppercase;
-  padding: 6px 8px; border-radius: 6px; background: rgba(11, 10, 9, .72); border: 1px solid var(--fio);
-}
-.contador b { color: var(--verde); font-variant-numeric: tabular-nums; display: inline-block; }
-.contador b.pula { animation: pula .45s var(--mola); }
-@keyframes pula { 40% { transform: scale(1.6); } }
+/* 4. instagram */
+.ig { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 16px; border: 2px solid var(--ink); border-radius: 4px; background: rgba(255, 255, 255, .5); }
+.ig .t { font: 800 16px/1.1 var(--f-display); font-stretch: 112%; }
+.ig .s { font-size: 13px; color: var(--ink-2); }
+.ig .go { width: 40px; height: 40px; }
 
-/* Outros links */
-.outros { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.pilula {
-  display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; padding: 0 14px;
-  border: 1px solid var(--fio); border-radius: var(--r-m); background: rgba(20, 19, 17, .75);
-  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-  font: 600 15px/1.2 var(--f-texto); color: var(--tinta); text-align: center;
-  transition: border-color .25s, background .25s, transform .2s var(--suave);
-}
-.pilula svg { width: 20px; height: 20px; flex: none; color: var(--tinta-2); }
-.pilula:active { transform: scale(.97); }
-@media (hover: hover) { .pilula:hover { border-color: var(--fio-forte); background: var(--chapa-2); } }
+.tape { position: absolute; width: 88px; height: 24px; background: var(--tape); z-index: 4; box-shadow: 0 1px 2px rgba(0,0,0,.08); mix-blend-mode: multiply; }
+.foot { text-align: center; display: grid; gap: 2px; margin-top: 18px; }
+.foot .sig { font-size: 52px; font-weight: 700; color: var(--ink); transform: rotate(-3deg); }
+.foot small { font: 800 12px/1.2 var(--f-display); font-stretch: 112%; text-transform: uppercase; letter-spacing: .03em; color: var(--ink-2); }
 
-.fim { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font: 500 12px/1.4 var(--f-tempo); color: var(--tinta-3); padding-top: 4px; }
+/* rabiscos */
+.doodle { position: absolute; z-index: 2; pointer-events: none; color: var(--pen); opacity: .55; animation: bob 7s ease-in-out infinite; }
+.doodle svg { width: 100%; height: 100%; display: block; overflow: visible; }
+@keyframes bob { 0%, 100% { transform: translate(0, 0) rotate(0); } 50% { transform: translate(5px, -10px) rotate(8deg); } }
+.d1 { width: 40px; height: 40px; top: 40px; left: 6px; }
+.d2 { width: 32px; height: 32px; top: 120px; right: 8px; animation-delay: -3s; }
+.d3 { width: 54px; height: 26px; top: 46%; left: -4px; animation-delay: -5s; animation-duration: 9s; }
 
-/* Computador: frase à esquerda (parada), máquinas à direita */
-@media (min-width: 960px) {
-  .pilha { grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr); column-gap: 64px; row-gap: 24px; padding-block: 28px 48px; }
-  .topo, .fim { grid-column: 1 / -1; }
-  .abre { position: sticky; top: 40px; align-self: start; padding-top: 48px; gap: 24px; }
-  .titulo { font-size: clamp(64px, 6.6vw, 92px); line-height: .92; }
-  .titulo .l { display: block; }
-  .titulo .l + .l::before { content: none; }
-  .palco { aspect-ratio: 16 / 10; }
-  .sub { font-size: 19px; }
-  .direita { display: grid; gap: 16px; min-width: 0; }
-}
-@media (min-width: 520px) and (max-width: 959px) { .pilha { max-width: 560px; } }
+/* entrada em sequência, ao abrir */
+.js .rv { opacity: 0; translate: 0 22px; animation: rise .7s var(--ease) forwards; animation-delay: calc(.15s + var(--i) * .1s); }
+@keyframes rise { to { opacity: 1; translate: 0 0; } }
+.draw path { stroke-dasharray: 1; stroke-dashoffset: 1; animation: ink 1.1s var(--ease) forwards; }
+@keyframes ink { to { stroke-dashoffset: 0; } }
 
 @media (prefers-reduced-motion: reduce) {
-  .render { display: none; }
-  .maquina { animation: none; }
-  .trilho { animation: none; }
-  .rec .ponto, .etapas li.agora::before { animation: none; }
-  .maquina { transform: none !important; }
+  .js .rv { animation: none; opacity: 1; translate: 0 0; }
+  .draw path { animation: none; stroke-dashoffset: 0; }
+  .wpp::after, .doodle { animation: none; }
 }
 </style>
 
-<canvas id="led" aria-hidden="true"></canvas>
-<div class="render" aria-hidden="true"></div>
+<script>document.documentElement.classList.add('js')</script>
+<canvas class="pix" aria-hidden="true"></canvas>
 
-<main class="pilha">
-  <header class="topo">
-    <div class="rec" aria-hidden="true"><span class="ponto"></span>AO VIVO <span class="tc" id="tc">00:00:00:00</span></div>
-    <a class="arroba" href="https://instagram.com/eusoumathheus" target="_blank" rel="noopener">@eusoumathheus</a>
+<main class="page">
+  <span class="doodle d1" aria-hidden="true"><svg viewBox="0 0 46 46" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M23 3v40M3 23h40M9 9l28 28M37 9 9 37"/></svg></span>
+  <span class="doodle d2" aria-hidden="true"><svg viewBox="0 0 34 34" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M17 2l4 10 11 1-8 7 3 11-10-6-10 6 3-11-8-7 11-1z"/></svg></span>
+  <span class="doodle d3" aria-hidden="true"><svg viewBox="0 0 60 30" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M2 20c8-14 14 8 22-4s14 8 22-4 10 6 12 2"/></svg></span>
+
+  <header class="head rv" style="--i:0">
+    <div class="avatar">
+      <div class="clip"><img src="midia/matheus.png" alt="Foto do Matheus"></div>
+      <svg class="ring draw" viewBox="0 0 144 144" fill="none" stroke="#6b2fe2" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path pathLength="1" d="M72 4 C 112 3, 141 32, 140 72 C 139 113, 110 141, 70 140 C 30 139, 3 110, 4 70 C 5 34, 34 6, 80 6"/></svg>
+    </div>
+    <p class="name">Matheus</p>
+    <p class="role">Sistemas de IA sob medida</p>
+    <p class="claim">Eu tirei <b>R$ 500 mil<svg class="draw" viewBox="0 0 400 140" preserveAspectRatio="none" fill="none" stroke="#6b2fe2" stroke-width="5" stroke-linecap="round" aria-hidden="true"><path pathLength="1" style="animation-delay:.8s" d="M200 10 C 330 6, 396 40, 388 76 C 380 118, 270 134, 190 130 C 100 127, 10 112, 12 70 C 14 30, 110 12, 214 14"/></svg></b> de gasto de uma empresa usando IA.</p>
   </header>
 
-  <section class="abre">
-    <h1 class="titulo" id="titulo" aria-label="Duas máquinas de IA que trabalham por você.">
-      <span class="l" aria-hidden="true">Duas</span>
-      <span class="l" aria-hidden="true"><span class="c1">máqui</span><span class="c2">nas</span></span>
-      <span class="l" aria-hidden="true">de IA que</span>
-      <span class="l" aria-hidden="true">trabalham</span>
-      <span class="l" aria-hidden="true">por você.</span>
-    </h1>
-    <p class="sub">Uma faz o vídeo do zero. A outra corta os melhores momentos das lives. <b>Você só aprova.</b></p>
-  </section>
-
-  <div class="direita">
-    <nav class="maquinas" aria-label="As máquinas">
-      <a class="maquina fab" id="m-fab" href="/fabricadevideosdeia/">
-        <div class="palco fab">
-          <div class="fita" aria-hidden="true">
-            <div class="trilho">
-              <img src="midia/capa-caim-abel.jpg" alt="">
-              <img src="midia/capa-elias-desaparecido.jpg" alt="">
-              <img src="midia/capa-eude-eglom-quarto-trancado.jpg" alt="">
-              <img src="midia/capa-gibeonitas-paes-mofados.jpg" alt="">
-              <img src="midia/capa-jumentas-de-saul.jpg" alt="">
-              <img src="midia/capa-caim-abel.jpg" alt="">
-              <img src="midia/capa-elias-desaparecido.jpg" alt="">
-              <img src="midia/capa-eude-eglom-quarto-trancado.jpg" alt="">
-              <img src="midia/capa-gibeonitas-paes-mofados.jpg" alt="">
-              <img src="midia/capa-jumentas-de-saul.jpg" alt="">
-            </div>
-          </div>
-          <ol class="etapas" id="etapas" aria-hidden="true">
-            <li>Roteiro</li><li>Voz</li><li>Cenas</li><li>Montagem</li><li>Capa</li>
-          </ol>
-          <div class="cel" aria-hidden="true">
-            <video id="vid" src="midia/fabrica-loop.mp4" poster="midia/fabrica-loop.jpg" autoplay muted loop playsinline preload="auto"></video>
-            <span class="barra"><i id="vbarra"></i></span>
-          </div>
-          <span class="selo" aria-hidden="true">feito pela Fábrica</span>
-        </div>
-        <div class="info">
-          <h2>Fábrica de Vídeos IA</h2>
-          <p>Você escreve a ideia. Ela faz roteiro, voz, cenas e montagem e entrega o vídeo vertical pronto para você aprovar.</p>
-          <div class="rodape-card">
-            <span class="nota">Mac ou Windows</span>
-            <span class="cta">Conhecer a Fábrica <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-          </div>
-        </div>
-      </a>
-
-      <a class="maquina clip" id="m-clip" href="/clipadorcomia/">
-        <div class="palco clip">
-          <canvas id="corte" aria-hidden="true"></canvas>
-          <span class="selo" aria-hidden="true">simulação</span>
-          <span class="contador" aria-hidden="true"><b id="ncortes">0</b> cortes</span>
-        </div>
-        <div class="info">
-          <span class="apelido">Máquina de Cortes IA</span>
-          <h2>Clipador</h2>
-          <p>Acha streamers, vigia as lives e corta sozinho os picos de chat e de som em vídeo vertical com legenda. Você aprova o que vai pro ar.</p>
-          <div class="rodape-card">
-            <span class="nota">Só Mac com chip Apple</span>
-            <span class="cta">Quero o Clipador <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-          </div>
-        </div>
-      </a>
-    </nav>
-
-    <div class="outros">
-      <a class="pilula" href="https://instagram.com/eusoumathheus" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6" fill="currentColor"/></svg>
-        Instagram
-      </a>
-      <a class="pilula" href="https://wa.me/5521966452854" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11.5a8 8 0 0 1-11.8 7L4 20l1.5-4.1A8 8 0 1 1 20 11.5z"/><path d="M9 9.5c.3 2.2 2.3 4.2 4.5 4.5l1-1.2 2 .9c-.2 1-1 1.8-2 1.8-3.3 0-6.5-3.2-6.5-6.5 0-1 .8-1.8 1.8-2l.9 2z"/></svg>
-        WhatsApp
-      </a>
+  <a class="lk site rv" style="--i:1" href="/">
+    <span class="tape" aria-hidden="true"></span>
+    <span class="tag" aria-hidden="true">comece por aqui ↘</span>
+    <div class="thumb"><img src="midia/compartilhar.jpg" alt="Eu tirei R$ 500 mil de gasto de uma empresa usando IA"></div>
+    <div class="row">
+      <div><div class="t">Veja tudo que eu já coloquei pra rodar</div><div class="s">casos, sistemas e quem já usa</div></div>
+      <span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
     </div>
+  </a>
+
+  <a class="lk wpp rv" style="--i:2" href="https://wa.me/5521966452854?text=Oi%20Matheus%2C%20vim%20pelo%20link%20da%20bio%20e%20quero%20um%20sistema%20de%20IA%20sob%20medida" target="_blank" rel="noopener">
+    <div><div class="t">Quero um sistema desses</div><div class="s">fala comigo no WhatsApp</div></div>
+    <span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+  </a>
+
+  <p class="sub hand rv" style="--i:3">ou instale um pronto hoje:</p>
+  <div class="duo">
+    <a class="lk prod rv" style="--i:4" href="/fabricadevideosdeia/">
+      <span class="tape" aria-hidden="true"></span>
+      <div class="scr"><video src="midia/fabrica-thumb.mp4" poster="midia/fabrica-thumb.jpg" autoplay muted loop playsinline aria-label="Vídeo feito pela Fábrica"></video></div>
+      <span class="n">Fábrica de Vídeos IA</span>
+      <span class="d">Vídeo pronto todo dia, sem editar.</span>
+      <span class="p">R$ 47,90 <span>ver →</span></span>
+    </a>
+    <a class="lk prod rv" style="--i:5" href="/clipadorcomia/">
+      <span class="tape" aria-hidden="true"></span>
+      <div class="scr"><video src="midia/clipador-thumb.mp4" poster="midia/clipador-thumb.jpg" autoplay muted loop playsinline aria-label="Corte feito pelo Clipador"></video></div>
+      <span class="n">Clipador</span>
+      <span class="d">Corta live sozinho e entrega pronto.</span>
+      <span class="p">R$ 49,90 <span>ver →</span></span>
+    </a>
   </div>
 
-  <footer class="fim">
-    <span>© 2026 Fábrica IA</span>
-    <span>toque na tela</span>
+  <a class="lk ig rv" style="--i:6" href="https://instagram.com/eusoumathheus" target="_blank" rel="noopener">
+    <div><div class="t">@eusoumathheus</div><div class="s">os sistemas rodando, todo dia no Instagram</div></div>
+    <span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+  </a>
+
+  <footer class="foot rv" style="--i:7">
+    <span class="sig hand">Matheus</span>
+    <small>Eu desenho o sistema. A IA faz o trabalho.</small>
   </footer>
 </main>
 
 <script>
 (() => {
-  const reduz = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const temHover = matchMedia('(hover: hover)').matches;
-  const $ = (id) => document.getElementById(id);
-
-  document.querySelector('.fim span:last-child').textContent = temHover ? 'clique em qualquer lugar' : 'toque em qualquer lugar';
-
-  /* ---------- Timecode do topo ---------- */
-  const tc = $('tc');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // o quadriculado acende onde o dedo passa (e passeia sozinho)
+  const cv = document.querySelector('.pix'), ctx = cv.getContext('2d'), C = 24, cells = new Map();
+  let w = 0, h = 0, last = -1e9;
+  function size() { const d = Math.min(2, devicePixelRatio || 1); w = innerWidth; h = innerHeight; cv.width = w * d; cv.height = h * d; ctx.setTransform(d, 0, 0, d, 0, 0); }
+  addEventListener('resize', size); size();
+  function light(x, y, p) {
+    const ox = 0, oy = -(scrollY % C);
+    const cx = Math.floor((x - ox) / C), cy = Math.floor((y - oy) / C);
+    for (let i = -2; i <= 2; i++) for (let j = -2; j <= 2; j++) { const dd = Math.hypot(i, j); if (dd > 2.3) continue; const k = (cx + i) + ',' + (cy + j), v = p * (1 - dd / 2.6); if ((cells.get(k) || 0) < v) cells.set(k, v); }
+  }
+  addEventListener('pointermove', e => { last = performance.now(); light(e.clientX, e.clientY, 1); });
   const t0 = performance.now();
-  const p2 = (n) => String(n).padStart(2, '0');
-  function timecode(t) {
-    const ms = t - t0, s = Math.floor(ms / 1000);
-    tc.textContent = `${p2(Math.floor(s / 3600))}:${p2(Math.floor(s / 60) % 60)}:${p2(s % 60)}:${p2(Math.floor(ms * .03) % 30)}`;
-  }
+  (function frame(now) {
+    requestAnimationFrame(frame);
+    ctx.clearRect(0, 0, w, h);
+    if (!reduce && now - last > 1500) { const t = (now - t0) / 1000; light(w * (.5 + .45 * Math.sin(t * .37)), h * (.5 + .42 * Math.sin(t * .23 + 1.3)), .5); }
+    const oy = -(scrollY % C);
+    for (const [k, v] of cells) {
+      const [cx, cy] = k.split(',').map(Number);
+      ctx.globalAlpha = Math.min(1, v) * .38; ctx.fillStyle = v > .8 ? '#6b2fe2' : '#b59af6';
+      ctx.fillRect(cx * C + 1, cy * C + oy + 1, C - 1, C - 1);
+      const nv = v * .955; if (nv < .02) cells.delete(k); else cells.set(k, nv);
+    }
+    ctx.globalAlpha = 1;
+  })(t0);
 
-  /* ---------- Título que se decifra ---------- */
-  const glifos = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#%&*+=/';
-  if (!reduz) {
-    const linhas = [...$('titulo').querySelectorAll('.l')];
-    const alvos = [];
-    linhas.forEach((l, i) => {
-      const nos = [];
-      const anda = (n) => n.nodeType === 3 ? nos.push(n) : n.childNodes.forEach(anda);
-      anda(l);
-      nos.forEach((no) => alvos.push({ no, final: no.textContent, atraso: 120 + i * 90 }));
+  // cartões inclinam um pouco com o dedo/mouse
+  if (!reduce) document.querySelectorAll('.site, .prod').forEach(card => {
+    const base = getComputedStyle(card).transform;
+    card.addEventListener('pointermove', e => {
+      const r = card.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+      card.style.transition = 'transform .08s linear';
+      card.style.transform = `perspective(800px) rotateX(${(y * -6).toFixed(2)}deg) rotateY(${(x * 7).toFixed(2)}deg)`;
     });
-    const dur = 650, inicio = performance.now();
-    (function decifra(t) {
-      let falta = false;
-      alvos.forEach((a) => {
-        const p = (t - inicio - a.atraso) / dur;
-        if (p >= 1) { if (a.no.textContent !== a.final) a.no.textContent = a.final; return; }
-        falta = true;
-        const certos = Math.max(0, Math.floor(p * a.final.length));
-        let s = a.final.slice(0, certos);
-        for (let k = certos; k < a.final.length; k++) {
-          const c = a.final[k];
-          s += c === ' ' || c === '.' ? c : glifos[(Math.random() * glifos.length) | 0];
-        }
-        a.no.textContent = s;
-      });
-      if (falta) requestAnimationFrame(decifra);
-    })(inicio);
-  }
-
-  /* ---------- Parede de LEDs ---------- */
-  const led = $('led'), lc = led.getContext('2d');
-  let LW = 0, LH = 0;
-  const luz = { x: innerWidth * .5, y: innerHeight * .35, tx: innerWidth * .5, ty: innerHeight * .35, ultimo: -1e9,
-    cor: [255, 122, 26], alvoCor: [255, 122, 26] };
-  const ondas = [];
-  function tamanhoLed() {
-    const dpr = Math.min(devicePixelRatio || 1, 2);
-    LW = innerWidth; LH = innerHeight;
-    led.width = Math.round(LW * dpr); led.height = Math.round(LH * dpr);
-    lc.setTransform(dpr, 0, 0, dpr, 0, 0);
-  }
-  tamanhoLed();
-  addEventListener('resize', tamanhoLed);
-  addEventListener('pointermove', (e) => { luz.tx = e.clientX; luz.ty = e.clientY; luz.ultimo = performance.now(); }, { passive: true });
-  addEventListener('pointerdown', (e) => {
-    luz.tx = e.clientX; luz.ty = e.clientY; luz.ultimo = performance.now();
-    ondas.push({ x: e.clientX, y: e.clientY, t: performance.now(), cor: luz.alvoCor.slice() });
-    if (ondas.length > 4) ondas.shift();
-  }, { passive: true });
-  const LARANJA = [255, 122, 26], VERDE = [61, 220, 132];
-  $('m-fab').addEventListener('pointerenter', () => luz.alvoCor = LARANJA);
-  $('m-clip').addEventListener('pointerenter', () => luz.alvoCor = VERDE);
-
-  function desenhaLed(t) {
-    lc.clearRect(0, 0, LW, LH);
-    if (t - luz.ultimo > 2600) {
-      luz.tx = LW * (.5 + .36 * Math.sin(t / 3400));
-      luz.ty = LH * (.42 + .3 * Math.sin(t / 2500 + 1.3));
-    }
-    luz.x += (luz.tx - luz.x) * .09; luz.y += (luz.ty - luz.y) * .09;
-    for (let k = 0; k < 3; k++) luz.cor[k] += (luz.alvoCor[k] - luz.cor[k]) * .06;
-    const G = 22, Q = 2;
-    lc.fillStyle = 'rgba(255,240,225,.055)';
-    for (let y = G / 2; y < LH; y += G) for (let x = G / 2; x < LW; x += G) lc.fillRect(x, y, Q, Q);
-    const R = Math.min(200, Math.max(130, LW * .16));
-    const [r, g, b] = luz.cor.map(Math.round);
-    const x0 = Math.floor((luz.x - R) / G) * G + G / 2, y0 = Math.floor((luz.y - R) / G) * G + G / 2;
-    for (let y = y0; y <= luz.y + R; y += G) for (let x = x0; x <= luz.x + R; x += G) {
-      const d = Math.hypot(x - luz.x, y - luz.y); if (d > R) continue;
-      const k = 1 - d / R, s = Q + k * 2.2;
-      lc.fillStyle = `rgba(${r},${g},${b},${(k * k * .7).toFixed(3)})`;
-      lc.fillRect(x - (s - Q) / 2, y - (s - Q) / 2, s, s);
-    }
-    for (let i = ondas.length - 1; i >= 0; i--) {
-      const o = ondas[i], idade = (t - o.t) / 1000;
-      if (idade > 1.4) { ondas.splice(i, 1); continue; }
-      const raio = idade * 620, faixa = 30, forca = 1 - idade / 1.4;
-      const [orr, og, ob] = o.cor;
-      const xa = Math.max(G / 2, Math.floor((o.x - raio - faixa) / G) * G + G / 2);
-      const ya = Math.max(G / 2, Math.floor((o.y - raio - faixa) / G) * G + G / 2);
-      for (let y = ya; y <= Math.min(LH, o.y + raio + faixa); y += G) for (let x = xa; x <= Math.min(LW, o.x + raio + faixa); x += G) {
-        const d = Math.abs(Math.hypot(x - o.x, y - o.y) - raio); if (d > faixa) continue;
-        const k = (1 - d / faixa) * forca;
-        lc.fillStyle = `rgba(${orr},${og},${ob},${(k * .8).toFixed(3)})`;
-        lc.fillRect(x - .5, y - .5, Q + 1, Q + 1);
-      }
-    }
-  }
-
-  /* ---------- Cartões: inclinação e luz seguindo o mouse ---------- */
-  if (temHover && !reduz) {
-    document.querySelectorAll('.maquina').forEach((el) => {
-      el.addEventListener('pointermove', (e) => {
-        const r = el.getBoundingClientRect();
-        const px = (e.clientX - r.left) / r.width, py = (e.clientY - r.top) / r.height;
-        el.style.setProperty('--mx', `${px * 100}%`); el.style.setProperty('--my', `${py * 100}%`);
-        el.style.setProperty('--ry', `${(px - .5) * 7}deg`); el.style.setProperty('--rx', `${(.5 - py) * 6}deg`);
-      });
-      el.addEventListener('pointerleave', () => { el.style.setProperty('--rx', '0deg'); el.style.setProperty('--ry', '0deg'); });
-    });
-    const trilho = document.querySelector('.trilho');
-    const fab = $('m-fab');
-    fab.addEventListener('pointerenter', () => trilho.getAnimations().forEach((a) => a.updatePlaybackRate(3)));
-    fab.addEventListener('pointerleave', () => trilho.getAnimations().forEach((a) => a.updatePlaybackRate(1)));
-  }
-
-  /* ---------- Fábrica: etapas acendem junto com o vídeo ---------- */
-  const vid = $('vid'), vbarra = $('vbarra'), etapas = [...$('etapas').children];
-  vid.play?.().catch(() => {});
-  function fabrica(t) {
-    let p = vid.duration ? vid.currentTime / vid.duration : ((t - t0) / 7000) % 1;
-    if (!isFinite(p)) p = 0;
-    vbarra.style.width = `${(p * 100).toFixed(1)}%`;
-    const atual = Math.min(etapas.length - 1, Math.floor(p * etapas.length));
-    etapas.forEach((li, i) => { li.classList.toggle('feita', i < atual); li.classList.toggle('agora', i === atual); });
-  }
-
-  /* ---------- Clipador: a live passa, o pico é cortado e vira vídeo vertical ---------- */
-  const cv = $('corte'), cx = cv.getContext('2d'), ncortes = $('ncortes');
-  let CW = 0, CH = 0;
-  function tamanhoCorte() {
-    const r = cv.getBoundingClientRect(), dpr = Math.min(devicePixelRatio || 1, 2);
-    CW = r.width; CH = r.height;
-    cv.width = Math.round(CW * dpr); cv.height = Math.round(CH * dpr);
-    cx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  }
-  new ResizeObserver(() => { tamanhoCorte(); ultimoT = 0; desenhaCorte(performance.now()); }).observe(cv);
-
-  const PASSO = 6, VEL = 16; // barras por segundo
-  let barras = [], acum = 0, ultimoT = 0, contador = 0;
-  let pico = null, espera = 1.2, pendente = null, idPico = 0;
-  const voando = [], pilhaClips = [];
-  const base = () => .1 + Math.random() * .14 + (Math.random() < .1 ? Math.random() * .16 : 0);
-  for (let i = 0; i < 120; i++) barras.push({ h: base(), id: 0, cortada: false });
-  pilhaClips.push([.2, .38, .55, .72, .86, .94, .88, .74, .56, .38, .22]); contador = 1; ncortes.textContent = '1';
-
-  function novaBarra() {
-    let h, id = 0;
-    if (pico) {
-      const u = pico.i / pico.len;
-      h = Math.min(.96, .14 + pico.amp * Math.pow(Math.sin(Math.PI * u), .8) * (.82 + Math.random() * .18));
-      id = pico.id; pico.i++;
-      if (pico.i > pico.len) { pendente = { id: pico.id, faltam: 3 }; pico = null; espera = 2.2 + Math.random() * 1.6; }
-    } else h = base();
-    barras.push({ h, id, cortada: false });
-    if (barras.length > 260) barras.shift();
-    if (pendente && --pendente.faltam <= 0) { corta(pendente.id); pendente = null; }
-  }
-
-  const xDe = (j) => CW * .64 - (barras.length - 1 - j) * PASSO - acum * PASSO;
-  const meio = () => CH * .55;
-
-  function corta(id) {
-    const idx = []; barras.forEach((b, j) => { if (b.id === id) idx.push(j); });
-    if (!idx.length) return;
-    const hs = idx.map((j) => barras[j].h);
-    idx.forEach((j) => barras[j].cortada = true);
-    voando.push({ hs, x0: xDe(idx[0]) - 3, x1: xDe(idx[idx.length - 1]) + 7, t: performance.now() });
-  }
-
-  const ease = (x) => 1 - Math.pow(1 - x, 3);
-  function vaga() { const h = CH * .6, w = h * 9 / 16; return { x: CW - w - 16, y: CH * .08, w, h }; }
-
-  function retArred(x, y, w, h, r) { cx.beginPath(); cx.roundRect ? cx.roundRect(x, y, w, h, r) : cx.rect(x, y, w, h); }
-
-  function desenhaClipe(hs, x, y, w, h, alfa, rot) {
-    cx.save(); cx.globalAlpha = alfa;
-    cx.translate(x + w / 2, y + h / 2); cx.rotate(rot); cx.translate(-w / 2, -h / 2);
-    retArred(0, 0, w, h, Math.min(10, w * .14));
-    cx.fillStyle = '#10221a'; cx.fill();
-    cx.lineWidth = 1.5; cx.strokeStyle = 'rgba(61,220,132,.85)'; cx.stroke();
-    cx.save(); retArred(0, 0, w, h, Math.min(10, w * .14)); cx.clip();
-    const n = hs.length, passo = w * .7 / n, bw = passo * .55, my = h * .45;
-    cx.fillStyle = 'rgba(61,220,132,.9)';
-    hs.forEach((v, i) => { const bh = v * h * .55; cx.fillRect(w * .15 + i * passo, my - bh / 2, Math.max(1.5, bw), bh); });
-    cx.fillStyle = 'rgba(246,243,239,.92)';
-    const lw = w * .7; cx.fillRect((w - lw) / 2, h * .76, lw, Math.max(2, h * .035));
-    cx.fillRect((w - lw * .6) / 2, h * .82, lw * .6, Math.max(2, h * .035));
-    cx.restore(); cx.restore();
-  }
-
-  function desenhaCorte(t) {
-    if (!CW) return;
-    const dt = Math.min(.05, (t - (ultimoT || t)) / 1000); ultimoT = t;
-    acum += dt * VEL;
-    while (acum >= 1) { acum -= 1; novaBarra(); }
-    if (!pico && !pendente) { espera -= dt; if (espera <= 0) pico = { id: ++idPico, i: 0, len: 13 + ((Math.random() * 6) | 0), amp: .62 + Math.random() * .2 }; }
-
-    cx.clearRect(0, 0, CW, CH);
-    // grade de tempo
-    cx.fillStyle = 'rgba(255,240,225,.05)';
-    for (let x = CW * .64; x > 0; x -= 48) cx.fillRect(Math.round(x), 0, 1, CH);
-    // barras
-    const my = meio(), alt = CH * .62, cabeca = CW * .64;
-    for (let j = 0; j < barras.length; j++) {
-      const x = xDe(j); if (x < -PASSO) continue;
-      const b = barras[j], h = Math.max(2, b.h * alt);
-      if (b.cortada) { cx.strokeStyle = 'rgba(61,220,132,.28)'; cx.lineWidth = 1; cx.strokeRect(x + .5, my - h / 2 + .5, 3, h - 1); }
-      else { cx.fillStyle = b.id ? 'rgba(61,220,132,.95)' : 'rgba(246,243,239,.26)'; cx.fillRect(x, my - h / 2, 4, h); }
-    }
-    // degradê da esquerda (passado some)
-    const gr = cx.createLinearGradient(0, 0, CW * .22, 0);
-    gr.addColorStop(0, 'rgba(14,13,12,1)'); gr.addColorStop(1, 'rgba(14,13,12,0)');
-    cx.fillStyle = gr; cx.fillRect(0, 0, CW * .22, CH);
-    // cabeça "ao vivo"
-    cx.fillStyle = 'rgba(246,243,239,.8)'; cx.fillRect(cabeca + 6, CH * .14, 1, CH * .78);
-    cx.fillStyle = '#ff453a'; cx.beginPath(); cx.arc(cabeca + 6.5, CH * .14, 3.5, 0, Math.PI * 2); cx.fill();
-    cx.font = '700 10px "JetBrains Mono", ui-monospace, monospace'; cx.fillStyle = 'rgba(246,243,239,.75)';
-    cx.textAlign = 'right'; cx.fillText('AO VIVO', cabeca, CH * .14 + 3.5);
-    if (pico && pico.i > 4) { cx.fillStyle = 'rgba(61,220,132,.95)'; cx.fillText('PICO DE CHAT', cabeca, CH * .92); }
-    cx.textAlign = 'left';
-
-    // pilha de cortes prontos
-    const v = vaga();
-    pilhaClips.forEach((c, i) => {
-      const k = pilhaClips.length - 1 - i;
-      desenhaClipe(c, v.x - k * 13, v.y + k * 5, v.w, v.h, 1 - k * .28, -k * .07);
-    });
-
-    // cortes voando
-    for (let i = voando.length - 1; i >= 0; i--) {
-      const c = voando[i], p = (t - c.t) / 1150;
-      const segH = alt * Math.max(...c.hs) + 10;
-      if (p < .26) {
-        const q = p / .26, ext = (CH * .9) * ease(q) / 2, a = 1 - Math.max(0, q - .7) / .3;
-        cx.fillStyle = `rgba(255,255,255,${a})`;
-        cx.fillRect(c.x0, my - ext, 2, ext * 2); cx.fillRect(c.x1, my - ext, 2, ext * 2);
-        cx.fillStyle = `rgba(61,220,132,${.14 * a})`; cx.fillRect(c.x0, my - segH / 2, c.x1 - c.x0, segH);
-        continue;
-      }
-      const e = ease(Math.min(1, (p - .26) / .74));
-      const x = c.x0 + (v.x - c.x0) * e, y = (my - segH / 2) + (v.y - (my - segH / 2)) * e - Math.sin(e * Math.PI) * CH * .12;
-      const w = (c.x1 - c.x0) + (v.w - (c.x1 - c.x0)) * e, h = segH + (v.h - segH) * e;
-      desenhaClipe(c.hs, x, y, w, h, 1, (1 - e) * .25);
-      if (p >= 1) {
-        voando.splice(i, 1); pilhaClips.push(c.hs); if (pilhaClips.length > 3) pilhaClips.shift();
-        contador++; ncortes.textContent = contador;
-        ncortes.classList.remove('pula'); void ncortes.offsetWidth; ncortes.classList.add('pula');
-      }
-    }
-  }
-
-  // Sem movimento: um quadro parado já com um corte na pilha
-  let clipVisivel = true;
-  new IntersectionObserver(([e]) => { clipVisivel = e.isIntersecting; }).observe(cv);
-
-  if (reduz) {
-    const parado = () => {
-      tamanhoCorte();
-      contador = 1; ncortes.textContent = '1';
-      ultimoT = 0; desenhaCorte(performance.now());
-      desenhaLed(performance.now()); timecode(performance.now());
-    };
-    requestAnimationFrame(parado); addEventListener('resize', parado);
-    return;
-  }
-
-  function quadro(t) {
-    timecode(t);
-    desenhaLed(t);
-    fabrica(t);
-    if (clipVisivel) desenhaCorte(t); else ultimoT = t;
-    requestAnimationFrame(quadro);
-  }
-  requestAnimationFrame(quadro);
+    card.addEventListener('pointerleave', () => { card.style.transition = ''; card.style.transform = ''; });
+  });
 })();
 </script>
