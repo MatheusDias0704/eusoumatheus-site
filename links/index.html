@@ -1,0 +1,622 @@
+<!doctype html>
+<html lang="pt-BR">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta property="og:title" content="Links · Eu sou Matheus">
+<meta property="og:description" content="Fábrica de Vídeos IA e Clipador: duas máquinas de IA que trabalham por você.">
+<meta property="og:image" content="https://eusoumatheus.com.br/links/midia/fabrica-loop.jpg">
+<meta property="og:url" content="https://eusoumatheus.com.br/links/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<title>Links da Fábrica IA</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Fábrica de Vídeos IA e Clipador: duas máquinas de IA que trabalham por você.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Inter:wght@400..600&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+/* Layout: uma sala de render escura. No celular, coluna única; no computador, frase à esquerda e as duas máquinas à direita.
+   Cada máquina tem sua cor (Fábrica laranja, Clipador verde) e mostra o que faz ao vivo. Fora delas, tudo quieto. */
+:root {
+  color-scheme: dark;
+  --chao: #0b0a09;
+  --chapa: #141311;
+  --chapa-2: #1c1a17;
+  --fio: rgba(255, 240, 225, .09);
+  --fio-forte: rgba(255, 240, 225, .18);
+  --tinta: #f6f3ef;
+  --tinta-2: #aaa49c;
+  --tinta-3: #948d84;
+  --laranja: #ff7a1a;
+  --laranja-fundo: rgba(255, 122, 26, .13);
+  --verde: #3ddc84;
+  --verde-fundo: rgba(61, 220, 132, .12);
+  --rec: #ff453a;
+  --sobre-cor: #140800;
+
+  --f-titulo: "Bricolage Grotesque", "Inter", -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --f-texto: "Inter", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+  --f-tempo: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  --r-s: 10px; --r-m: 18px; --r-l: 26px;
+  --suave: cubic-bezier(.22, 1, .36, 1);
+  --mola: cubic-bezier(.34, 1.56, .64, 1);
+}
+* { box-sizing: border-box; }
+html { scrollbar-color: var(--fio-forte) var(--chao); }
+body {
+  background: var(--chao); color: var(--tinta);
+  font: 400 16px/1.5 var(--f-texto); letter-spacing: -.01em;
+  -webkit-font-smoothing: antialiased; overflow-x: hidden;
+}
+::selection { background: var(--laranja); color: var(--sobre-cor); }
+a { color: inherit; text-decoration: none; }
+:focus-visible { outline: 2px solid var(--tinta); outline-offset: 4px; border-radius: 6px; }
+
+/* Fundo: parede de LEDs que acende perto do dedo/mouse */
+#led { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+
+/* Linha de render que desce ao abrir */
+.render {
+  position: fixed; left: 0; right: 0; top: 0; height: 1px; z-index: 5; pointer-events: none;
+  background: var(--tinta);
+  box-shadow: 0 -60px 80px 10px rgba(255, 240, 225, .05);
+  animation: render 1s var(--suave) forwards;
+}
+@keyframes render { from { transform: translateY(0); } 92% { opacity: 1; } to { transform: translateY(100vh); opacity: 0; } }
+
+.pilha {
+  position: relative; z-index: 1;
+  max-width: 1120px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 20px 40px;
+  display: grid; gap: 28px;
+}
+
+/* Topo */
+.topo { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.rec {
+  display: inline-flex; align-items: center; gap: 10px;
+  font: 700 12px/1 var(--f-tempo); letter-spacing: .08em; color: var(--tinta-2);
+  padding: 9px 12px; border: 1px solid var(--fio); border-radius: 999px; background: rgba(20, 19, 17, .7);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+}
+.rec .ponto { width: 8px; height: 8px; border-radius: 50%; background: var(--rec); animation: pisca 1.2s steps(2, jump-none) infinite; }
+@keyframes pisca { 50% { opacity: .25; } }
+.rec .tc { color: var(--tinta); font-variant-numeric: tabular-nums; min-width: 11ch; }
+.arroba { display: inline-flex; align-items: center; min-height: 44px; font: 600 14px/1 var(--f-texto); color: var(--tinta-2); padding: 0 4px; transition: color .2s; }
+.arroba:hover { color: var(--tinta); }
+
+/* Abertura */
+.abre { display: grid; gap: 12px; align-content: start; }
+.titulo {
+  margin: 0; font: 800 clamp(38px, 10.6vw, 84px)/.94 var(--f-titulo);
+  font-variation-settings: "opsz" 96; letter-spacing: -.045em; text-wrap: balance;
+}
+.titulo .l { display: inline; }
+.titulo .l + .l::before { content: " "; }
+.titulo .c1 { color: var(--laranja); }
+.titulo .c2 { color: var(--verde); }
+.sub { margin: 0; max-width: 34ch; color: var(--tinta-2); font-size: 17px; text-wrap: pretty; }
+.sub b { color: var(--tinta); font-weight: 600; }
+
+/* Máquinas */
+.maquinas, .direita { display: grid; gap: 16px; min-width: 0; }
+.maquina {
+  --cor: var(--laranja); --cor-fundo: var(--laranja-fundo);
+  --mx: 50%; --my: 0%; --rx: 0deg; --ry: 0deg;
+  position: relative; display: grid; min-width: 0;
+  background: var(--chapa); border: 1px solid var(--fio); border-radius: var(--r-l);
+  overflow: hidden; isolation: isolate;
+  transform: perspective(1000px) rotateX(var(--rx)) rotateY(var(--ry));
+  transition: transform .5s var(--suave), border-color .3s;
+  animation: sobe .8s var(--suave) both;
+}
+.maquina.clip { --cor: var(--verde); --cor-fundo: var(--verde-fundo); }
+.maquina:nth-child(1) { animation-delay: .5s; }
+.maquina:nth-child(2) { animation-delay: .62s; }
+@keyframes sobe { from { translate: 0 28px; } }
+.maquina::after {
+  content: ""; position: absolute; inset: 0; z-index: 3; pointer-events: none; border-radius: inherit;
+  background: radial-gradient(420px circle at var(--mx) var(--my), rgba(255, 245, 235, .07), transparent 60%);
+  opacity: 0; transition: opacity .3s;
+}
+.maquina:active { transform: perspective(1000px) rotateX(var(--rx)) rotateY(var(--ry)) scale(.985); }
+@media (hover: hover) {
+  .maquina:hover { border-color: var(--fio-forte); transition: transform .12s linear, border-color .3s; }
+  .maquina:hover::after { opacity: 1; }
+}
+
+.palco { position: relative; aspect-ratio: 16 / 9; overflow: hidden; background: #0e0d0c; border-bottom: 1px solid var(--fio); }
+.info { display: grid; gap: 10px; padding: 20px 20px 22px; }
+.info h2 { margin: 0; font: 800 clamp(28px, 7.4vw, 36px)/1 var(--f-titulo); letter-spacing: -.035em; }
+.info .apelido { font: 700 12px/1 var(--f-tempo); letter-spacing: .06em; color: var(--cor); text-transform: uppercase; }
+.info p { margin: 0; color: var(--tinta-2); max-width: 46ch; text-wrap: pretty; }
+.rodape-card { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-top: 6px; }
+.nota { font: 500 12px/1.3 var(--f-tempo); color: var(--tinta-3); }
+.cta {
+  display: inline-flex; align-items: center; gap: 10px;
+  min-height: 48px; padding: 0 20px; border-radius: 999px;
+  background: var(--cor); color: var(--sobre-cor);
+  font: 700 16px/1 var(--f-texto); letter-spacing: -.01em;
+}
+.cta svg { width: 18px; height: 18px; transition: transform .35s var(--mola); }
+@media (hover: hover) { .maquina:hover .cta svg { transform: translateX(5px); } }
+.selo {
+  position: absolute; z-index: 2; top: 12px; left: 12px;
+  font: 700 10.5px/1 var(--f-tempo); letter-spacing: .08em; text-transform: uppercase; color: var(--tinta-2);
+  padding: 6px 8px; border-radius: 6px; background: rgba(11, 10, 9, .72); border: 1px solid var(--fio);
+}
+
+/* Palco da Fábrica: fita de filme com capas reais + celular rodando um vídeo feito por ela */
+.fita {
+  position: absolute; left: -12%; right: -12%; top: 50%; height: 62%;
+  transform: translateY(-50%) rotate(-7deg); opacity: .5;
+  background: #070605; padding: 14px 0;
+}
+.fita::before, .fita::after {
+  content: ""; position: absolute; left: 0; right: 0; height: 6px;
+  background: repeating-linear-gradient(90deg, transparent 0 8px, rgba(255, 240, 225, .5) 8px 16px);
+}
+.fita::before { top: 4px; } .fita::after { bottom: 4px; }
+.trilho { display: flex; gap: 8px; height: 100%; width: max-content; animation: corre 26s linear infinite; }
+.trilho img { height: 100%; aspect-ratio: 9 / 16; width: auto; object-fit: cover; border-radius: 3px; filter: saturate(.85); }
+@keyframes corre { to { transform: translateX(-50%); } }
+.palco.fab::before {
+  content: ""; position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(90deg, rgba(14, 13, 12, .92) 0%, rgba(14, 13, 12, .55) 48%, rgba(14, 13, 12, .2) 100%);
+}
+.etapas {
+  position: absolute; z-index: 2; left: 16px; top: 50%; transform: translateY(-46%);
+  list-style: none; margin: 0; padding: 0; display: grid; gap: 7px;
+  font: 700 12px/1 var(--f-tempo); letter-spacing: .04em; text-transform: uppercase;
+}
+.etapas li { display: flex; align-items: center; gap: 8px; color: var(--tinta-3); transition: color .25s; }
+.etapas li::before {
+  content: ""; width: 14px; height: 14px; border-radius: 4px; border: 1.5px solid currentColor; flex: none;
+  transition: background .25s, border-color .25s;
+}
+.etapas li.feita { color: var(--tinta-2); }
+.etapas li.feita::before { background: var(--tinta-2); border-color: var(--tinta-2); }
+.etapas li.agora { color: var(--laranja); }
+.etapas li.agora::before { border-color: var(--laranja); background: var(--laranja); animation: pulsa .7s ease-in-out infinite alternate; }
+@keyframes pulsa { to { transform: scale(.7); } }
+.cel {
+  position: absolute; z-index: 2; right: 9%; top: 6%; height: 88%; aspect-ratio: 9 / 16;
+  border-radius: 16px; overflow: hidden; background: #000;
+  border: 3px solid #26231f; box-shadow: 0 20px 50px rgba(0, 0, 0, .6);
+  transform: rotate(3deg); transition: transform .6s var(--mola);
+}
+@media (hover: hover) { .maquina:hover .cel { transform: rotate(0deg) scale(1.04); } }
+.cel video, .cel img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.cel .barra { position: absolute; left: 6px; right: 6px; bottom: 6px; height: 3px; border-radius: 3px; background: rgba(255, 255, 255, .25); overflow: hidden; }
+.cel .barra i { display: block; height: 100%; width: 0; background: var(--laranja); }
+
+/* Palco do Clipador: desenhado em canvas */
+#corte { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.contador {
+  position: absolute; z-index: 2; right: 12px; bottom: 12px;
+  font: 700 11px/1 var(--f-tempo); letter-spacing: .05em; color: var(--tinta-2); text-transform: uppercase;
+  padding: 6px 8px; border-radius: 6px; background: rgba(11, 10, 9, .72); border: 1px solid var(--fio);
+}
+.contador b { color: var(--verde); font-variant-numeric: tabular-nums; display: inline-block; }
+.contador b.pula { animation: pula .45s var(--mola); }
+@keyframes pula { 40% { transform: scale(1.6); } }
+
+/* Outros links */
+.outros { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.pilula {
+  display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; padding: 0 14px;
+  border: 1px solid var(--fio); border-radius: var(--r-m); background: rgba(20, 19, 17, .75);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  font: 600 15px/1.2 var(--f-texto); color: var(--tinta); text-align: center;
+  transition: border-color .25s, background .25s, transform .2s var(--suave);
+}
+.pilula svg { width: 20px; height: 20px; flex: none; color: var(--tinta-2); }
+.pilula:active { transform: scale(.97); }
+@media (hover: hover) { .pilula:hover { border-color: var(--fio-forte); background: var(--chapa-2); } }
+
+.fim { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font: 500 12px/1.4 var(--f-tempo); color: var(--tinta-3); padding-top: 4px; }
+
+/* Computador: frase à esquerda (parada), máquinas à direita */
+@media (min-width: 960px) {
+  .pilha { grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr); column-gap: 64px; row-gap: 24px; padding-block: 28px 48px; }
+  .topo, .fim { grid-column: 1 / -1; }
+  .abre { position: sticky; top: 40px; align-self: start; padding-top: 48px; gap: 24px; }
+  .titulo { font-size: clamp(64px, 6.6vw, 92px); line-height: .92; }
+  .titulo .l { display: block; }
+  .titulo .l + .l::before { content: none; }
+  .palco { aspect-ratio: 16 / 10; }
+  .sub { font-size: 19px; }
+  .direita { display: grid; gap: 16px; min-width: 0; }
+}
+@media (min-width: 520px) and (max-width: 959px) { .pilha { max-width: 560px; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .render { display: none; }
+  .maquina { animation: none; }
+  .trilho { animation: none; }
+  .rec .ponto, .etapas li.agora::before { animation: none; }
+  .maquina { transform: none !important; }
+}
+</style>
+
+<canvas id="led" aria-hidden="true"></canvas>
+<div class="render" aria-hidden="true"></div>
+
+<main class="pilha">
+  <header class="topo">
+    <div class="rec" aria-hidden="true"><span class="ponto"></span>AO VIVO <span class="tc" id="tc">00:00:00:00</span></div>
+    <a class="arroba" href="https://instagram.com/eusoumatheuss" target="_blank" rel="noopener">@eusoumatheuss</a>
+  </header>
+
+  <section class="abre">
+    <h1 class="titulo" id="titulo" aria-label="Duas máquinas de IA que trabalham por você.">
+      <span class="l" aria-hidden="true">Duas</span>
+      <span class="l" aria-hidden="true"><span class="c1">máqui</span><span class="c2">nas</span></span>
+      <span class="l" aria-hidden="true">de IA que</span>
+      <span class="l" aria-hidden="true">trabalham</span>
+      <span class="l" aria-hidden="true">por você.</span>
+    </h1>
+    <p class="sub">Uma faz o vídeo do zero. A outra corta os melhores momentos das lives. <b>Você só aprova.</b></p>
+  </section>
+
+  <div class="direita">
+    <nav class="maquinas" aria-label="As máquinas">
+      <a class="maquina fab" id="m-fab" href="/fabricadevideosdeia/">
+        <div class="palco fab">
+          <div class="fita" aria-hidden="true">
+            <div class="trilho">
+              <img src="midia/capa-caim-abel.jpg" alt="">
+              <img src="midia/capa-elias-desaparecido.jpg" alt="">
+              <img src="midia/capa-eude-eglom-quarto-trancado.jpg" alt="">
+              <img src="midia/capa-gibeonitas-paes-mofados.jpg" alt="">
+              <img src="midia/capa-jumentas-de-saul.jpg" alt="">
+              <img src="midia/capa-caim-abel.jpg" alt="">
+              <img src="midia/capa-elias-desaparecido.jpg" alt="">
+              <img src="midia/capa-eude-eglom-quarto-trancado.jpg" alt="">
+              <img src="midia/capa-gibeonitas-paes-mofados.jpg" alt="">
+              <img src="midia/capa-jumentas-de-saul.jpg" alt="">
+            </div>
+          </div>
+          <ol class="etapas" id="etapas" aria-hidden="true">
+            <li>Roteiro</li><li>Voz</li><li>Cenas</li><li>Montagem</li><li>Capa</li>
+          </ol>
+          <div class="cel" aria-hidden="true">
+            <video id="vid" src="midia/fabrica-loop.mp4" poster="midia/fabrica-loop.jpg" autoplay muted loop playsinline preload="auto"></video>
+            <span class="barra"><i id="vbarra"></i></span>
+          </div>
+          <span class="selo" aria-hidden="true">feito pela Fábrica</span>
+        </div>
+        <div class="info">
+          <h2>Fábrica de Vídeos IA</h2>
+          <p>Você escreve a ideia. Ela faz roteiro, voz, cenas e montagem e entrega o vídeo vertical pronto para você aprovar.</p>
+          <div class="rodape-card">
+            <span class="nota">Mac ou Windows</span>
+            <span class="cta">Conhecer a Fábrica <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          </div>
+        </div>
+      </a>
+
+      <a class="maquina clip" id="m-clip" href="https://pay.kiwify.com.br/RE7MXng" target="_blank" rel="noopener">
+        <div class="palco clip">
+          <canvas id="corte" aria-hidden="true"></canvas>
+          <span class="selo" aria-hidden="true">simulação</span>
+          <span class="contador" aria-hidden="true"><b id="ncortes">0</b> cortes</span>
+        </div>
+        <div class="info">
+          <span class="apelido">Máquina de Cortes IA</span>
+          <h2>Clipador</h2>
+          <p>Acha streamers, vigia as lives e corta sozinho os picos de chat e de som em vídeo vertical com legenda. Você aprova o que vai pro ar.</p>
+          <div class="rodape-card">
+            <span class="nota">Só Mac com chip Apple</span>
+            <span class="cta">Quero o Clipador <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          </div>
+        </div>
+      </a>
+    </nav>
+
+    <div class="outros">
+      <a class="pilula" href="https://instagram.com/eusoumatheuss" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6" fill="currentColor"/></svg>
+        Instagram
+      </a>
+      <a class="pilula" href="https://wa.me/5521966452854" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11.5a8 8 0 0 1-11.8 7L4 20l1.5-4.1A8 8 0 1 1 20 11.5z"/><path d="M9 9.5c.3 2.2 2.3 4.2 4.5 4.5l1-1.2 2 .9c-.2 1-1 1.8-2 1.8-3.3 0-6.5-3.2-6.5-6.5 0-1 .8-1.8 1.8-2l.9 2z"/></svg>
+        WhatsApp
+      </a>
+    </div>
+  </div>
+
+  <footer class="fim">
+    <span>© 2026 Fábrica IA</span>
+    <span>toque na tela</span>
+  </footer>
+</main>
+
+<script>
+(() => {
+  const reduz = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const temHover = matchMedia('(hover: hover)').matches;
+  const $ = (id) => document.getElementById(id);
+
+  document.querySelector('.fim span:last-child').textContent = temHover ? 'clique em qualquer lugar' : 'toque em qualquer lugar';
+
+  /* ---------- Timecode do topo ---------- */
+  const tc = $('tc');
+  const t0 = performance.now();
+  const p2 = (n) => String(n).padStart(2, '0');
+  function timecode(t) {
+    const ms = t - t0, s = Math.floor(ms / 1000);
+    tc.textContent = `${p2(Math.floor(s / 3600))}:${p2(Math.floor(s / 60) % 60)}:${p2(s % 60)}:${p2(Math.floor(ms * .03) % 30)}`;
+  }
+
+  /* ---------- Título que se decifra ---------- */
+  const glifos = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#%&*+=/';
+  if (!reduz) {
+    const linhas = [...$('titulo').querySelectorAll('.l')];
+    const alvos = [];
+    linhas.forEach((l, i) => {
+      const nos = [];
+      const anda = (n) => n.nodeType === 3 ? nos.push(n) : n.childNodes.forEach(anda);
+      anda(l);
+      nos.forEach((no) => alvos.push({ no, final: no.textContent, atraso: 120 + i * 90 }));
+    });
+    const dur = 650, inicio = performance.now();
+    (function decifra(t) {
+      let falta = false;
+      alvos.forEach((a) => {
+        const p = (t - inicio - a.atraso) / dur;
+        if (p >= 1) { if (a.no.textContent !== a.final) a.no.textContent = a.final; return; }
+        falta = true;
+        const certos = Math.max(0, Math.floor(p * a.final.length));
+        let s = a.final.slice(0, certos);
+        for (let k = certos; k < a.final.length; k++) {
+          const c = a.final[k];
+          s += c === ' ' || c === '.' ? c : glifos[(Math.random() * glifos.length) | 0];
+        }
+        a.no.textContent = s;
+      });
+      if (falta) requestAnimationFrame(decifra);
+    })(inicio);
+  }
+
+  /* ---------- Parede de LEDs ---------- */
+  const led = $('led'), lc = led.getContext('2d');
+  let LW = 0, LH = 0;
+  const luz = { x: innerWidth * .5, y: innerHeight * .35, tx: innerWidth * .5, ty: innerHeight * .35, ultimo: -1e9,
+    cor: [255, 122, 26], alvoCor: [255, 122, 26] };
+  const ondas = [];
+  function tamanhoLed() {
+    const dpr = Math.min(devicePixelRatio || 1, 2);
+    LW = innerWidth; LH = innerHeight;
+    led.width = Math.round(LW * dpr); led.height = Math.round(LH * dpr);
+    lc.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  tamanhoLed();
+  addEventListener('resize', tamanhoLed);
+  addEventListener('pointermove', (e) => { luz.tx = e.clientX; luz.ty = e.clientY; luz.ultimo = performance.now(); }, { passive: true });
+  addEventListener('pointerdown', (e) => {
+    luz.tx = e.clientX; luz.ty = e.clientY; luz.ultimo = performance.now();
+    ondas.push({ x: e.clientX, y: e.clientY, t: performance.now(), cor: luz.alvoCor.slice() });
+    if (ondas.length > 4) ondas.shift();
+  }, { passive: true });
+  const LARANJA = [255, 122, 26], VERDE = [61, 220, 132];
+  $('m-fab').addEventListener('pointerenter', () => luz.alvoCor = LARANJA);
+  $('m-clip').addEventListener('pointerenter', () => luz.alvoCor = VERDE);
+
+  function desenhaLed(t) {
+    lc.clearRect(0, 0, LW, LH);
+    if (t - luz.ultimo > 2600) {
+      luz.tx = LW * (.5 + .36 * Math.sin(t / 3400));
+      luz.ty = LH * (.42 + .3 * Math.sin(t / 2500 + 1.3));
+    }
+    luz.x += (luz.tx - luz.x) * .09; luz.y += (luz.ty - luz.y) * .09;
+    for (let k = 0; k < 3; k++) luz.cor[k] += (luz.alvoCor[k] - luz.cor[k]) * .06;
+    const G = 22, Q = 2;
+    lc.fillStyle = 'rgba(255,240,225,.055)';
+    for (let y = G / 2; y < LH; y += G) for (let x = G / 2; x < LW; x += G) lc.fillRect(x, y, Q, Q);
+    const R = Math.min(200, Math.max(130, LW * .16));
+    const [r, g, b] = luz.cor.map(Math.round);
+    const x0 = Math.floor((luz.x - R) / G) * G + G / 2, y0 = Math.floor((luz.y - R) / G) * G + G / 2;
+    for (let y = y0; y <= luz.y + R; y += G) for (let x = x0; x <= luz.x + R; x += G) {
+      const d = Math.hypot(x - luz.x, y - luz.y); if (d > R) continue;
+      const k = 1 - d / R, s = Q + k * 2.2;
+      lc.fillStyle = `rgba(${r},${g},${b},${(k * k * .7).toFixed(3)})`;
+      lc.fillRect(x - (s - Q) / 2, y - (s - Q) / 2, s, s);
+    }
+    for (let i = ondas.length - 1; i >= 0; i--) {
+      const o = ondas[i], idade = (t - o.t) / 1000;
+      if (idade > 1.4) { ondas.splice(i, 1); continue; }
+      const raio = idade * 620, faixa = 30, forca = 1 - idade / 1.4;
+      const [orr, og, ob] = o.cor;
+      const xa = Math.max(G / 2, Math.floor((o.x - raio - faixa) / G) * G + G / 2);
+      const ya = Math.max(G / 2, Math.floor((o.y - raio - faixa) / G) * G + G / 2);
+      for (let y = ya; y <= Math.min(LH, o.y + raio + faixa); y += G) for (let x = xa; x <= Math.min(LW, o.x + raio + faixa); x += G) {
+        const d = Math.abs(Math.hypot(x - o.x, y - o.y) - raio); if (d > faixa) continue;
+        const k = (1 - d / faixa) * forca;
+        lc.fillStyle = `rgba(${orr},${og},${ob},${(k * .8).toFixed(3)})`;
+        lc.fillRect(x - .5, y - .5, Q + 1, Q + 1);
+      }
+    }
+  }
+
+  /* ---------- Cartões: inclinação e luz seguindo o mouse ---------- */
+  if (temHover && !reduz) {
+    document.querySelectorAll('.maquina').forEach((el) => {
+      el.addEventListener('pointermove', (e) => {
+        const r = el.getBoundingClientRect();
+        const px = (e.clientX - r.left) / r.width, py = (e.clientY - r.top) / r.height;
+        el.style.setProperty('--mx', `${px * 100}%`); el.style.setProperty('--my', `${py * 100}%`);
+        el.style.setProperty('--ry', `${(px - .5) * 7}deg`); el.style.setProperty('--rx', `${(.5 - py) * 6}deg`);
+      });
+      el.addEventListener('pointerleave', () => { el.style.setProperty('--rx', '0deg'); el.style.setProperty('--ry', '0deg'); });
+    });
+    const trilho = document.querySelector('.trilho');
+    const fab = $('m-fab');
+    fab.addEventListener('pointerenter', () => trilho.getAnimations().forEach((a) => a.updatePlaybackRate(3)));
+    fab.addEventListener('pointerleave', () => trilho.getAnimations().forEach((a) => a.updatePlaybackRate(1)));
+  }
+
+  /* ---------- Fábrica: etapas acendem junto com o vídeo ---------- */
+  const vid = $('vid'), vbarra = $('vbarra'), etapas = [...$('etapas').children];
+  vid.play?.().catch(() => {});
+  function fabrica(t) {
+    let p = vid.duration ? vid.currentTime / vid.duration : ((t - t0) / 7000) % 1;
+    if (!isFinite(p)) p = 0;
+    vbarra.style.width = `${(p * 100).toFixed(1)}%`;
+    const atual = Math.min(etapas.length - 1, Math.floor(p * etapas.length));
+    etapas.forEach((li, i) => { li.classList.toggle('feita', i < atual); li.classList.toggle('agora', i === atual); });
+  }
+
+  /* ---------- Clipador: a live passa, o pico é cortado e vira vídeo vertical ---------- */
+  const cv = $('corte'), cx = cv.getContext('2d'), ncortes = $('ncortes');
+  let CW = 0, CH = 0;
+  function tamanhoCorte() {
+    const r = cv.getBoundingClientRect(), dpr = Math.min(devicePixelRatio || 1, 2);
+    CW = r.width; CH = r.height;
+    cv.width = Math.round(CW * dpr); cv.height = Math.round(CH * dpr);
+    cx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  new ResizeObserver(() => { tamanhoCorte(); ultimoT = 0; desenhaCorte(performance.now()); }).observe(cv);
+
+  const PASSO = 6, VEL = 16; // barras por segundo
+  let barras = [], acum = 0, ultimoT = 0, contador = 0;
+  let pico = null, espera = 1.2, pendente = null, idPico = 0;
+  const voando = [], pilhaClips = [];
+  const base = () => .1 + Math.random() * .14 + (Math.random() < .1 ? Math.random() * .16 : 0);
+  for (let i = 0; i < 120; i++) barras.push({ h: base(), id: 0, cortada: false });
+  pilhaClips.push([.2, .38, .55, .72, .86, .94, .88, .74, .56, .38, .22]); contador = 1; ncortes.textContent = '1';
+
+  function novaBarra() {
+    let h, id = 0;
+    if (pico) {
+      const u = pico.i / pico.len;
+      h = Math.min(.96, .14 + pico.amp * Math.pow(Math.sin(Math.PI * u), .8) * (.82 + Math.random() * .18));
+      id = pico.id; pico.i++;
+      if (pico.i > pico.len) { pendente = { id: pico.id, faltam: 3 }; pico = null; espera = 2.2 + Math.random() * 1.6; }
+    } else h = base();
+    barras.push({ h, id, cortada: false });
+    if (barras.length > 260) barras.shift();
+    if (pendente && --pendente.faltam <= 0) { corta(pendente.id); pendente = null; }
+  }
+
+  const xDe = (j) => CW * .64 - (barras.length - 1 - j) * PASSO - acum * PASSO;
+  const meio = () => CH * .55;
+
+  function corta(id) {
+    const idx = []; barras.forEach((b, j) => { if (b.id === id) idx.push(j); });
+    if (!idx.length) return;
+    const hs = idx.map((j) => barras[j].h);
+    idx.forEach((j) => barras[j].cortada = true);
+    voando.push({ hs, x0: xDe(idx[0]) - 3, x1: xDe(idx[idx.length - 1]) + 7, t: performance.now() });
+  }
+
+  const ease = (x) => 1 - Math.pow(1 - x, 3);
+  function vaga() { const h = CH * .6, w = h * 9 / 16; return { x: CW - w - 16, y: CH * .08, w, h }; }
+
+  function retArred(x, y, w, h, r) { cx.beginPath(); cx.roundRect ? cx.roundRect(x, y, w, h, r) : cx.rect(x, y, w, h); }
+
+  function desenhaClipe(hs, x, y, w, h, alfa, rot) {
+    cx.save(); cx.globalAlpha = alfa;
+    cx.translate(x + w / 2, y + h / 2); cx.rotate(rot); cx.translate(-w / 2, -h / 2);
+    retArred(0, 0, w, h, Math.min(10, w * .14));
+    cx.fillStyle = '#10221a'; cx.fill();
+    cx.lineWidth = 1.5; cx.strokeStyle = 'rgba(61,220,132,.85)'; cx.stroke();
+    cx.save(); retArred(0, 0, w, h, Math.min(10, w * .14)); cx.clip();
+    const n = hs.length, passo = w * .7 / n, bw = passo * .55, my = h * .45;
+    cx.fillStyle = 'rgba(61,220,132,.9)';
+    hs.forEach((v, i) => { const bh = v * h * .55; cx.fillRect(w * .15 + i * passo, my - bh / 2, Math.max(1.5, bw), bh); });
+    cx.fillStyle = 'rgba(246,243,239,.92)';
+    const lw = w * .7; cx.fillRect((w - lw) / 2, h * .76, lw, Math.max(2, h * .035));
+    cx.fillRect((w - lw * .6) / 2, h * .82, lw * .6, Math.max(2, h * .035));
+    cx.restore(); cx.restore();
+  }
+
+  function desenhaCorte(t) {
+    if (!CW) return;
+    const dt = Math.min(.05, (t - (ultimoT || t)) / 1000); ultimoT = t;
+    acum += dt * VEL;
+    while (acum >= 1) { acum -= 1; novaBarra(); }
+    if (!pico && !pendente) { espera -= dt; if (espera <= 0) pico = { id: ++idPico, i: 0, len: 13 + ((Math.random() * 6) | 0), amp: .62 + Math.random() * .2 }; }
+
+    cx.clearRect(0, 0, CW, CH);
+    // grade de tempo
+    cx.fillStyle = 'rgba(255,240,225,.05)';
+    for (let x = CW * .64; x > 0; x -= 48) cx.fillRect(Math.round(x), 0, 1, CH);
+    // barras
+    const my = meio(), alt = CH * .62, cabeca = CW * .64;
+    for (let j = 0; j < barras.length; j++) {
+      const x = xDe(j); if (x < -PASSO) continue;
+      const b = barras[j], h = Math.max(2, b.h * alt);
+      if (b.cortada) { cx.strokeStyle = 'rgba(61,220,132,.28)'; cx.lineWidth = 1; cx.strokeRect(x + .5, my - h / 2 + .5, 3, h - 1); }
+      else { cx.fillStyle = b.id ? 'rgba(61,220,132,.95)' : 'rgba(246,243,239,.26)'; cx.fillRect(x, my - h / 2, 4, h); }
+    }
+    // degradê da esquerda (passado some)
+    const gr = cx.createLinearGradient(0, 0, CW * .22, 0);
+    gr.addColorStop(0, 'rgba(14,13,12,1)'); gr.addColorStop(1, 'rgba(14,13,12,0)');
+    cx.fillStyle = gr; cx.fillRect(0, 0, CW * .22, CH);
+    // cabeça "ao vivo"
+    cx.fillStyle = 'rgba(246,243,239,.8)'; cx.fillRect(cabeca + 6, CH * .14, 1, CH * .78);
+    cx.fillStyle = '#ff453a'; cx.beginPath(); cx.arc(cabeca + 6.5, CH * .14, 3.5, 0, Math.PI * 2); cx.fill();
+    cx.font = '700 10px "JetBrains Mono", ui-monospace, monospace'; cx.fillStyle = 'rgba(246,243,239,.75)';
+    cx.textAlign = 'right'; cx.fillText('AO VIVO', cabeca, CH * .14 + 3.5);
+    if (pico && pico.i > 4) { cx.fillStyle = 'rgba(61,220,132,.95)'; cx.fillText('PICO DE CHAT', cabeca, CH * .92); }
+    cx.textAlign = 'left';
+
+    // pilha de cortes prontos
+    const v = vaga();
+    pilhaClips.forEach((c, i) => {
+      const k = pilhaClips.length - 1 - i;
+      desenhaClipe(c, v.x - k * 13, v.y + k * 5, v.w, v.h, 1 - k * .28, -k * .07);
+    });
+
+    // cortes voando
+    for (let i = voando.length - 1; i >= 0; i--) {
+      const c = voando[i], p = (t - c.t) / 1150;
+      const segH = alt * Math.max(...c.hs) + 10;
+      if (p < .26) {
+        const q = p / .26, ext = (CH * .9) * ease(q) / 2, a = 1 - Math.max(0, q - .7) / .3;
+        cx.fillStyle = `rgba(255,255,255,${a})`;
+        cx.fillRect(c.x0, my - ext, 2, ext * 2); cx.fillRect(c.x1, my - ext, 2, ext * 2);
+        cx.fillStyle = `rgba(61,220,132,${.14 * a})`; cx.fillRect(c.x0, my - segH / 2, c.x1 - c.x0, segH);
+        continue;
+      }
+      const e = ease(Math.min(1, (p - .26) / .74));
+      const x = c.x0 + (v.x - c.x0) * e, y = (my - segH / 2) + (v.y - (my - segH / 2)) * e - Math.sin(e * Math.PI) * CH * .12;
+      const w = (c.x1 - c.x0) + (v.w - (c.x1 - c.x0)) * e, h = segH + (v.h - segH) * e;
+      desenhaClipe(c.hs, x, y, w, h, 1, (1 - e) * .25);
+      if (p >= 1) {
+        voando.splice(i, 1); pilhaClips.push(c.hs); if (pilhaClips.length > 3) pilhaClips.shift();
+        contador++; ncortes.textContent = contador;
+        ncortes.classList.remove('pula'); void ncortes.offsetWidth; ncortes.classList.add('pula');
+      }
+    }
+  }
+
+  // Sem movimento: um quadro parado já com um corte na pilha
+  let clipVisivel = true;
+  new IntersectionObserver(([e]) => { clipVisivel = e.isIntersecting; }).observe(cv);
+
+  if (reduz) {
+    const parado = () => {
+      tamanhoCorte();
+      contador = 1; ncortes.textContent = '1';
+      ultimoT = 0; desenhaCorte(performance.now());
+      desenhaLed(performance.now()); timecode(performance.now());
+    };
+    requestAnimationFrame(parado); addEventListener('resize', parado);
+    return;
+  }
+
+  function quadro(t) {
+    timecode(t);
+    desenhaLed(t);
+    fabrica(t);
+    if (clipVisivel) desenhaCorte(t); else ultimoT = t;
+    requestAnimationFrame(quadro);
+  }
+  requestAnimationFrame(quadro);
+})();
+</script>

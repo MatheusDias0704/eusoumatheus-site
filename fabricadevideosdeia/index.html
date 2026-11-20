@@ -1,0 +1,1195 @@
+<!doctype html>
+<html lang="pt-BR">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta property="og:title" content="Fábrica de Vídeos IA">
+<meta property="og:description" content="Vídeos 100% feitos com IA, do roteiro à postagem.">
+<meta property="og:image" content="https://eusoumatheus.com.br/fabricadevideosdeia/midia/caim-abel-poster.jpg">
+<meta property="og:url" content="https://eusoumatheus.com.br/fabricadevideosdeia/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<title>Fábrica de Vídeos IA</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..700&display=swap">
+<style>
+/* Direção: chão de fábrica à noite, com a luz das lâmpadas da linha
+   (laranja = em produção, verde = aprovado, vermelho = reprovado).
+   Tipo: a fonte do sistema da Apple (SF Pro) no iPhone e no Mac; Inter nos outros aparelhos.
+   Layout: celular primeiro; o momento é a linha de produção presa na tela enquanto as etapas rolam.
+   Visual escuro único, por escolha (a página abre dentro do Instagram). */
+:root {
+  color-scheme: dark;
+  --chao: #08080a;
+  --chapa: #141416;
+  --chapa-2: #1c1c1f;
+  --fio: rgba(255, 255, 255, .08);
+  --fio-forte: rgba(255, 255, 255, .16);
+  --tinta: #f5f5f7;
+  --tinta-2: #a1a1a6;
+  --tinta-3: #8e8e93;
+  --laranja: #ff7a1a;
+  --laranja-claro: #ff9a4d;
+  --laranja-fundo: rgba(255, 122, 26, .14);
+  --verde: #30d158;
+  --verde-fundo: rgba(48, 209, 88, .14);
+  --vermelho: #ff453a;
+  --vermelho-fundo: rgba(255, 69, 58, .14);
+  --sobre-laranja: #1a0a00;
+
+  --f: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter", "Helvetica Neue", Arial, sans-serif;
+  --f-tempo: ui-monospace, "SF Mono", SFMono-Regular, Menlo, monospace;
+
+  --r-s: 10px; --r-m: 16px; --r-l: 28px;
+  --suave: cubic-bezier(.22, 1, .36, 1);
+  --barra-h: 76px;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scrollbar-color: var(--fio-forte) var(--chao); }
+body {
+  background: var(--chao); color: var(--tinta);
+  font: 400 17px/1.5 var(--f); letter-spacing: -.011em;
+  -webkit-font-smoothing: antialiased;
+  padding-bottom: calc(var(--barra-h) + env(safe-area-inset-bottom, 0px));
+  overflow-x: clip;
+}
+::selection { background: var(--laranja); color: var(--sobre-laranja); }
+:focus-visible { outline: 2px solid var(--laranja); outline-offset: 3px; border-radius: 8px; }
+img, video { max-width: 100%; display: block; }
+.tab { font-variant-numeric: tabular-nums; }
+
+.faixa { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.miolo { max-width: 1120px; margin: 0 auto; }
+
+/* barra de progresso da leitura */
+.lido { position: fixed; left: 0; right: 0; top: 0; height: 2px; z-index: 40; background: var(--laranja); transform-origin: left; transform: scaleX(0); pointer-events: none; }
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .lido { animation: ler linear both; animation-timeline: scroll(root); }
+    @keyframes ler { to { transform: scaleX(1); } }
+  }
+}
+
+/* ---------- topo ---------- */
+.topo { padding-block: 16px; position: relative; z-index: 2; }
+.topo .miolo { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.marca { display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 16px; letter-spacing: -.02em; }
+.lampada { position: relative; width: 9px; height: 9px; border-radius: 50%; background: var(--laranja); flex: none; }
+.lampada::after { content: ""; position: absolute; inset: -4px; border-radius: 50%; background: currentColor; color: var(--laranja); opacity: .22; }
+.lampada.verde { background: var(--verde); }
+.lampada.verde::after { color: var(--verde); }
+.topo .entrar { font-size: 15px; font-weight: 500; color: var(--tinta-2); text-decoration: none; transition: color .2s; }
+.topo .entrar:hover { color: var(--tinta); }
+
+/* ---------- hero ---------- */
+.hero { position: relative; padding-block: 8px 64px; isolation: isolate; overflow-x: clip; }
+.hero::before {
+  /* a luz da lâmpada da fábrica, vindo de cima */
+  content: ""; position: absolute; z-index: -1; pointer-events: none;
+  left: 50%; top: -220px; width: 900px; height: 760px; transform: translateX(-50%);
+  background: radial-gradient(closest-side, rgba(255, 122, 26, .30), rgba(255, 122, 26, .10) 45%, transparent 75%);
+}
+@media (prefers-reduced-motion: no-preference) {
+}
+.hero .miolo { display: grid; gap: 26px; grid-template-areas: "texto" "tela" "acao"; }
+.hero-texto { grid-area: texto; }
+.hero-acao { grid-area: acao; }
+.tela-wrap { grid-area: tela; justify-self: center; width: min(82%, 360px); }
+
+.hero h1 { font-weight: 700; font-size: clamp(40px, 11vw, 88px); line-height: 1.0; letter-spacing: -.045em; margin: 0; text-wrap: balance; }
+.hero h1 .cor { color: var(--laranja); }
+.hero h1 .p { display: inline-block; }
+@media (prefers-reduced-motion: no-preference) {
+  .hero h1 .p { animation: palavra .9s var(--suave) both; animation-delay: calc(var(--i) * 60ms + 80ms); }
+  @keyframes palavra { from { opacity: .08; transform: translateY(.35em); filter: blur(8px); } }
+}
+.fonte-dado { display: flex; align-items: flex-start; gap: 10px; margin-top: 16px; color: var(--tinta-2); font-size: 14px; line-height: 1.4; }
+.fonte-dado .lampada { margin-top: 5px; }
+.fonte-dado b { color: var(--tinta); font-weight: 600; }
+.hero .sub { font-size: clamp(18px, 2.3vw, 21px); line-height: 1.45; color: var(--tinta-2); max-width: 32ch; margin: 0; letter-spacing: -.015em; }
+.hero .sub b { color: var(--tinta); font-weight: 600; }
+.acoes { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 18px; margin-top: 24px; }
+
+.botao {
+  position: relative; overflow: hidden; isolation: isolate;
+  appearance: none; border: 0; cursor: pointer; text-decoration: none;
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  min-height: 56px; padding: 0 28px; border-radius: 999px;
+  background: var(--laranja); color: var(--sobre-laranja);
+  font: 600 17px/1 var(--f); letter-spacing: -.01em;
+  box-shadow: 0 10px 30px -10px rgba(255, 122, 26, .55);
+  transition: background-color .25s var(--suave), transform .2s var(--suave), box-shadow .25s var(--suave);
+}
+.botao::after {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(105deg, transparent 35%, rgba(255,255,255,.45) 50%, transparent 65%);
+  transform: translateX(-120%);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .botao.brilha::after { animation: brilho 4.5s var(--suave) 1.2s infinite; }
+  @keyframes brilho { 0% { transform: translateX(-120%); } 30%, 100% { transform: translateX(120%); } }
+}
+.botao:hover { background: var(--laranja-claro); transform: translateY(-1px); box-shadow: 0 14px 34px -10px rgba(255, 122, 26, .7); }
+.botao:active { transform: scale(.97); }
+.botao svg { width: 18px; height: 18px; transition: transform .3s var(--suave); }
+.botao:hover svg { transform: translateX(4px); }
+.preco-solto { font-size: 15px; color: var(--tinta-2); }
+.preco-solto b { color: var(--tinta); font-weight: 600; }
+
+/* tela do vídeo */
+.tela {
+  position: relative; width: 100%; aspect-ratio: 9 / 16;
+  border-radius: 34px; overflow: hidden; background: var(--chapa);
+  border: 1px solid var(--fio-forte);
+  box-shadow: 0 40px 80px -30px rgba(0,0,0,.9), 0 0 0 8px rgba(255,255,255,.03);
+  transform-origin: 50% 0;
+}
+.tela video { width: 100%; height: 100%; object-fit: cover; }
+.ouvir {
+  position: absolute; left: 12px; right: 12px; bottom: 30%;
+  display: flex; align-items: center; gap: 12px; min-height: 60px; padding: 10px 16px;
+  border: 0; border-radius: 20px; cursor: pointer; text-align: left;
+  background: var(--laranja); color: var(--sobre-laranja);
+  font: 700 16px/1.2 var(--f); letter-spacing: -.01em;
+  transition: background-color .25s var(--suave), transform .2s var(--suave), bottom .6s var(--suave);
+  box-shadow: 0 16px 40px -12px rgba(0,0,0,.8);
+}
+.ouvir.tocando { bottom: 12px; background: rgba(8,8,10,.88); color: var(--tinta); }
+.ouvir:active { transform: scale(.98); }
+.ouvir svg { width: 28px; height: 28px; flex: none; }
+.ouvir small { display: block; font-weight: 500; font-size: 13px; opacity: .78; margin-top: 2px; }
+@media (prefers-reduced-motion: no-preference) {
+  .ouvir:not(.tocando) svg { animation: chamar 1.6s var(--suave) infinite; }
+  @keyframes chamar { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.12); } }
+}
+.tela .progresso { position: absolute; left: 0; right: 0; top: 0; height: 3px; background: rgba(255,255,255,.14); }
+.tela .progresso i { display: block; height: 100%; width: 100%; background: var(--laranja); transform-origin: left; transform: scaleX(0); }
+
+@media (min-width: 900px) {
+  .hero { padding-block: 32px 96px; }
+  .hero .miolo { grid-template-columns: minmax(0, 1.3fr) minmax(0, .7fr); grid-template-areas: "texto tela" "acao tela"; column-gap: 64px; row-gap: 28px; align-items: end; }
+  .hero h1 { font-size: clamp(52px, 4.8vw, 70px); }
+  .tela-wrap { align-self: center; }
+  .hero-acao { align-self: start; }
+  .tela-wrap { justify-self: end; }
+}
+
+/* ---------- esteira de capas ---------- */
+.esteira { padding-block: 22px; overflow: hidden; position: relative; border-block: 1px solid var(--fio); }
+.esteira .rotulo { display: flex; align-items: center; gap: 10px; color: var(--tinta-2); font-size: 15px; margin-bottom: 16px; }
+.trilho { display: flex; gap: 12px; width: max-content; }
+.trilho img { width: 120px; aspect-ratio: 9/16; object-fit: cover; border-radius: 14px; border: 1px solid var(--fio); }
+@media (prefers-reduced-motion: no-preference) {
+  .trilho { animation: correr 40s linear infinite; }
+  .esteira.parada .trilho, .esteira:hover .trilho { animation-play-state: paused; }
+  @keyframes correr { to { transform: translateX(-50%); } }
+}
+.esteira::before, .esteira::after { content: ""; position: absolute; top: 0; bottom: 0; width: 48px; z-index: 1; pointer-events: none; }
+.esteira::before { left: 0; background: linear-gradient(90deg, var(--chao), transparent); }
+.esteira::after { right: 0; background: linear-gradient(-90deg, var(--chao), transparent); }
+
+/* ---------- títulos de seção ---------- */
+.secao { padding-block: 80px; }
+.secao h2 { font-weight: 700; font-size: clamp(34px, 7.4vw, 60px); line-height: 1.04; letter-spacing: -.04em; margin: 0; text-wrap: balance; max-width: 17ch; }
+.secao .lead { color: var(--tinta-2); font-size: 19px; line-height: 1.45; max-width: 40ch; margin: 16px 0 0; letter-spacing: -.015em; }
+/* palavras que acendem conforme a leitura */
+.acende .w { color: var(--tinta); }
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .acende .w { animation: acender linear both; animation-timeline: view(); animation-range: entry 60% cover 42%; }
+    @keyframes acender { from { opacity: .16; } }
+  }
+}
+
+/* ---------- a linha de produção ---------- */
+.linha .miolo { display: grid; gap: 28px; }
+.palco-col { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 10px); z-index: 3; align-self: start; }
+.palco-col::before { content: ""; position: absolute; inset: -10px -16px -26px; background: linear-gradient(var(--chao) 84%, transparent); z-index: -1; }
+.palco {
+  --palco-h: max(300px, min(48svh, 420px));
+  --cena-h: calc(var(--palco-h) - 112px);
+  position: relative; height: var(--palco-h);
+  background: var(--chapa); border: 1px solid var(--fio-forte); border-radius: var(--r-l); overflow: hidden;
+  box-shadow: 0 30px 60px -30px rgba(0,0,0,.9);
+}
+.palco::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 0;
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 0%), rgba(255,122,26,.10), transparent 60%);
+}
+.trilha-linha { position: relative; z-index: 1; padding: 14px 16px 0; }
+.trilha-linha .barra-total { position: relative; height: 4px; border-radius: 2px; background: var(--fio-forte); overflow: hidden; }
+.trilha-linha .barra-total i { position: absolute; inset: 0; background: var(--laranja); transform-origin: left; transform: scaleX(var(--prog, .06)); transition: transform .5s var(--suave); }
+.trilha-linha .marcos { display: grid; grid-template-columns: repeat(8, 1fr); margin-top: 8px; }
+.trilha-linha .marcos span { font-size: 11px; font-weight: 600; color: var(--tinta-3); text-align: center; transition: color .3s; font-variant-numeric: tabular-nums; }
+.trilha-linha .marcos span.feita { color: var(--tinta-2); }
+.trilha-linha .marcos span.agora { color: var(--laranja); }
+.estado-linha { position: relative; z-index: 1; display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 16px 0; font-size: 14px; color: var(--tinta-2); }
+.estado-linha .qual { display: flex; align-items: center; gap: 10px; color: var(--tinta); font-weight: 600; }
+.estado-linha .quem { font-size: 13px; padding: 4px 10px; border-radius: 999px; background: var(--chapa-2); }
+.estado-linha .quem.voce { color: var(--laranja); background: var(--laranja-fundo); }
+
+.cenas { position: absolute; inset: 82px 0 0; z-index: 1; }
+.cena { position: absolute; inset: 0; padding: 14px 16px; display: grid; place-items: center; opacity: 0; visibility: hidden; transform: translateY(14px) scale(.98); transition: opacity .45s var(--suave), transform .55s var(--suave), visibility 0s linear .55s; pointer-events: none; }
+.cena.ativa { opacity: 1; visibility: visible; transform: none; transition: opacity .45s var(--suave), transform .55s var(--suave), visibility 0s; pointer-events: auto; }
+
+/* cena 1: tema */
+.campo { width: min(100%, 420px); display: grid; gap: 12px; }
+.campo label { font-size: 14px; color: var(--tinta-2); }
+.campo .caixa { min-height: 80px; padding: 16px 18px; border-radius: var(--r-m); background: var(--chao); border: 1px solid rgba(255,122,26,.45); box-shadow: 0 0 0 4px var(--laranja-fundo); font-size: 19px; font-weight: 500; line-height: 1.35; letter-spacing: -.02em; }
+.caret { display: inline-block; width: 2px; height: 1.1em; background: var(--laranja); vertical-align: -3px; margin-left: 2px; border-radius: 1px; }
+@media (prefers-reduced-motion: no-preference) { .caret { animation: piscar 1s steps(1) infinite; } @keyframes piscar { 50% { opacity: 0; } } }
+.campo .fazer { justify-self: start; min-height: 44px; padding: 0 20px; font-size: 15px; box-shadow: none; }
+
+/* cena 2 e 3: roteiro e conferência */
+.folha { width: min(100%, 440px); display: grid; gap: 10px; }
+.fala { display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; align-items: start; padding: 12px 14px; border-radius: var(--r-s); background: var(--chao); border: 1px solid var(--fio); font-size: 15px; line-height: 1.4; letter-spacing: -.01em; }
+.fala .tc { font: 500 12px/1.7 var(--f-tempo); color: var(--tinta-3); }
+.fala .ref { grid-column: 2; font-size: 12px; font-weight: 600; color: var(--tinta-2); }
+.fala.gancho { border-color: rgba(255,122,26,.5); background: linear-gradient(var(--laranja-fundo), var(--laranja-fundo)), var(--chao); }
+.fala.gancho .tc, .fala.gancho .ref { color: var(--laranja); }
+.cena[data-n="2"] .fala { opacity: 0; transform: translateY(8px); transition: opacity .5s var(--suave), transform .5s var(--suave); }
+.cena[data-n="2"].ativa .fala { opacity: 1; transform: none; }
+.cena[data-n="2"].ativa .fala:nth-child(2) { transition-delay: .2s; }
+.cena[data-n="2"].ativa .fala:nth-child(3) { transition-delay: .4s; }
+.conf { grid-column: 2; font-size: 12px; font-weight: 600; transition: color .3s; }
+.conf.ok { color: var(--verde); }
+.conf.nao { color: var(--vermelho); }
+.fala.reprovada { border-color: rgba(255,69,58,.5); background: linear-gradient(var(--vermelho-fundo), var(--vermelho-fundo)), var(--chao); }
+.fala.aprovada { border-color: rgba(48,209,88,.45); }
+@media (prefers-reduced-motion: no-preference) {
+  .fala.reprovada { animation: tremer .4s var(--suave); }
+  @keyframes tremer { 20% { transform: translateX(-5px); } 40% { transform: translateX(5px); } 60% { transform: translateX(-3px); } 80% { transform: translateX(2px); } }
+}
+.carimbo {
+  position: absolute; right: 18px; bottom: 16px; padding: 8px 14px; border: 2.5px solid currentColor; border-radius: 8px;
+  font-weight: 800; font-size: 18px; letter-spacing: .06em; transform: rotate(-9deg) scale(1.8); opacity: 0;
+  transition: transform .35s cubic-bezier(.3,1.5,.5,1), opacity .2s;
+}
+.carimbo.verde { color: var(--verde); background: rgba(8,8,10,.75); }
+.carimbo.bateu { transform: rotate(-9deg) scale(1); opacity: 1; }
+
+/* cena 4: voz */
+.voz { width: min(100%, 440px); display: grid; gap: 18px; }
+.onda { display: flex; align-items: center; gap: 3px; height: 96px; }
+.onda i { flex: 1; min-width: 2px; border-radius: 3px; background: linear-gradient(var(--laranja-claro), var(--laranja)); height: calc(var(--h) * 1%); transform-origin: center; }
+@media (prefers-reduced-motion: no-preference) {
+  .cena.ativa .onda i { animation: falar 1s ease-in-out infinite alternate; animation-delay: calc(var(--i) * -71ms); }
+  @keyframes falar { from { transform: scaleY(.2); } to { transform: scaleY(1); } }
+}
+.palavras { display: flex; flex-wrap: wrap; gap: 4px 9px; font-weight: 700; font-size: 26px; letter-spacing: -.035em; }
+.palavras span { color: rgba(245,245,247,.2); transition: color .25s var(--suave); }
+.palavras span.dita { color: var(--tinta); }
+.voz .dado { font-size: 13px; color: var(--tinta-2); display: flex; justify-content: space-between; }
+.voz .dado .tc { font-family: var(--f-tempo); }
+
+/* cena 5 e 6: cenas e animação */
+.quadro { position: relative; height: var(--cena-h); width: auto; aspect-ratio: 9/16; max-width: 100%; flex: none; border-radius: var(--r-m); overflow: hidden; border: 1px solid var(--fio-forte); background: var(--chao); }
+.quadro img { width: 100%; height: 100%; object-fit: cover; }
+.quadro .etq { position: absolute; left: 8px; bottom: 8px; padding: 5px 9px; border-radius: 999px; background: rgba(8,8,10,.86); font-size: 11px; font-weight: 600; color: var(--tinta); }
+.varredura img { clip-path: inset(0 0 100% 0); }
+.cena.ativa .varredura img { clip-path: inset(0 0 0 0); transition: clip-path 1.5s var(--suave) .15s; }
+.varredura .scan { position: absolute; left: 0; right: 0; top: 0; height: 2px; background: var(--laranja); box-shadow: 0 0 14px 2px rgba(255,122,26,.7); opacity: 0; }
+@media (prefers-reduced-motion: no-preference) {
+  .cena.ativa .varredura .scan { animation: scan 1.5s var(--suave) .15s both; }
+  @keyframes scan { 0% { top: 0; opacity: 1; } 92% { opacity: 1; } 100% { top: 100%; opacity: 0; } }
+  .cena.ativa .vivo img { animation: camera 7s ease-in-out infinite alternate; }
+  @keyframes camera { from { transform: scale(1.02); } to { transform: scale(1.16) translate(-3%, -2%); } }
+}
+.montagem, .cortes, .aprovar { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 14px; width: min(100%, 500px); align-items: center; }
+.pistas { display: grid; align-content: center; gap: 9px; min-width: 0; }
+.pista { display: grid; grid-template-columns: 58px 1fr; align-items: center; gap: 8px; font-size: 11px; font-weight: 600; color: var(--tinta-2); }
+.pista .tr { position: relative; height: 18px; border-radius: 5px; background: var(--chao); overflow: hidden; }
+.pista .tr b { position: absolute; top: 3px; bottom: 3px; border-radius: 3px; background: rgba(255,255,255,.2); }
+.pista.som .tr b { background: var(--laranja); width: 5px; }
+.pista.musica .tr b { background: rgba(255,122,26,.35); }
+.cabeca { position: absolute; top: 0; bottom: 0; width: 2px; background: var(--tinta); left: 0; }
+@media (prefers-reduced-motion: no-preference) {
+  .cena.ativa .cabeca { animation: tocar 6s linear infinite; }
+  @keyframes tocar { to { left: 100%; } }
+}
+.formatos { display: grid; gap: 8px; min-width: 0; }
+.formato { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 11px 13px; border-radius: var(--r-s); background: var(--chao); border: 1px solid var(--fio); font-size: 15px; font-weight: 600; opacity: 0; transform: translateX(14px); transition: opacity .45s var(--suave), transform .45s var(--suave), border-color .3s; }
+.formato .dado { font-size: 12px; font-weight: 500; color: var(--tinta-2); }
+.formato .ok { width: 18px; height: 18px; color: var(--verde); flex: none; }
+.cena.ativa .formato { opacity: 1; transform: none; }
+.cena.ativa .formato:nth-child(2) { transition-delay: .15s; }
+.cena.ativa .formato:nth-child(3) { transition-delay: .3s; }
+.cena.ativa .formato:nth-child(4) { transition-delay: .45s; }
+
+/* cena 8: aprovar */
+.aprovar .lado { display: grid; gap: 12px; min-width: 0; }
+.aprovar .esperando { display: none; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; color: var(--tinta-2); }
+.segurar {
+  position: relative; overflow: hidden; isolation: isolate;
+  appearance: none; border: 1.5px solid var(--verde); border-radius: var(--r-m); cursor: pointer;
+  min-height: 64px; padding: 8px 14px; background: var(--verde-fundo); color: var(--tinta);
+  font: 700 16px/1.2 var(--f); letter-spacing: -.01em; text-align: center; touch-action: none; user-select: none; -webkit-user-select: none;
+  transition: transform .2s var(--suave);
+}
+.segurar::before { content: ""; position: absolute; inset: 0; z-index: -1; background: var(--verde); transform-origin: left; transform: scaleX(var(--p, 0)); }
+.segurar.cheio { color: #021a08; }
+.segurar:active { transform: scale(.97); }
+.segurar small { display: block; font-weight: 500; font-size: 12px; opacity: .75; margin-top: 2px; }
+.programado { font-size: 14px; color: var(--tinta-2); min-height: 2.8em; margin: 0; }
+.programado b { color: var(--verde); font-weight: 700; }
+.quadro .selo { position: absolute; inset: 0; display: grid; place-items: center; background: rgba(8,8,10,.45); opacity: 0; transition: opacity .3s; }
+.quadro .selo span { padding: 8px 14px; border: 3px solid var(--verde); border-radius: 10px; color: var(--verde); font-weight: 800; font-size: 20px; letter-spacing: .06em; background: rgba(8,8,10,.6); transform: rotate(-10deg) scale(2); opacity: 0; transition: transform .4s cubic-bezier(.3,1.5,.5,1), opacity .2s; }
+.quadro.aprovado .selo { opacity: 1; }
+.quadro.aprovado .selo span { transform: rotate(-10deg) scale(1); opacity: 1; }
+
+/* passos que rolam */
+.passos { display: grid; }
+.passo { min-height: 34svh; padding-block: 20px; display: grid; align-content: start; gap: 10px; opacity: .3; transform: translateX(-6px); transition: opacity .45s var(--suave), transform .45s var(--suave); }
+.passo.agora { opacity: 1; transform: none; }
+.passo .quem { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 500; color: var(--tinta-2); }
+.passo .quem.voce { color: var(--laranja); }
+.passo h3 { margin: 0; font-weight: 700; font-size: clamp(28px, 6vw, 42px); line-height: 1.05; letter-spacing: -.04em; }
+.passo h3 .n { font-weight: 600; color: var(--tinta-3); font-size: .55em; margin-right: 10px; vertical-align: .22em; font-variant-numeric: tabular-nums; letter-spacing: 0; }
+.passo p { margin: 0; color: var(--tinta-2); font-size: 18px; line-height: 1.45; max-width: 36ch; letter-spacing: -.015em; }
+.passo:first-child { padding-top: 8px; }
+.passo:last-child { min-height: 32svh; }
+
+@media (min-width: 900px) {
+  .linha .miolo { grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 64px; align-items: start; }
+  .linha .cabeca-secao { grid-column: 1 / -1; }
+  .palco-col { grid-column: 2; grid-row: 2; top: calc(50svh - 240px); }
+  .palco-col::before { display: none; }
+  .palco { --palco-h: 480px; }
+  .passos { grid-column: 1; grid-row: 2; }
+  .passo { min-height: 54svh; align-content: center; }
+}
+
+/* ---------- números ---------- */
+.placar { display: grid; margin-top: 44px; border-top: 1px solid var(--fio-forte); }
+.placar .item { display: grid; gap: 6px 24px; padding-block: 22px; border-bottom: 1px solid var(--fio); align-items: baseline; }
+.placar .valor { font-weight: 700; font-size: clamp(34px, 8.6vw, 60px); line-height: 1; letter-spacing: -.04em; display: flex; align-items: baseline; white-space: nowrap; overflow: hidden; font-variant-numeric: tabular-nums; padding-block: .06em; }
+.placar .item.grande .valor { font-size: clamp(44px, 12.6vw, 116px); color: var(--laranja); }
+.placar .item.dinheiro .valor { color: var(--verde); }
+.placar .o-que { font-size: 18px; font-weight: 500; color: var(--tinta); letter-spacing: -.015em; }
+.placar .de { font-size: 14px; color: var(--tinta-2); }
+@media (min-width: 900px) {
+  .placar .item { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); }
+  .placar .legenda { align-self: center; }
+}
+.rolo { display: inline-block; height: 1em; line-height: 1; overflow: hidden; vertical-align: top; }
+.rolo > span { display: block; transform: translateY(calc(var(--d) * -1em)); }
+.rolo > span > b { display: block; height: 1em; font-weight: inherit; }
+.rolo.anima > span { transition: transform 1.8s var(--suave); transition-delay: calc(var(--k) * 50ms); }
+.sep { display: inline-block; }
+
+.prints { margin-top: 56px; }
+.prints .topo-prints { display: flex; align-items: end; justify-content: space-between; gap: 16px; margin-bottom: 18px; }
+.prints h3 { margin: 0; font-weight: 700; font-size: 26px; letter-spacing: -.03em; }
+.setas { display: flex; gap: 8px; }
+.seta { width: 46px; height: 46px; border-radius: 50%; border: 1px solid var(--fio-forte); background: var(--chapa); color: var(--tinta); cursor: pointer; display: grid; place-items: center; transition: background-color .2s, transform .2s var(--suave); }
+.seta:hover { background: var(--chapa-2); }
+.seta:active { transform: scale(.94); }
+.seta svg { width: 18px; height: 18px; }
+.carrossel { display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 12px; scrollbar-width: none; overscroll-behavior-x: contain; }
+.carrossel::-webkit-scrollbar { display: none; }
+.print { flex: 0 0 min(86%, 540px); scroll-snap-align: center; margin: 0; display: grid; gap: 10px; }
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .print { animation: foco linear both; animation-timeline: view(inline); }
+    @keyframes foco { 0%, 100% { transform: scale(.9); opacity: .45; } 40%, 60% { transform: none; opacity: 1; } }
+  }
+}
+.print button { padding: 0; border: 1px solid var(--fio-forte); border-radius: var(--r-m); overflow: hidden; background: #000; cursor: zoom-in; display: block; }
+.print img { width: 100%; height: 240px; object-fit: contain; }
+.print figcaption { font-size: 15px; color: var(--tinta-2); }
+.print figcaption b { color: var(--tinta); font-weight: 600; }
+.aviso { margin-top: 22px; font-size: 13px; color: var(--tinta-3); max-width: 62ch; }
+
+dialog.zoom { border: 0; padding: 0; background: transparent; max-width: min(96vw, 1400px); max-height: 92vh; }
+dialog.zoom::backdrop { background: rgba(0,0,0,.9); }
+dialog.zoom img { max-height: 86vh; width: auto; border-radius: var(--r-m); }
+dialog.zoom .fechar { position: absolute; top: 10px; right: 10px; }
+@media (prefers-reduced-motion: no-preference) {
+  dialog.zoom[open] { animation: abrir .35s var(--suave); }
+  @keyframes abrir { from { opacity: 0; transform: scale(.94); } }
+}
+
+/* ---------- duas coisas ---------- */
+.duas { display: grid; gap: 14px; margin-top: 40px; }
+.coisa { position: relative; overflow: hidden; display: grid; grid-template-columns: auto 1fr; gap: 6px 20px; padding: 28px; border-radius: var(--r-l); background: var(--chapa); border: 1px solid var(--fio); }
+.coisa::before, .cartao::before { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(360px circle at var(--mx, -100px) var(--my, -100px), rgba(255,122,26,.13), transparent 60%); }
+.coisa .n { grid-row: span 2; font-weight: 700; font-size: 52px; line-height: 1; letter-spacing: -.04em; color: var(--laranja); }
+.coisa h3 { margin: 0; font-weight: 700; font-size: 26px; letter-spacing: -.03em; }
+.coisa p { margin: 0; color: var(--tinta-2); }
+@media (min-width: 760px) { .duas { grid-template-columns: 1fr 1fr; } }
+
+/* ---------- oferta ---------- */
+.oferta .cartao { position: relative; overflow: hidden; margin-top: 40px; display: grid; gap: 28px; padding: clamp(24px, 4vw, 48px); border-radius: var(--r-l); background: var(--chapa); border: 1px solid rgba(255,122,26,.35); box-shadow: 0 40px 90px -40px rgba(255,122,26,.35); }
+.oferta .preco { display: flex; align-items: baseline; gap: 8px; }
+.oferta .preco .rs { font-weight: 600; font-size: 24px; color: var(--tinta-2); }
+.oferta .preco .v { font-weight: 700; font-size: clamp(64px, 16vw, 104px); line-height: 1; letter-spacing: -.05em; font-variant-numeric: tabular-nums; }
+.lista { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+.lista li { display: grid; grid-template-columns: 24px 1fr; gap: 12px; align-items: start; font-size: 18px; letter-spacing: -.015em; }
+.lista svg { width: 22px; height: 22px; color: var(--verde); margin-top: 2px; }
+@media (min-width: 900px) { .oferta .cartao { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; } }
+.oferta .botao { width: 100%; min-height: 62px; font-size: 18px; }
+.nota { font-size: 14px; color: var(--tinta-2); margin: 6px 0 22px; }
+
+.rodape { padding-block: 40px 32px; border-top: 1px solid var(--fio); color: var(--tinta-3); font-size: 13px; }
+
+/* ---------- barra de compra ---------- */
+.barra {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 20;
+  padding: 10px max(16px, env(safe-area-inset-right, 0px)) calc(10px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));
+  background: rgba(8,8,10,.95);
+  border-top: 1px solid var(--fio-forte);
+  transition: transform .5s var(--suave);
+}
+.barra.escondida { transform: translateY(110%); }
+.barra .miolo { display: flex; align-items: center; justify-content: space-between; gap: 14px; }
+.barra .p { display: grid; line-height: 1.15; }
+.barra .p b { font-weight: 700; font-size: 22px; letter-spacing: -.03em; }
+.barra .p small { color: var(--tinta-2); font-size: 13px; }
+.barra .botao { min-height: 52px; padding: 0 22px; font-size: 16px; }
+
+.aviso-link { position: fixed; left: 50%; bottom: calc(var(--barra-h) + 18px + env(safe-area-inset-bottom, 0px)); transform: translate(-50%, 10px); z-index: 30; padding: 12px 16px; border-radius: var(--r-m); background: var(--chapa-2); border: 1px solid var(--fio-forte); font-size: 15px; opacity: 0; pointer-events: none; transition: opacity .25s, transform .35s var(--suave); width: max-content; max-width: calc(100vw - 32px); }
+.aviso-link.ver { opacity: 1; transform: translate(-50%, 0); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .cena, .formato, .cena[data-n="2"] .fala, .passo, .barra { transition: none; }
+  .varredura img { clip-path: none; }
+}
+
+/* ---------- persuasão por dobra ---------- */
+.pra-quem-topo { margin: 0 0 14px; font-size: 15px; font-weight: 600; color: var(--laranja); }
+.bonus-h1 { margin: 14px 0 0; font-size: clamp(19px, 2.6vw, 24px); font-weight: 600; letter-spacing: -.02em; color: var(--tinta); }
+.bonus-h1::first-letter { color: var(--tinta-3); }
+.trio { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-top: 22px; }
+.trio div { display: grid; gap: 2px; padding: 12px; border-radius: var(--r-m); background: var(--chapa); border: 1px solid var(--fio); }
+.trio b { font-size: 20px; font-weight: 700; letter-spacing: -.03em; color: var(--tinta); }
+.trio span { font-size: 13px; color: var(--tinta-2); line-height: 1.3; }
+.micro { display: flex; flex-wrap: wrap; gap: 4px 14px; margin: 0; font-size: 13px; color: var(--tinta-2); }
+.micro span { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+.micro span::before { content: "✓"; color: var(--verde); font-weight: 700; }
+.micro-centro { justify-content: center; margin-top: 12px; }
+
+.chamada { padding-block: 40px; }
+.chamada-in { display: grid; gap: 18px; padding: clamp(22px, 4vw, 36px); border-radius: var(--r-l); background: linear-gradient(135deg, rgba(255,122,26,.16), rgba(255,122,26,.04)); border: 1px solid rgba(255,122,26,.28); }
+.chamada-frase { margin: 0; font-size: clamp(22px, 4.4vw, 32px); font-weight: 700; line-height: 1.15; letter-spacing: -.035em; text-wrap: balance; max-width: 26ch; }
+.chamada-acao { display: grid; gap: 12px; justify-items: start; }
+@media (min-width: 900px) { .chamada-in { grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 32px; } .chamada-acao { justify-items: end; } }
+
+.janela { list-style: none; margin: 36px 0 0; padding: 0; display: grid; gap: 12px; counter-reset: j; }
+.janela li { position: relative; display: grid; gap: 4px; padding: 18px 20px; border-radius: var(--r-m); background: var(--chapa); border: 1px solid var(--fio); color: var(--tinta-2); }
+.janela li b { font-size: 21px; font-weight: 700; letter-spacing: -.03em; color: var(--tinta); }
+.janela .marco { font-size: 13px; font-weight: 600; color: var(--tinta-3); }
+.janela li.aqui { border-color: rgba(255,122,26,.55); background: linear-gradient(var(--laranja-fundo), var(--laranja-fundo)), var(--chapa); }
+.janela li.aqui .marco { color: var(--laranja); }
+@media (min-width: 760px) { .janela { grid-template-columns: repeat(3, 1fr); } }
+.enquanto { margin-top: 28px; }
+.enquanto-titulo { margin: 0 0 10px; font-weight: 600; }
+.enquanto ul { margin: 0; padding-left: 20px; color: var(--tinta-2); display: grid; gap: 6px; }
+
+.tabela-wrap { margin-top: 36px; overflow-x: auto; }
+.compara { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 16px; }
+.compara th { text-align: left; font-size: 14px; font-weight: 600; color: var(--tinta-2); padding: 0 14px 12px; }
+.compara th:last-child { color: var(--laranja); }
+.compara td { vertical-align: top; padding: 14px; border-top: 1px solid var(--fio); width: 50%; line-height: 1.4; }
+.compara td:first-child { color: var(--tinta-2); }
+.compara td:last-child { background: var(--laranja-fundo); color: var(--tinta); font-weight: 500; }
+.compara tr:first-child td:last-child { border-radius: var(--r-s) var(--r-s) 0 0; }
+.compara tr:last-child td:last-child { border-radius: 0 0 var(--r-s) var(--r-s); }
+.ic-nao, .ic-sim { display: inline-grid; vertical-align: -3px; margin-right: 8px; }
+.compara svg, .pra-quem svg { width: 17px; height: 17px; }
+.ic-nao { color: var(--vermelho); } .ic-sim { color: var(--verde); }
+
+.historia { display: grid; gap: 24px; }
+.historia-texto { display: grid; gap: 14px; max-width: 62ch; color: var(--tinta-2); font-size: 18px; line-height: 1.55; }
+.historia-texto p { margin: 0; }
+.historia-texto .destaque { color: var(--tinta); font-weight: 600; font-size: 20px; letter-spacing: -.02em; }
+@media (min-width: 900px) { .historia { grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); align-items: start; } }
+
+.pra-quem { display: grid; gap: 14px; margin-top: 36px; }
+.pra-quem > div { padding: 24px; border-radius: var(--r-l); background: var(--chapa); border: 1px solid var(--fio); }
+.pra-quem .lado-sim { border-color: rgba(48,209,88,.3); }
+.lado-titulo { margin: 0 0 14px; font-weight: 700; font-size: 20px; letter-spacing: -.02em; }
+.pra-quem ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.pra-quem li { line-height: 1.4; }
+@media (min-width: 760px) { .pra-quem { grid-template-columns: 1.4fr 1fr; } }
+
+.garantia { display: grid; gap: 24px; align-items: center; }
+.selo-garantia { width: 132px; height: 132px; border-radius: 50%; display: grid; place-content: center; text-align: center; border: 2px solid var(--verde); background: var(--verde-fundo); }
+.selo-garantia b { font-size: 56px; line-height: 1; font-weight: 700; letter-spacing: -.04em; color: var(--verde); }
+.selo-garantia span { font-size: 15px; font-weight: 600; color: var(--verde); }
+@media (min-width: 760px) { .garantia { grid-template-columns: auto 1fr; gap: 40px; } }
+
+.resumo .lista { margin-top: 24px; }
+.resumo .acoes { margin-top: 28px; }
+
+.faq { margin-top: 28px; border-top: 1px solid var(--fio-forte); }
+.faq details { border-bottom: 1px solid var(--fio); }
+.faq summary { list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 20px 0; font-size: 18px; font-weight: 600; letter-spacing: -.02em; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; font-size: 26px; font-weight: 400; color: var(--laranja); transition: transform .3s var(--suave); }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq details p { margin: 0 0 20px; color: var(--tinta-2); max-width: 62ch; }
+
+.fechamento-in { display: grid; justify-items: start; }
+</style>
+
+<div class="lido" aria-hidden="true"></div>
+
+<header class="topo faixa">
+  <div class="miolo">
+    <div class="marca"><span class="lampada" aria-hidden="true"></span>Fábrica de Vídeos IA</div>
+    <a class="entrar js-comprar-rolar" href="#oferta">R$ 47,90</a>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero faixa">
+    <div class="miolo">
+      <div class="hero-texto">
+        <p class="pra-quem-topo">Para quem quer postar todo dia sem editar</p>
+        <h1 aria-label="Como chegar a 162 milhões de views em 28 dias com vídeos que a IA faz sozinha.">
+          <span aria-hidden="true"><span class="p" style="--i:0">Como</span> <span class="p" style="--i:1">chegar</span> <span class="p" style="--i:2">a</span> <span class="p cor" style="--i:3">162</span> <span class="p cor" style="--i:4">milhões</span> <span class="p" style="--i:5">de</span> <span class="p" style="--i:6">views</span> <span class="p" style="--i:7">em</span> <span class="p" style="--i:8">28</span> <span class="p" style="--i:9">dias</span> <span class="p" style="--i:10">com</span> <span class="p" style="--i:11">vídeos</span> <span class="p" style="--i:12">que</span> <span class="p" style="--i:13">a</span> <span class="p" style="--i:14">IA</span> <span class="p" style="--i:15">faz</span> <span class="p" style="--i:16">sozinha.</span></span>
+        </h1>
+        <p class="bonus-h1">…e US$ 16.665 de receita no YouTube no mesmo mês.</p>
+        <p class="fonte-dado"><span class="lampada verde" aria-hidden="true"></span><span><b class="tab">162.665.999 views</b> e <b class="tab">US$ 16.665,68</b> no canal Boring History, pelo painel do YouTube, de 10/08 a 06/09/2026</span></p>
+      </div>
+
+      <div class="tela-wrap">
+        <div class="tela">
+          <div class="progresso" aria-hidden="true"><i id="progresso"></i></div>
+          <video id="video" src="midia/caim-abel.mp4" poster="midia/caim-abel-poster.jpg" muted autoplay loop playsinline preload="metadata" aria-label="Vídeo do caso Caim e Abel, feito pela Fábrica"></video>
+          <button class="ouvir" id="ouvir" type="button" aria-pressed="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>
+            <span><span id="ouvir-txt">Toque para ouvir</span><small>Este vídeo saiu da Fábrica, do tema ao post</small></span>
+          </button>
+        </div>
+      </div>
+
+      <div class="hero-acao">
+        <p class="sub">Você escreve o tema em uma frase. <b>A Fábrica escreve o roteiro, narra, anima cada cena, corta para TikTok, Reels e Shorts e faz a capa.</b> Seu primeiro vídeo pode sair hoje.</p>
+        <div class="trio">
+          <div><b>1 frase</b><span>é o que você escreve</span></div>
+          <div><b>8 IAs</b><span>fazem todo o resto</span></div>
+          <div><b>0 edição</b><span>feita por você</span></div>
+        </div>
+        <div class="acoes">
+          <a class="botao brilha js-comprar-rolar" id="cta-hero" href="#oferta">Quero a Fábrica <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <p class="micro"><span>R$ 47,90</span><span>Pagamento único</span><span>7 dias de garantia</span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ESTEIRA -->
+  <section class="esteira" id="esteira" aria-label="Vídeos que já saíram da Fábrica">
+    <div class="faixa"><div class="miolo rotulo"><span class="lampada verde" aria-hidden="true"></span>Já saíram da Fábrica e foram postados</div></div>
+    <div class="trilho" aria-hidden="true">
+      <img src="midia/capa-caim-abel.jpg" alt=""><img src="midia/capa-gibeonitas-paes-mofados.jpg" alt=""><img src="midia/capa-jumentas-de-saul.jpg" alt=""><img src="midia/capa-eude-eglom-quarto-trancado.jpg" alt=""><img src="midia/capa-elias-desaparecido.jpg" alt=""><img src="midia/cena-2.jpg" alt=""><img src="midia/cena-4.jpg" alt="">
+      <img src="midia/capa-caim-abel.jpg" alt=""><img src="midia/capa-gibeonitas-paes-mofados.jpg" alt=""><img src="midia/capa-jumentas-de-saul.jpg" alt=""><img src="midia/capa-eude-eglom-quarto-trancado.jpg" alt=""><img src="midia/capa-elias-desaparecido.jpg" alt=""><img src="midia/cena-2.jpg" alt=""><img src="midia/cena-4.jpg" alt="">
+    </div>
+  </section>
+
+  <!-- A LINHA DE PRODUÇÃO -->
+  <section class="secao linha faixa" id="linha">
+    <div class="miolo">
+      <div class="cabeca-secao">
+        <h2 class="acende js-palavras">Do tema ao vídeo postado. No meio, você não toca em nada.</h2>
+        <p class="lead">Oito etapas, sempre na mesma ordem. Role e veja o vídeo passar por cada uma.</p>
+      </div>
+
+      <div class="palco-col">
+        <div class="palco js-luz" id="palco" aria-live="polite">
+          <div class="trilha-linha" aria-hidden="true">
+            <div class="barra-total"><i id="prog-linha"></i></div>
+            <div class="marcos" id="marcos"><span class="agora">1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span></div>
+          </div>
+          <div class="estado-linha">
+            <span class="qual"><span class="lampada" id="lamp-estado" aria-hidden="true"></span><span id="nome-estado">Tema</span></span>
+            <span class="quem voce" id="quem-estado">você</span>
+          </div>
+
+          <div class="cenas">
+            <div class="cena ativa" data-n="1">
+              <div class="campo">
+                <label for="tema-demo">Tema do vídeo</label>
+                <div class="caixa" id="tema-demo"><span id="digitado">Caim e Abel: o primeiro crime da história</span><span class="caret" aria-hidden="true"></span></div>
+                <span class="botao fazer" aria-hidden="true">Fazer este vídeo</span>
+              </div>
+            </div>
+
+            <div class="cena" data-n="2">
+              <div class="folha">
+                <div class="fala gancho"><span class="tc">0,0 s</span><span>Ele matou o próprio irmão. Quando Deus perguntou por ele, respondeu: não sei.</span><span class="ref">Gancho · Gn 4:8-9</span></div>
+                <div class="fala"><span class="tc">6,1 s</span><span>Tudo começa com duas ofertas.</span><span class="ref">Gn 4:3-4</span></div>
+                <div class="fala"><span class="tc">58 s</span><span>Quem entregou o assassino não foi gente. Foi o chão.</span><span class="ref">Gn 4:10</span></div>
+              </div>
+            </div>
+
+            <div class="cena" data-n="3">
+              <div class="folha">
+                <div class="fala aprovada"><span class="tc">0,0 s</span><span>Ele matou o próprio irmão.</span><span class="conf ok">✓ Confere com Gn 4:8</span></div>
+                <div class="fala aprovada"><span class="tc">6,1 s</span><span>Tudo começa com duas ofertas.</span><span class="conf ok">✓ Confere com Gn 4:3-4</span></div>
+                <div class="fala" id="fala-3"><span class="tc">58 s</span><span>Quem entregou o assassino foi o chão.</span><span class="conf" id="conf-3">Sem fonte · voltou para reescrever</span></div>
+              </div>
+              <span class="carimbo verde" id="carimbo-conf">APROVADO</span>
+            </div>
+
+            <div class="cena" data-n="4">
+              <div class="voz">
+                <div class="onda" id="onda" aria-hidden="true"></div>
+                <div class="palavras" id="palavras"><span>Ele</span><span>matou</span><span>o</span><span>próprio</span><span>irmão.</span></div>
+                <div class="dado"><span>Voz própria do canal</span><span class="tc" id="tc-voz">00:00,0</span></div>
+              </div>
+            </div>
+
+            <div class="cena" data-n="5">
+              <div class="quadro varredura"><img src="midia/cena-1.jpg" alt="Cenário gerado: um campo de trigo ao entardecer"><span class="scan" aria-hidden="true"></span><span class="etq">Cenário 01 · o campo</span></div>
+            </div>
+
+            <div class="cena" data-n="6">
+              <div class="montagem">
+                <div class="quadro vivo"><img src="midia/cena-2.jpg" alt="Cena animada: Caim e Abel com as ofertas"><span class="etq">Cena 03</span></div>
+                <div class="pistas" aria-hidden="true">
+                  <div class="pista"><span>Câmera</span><span class="tr"><b style="left:2%;width:30%"></b><b style="left:36%;width:22%"></b><b style="left:62%;width:34%"></b><i class="cabeca"></i></span></div>
+                  <div class="pista"><span>Bonecos</span><span class="tr"><b style="left:8%;width:40%"></b><b style="left:54%;width:40%"></b><i class="cabeca"></i></span></div>
+                  <div class="pista"><span>Textos</span><span class="tr"><b style="left:4%;width:18%"></b><b style="left:40%;width:24%"></b><b style="left:74%;width:20%"></b><i class="cabeca"></i></span></div>
+                  <div class="pista som"><span>Efeitos</span><span class="tr"><b style="left:3%"></b><b style="left:17%"></b><b style="left:29%"></b><b style="left:41%"></b><b style="left:55%"></b><b style="left:68%"></b><b style="left:83%"></b><b style="left:94%"></b><i class="cabeca"></i></span></div>
+                  <div class="pista musica"><span>Trilha</span><span class="tr"><b style="left:0;width:100%"></b><i class="cabeca"></i></span></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="cena" data-n="7">
+              <div class="cortes">
+                <div class="quadro"><img src="midia/capa-caim-abel.jpg" alt="Capa do vídeo: Ele matou o próprio irmão"><span class="etq">Capa</span></div>
+                <div class="formatos">
+                  <div class="formato"><span>TikTok</span><svg class="ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+                  <div class="formato"><span>Reels</span><svg class="ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+                  <div class="formato"><span>Shorts</span><svg class="ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+                  <div class="formato"><span>Título e legenda</span><svg class="ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="cena" data-n="8">
+              <div class="aprovar">
+                <div class="quadro" id="quadro-aprovar"><img src="midia/caim-abel-poster.jpg" alt="O vídeo pronto, esperando aprovação"><span class="etq">89 s</span><span class="selo" aria-hidden="true"><span>APROVADO</span></span></div>
+                <div class="lado">
+                  <span class="esperando"><span class="lampada" id="lamp-aprovar" aria-hidden="true"></span><span id="txt-esperando">Esperando você</span></span>
+                  <button class="segurar" id="segurar" type="button">Segure para aprovar<small>como no painel da Fábrica</small></button>
+                  <p class="programado" id="programado" aria-live="polite">Aprovou, entra no calendário e posta sozinho.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="passos" id="passos">
+        <article class="passo agora" data-n="1">
+          <span class="quem voce"><span class="lampada" aria-hidden="true"></span>Você</span>
+          <h3><span class="n">01</span>Tema</h3>
+          <p>Você escreve uma frase. É tudo o que a Fábrica precisa para começar.</p>
+        </article>
+        <article class="passo" data-n="2">
+          <span class="quem">IA roteirista</span>
+          <h3><span class="n">02</span>Roteiro</h3>
+          <p>Gancho forte no primeiro segundo e uma história que segura até o fim. Cada fala com tempo e fonte.</p>
+        </article>
+        <article class="passo" data-n="3">
+          <span class="quem">IA conferente</span>
+          <h3><span class="n">03</span>Conferência</h3>
+          <p>Outra IA confere frase por frase. O que não tem fonte volta para ser reescrito. Quem escreve nunca se confere.</p>
+        </article>
+        <article class="passo" data-n="4">
+          <span class="quem">IA narradora</span>
+          <h3><span class="n">04</span>Voz</h3>
+          <p>Narração com a voz própria do canal, sempre a mesma. Depois ela ouve de novo e regrava o que saiu errado.</p>
+        </article>
+        <article class="passo" data-n="5">
+          <span class="quem">IA cenógrafa</span>
+          <h3><span class="n">05</span>Cenas</h3>
+          <p>Cada cenário é desenhado para o tempo exato da voz. Nada de banco de imagem.</p>
+        </article>
+        <article class="passo" data-n="6">
+          <span class="quem">IA montadora e IA crítica</span>
+          <h3><span class="n">06</span>Animação</h3>
+          <p>Câmera, personagens, textos e um efeito sonoro a cada ação. Uma IA crítica revê quadro a quadro antes de passar.</p>
+        </article>
+        <article class="passo" data-n="7">
+          <span class="quem">IA de cortes e IA capista</span>
+          <h3><span class="n">07</span>Cortes e capa</h3>
+          <p>Sai no formato de TikTok, Reels e Shorts, com título, legenda e capa prontos.</p>
+        </article>
+        <article class="passo" data-n="8">
+          <span class="quem voce"><span class="lampada" aria-hidden="true"></span>Você</span>
+          <h3><span class="n">08</span>Aprovar</h3>
+          <p>Você assiste e aprova. Ele entra no calendário e é postado no horário certo. Segure o botão verde para ver.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="chamada faixa">
+    <div class="miolo chamada-in">
+      <p class="chamada-frase">Enquanto você lê isto, a Fábrica já poderia estar montando o vídeo de amanhã.</p>
+      <div class="chamada-acao">
+        <a class="botao brilha js-comprar-rolar" href="#oferta">Quero a Fábrica <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <p class="micro"><span>R$ 47,90</span><span>Pagamento único</span><span>7 dias de garantia</span></p>
+      </div>
+    </div>
+  </section>
+  <!-- NÚMEROS -->
+  <section class="secao faixa" id="numeros">
+    <div class="miolo">
+      <h2 class="acende js-palavras">Os números de quem faz vídeo assim</h2>
+      <p class="lead">Tirados dos painéis do YouTube, do Instagram e do TikTok.</p>
+
+      <div class="placar">
+        <div class="item grande">
+          <div class="valor" data-rolo="162.665.999">162.665.999</div>
+          <div class="legenda"><div class="o-que">views em 28 dias</div><div class="de">Boring History · YouTube</div></div>
+        </div>
+        <div class="item">
+          <div class="valor" data-rolo="5.903.235">5.903.235</div>
+          <div class="legenda"><div class="o-que">views em 40 dias</div><div class="de">@adilet.fndr · Instagram</div></div>
+        </div>
+        <div class="item">
+          <div class="valor" data-rolo="4.989.138">4.989.138</div>
+          <div class="legenda"><div class="o-que">views em 35 dias</div><div class="de">@yurizandotv</div></div>
+        </div>
+        <div class="item">
+          <div class="valor" data-rolo="+42.143">+42.143</div>
+          <div class="legenda"><div class="o-que">seguidores novos em 40 dias</div><div class="de">@adilet.fndr · Instagram</div></div>
+        </div>
+        <div class="item dinheiro">
+          <div class="valor" data-rolo="US$ 16.665">US$ 16.665</div>
+          <div class="legenda"><div class="o-que">de receita no YouTube em 28 dias</div><div class="de">Boring History · YouTube</div></div>
+        </div>
+        <div class="item dinheiro">
+          <div class="valor" data-rolo="US$ 2.600">US$ 2.600</div>
+          <div class="legenda"><div class="o-que">de recompensa do TikTok em um mês</div><div class="de">Setembro de 2026 · painel do TikTok</div></div>
+        </div>
+      </div>
+
+      <div class="prints">
+        <div class="topo-prints">
+          <h3>Os prints</h3>
+          <div class="setas">
+            <button class="seta" type="button" data-dir="-1" aria-label="Print anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button>
+            <button class="seta" type="button" data-dir="1" aria-label="Próximo print"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+          </div>
+        </div>
+        <div class="carrossel" id="carrossel">
+          <figure class="print"><button type="button" aria-label="Ampliar print do YouTube"><img src="midia/12-youtube-boring-history.webp" alt="Painel do YouTube: 162,7 milhões de views em 28 dias" loading="lazy"></button><figcaption><b>Boring History</b> · YouTube · 162,7 mi de views em 28 dias</figcaption></figure>
+          <figure class="print"><button type="button" aria-label="Ampliar print do Instagram"><img src="midia/05-painel-adilet-40-dias.png" alt="Painel do Instagram: 5.903.235 views e 42.143 seguidores novos em 40 dias" loading="lazy"></button><figcaption><b>@adilet.fndr</b> · Instagram · 18/09 a 27/10</figcaption></figure>
+          <figure class="print"><button type="button" aria-label="Ampliar print de @yurizandotv"><img src="midia/10-yurizandotv-35-dias.png" alt="Painel: 4.989.138 views e 36.362 seguidores novos em 35 dias" loading="lazy"></button><figcaption><b>@yurizandotv</b> · 25/09 a 25/10</figcaption></figure>
+          <figure class="print"><button type="button" aria-label="Ampliar prints de três perfis"><img src="midia/01-tres-perfis.webp" alt="Três perfis: 23 milhões de views em 14 dias, 10 mil seguidores em 8 dias e 10 mil seguidores em 14 dias" loading="lazy"></button><figcaption><b>Três perfis</b> · 23 mi de views em 14 dias, 10 mil seguidores em 8 dias</figcaption></figure>
+          <figure class="print"><button type="button" aria-label="Ampliar prints de reels"><img src="midia/02-reels-adilet-a.webp" alt="Reels com 1.290.067, 523.284 e 779.800 views" loading="lazy"></button><figcaption><b>@adilet.fndr</b> · um reel com 1,29 mi de views e 16 mil seguidores</figcaption></figure>
+          <figure class="print"><button type="button" aria-label="Ampliar prints do Instagram"><img src="midia/13-instagram-reels.webp" alt="Insights de reels do Instagram, um com 1.363.010 views" loading="lazy"></button><figcaption><b>Instagram</b> · um reel com 1,36 mi de views</figcaption></figure>
+          <figure class="print"><button type="button" aria-label="Ampliar prints de vendas e TikTok"><img src="midia/11-vendas-e-tiktok.webp" alt="Painel de vendas e recompensas do TikTok" loading="lazy"></button><figcaption><b>TikTok</b> · US$ 2.564 em agosto, US$ 2.600 em setembro</figcaption></figure>
+          <figure class="print"><button type="button" aria-label="Ampliar mais prints de reels"><img src="midia/03-reels-adilet-b.webp" alt="Reels com 180.250, 608.223 e 578.354 views" loading="lazy"></button><figcaption><b>@adilet.fndr</b> · mais três reels</figcaption></figure>
+          <figure class="print"><button type="button" aria-label="Ampliar últimos prints de reels"><img src="midia/04-reels-adilet-c.webp" alt="Reels com 537.940 e 527.100 views" loading="lazy"></button><figcaption><b>@adilet.fndr</b> · 537 mil e 527 mil views</figcaption></figure>
+        </div>
+        <p class="aviso">Resultados reais de contas que fazem vídeo com IA. Cada canal tem seu tema e seu ritmo: os números variam de pessoa para pessoa e não são promessa de ganho.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="chamada faixa">
+    <div class="miolo chamada-in">
+      <p class="chamada-frase">Todo vídeo desses começou do mesmo jeito: uma frase digitada.</p>
+      <div class="chamada-acao">
+        <a class="botao brilha js-comprar-rolar" href="#oferta">Quero a Fábrica <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <p class="micro"><span>R$ 47,90</span><span>Pagamento único</span><span>7 dias de garantia</span></p>
+      </div>
+    </div>
+  </section>
+  <!-- POR QUE AGORA -->
+  <section class="secao faixa" id="agora">
+    <div class="miolo">
+      <h2 class="acende js-palavras">Vídeo animado por IA ainda é novidade. Isso não vai durar.</h2>
+      <p class="lead">Toda rede tem uma janela em que quem chega cedo pega o alcance. Foi assim com o Reels, com o TikTok e com o Shorts. A janela agora é a do vídeo animado feito por IA.</p>
+      <ol class="janela">
+        <li class="aqui"><span class="marco">Você está aqui</span><b>Agora</b><span>Pouca gente faz bem feito. O alcance vai para quem aparece.</span></li>
+        <li><span class="marco">Logo</span><b>Todo mundo começa</b><span>O feed enche de vídeo de IA. Fica mais difícil ser visto.</span></li>
+        <li><span class="marco">Depois</span><b>Só o melhor aparece</b><span>Vídeo com cara de IA some. Fica quem tem um padrão bom todo dia.</span></li>
+      </ol>
+      <div class="enquanto">
+        <p class="enquanto-titulo">Enquanto isso, a maioria está:</p>
+        <ul>
+          <li>editando na mão por horas, e postando duas vezes por semana;</li>
+          <li>postando vídeo de IA com cara de IA, e sem entender por que ninguém assiste;</li>
+          <li>esperando “aprender tudo” antes de começar.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- POR QUE FUNCIONA -->
+  <section class="secao faixa" id="funciona">
+    <div class="miolo">
+      <h2 class="acende js-palavras">Fazer um vídeo é fácil. Difícil é fazer todo dia, bem feito.</h2>
+      <p class="lead">O que faz um canal crescer é repetir um formato que prende, com a mesma qualidade no primeiro e no centésimo vídeo. Pedir para uma IA sozinha não resolve isso.</p>
+      <div class="tabela-wrap">
+        <table class="compara">
+          <thead><tr><th scope="col">Pedindo para uma IA sozinha</th><th scope="col">Com a Fábrica</th></tr></thead>
+          <tbody>
+            <tr><td><span class="ic-nao"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></span>Ela inventa fato e você só descobre nos comentários</td><td><span class="ic-sim"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Uma IA escreve, outra confere cada frase. Sem fonte, não passa</td></tr>
+            <tr><td><span class="ic-nao"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></span>Cada vídeo sai de um jeito</td><td><span class="ic-sim"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Mesmo estilo e mesmo padrão em todo vídeo</td></tr>
+            <tr><td><span class="ic-nao"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></span>Voz de robô lendo texto</td><td><span class="ic-sim"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Voz própria do canal, regravada quando sai errado</td></tr>
+            <tr><td><span class="ic-nao"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></span>Vídeo parado ou frenético demais</td><td><span class="ic-sim"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Ritmo medido: cena de 2,5 a 4 s e quase nada parado</td></tr>
+            <tr><td><span class="ic-nao"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></span>Sem som, ou som que estoura no celular</td><td><span class="ic-sim"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Trilha e efeito em cada ação, no volume certo para o celular</td></tr>
+            <tr><td><span class="ic-nao"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></span>Você revisa tudo e pede de novo</td><td><span class="ic-sim"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Uma IA crítica revê quadro a quadro antes de chegar em você</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="chamada faixa">
+    <div class="miolo chamada-in">
+      <p class="chamada-frase">A diferença entre postar às vezes e postar todo dia é a edição. Tire ela do caminho.</p>
+      <div class="chamada-acao">
+        <a class="botao brilha js-comprar-rolar" href="#oferta">Quero a Fábrica <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <p class="micro"><span>R$ 47,90</span><span>Pagamento único</span><span>7 dias de garantia</span></p>
+      </div>
+    </div>
+  </section>
+  <!-- POR QUE EU MONTEI -->
+  <section class="secao faixa" id="historia">
+    <div class="miolo historia">
+      <h2>Por que eu montei a Fábrica</h2>
+      <div class="historia-texto">
+        <p>Eu queria postar um vídeo por dia, em mais de um canal, sem passar a noite editando. Tentei pedir para a IA fazer tudo de uma vez. Saía bonito num dia e estranho no outro, e às vezes com fato errado.</p>
+        <p>Então montei uma linha de produção. Uma IA para cada etapa, sempre na mesma ordem, e nenhuma confere o próprio trabalho. Se uma etapa reprova, ela refaz antes de seguir.</p>
+        <p class="destaque">Hoje eu escrevo o tema e aprovo o vídeo pronto. Só isso. É essa mesma Fábrica que você leva.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRA QUEM É -->
+  <section class="secao faixa" id="pra-quem">
+    <div class="miolo">
+      <h2 class="acende js-palavras">É para você se…</h2>
+      <div class="pra-quem">
+        <div class="lado-sim">
+          <p class="lado-titulo">É para você</p>
+          <ul>
+            <li><span class="ic-sim"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Quer postar todo dia e não tem tempo, nem paciência, para editar</li>
+            <li><span class="ic-sim"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Não quer mostrar o rosto nem gravar a voz</li>
+            <li><span class="ic-sim"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Quer um canal de história, curiosidade, fé, games ou explicação</li>
+            <li><span class="ic-sim"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Quer um padrão que não cai de qualidade no vídeo 50</li>
+          </ul>
+        </div>
+        <div class="lado-nao">
+          <p class="lado-titulo">Não é para você</p>
+          <ul>
+            <li><span class="ic-nao"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></span>Quer resultado sem postar nada</li>
+            <li><span class="ic-nao"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></span>Quer editar tudo na mão, quadro por quadro</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GARANTIA -->
+  <section class="secao faixa" id="garantia">
+    <div class="miolo garantia">
+      <div class="selo-garantia" aria-hidden="true"><b>7</b><span>dias</span></div>
+      <div>
+        <h2>Testa. Não gostou, devolve.</h2>
+        <p class="lead">Faça seus primeiros vídeos com a Fábrica. Se não gostar do que ela entrega, peça o dinheiro de volta em até 7 dias e recebe cada centavo.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- OFERTA -->
+  <section class="secao oferta faixa" id="oferta">
+    <div class="miolo">
+      <h2 class="acende js-palavras">Leve a Fábrica inteira</h2>
+      <div class="cartao js-luz">
+        <ul class="lista">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>As 8 IAs da linha de produção, cada uma na sua etapa</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Uma IA que confere a outra: fala sem fonte não passa</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>O painel para pedir o tema e aprovar o vídeo</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Vídeo pronto para TikTok, Reels e Shorts, com título, legenda e capa</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>7 dias de garantia</li>
+        </ul>
+        <div>
+          <div class="preco"><span class="rs">R$</span><span class="v">47,90</span></div>
+          <p class="nota">Pagamento único · menos que um jantar fora</p>
+          <a class="botao brilha js-comprar" href="#oferta">Quero a Fábrica <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <p class="micro micro-centro"><span>7 dias de garantia</span><span>Sem mensalidade</span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESUMO -->
+  <section class="secao faixa" id="resumo">
+    <div class="miolo resumo">
+      <h2>Rolou direto até aqui?</h2>
+      <p class="lead">Entendo. Está tudo aqui, em um lugar só.</p>
+      <ul class="lista">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Você escreve uma frase, a Fábrica entrega o vídeo pronto</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>8 IAs: roteiro, conferência, voz, cenas, animação, cortes e capa</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Pronto para TikTok, Reels e Shorts</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Sem gravar, sem editar, sem aparecer</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>R$ 47,90, pagamento único, com 7 dias de garantia</li>
+      </ul>
+      <div class="acoes">
+        <a class="botao brilha js-comprar-rolar" href="#oferta">Quero a Fábrica <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- DÚVIDAS -->
+  <section class="secao faixa" id="duvidas">
+    <div class="miolo">
+      <h2>Dúvidas rápidas</h2>
+      <div class="faq">
+        <details><summary>Preciso saber editar?</summary><p>Não. Você escreve o tema e aprova. Roteiro, voz, animação, cortes e capa ficam com a Fábrica.</p></details>
+        <details><summary>Preciso aparecer ou gravar minha voz?</summary><p>Não. A narração é feita com uma voz própria do canal, sintética, sempre a mesma.</p></details>
+        <details><summary>A IA não vai inventar coisa?</summary><p>É exatamente para isso que existe a conferência: uma IA escreve, outra confere cada frase contra a fonte. O que não tem fonte volta para ser reescrito.</p></details>
+        <details><summary>E se eu não gostar?</summary><p>Você tem 7 dias. Peça o dinheiro de volta e recebe tudo.</p></details>
+        <details><summary>Meus vídeos vão ter esses mesmos números?</summary><p>Não dá para prometer. Os números da página são reais, mas cada canal tem seu tema e seu ritmo, e só cresce quem posta com constância. O que a Fábrica tira de você é a parte difícil: fazer o vídeo todo dia.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- FECHAMENTO -->
+  <section class="secao fechamento faixa">
+    <div class="miolo fechamento-in">
+      <h2 class="acende js-palavras">Se você leu até aqui, não foi por acaso.</h2>
+      <p class="lead">Talvez você queira começar um canal. Talvez queira transformar vídeo em renda. Ou só parar de perder a noite editando. Custa R$ 47,90, o primeiro vídeo pode sair hoje, e você tem 7 dias para desistir.</p>
+      <div class="acoes">
+        <a class="botao brilha js-comprar-rolar" href="#oferta">Quero a Fábrica <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <p class="micro"><span>R$ 47,90</span><span>Pagamento único</span><span>7 dias de garantia</span></p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="rodape faixa"><div class="miolo">Fábrica de Vídeos IA · Os prints mostram resultados de contas reais e não garantem resultado igual.</div></footer>
+
+<div class="barra escondida" id="barra" role="region" aria-label="Comprar">
+  <div class="miolo">
+    <div class="p"><b>R$ 47,90</b><small>a Fábrica inteira</small></div>
+    <a class="botao js-comprar js-comprar-rolar-barra" href="#oferta">Quero a Fábrica
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
+  </div>
+</div>
+<div class="aviso-link" id="aviso-link" role="status">O link de pagamento ainda vai entrar aqui.</div>
+
+<dialog class="zoom" id="zoom" aria-label="Print ampliado">
+  <img id="zoom-img" alt="">
+  <button class="seta fechar" type="button" aria-label="Fechar" id="fechar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+</dialog>
+
+<script>
+(() => {
+  // Link do checkout: cole aqui quando tiver (ex.: "https://pay.hotmart.com/...").
+  const CHECKOUT = "";
+  const calmo = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const fino = matchMedia("(pointer: fine)").matches;
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const rolar = el => el.scrollIntoView({ behavior: calmo ? "auto" : "smooth", block: "start" });
+
+  /* ---- compra ---- */
+  const aviso = $("#aviso-link"); let avisoT;
+  $$(".js-comprar").forEach(a => {
+    if (CHECKOUT) { a.href = CHECKOUT; a.target = "_blank"; a.rel = "noopener"; return; }
+    a.addEventListener("click", e => {
+      e.preventDefault();
+      if (a.classList.contains("js-comprar-rolar-barra")) return rolar($("#oferta"));
+      aviso.classList.add("ver"); clearTimeout(avisoT); avisoT = setTimeout(() => aviso.classList.remove("ver"), 2400);
+    });
+  });
+  $$(".js-comprar-rolar").forEach(a => a.addEventListener("click", e => { e.preventDefault(); rolar($("#oferta")); }));
+
+  /* ---- barra de compra: aparece depois que o botão do topo sai da tela ---- */
+  const barra = $("#barra"), ctaHero = $("#cta-hero");
+
+
+  /* ---- vídeo com som ---- */
+  const v = $("#video"), ouvir = $("#ouvir"), ouvirTxt = $("#ouvir-txt"), barraV = $("#progresso");
+  ouvir.addEventListener("click", () => {
+    if (v.muted) { v.muted = false; v.currentTime = 0; v.play().catch(() => {}); ouvir.classList.add("tocando"); ouvirTxt.textContent = "Tocando com som · toque para silenciar"; ouvir.setAttribute("aria-pressed", "true"); }
+    else { v.muted = true; ouvir.classList.remove("tocando"); ouvirTxt.textContent = "Toque para ouvir"; ouvir.setAttribute("aria-pressed", "false"); }
+  });
+  v.addEventListener("timeupdate", () => { if (v.duration) barraV.style.transform = `scaleX(${v.currentTime / v.duration})`; });
+  if (calmo) { v.removeAttribute("autoplay"); v.pause(); }
+  if (!calmo && "IntersectionObserver" in window) {
+    new IntersectionObserver(([en]) => { if (en.isIntersecting) v.play().catch(() => {}); else v.pause(); }, { threshold: .15 }).observe(v);
+    const est = $("#esteira");
+    new IntersectionObserver(([en]) => est.classList.toggle("parada", !en.isIntersecting)).observe(est);
+  }
+
+  /* ---- palavras que acendem ---- */
+  $$(".js-palavras").forEach(h => {
+    const txt = h.textContent.trim(); h.setAttribute("aria-label", txt); h.textContent = "";
+    txt.split(" ").forEach((w, i, arr) => {
+      const s = document.createElement("span"); s.className = "w"; s.setAttribute("aria-hidden", "true"); s.textContent = w;
+      h.appendChild(s); if (i < arr.length - 1) h.appendChild(document.createTextNode(" "));
+    });
+  });
+
+  /* ---- luz que segue o dedo/cursor ---- */
+  if (fino && !calmo) $$(".js-luz").forEach(el => el.addEventListener("pointermove", e => {
+    const r = el.getBoundingClientRect(); el.style.setProperty("--mx", (e.clientX - r.left) + "px"); el.style.setProperty("--my", (e.clientY - r.top) + "px");
+  }));
+
+  /* ---- onda da voz ---- */
+  const onda = $("#onda");
+  for (let i = 0; i < 46; i++) {
+    const h = 18 + Math.round(Math.abs(Math.sin(i * 0.55) * 52 + Math.sin(i * 1.7) * 26));
+    const b = document.createElement("i"); b.style.setProperty("--h", Math.min(h, 100)); b.style.setProperty("--i", i); onda.appendChild(b);
+  }
+
+  /* ---- a linha de produção ---- */
+  const NOMES = ["Tema", "Roteiro", "Conferência", "Voz", "Cenas", "Animação", "Cortes e capa", "Esperando você"];
+  const passos = $$(".passo"), cenas = $$(".cena"), marcos = $$("#marcos span"), prog = $("#prog-linha"), quem = $("#quem-estado");
+  let atual = 0, timers = [];
+  const limpa = () => { timers.forEach(clearTimeout); timers.forEach(clearInterval); timers = []; };
+
+  const roda = {
+    1() {
+      const alvo = "Caim e Abel: o primeiro crime da história", el = $("#digitado");
+      if (calmo) { el.textContent = alvo; return; }
+      el.textContent = ""; let i = 0;
+      const t = setInterval(() => { el.textContent = alvo.slice(0, ++i); if (i >= alvo.length) clearInterval(t); }, 42);
+      timers.push(t);
+    },
+    3() {
+      const f = $("#fala-3"), c = $("#conf-3"), carimbo = $("#carimbo-conf");
+      f.className = "fala reprovada"; c.className = "conf nao"; c.textContent = "✕ Sem fonte · voltou para reescrever"; carimbo.classList.remove("bateu");
+      const fim = () => { f.className = "fala aprovada"; c.className = "conf ok"; c.textContent = "✓ Reescrita · confere com Gn 4:10"; carimbo.classList.add("bateu"); };
+      if (calmo) return fim();
+      timers.push(setTimeout(fim, 1500));
+    },
+    4() {
+      const ps = $$("#palavras span"), tc = $("#tc-voz");
+      ps.forEach(p => p.classList.remove("dita"));
+      if (calmo) { ps.forEach(p => p.classList.add("dita")); tc.textContent = "00:02,3"; return; }
+      let k = 0;
+      const t = setInterval(() => {
+        if (k < ps.length) { ps[k].classList.add("dita"); tc.textContent = "00:0" + (k * 0.46).toFixed(1).replace(".", ","); k++; }
+        else { ps.forEach(p => p.classList.remove("dita")); k = 0; }
+      }, 460);
+      timers.push(t);
+    }
+  };
+
+  function ir(n) {
+    if (n === atual) return;
+    atual = n; limpa();
+    passos.forEach(p => p.classList.toggle("agora", +p.dataset.n === n));
+    cenas.forEach(c => c.classList.toggle("ativa", +c.dataset.n === n));
+    marcos.forEach((m, i) => { m.classList.toggle("feita", i < n - 1); m.classList.toggle("agora", i === n - 1); });
+    prog.parentElement.parentElement.parentElement.style.setProperty("--prog", n / 8);
+    $("#nome-estado").textContent = NOMES[n - 1];
+    const voce = n === 1 || n === 8; quem.textContent = voce ? "você" : "IA"; quem.classList.toggle("voce", voce);
+    $("#lamp-estado").className = "lampada";
+    if (roda[n]) roda[n]();
+  }
+
+  // As posições são medidas só ao abrir e ao mudar o tamanho da tela; na rolagem só se compara números.
+  let topos = [], zonas = [], linhaY = 0, barraEscondida = true, pedido = false;
+  function mapear() {
+    const y = scrollY;
+    topos = passos.map(p => p.getBoundingClientRect().top + y);
+    zonas = [ctaHero, $("#oferta .cartao"), $(".fechamento")].map(el => { const r = el.getBoundingClientRect(); return [r.top + y, r.bottom + y]; });
+    linhaY = innerWidth >= 900 ? innerHeight * 0.55 : innerHeight - 76 - 210;
+    quadro();
+  }
+  function quadro() {
+    pedido = false;
+    const y = scrollY;
+    const h = innerHeight - 80;
+    const esconder = zonas.some(([a, b]) => a < y + h && b > y + 40);
+    if (esconder !== barraEscondida) { barraEscondida = esconder; barra.classList.toggle("escondida", esconder); }
+    let escolhido = 1;
+    for (let i = 0; i < topos.length; i++) if (topos[i] - y < linhaY) escolhido = i + 1;
+    ir(escolhido);
+  }
+  addEventListener("scroll", () => { if (!pedido) { pedido = true; requestAnimationFrame(quadro); } }, { passive: true });
+  addEventListener("resize", mapear);
+  addEventListener("load", mapear);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(mapear);
+  ir(1); mapear();
+
+  /* ---- segurar para aprovar ---- */
+  const seg = $("#segurar"), progA = $("#programado"), lampA = $("#lamp-aprovar"), txtEsp = $("#txt-esperando"), quadroA = $("#quadro-aprovar");
+  const DUR = 1100; let ini = 0, raf = 0, feito = false;
+  function enche(t) {
+    const p = Math.min((t - ini) / DUR, 1); seg.style.setProperty("--p", p);
+    if (p > .55) seg.classList.add("cheio");
+    if (p >= 1) return aprovado();
+    raf = requestAnimationFrame(enche);
+  }
+  function comeca(e) { if (feito) return reinicia(); if (e) e.preventDefault(); ini = performance.now(); raf = requestAnimationFrame(enche); }
+  function solta() { if (feito) return; cancelAnimationFrame(raf); seg.style.setProperty("--p", 0); seg.classList.remove("cheio"); }
+  function aprovado() {
+    feito = true; seg.style.setProperty("--p", 1); seg.classList.add("cheio");
+    seg.firstChild.textContent = "Aprovado"; seg.querySelector("small").textContent = "toque para ver de novo";
+    lampA.className = "lampada verde"; txtEsp.textContent = "Aprovado"; quadroA.classList.add("aprovado");
+    progA.innerHTML = "<b>Programado:</b> amanhã, 08:00 · TikTok e Reels";
+    $("#lamp-estado").className = "lampada verde"; $("#nome-estado").textContent = "Programado";
+    if (navigator.vibrate) try { navigator.vibrate(18); } catch (_) {}
+  }
+  function reinicia() {
+    feito = false; seg.style.setProperty("--p", 0); seg.classList.remove("cheio"); quadroA.classList.remove("aprovado");
+    seg.firstChild.textContent = "Segure para aprovar"; seg.querySelector("small").textContent = "como no painel da Fábrica";
+    lampA.className = "lampada"; txtEsp.textContent = "Esperando você"; progA.textContent = "Aprovou, entra no calendário e posta sozinho.";
+    $("#lamp-estado").className = "lampada"; $("#nome-estado").textContent = NOMES[7];
+  }
+  seg.addEventListener("pointerdown", comeca);
+  ["pointerup", "pointerleave", "pointercancel"].forEach(ev => seg.addEventListener(ev, solta));
+  seg.addEventListener("keydown", e => { if ((e.key === " " || e.key === "Enter") && !e.repeat) comeca(e); });
+  seg.addEventListener("keyup", e => { if (e.key === " " || e.key === "Enter") solta(); });
+  seg.addEventListener("contextmenu", e => e.preventDefault());
+
+  /* ---- números que rolam ---- */
+  function montaRolo(el) {
+    const txt = el.dataset.rolo; el.textContent = ""; el.setAttribute("aria-label", txt);
+    let k = 0;
+    for (const ch of txt) {
+      if (/\d/.test(ch)) {
+        const r = document.createElement("span"); r.className = "rolo"; r.setAttribute("aria-hidden", "true");
+        const s = document.createElement("span"); s.style.setProperty("--d", ch); r.style.setProperty("--k", k++);
+        for (let d = 0; d <= 9; d++) { const b = document.createElement("b"); b.textContent = d; s.appendChild(b); }
+        r.appendChild(s); el.appendChild(r);
+      } else {
+        const sp = document.createElement("span"); sp.className = "sep"; sp.setAttribute("aria-hidden", "true");
+        sp.textContent = ch === " " ? " " : ch; el.appendChild(sp);
+      }
+    }
+  }
+  const valores = $$("[data-rolo]");
+  valores.forEach(montaRolo);
+  if (!calmo && "IntersectionObserver" in window) {
+    const io = new IntersectionObserver(es => es.forEach(en => {
+      if (!en.isIntersecting) return;
+      io.unobserve(en.target);
+      const rolos = $$(".rolo", en.target);
+      rolos.forEach(r => { r.classList.remove("anima"); r.firstChild.style.transform = "translateY(0)"; });
+      void en.target.offsetWidth;
+      rolos.forEach(r => { r.classList.add("anima"); r.firstChild.style.transform = ""; });
+    }), { threshold: 0.6 });
+    valores.forEach(el => io.observe(el));
+  }
+
+  /* ---- prints ---- */
+  const car = $("#carrossel");
+  $$(".seta[data-dir]").forEach(b => b.addEventListener("click", () => car.scrollBy({ left: +b.dataset.dir * car.clientWidth * 0.8, behavior: calmo ? "auto" : "smooth" })));
+  const zoom = $("#zoom"), zImg = $("#zoom-img");
+  $$(".print button").forEach(b => b.addEventListener("click", () => { const i = b.querySelector("img"); zImg.src = i.src; zImg.alt = i.alt; zoom.showModal(); }));
+  $("#fechar").addEventListener("click", () => zoom.close());
+  zoom.addEventListener("click", e => { if (e.target === zoom) zoom.close(); });
+})();
+</script>
