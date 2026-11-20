@@ -155,29 +155,60 @@ img, video { max-width: 100%; display: block; }
 .visor .canto:nth-child(2) { top: 0; right: 0; border-left: 0; border-bottom: 0; border-radius: 0 6px 0 0; }
 .visor .canto:nth-child(3) { bottom: 0; left: 0; border-right: 0; border-top: 0; border-radius: 0 0 0 6px; }
 .visor .canto:nth-child(4) { bottom: 0; right: 0; border-left: 0; border-top: 0; border-radius: 0 0 6px 0; }
-.visor .rec { position: absolute; z-index: 2; left: 26px; top: 26px; }
-.visor .tc { position: absolute; z-index: 2; right: 26px; top: 28px; padding: 4px 7px; border-radius: 5px; background: rgba(12, 10, 18, .85); font: 600 12px/1 var(--f-tempo); color: var(--tinta); }
+.visor .rec { position: absolute; z-index: 2; left: 50%; top: -12px; transform: translateX(-50%); white-space: nowrap; }
 .tela { position: relative; aspect-ratio: 9 / 16; border-radius: 18px; overflow: hidden; background: var(--placa); }
-.tela video { width: 100%; height: 100%; object-fit: cover; }
-.ouvir {
-  position: absolute; left: 10px; right: 10px; bottom: 42%; z-index: 2;
-  display: flex; align-items: center; gap: 12px; min-height: 60px; padding: 10px 14px;
-  border: 0; border-radius: 14px; cursor: pointer; text-align: left;
-  background: var(--amarelo); color: var(--sobre-amarelo); font: 700 16px/1.2 var(--f);
-  box-shadow: 0 5px 0 #a88a00, 0 18px 30px -12px rgba(0,0,0,.8);
-  transition: bottom .6s var(--suave), background-color .25s, transform .15s;
-}
-.ouvir.tocando { bottom: 10px; background: rgba(12, 10, 18, .9); color: var(--tinta); box-shadow: none; }
-.ouvir:active { transform: translateY(3px); }
-.ouvir svg { width: 28px; height: 28px; flex: none; }
-.ouvir small { display: block; font-weight: 500; font-size: 13px; opacity: .8; margin-top: 2px; }
-@media (prefers-reduced-motion: no-preference) {
-  .ouvir:not(.tocando) svg { animation: chamar 1.6s var(--suave) infinite; }
-  @keyframes chamar { 50% { transform: scale(1.14); } }
-}
-.tela .progresso { position: absolute; left: 0; right: 0; bottom: 0; height: 4px; z-index: 2; background: rgba(255,255,255,.16); }
-.tela .progresso i { display: block; height: 100%; background: var(--amarelo); transform-origin: left; transform: scaleX(0); }
 
+/* painel animado no topo: a live entra, a IA corta, aprova e posta */
+.pd { position: absolute; inset: 0; display: grid; grid-template-rows: auto auto auto minmax(0, 1fr); background: #0f0d17; font-family: var(--f); color: var(--tinta); }
+.pd-topo { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 12px 12px 8px; }
+.pd-marca { display: inline-flex; align-items: center; gap: 6px; font: 400 15px/1 var(--f-titulo); letter-spacing: .03em; text-transform: uppercase; }
+.pd-marca i { width: 16px; height: 16px; border-radius: 4px; background: var(--amarelo); }
+.pd-auto { display: inline-flex; align-items: center; gap: 6px; padding: 4px 8px 4px 4px; border-radius: 999px; background: var(--amarelo-fundo); border: 1px solid rgba(255,214,10,.4); font-size: 10.5px; font-weight: 700; color: var(--amarelo); }
+.pd-auto i { position: relative; width: 22px; height: 13px; border-radius: 7px; background: var(--amarelo); }
+.pd-auto i::after { content: ""; position: absolute; top: 2px; right: 2px; width: 9px; height: 9px; border-radius: 50%; background: var(--sobre-amarelo); }
+.pd-abas { display: flex; gap: 4px; padding: 0 10px 8px; border-bottom: 1px solid var(--fio); font-size: 11px; font-weight: 600; color: var(--tinta-3); }
+.pd-abas span { padding: 5px 7px; border-radius: 6px; white-space: nowrap; }
+.pd-abas span.on { background: var(--placa-2); color: var(--tinta); }
+.pd-abas b { margin-left: 3px; padding: 0 5px; border-radius: 99px; background: var(--fio-forte); font-size: 10px; font-variant-numeric: tabular-nums; }
+.pd-abas b.pulou { background: var(--amarelo); color: var(--sobre-amarelo); }
+.pd-live { display: flex; align-items: center; gap: 8px; padding: 9px 12px; font-size: 11px; color: var(--tinta-2); border-bottom: 1px solid var(--fio); }
+.pd-live .etiqueta { flex: none; white-space: nowrap; font-size: 9px; padding: 3px 6px; }
+.pd-live > span:nth-child(2) { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pd-live b { color: var(--tinta); }
+.pd-barras { margin-left: auto; display: flex; align-items: flex-end; gap: 2px; height: 16px; }
+.pd-barras i { width: 3px; height: 30%; border-radius: 1px; background: rgba(183,148,255,.5); }
+.pd-barras i:nth-child(2) { height: 55%; } .pd-barras i:nth-child(3) { height: 40%; } .pd-barras i:nth-child(4) { height: 70%; } .pd-barras i:nth-child(5) { height: 45%; }
+.pd.pico .pd-barras i:last-child { height: 100%; background: var(--amarelo); }
+@media (prefers-reduced-motion: no-preference) {
+  .pd-barras i { animation: chatinho 1.2s ease-in-out infinite alternate; animation-delay: calc(var(--d) * -200ms); transform-origin: bottom; }
+  @keyframes chatinho { to { transform: scaleY(.45); } }
+}
+.pd-lista { list-style: none; margin: 0; padding: 8px; display: grid; align-content: start; gap: 6px; overflow: hidden; }
+.pd-card { display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 4px 9px; padding: 7px; border-radius: 9px; background: var(--placa); border: 1px solid var(--fio); transition: border-color .3s, opacity .4s; }
+.pd-card img { grid-row: span 3; width: 40px; height: 71px; object-fit: cover; border-radius: 5px; }
+.pd-card .t { font-size: 11px; font-weight: 700; line-height: 1.2; text-transform: uppercase; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.pd-card .c { font-size: 10px; color: var(--tinta-2); }
+.pd-card .st { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; font-size: 9.5px; font-weight: 700; letter-spacing: .02em; }
+.pd-card .st span { padding: 2px 5px; border-radius: 4px; }
+.pd-card .st span.barra-corte { padding: 0; display: block; flex: 1; }
+.pd-card .barra-corte { height: 4px; border-radius: 2px; background: var(--fio-forte); overflow: hidden; align-self: center; }
+.pd-card .barra-corte i { display: block; height: 100%; background: var(--roxo-claro); transform-origin: left; transform: scaleX(0); }
+.pd-card.cortando .barra-corte i { transform: scaleX(1); transition: transform 1.3s linear; }
+.pd-card.cortando { border-color: rgba(183,148,255,.4); }
+.pd-card .poste { color: var(--verde); background: var(--verde-fundo); }
+.pd-card .ia { color: var(--sobre-amarelo); background: var(--amarelo); }
+.pd-card .ar { color: #fff; background: var(--vivo); }
+.pd-card.aprovado { border-color: var(--amarelo); }
+.pd-card.velho { opacity: .55; }
+@media (prefers-reduced-motion: no-preference) {
+  .pd-card.entra { animation: entra .5s var(--suave) both; }
+  @keyframes entra { from { opacity: 0; transform: translateY(-14px) scale(.97); } }
+  .pd-card .st span.novo { animation: carimbar .35s var(--mola) both; }
+  @keyframes carimbar { from { opacity: 0; transform: scale(1.6); } }
+}
+.pd-aviso { position: absolute; left: 10px; right: 10px; bottom: 12px; display: flex; align-items: center; gap: 8px; padding: 10px 12px; border-radius: 10px; background: var(--amarelo); color: var(--sobre-amarelo); font-size: 12px; font-weight: 700; box-shadow: 0 12px 26px -10px rgba(0,0,0,.9); opacity: 0; transform: translateY(12px); transition: opacity .3s, transform .4s var(--mola); }
+.pd-aviso.ver { opacity: 1; transform: none; }
+.pd-aviso .ic { width: 16px; height: 16px; }
 .trio { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; margin-top: 22px; border-block: 1px solid var(--fio-forte); }
 .trio div { display: grid; gap: 2px; padding: 12px 10px 12px 0; }
 .trio div + div { padding-left: 12px; border-left: 1px solid var(--fio); }
@@ -632,7 +663,7 @@ dialog.zoom .fechar { position: absolute; top: 10px; right: 10px; }
 <header class="topo faixa">
   <div class="miolo">
     <div class="marca"><span class="tesoura" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="7" r="3"/><circle cx="6" cy="17" r="3"/><path d="M8.5 8.5 20 18M8.5 15.5 20 6"/></svg></span>Clipador</div>
-    <a class="entrar js-comprar-rolar" href="#oferta">R$ 47,90</a>
+    <a class="entrar js-comprar-rolar" href="#oferta">R$ 49,90</a>
   </div>
 </header>
 
@@ -650,20 +681,20 @@ dialog.zoom .fechar { position: absolute; top: 10px; right: 10px; }
 
       <div class="visor">
         <span class="canto" aria-hidden="true"></span><span class="canto" aria-hidden="true"></span><span class="canto" aria-hidden="true"></span><span class="canto" aria-hidden="true"></span>
-        <span class="etiqueta vivo rec" aria-hidden="true">Rec</span>
-        <span class="tc tab" id="tc-video" aria-hidden="true">00:00:00</span>
-        <div class="tela">
-          <video id="video" src="midia/corte-fuga.mp4" poster="midia/corte-fuga-poster.jpg" muted autoplay loop playsinline preload="metadata" aria-label="Corte da live de @mrfalll: fuga de moto perfeita no GTA 6, feito pelo Clipador"></video>
-          <button class="ouvir" id="ouvir" type="button" aria-pressed="false">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>
-            <span><span id="ouvir-txt">Toque para ouvir</span><small>Este corte saiu do Clipador, da live ao post</small></span>
-          </button>
-          <div class="progresso" aria-hidden="true"><i id="progresso"></i></div>
+        <span class="etiqueta rec" aria-hidden="true">Demonstração do painel</span>
+        <div class="tela" role="img" aria-label="Demonstração do painel do Clipador: a live entra, a IA corta, aprova sozinha e posta o corte no YouTube Shorts">
+          <div class="pd" id="pd" aria-hidden="true">
+            <div class="pd-topo"><span class="pd-marca"><i></i>Clipador</span><span class="pd-auto"><i></i>Automático</span></div>
+            <div class="pd-abas"><span>Radar</span><span class="on">Revisar<b id="pd-rev">0</b></span><span>Postados<b id="pd-post">0</b></span></div>
+            <div class="pd-live"><span class="etiqueta vivo">Ao vivo</span><span id="pd-live-txt">vigiando <b>@mrfalll</b></span><span class="pd-barras"><i style="--d:0"></i><i style="--d:1"></i><i style="--d:2"></i><i style="--d:3"></i><i style="--d:4"></i></span></div>
+            <ul class="pd-lista" id="pd-lista"></ul>
+            <div class="pd-aviso" id="pd-aviso"><i class="ic sim"></i><span id="pd-aviso-txt">No ar no YouTube Shorts</span></div>
+          </div>
         </div>
       </div>
 
       <div class="hero-acao">
-        <p class="sub">Você cola o link do canal, da Twitch ou do YouTube. <b>O Clipador assiste à live, acha os momentos em que o chat explode, corta em vertical e põe legenda, título e o crédito do streamer.</b> Você só aprova.</p>
+        <p class="sub">Você cola o link do canal, da Twitch ou do YouTube. <b>O Clipador assiste à live, acha os momentos em que o chat explode, corta em vertical e põe legenda, título e o crédito do streamer.</b> Você aprova, ou deixa no automático e a IA aprova e posta sozinha.</p>
         <div class="trio">
           <div><b class="tab">654</b><span>cortes prontos em 37 horas</span></div>
           <div><b class="tab">17.636</b><span>canais vistos pelo radar</span></div>
@@ -671,7 +702,7 @@ dialog.zoom .fechar { position: absolute; top: 10px; right: 10px; }
         </div>
         <div class="acoes">
           <a class="botao js-comprar-rolar" id="cta-hero" href="#oferta">Quero o Clipador <i class="ic seta" aria-hidden="true"></i></a>
-          <p class="micro"><span>R$ 47,90 até 30/11</span><span>Pagamento único</span><span>7 dias de garantia</span></p>
+          <p class="micro"><span>R$ 49,90 até 30/11</span><span>Pagamento único</span><span>7 dias de garantia</span></p>
         </div>
       </div>
     </div>
@@ -768,7 +799,7 @@ dialog.zoom .fechar { position: absolute; top: 10px; right: 10px; }
               <div class="quadro" id="quadro-aprovar"><img src="midia/corte-fuga-poster.jpg" alt="O corte pronto, esperando aprovação"><span class="etq">25 s</span><span class="selo" aria-hidden="true"><span>Aprovado</span></span></div>
               <div class="lado">
                 <button class="segurar" id="segurar" type="button">Segure para aprovar<small>como no painel do Clipador</small></button>
-                <p class="programado" id="programado" aria-live="polite">Aprovou, sobe sozinho para o YouTube Shorts.</p>
+                <p class="programado" id="programado" aria-live="polite">Ou deixe no <b>automático</b>: a IA aprova e posta sem você.</p>
               </div>
             </div>
           </div>
@@ -792,7 +823,7 @@ dialog.zoom .fechar { position: absolute; top: 10px; right: 10px; }
   <section class="chamada">
     <div class="fita-amarela"><div class="miolo">
       <p class="frase">Agora mesmo tem live de GTA rolando. Cada momento que ninguém corta podia ser o seu corte.</p>
-      <div class="acao"><a class="botao escuro js-comprar-rolar" href="#oferta">Quero o Clipador <i class="ic seta" aria-hidden="true"></i></a><p class="micro"><span>R$ 47,90 até 30/11</span><span>7 dias de garantia</span></p></div>
+      <div class="acao"><a class="botao escuro js-comprar-rolar" href="#oferta">Quero o Clipador <i class="ic seta" aria-hidden="true"></i></a><p class="micro"><span>R$ 49,90 até 30/11</span><span>7 dias de garantia</span></p></div>
     </div></div>
   </section>
 
@@ -836,7 +867,7 @@ dialog.zoom .fechar { position: absolute; top: 10px; right: 10px; }
   <section class="chamada">
     <div class="fita-amarela"><div class="miolo">
       <p class="frase">Canal que cresce é canal que posta todo dia. O Clipador faz a parte que cansa.</p>
-      <div class="acao"><a class="botao escuro js-comprar-rolar" href="#oferta">Quero o Clipador <i class="ic seta" aria-hidden="true"></i></a><p class="micro"><span>R$ 47,90 até 30/11</span><span>7 dias de garantia</span></p></div>
+      <div class="acao"><a class="botao escuro js-comprar-rolar" href="#oferta">Quero o Clipador <i class="ic seta" aria-hidden="true"></i></a><p class="micro"><span>R$ 49,90 até 30/11</span><span>7 dias de garantia</span></p></div>
     </div></div>
   </section>
 
@@ -880,14 +911,15 @@ dialog.zoom .fechar { position: absolute; top: 10px; right: 10px; }
         <li style="--i:4"><span class="lado mao"><i class="ic nao" aria-hidden="true"></i>Esquece o crédito do streamer</span><span class="lado clip"><i class="ic sim" aria-hidden="true"></i>Selo com o @ e o link do streamer em todo corte</span></li>
         <li style="--i:5"><span class="lado mao"><i class="ic nao" aria-hidden="true"></i>Só acha os streamers grandes</span><span class="lado clip"><i class="ic sim" aria-hidden="true"></i>O radar acha os pequenos e médios, onde quase ninguém corta</span></li>
         <li style="--i:6"><span class="lado mao"><i class="ic nao" aria-hidden="true"></i>Exporta, baixa e sobe em cada rede</span><span class="lado clip"><i class="ic sim" aria-hidden="true"></i>Aprovou, sobe no Shorts; o resto vem com o texto pronto</span></li>
+        <li style="--i:7"><span class="lado mao"><i class="ic nao" aria-hidden="true"></i>Parou de postar, o canal parou junto</span><span class="lado clip"><i class="ic sim" aria-hidden="true"></i>No automático, a IA aprova e posta mesmo sem você</span></li>
       </ul>
     </div>
   </section>
 
   <section class="chamada">
     <div class="fita-amarela"><div class="miolo">
-      <p class="frase">Você não precisa assistir à live. Precisa só aprovar o corte.</p>
-      <div class="acao"><a class="botao escuro js-comprar-rolar" href="#oferta">Quero o Clipador <i class="ic seta" aria-hidden="true"></i></a><p class="micro"><span>R$ 47,90 até 30/11</span><span>7 dias de garantia</span></p></div>
+      <p class="frase">Você não precisa assistir à live. Nem aprovar, se não quiser: deixe no automático.</p>
+      <div class="acao"><a class="botao escuro js-comprar-rolar" href="#oferta">Quero o Clipador <i class="ic seta" aria-hidden="true"></i></a><p class="micro"><span>R$ 49,90 até 30/11</span><span>7 dias de garantia</span></p></div>
     </div></div>
   </section>
 
@@ -897,8 +929,8 @@ dialog.zoom .fechar { position: absolute; top: 10px; right: 10px; }
       <h2 class="legenda-titulo">Por que eu montei o Clipador</h2>
       <div class="historia-texto">
         <p>Eu queria um canal de cortes de GTA 6 postando todo dia, sem passar a noite assistindo live para achar 20 segundos bons.</p>
-        <p>Então montei uma máquina que assiste por mim. Ela lê o chat, ouve o som, escolhe o momento, corta, põe a legenda e o crédito do streamer, e deixa tudo esperando no painel.</p>
-        <p class="destaque">Hoje eu abro o painel, assisto e aprovo. <mark>É essa mesma máquina que você leva.</mark></p>
+        <p>Então montei uma máquina que assiste por mim. Ela lê o chat, ouve o som, escolhe o momento, corta, põe a legenda e o crédito do streamer, aprova e posta.</p>
+        <p class="destaque">Hoje eu só abro o painel para ver o que foi feito, o que foi postado e o resultado. Nada mais. <mark>É essa mesma máquina que você leva.</mark></p>
       </div>
     </div>
   </section>
@@ -929,7 +961,7 @@ dialog.zoom .fechar { position: absolute; top: 10px; right: 10px; }
         <ul class="itens">
           <li class="destaque" style="--i:0"><span class="num">01</span><b>Vídeo de instalação</b><span>O passo a passo, do zero ao primeiro corte.</span></li>
           <li style="--i:1"><span class="num">02</span><b>Um comando instala tudo</b><span>E já termina com um corte de teste no painel.</span></li>
-          <li style="--i:2"><span class="num">03</span><b>Painel com 5 abas</b><span>Radar, Em produção, Revisar, Postar e Postados.</span></li>
+          <li style="--i:2"><span class="num">03</span><b>Painel com 5 abas</b><span>Radar, Em produção, Revisar, Postar e Postados, e a chave do modo automático.</span></li>
           <li style="--i:3"><span class="num">04</span><b>Radar de streamers</b><span>Acha os canais de GTA que valem vigiar.</span></li>
           <li style="--i:4"><span class="num">05</span><b>Ajustes simples</b><span>Troque o jogo, a duração e a sensibilidade do corte.</span></li>
           <li style="--i:5"><span class="num">06</span><b>Guia em português</b><span>Tudo explicado em português simples.</span></li>
@@ -950,7 +982,7 @@ dialog.zoom .fechar { position: absolute; top: 10px; right: 10px; }
       <ol class="passos-3">
         <li><span class="n">1</span><b>Baixa o arquivo</b><span>O acesso chega no seu e-mail logo depois da compra.</span></li>
         <li><span class="n">2</span><b>Digita um comando</b><span>A instalação faz o resto e já entrega um corte de teste.</span></li>
-        <li><span class="n">3</span><b>Abre o painel e aprova</b><span>Os cortes vão chegando. Você assiste e escolhe.</span></li>
+        <li><span class="n">3</span><b>Aprova, ou deixa no automático</b><span>Os cortes vão chegando. Você escolhe, ou a IA escolhe e posta por você.</span></li>
       </ol>
       <p class="celular-aviso" id="celular-aviso"></p>
       <ul class="vantagens">
@@ -998,6 +1030,7 @@ dialog.zoom .fechar { position: absolute; top: 10px; right: 10px; }
         <div class="ingresso-lista">
           <ul class="lista">
             <li><i class="ic sim" aria-hidden="true"></i>O Clipador completo: radar, vigia, corte, legenda e painel</li>
+            <li><i class="ic sim" aria-hidden="true"></i>Modo automático: a IA aprova e posta por você</li>
             <li><i class="ic sim" aria-hidden="true"></i>Instala sozinho com um comando e já faz um corte de teste</li>
             <li><i class="ic sim" aria-hidden="true"></i>Vídeo de instalação e guia em português</li>
             <li><i class="ic sim" aria-hidden="true"></i>Área de membros com 5 módulos</li>
@@ -1012,7 +1045,7 @@ dialog.zoom .fechar { position: absolute; top: 10px; right: 10px; }
             <div class="relogio" aria-live="off"><div><b data-u="d">10</b><span>dias</span></div><div><b data-u="h">00</b><span>horas</span></div><div><b data-u="m">00</b><span>min</span></div><div><b data-u="s">00</b><span>seg</span></div></div>
             <p class="encerra-pe" id="encerra-pe">Depois de 30/11, este preço sai do ar.</p>
           </div>
-          <div class="preco"><span class="rs">R$</span><span class="v">47,90</span></div>
+          <div class="preco"><span class="rs">R$</span><span class="v">49,90</span></div>
           <p class="nota">Pagamento único · Pix, cartão ou boleto</p>
           <a class="botao js-comprar" href="#oferta">Quero o Clipador <i class="ic seta" aria-hidden="true"></i></a>
           <p class="micro"><span>7 dias de garantia</span><span>Sem mensalidade</span></p>
@@ -1030,9 +1063,9 @@ dialog.zoom .fechar { position: absolute; top: 10px; right: 10px; }
         <li>Você cola o link do canal; o Clipador entrega os cortes prontos</li>
         <li>Assiste, escolhe, corta, legenda e põe o crédito do streamer</li>
         <li>Lives da Twitch e do YouTube; vem pronto para GTA</li>
-        <li>Nada vai ao ar sem você aprovar</li>
+        <li>Você aprova, ou deixa a IA aprovar e postar sozinha</li>
         <li>Instala com um comando, com o passo a passo em vídeo</li>
-        <li>R$ 47,90 só até 30/11, pagamento único, com 7 dias de garantia</li>
+        <li>R$ 49,90 só até 30/11, pagamento único, com 7 dias de garantia</li>
       </ol>
       <div class="acoes"><a class="botao js-comprar-rolar" href="#oferta">Quero o Clipador <i class="ic seta" aria-hidden="true"></i></a></div>
     </div>
@@ -1047,10 +1080,10 @@ dialog.zoom .fechar { position: absolute; top: 10px; right: 10px; }
         <details><summary>Preciso entender de programa para instalar?</summary><p>Não. Você digita um comando e a instalação faz o resto, com o vídeo do passo a passo do lado. Travou em algo, o suporte responde no WhatsApp.</p></details>
         <details><summary>Só serve para GTA?</summary><p>Vem pronto para GTA. Para cortar outro jogo ou outro tipo de live, é um ajuste simples, e a própria instalação ajuda você a fazer.</p></details>
         <details><summary>Posso cortar qualquer streamer?</summary><p>Corte de quem permite e sempre com crédito. O Clipador já põe o @ e o link do streamer em todo corte. Muito streamer pequeno gosta, porque é divulgação de graça para ele.</p></details>
-        <details><summary>Ele posta sozinho?</summary><p>Nada vai ao ar sem você aprovar. Aprovou, sobe para o YouTube Shorts, se você ligou a sua conta do Google (o Google pode deixar os primeiros envios privados até revisar). Para Reels e TikTok, você baixa o vídeo e copia o texto, que já vêm prontos.</p></details>
+        <details><summary>Ele posta sozinho?</summary><p>Posta. Você escolhe: no manual, nada vai ao ar sem você aprovar; no automático, a IA aprova e posta por você. Os cortes sobem direto para o YouTube Shorts, com a sua conta do Google (o Google pode deixar os primeiros envios privados até revisar). Para Reels e TikTok, o vídeo e o texto saem prontos.</p></details>
         <details><summary>Dá para monetizar os cortes?</summary><p>Os cortes têm de 20 a 40 segundos. No TikTok, só entra na monetização vídeo com 61 segundos ou mais, então lá eles servem para crescer o perfil.</p></details>
         <details><summary>Estou no celular. Posso comprar agora?</summary><p>Pode. O acesso chega no seu e-mail, e você instala no computador quando chegar em casa.</p></details>
-        <details><summary>Por que R$ 47,90?</summary><p>É o preço do mês de lançamento. Vale até 30/11.</p></details>
+        <details><summary>Por que R$ 49,90?</summary><p>É o preço do mês de lançamento. Vale até 30/11.</p></details>
         <details><summary>E se eu não gostar?</summary><p>Você tem 7 dias. Peça o reembolso e recebe 100% de volta, sem precisar explicar o motivo.</p></details>
         <details><summary>Meus cortes vão ter esses mesmos números?</summary><p>Não dá para prometer. Os números da página são reais, mas cada canal tem seu tema e seu ritmo, e só cresce quem posta com constância. O que o Clipador tira de você é a parte difícil: assistir, cortar e legendar todo dia.</p></details>
       </div>
@@ -1061,10 +1094,10 @@ dialog.zoom .fechar { position: absolute; top: 10px; right: 10px; }
   <section class="secao fechamento faixa">
     <div class="miolo js-ver">
       <h2 class="legenda-titulo">A live de hoje já está rolando. Os cortes dela <span class="mk espera">podem ser seus.</span></h2>
-      <p class="lead">Talvez você queira começar um canal de cortes. Talvez queira pegar o começo do GTA 6. Ou só parar de perder a noite assistindo live. Custa R$ 47,90 só até 30/11, a instalação termina com um corte de teste no painel, e você tem 7 dias para desistir.</p>
+      <p class="lead">Talvez você queira começar um canal de cortes. Talvez queira pegar o começo do GTA 6. Ou só abrir o painel e ver os cortes no ar. Custa R$ 49,90 só até 30/11, a instalação termina com um corte de teste no painel, e você tem 7 dias para desistir.</p>
       <div class="acoes">
         <a class="botao js-comprar-rolar" href="#oferta">Quero o Clipador <i class="ic seta" aria-hidden="true"></i></a>
-        <p class="micro"><span>R$ 47,90 até 30/11</span><span>Pagamento único</span><span>7 dias de garantia</span></p>
+        <p class="micro"><span>R$ 49,90 até 30/11</span><span>Pagamento único</span><span>7 dias de garantia</span></p>
       </div>
     </div>
   </section>
@@ -1074,7 +1107,7 @@ dialog.zoom .fechar { position: absolute; top: 10px; right: 10px; }
 
 <div class="barra escondida" id="barra" role="region" aria-label="Comprar">
   <div class="miolo">
-    <div class="p"><b>R$ 47,90</b><small id="barra-prazo">lançamento até 30/11</small></div>
+    <div class="p"><b>R$ 49,90</b><small id="barra-prazo">lançamento até 30/11</small></div>
     <a class="botao js-comprar" href="#oferta">Quero o Clipador <i class="ic seta" aria-hidden="true"></i></a>
   </div>
 </div>
@@ -1103,24 +1136,63 @@ dialog.zoom .fechar { position: absolute; top: 10px; right: 10px; }
   if (CHECKOUT) $$(".js-comprar").forEach(a => { a.href = CHECKOUT; a.target = "_blank"; a.rel = "noopener"; });
   $$(".js-comprar-rolar").forEach(a => a.addEventListener("click", e => { e.preventDefault(); rolar($("#oferta")); }));
 
-  /* ---- vídeo com som e timecode ---- */
-  const v = $("#video"), ouvir = $("#ouvir"), ouvirTxt = $("#ouvir-txt"), barraV = $("#progresso"), tcV = $("#tc-video");
   const dois = n => String(n).padStart(2, "0");
-  ouvir.addEventListener("click", () => {
-    if (v.muted) { v.muted = false; v.currentTime = 0; v.play().catch(() => {}); ouvir.classList.add("tocando"); ouvirTxt.textContent = "Tocando com som · toque para silenciar"; ouvir.setAttribute("aria-pressed", "true"); }
-    else { v.muted = true; ouvir.classList.remove("tocando"); ouvirTxt.textContent = "Toque para ouvir"; ouvir.setAttribute("aria-pressed", "false"); }
-  });
-  v.addEventListener("timeupdate", () => {
-    if (!v.duration) return;
-    barraV.style.transform = `scaleX(${v.currentTime / v.duration})`;
-    const t = v.currentTime; tcV.textContent = `00:${dois(Math.floor(t))}:${dois(Math.floor((t % 1) * 30))}`;
-  });
-  if (calmo) { v.removeAttribute("autoplay"); v.pause(); }
   if (!calmo && temIO) {
-    new IntersectionObserver(([en]) => { if (en.isIntersecting) v.play().catch(() => {}); else v.pause(); }, { threshold: .15 }).observe(v);
     const tl = $("#timeline");
     new IntersectionObserver(([en]) => tl.classList.toggle("parada", !en.isIntersecting)).observe(tl);
   }
+
+  /* ---- painel animado do topo: a live entra, a IA corta, aprova e posta ---- */
+  (() => {
+    const CORTES = [
+      { img: "midia/corte-mrfalll-01970.jpg", t: "Fuga de moto perfeita no GTA 6", c: "@mrfalll" },
+      { img: "midia/corte-cellbit-00009.jpg", t: "Eu achei que explodiu o bairro", c: "@cellbit" },
+      { img: "midia/corte-binas-01567.jpg", t: "Você acha que você pode me pegar?", c: "@binas" },
+      { img: "midia/corte-mount-00011.jpg", t: "Tá me atacando!", c: "@mount" }
+    ];
+    const pd = $("#pd"), lista = $("#pd-lista"), nRev = $("#pd-rev"), nPost = $("#pd-post"), aviso = $("#pd-aviso"), avisoTxt = $("#pd-aviso-txt"), liveTxt = $("#pd-live-txt");
+    let k = 0, rev = 0, post = 0, rodando = false, t = 0;
+    const conta = (el, n) => { el.textContent = n; el.classList.remove("pulou"); void el.offsetWidth; el.classList.add("pulou"); setTimeout(() => el.classList.remove("pulou"), 600); };
+    function cartao(c, estado) {
+      const li = document.createElement("li"); li.className = "pd-card";
+      li.innerHTML = `<img src="${c.img}" alt=""><span class="t">${c.t}</span><span class="c">Live de ${c.c}</span><span class="st"></span>`;
+      const st = li.querySelector(".st");
+      if (estado === "pronto") st.innerHTML = '<span class="poste">POSTE</span><span class="ia">IA APROVOU</span><span class="ar">NO AR</span>';
+      return [li, st];
+    }
+    if (calmo || !temIO) {
+      CORTES.slice(0, 3).forEach(c => lista.appendChild(cartao(c, "pronto")[0]));
+      nPost.textContent = 3; return;
+    }
+    function espera(ms) { return new Promise(r => { t = setTimeout(r, ms); }); }
+    async function ciclo() {
+      while (rodando) {
+        const c = CORTES[k % CORTES.length]; k++;
+        liveTxt.innerHTML = `vigiando <b>${c.c}</b>`;
+        await espera(700); if (!rodando) return;
+        pd.classList.add("pico"); liveTxt.innerHTML = `<b>pico no chat</b> · ${c.c}`;
+        const [li, st] = cartao(c);
+        li.classList.add("entra"); st.innerHTML = '<span class="barra-corte" style="width:100%"><i></i></span>';
+        lista.prepend(li); [...lista.children].slice(1).forEach(x => x.classList.add("velho"));
+        while (lista.children.length > 4) lista.lastElementChild.remove();
+        requestAnimationFrame(() => requestAnimationFrame(() => li.classList.add("cortando")));
+        await espera(1400); if (!rodando) return;
+        pd.classList.remove("pico"); li.classList.remove("cortando");
+        st.innerHTML = '<span class="poste novo">POSTE</span>'; conta(nRev, ++rev);
+        await espera(900); if (!rodando) return;
+        st.insertAdjacentHTML("beforeend", '<span class="ia novo">IA APROVOU</span>'); li.classList.add("aprovado");
+        await espera(900); if (!rodando) return;
+        st.insertAdjacentHTML("beforeend", '<span class="ar novo">NO AR</span>'); conta(nRev, --rev); conta(nPost, ++post);
+        avisoTxt.textContent = `No ar no YouTube Shorts · ${c.c}`; aviso.classList.add("ver");
+        await espera(1500); aviso.classList.remove("ver");
+        await espera(500);
+      }
+    }
+    new IntersectionObserver(([en]) => {
+      if (en.isIntersecting && !rodando) { rodando = true; ciclo(); }
+      else if (!en.isIntersecting && rodando) { rodando = false; clearTimeout(t); }
+    }, { threshold: .2 }).observe(pd);
+  })();
 
   /* ---- tarja amarela que entra nos títulos (uma vez) ---- */
   $$(".js-ver").forEach(el => quandoAparecer(el, () => el.classList.add("visto"), { threshold: .35 }));
@@ -1148,7 +1220,7 @@ dialog.zoom .fechar { position: absolute; top: 10px; right: 10px; }
     { quem: "IA que corta", titulo: "Vira vertical", texto: "Sai em 1080×1920, o tamanho do celular, com o jogo inteiro no meio e o fundo desfocado." },
     { quem: "IA que legenda", titulo: "Legenda, título e crédito", texto: "Ela ouve a fala e escreve a legenda grande, cria o título e põe o selo com o @ do streamer." },
     { quem: "O Clipador", titulo: "Saem vários cortes", texto: "Não sai um corte por noite. No computador em que ele foi testado, foram 654 cortes prontos em 37 horas, esperando no painel." },
-    { quem: "Você", voce: true, titulo: "Aprovar", texto: "Você assiste e aprova. Sobe sozinho para o YouTube Shorts; para Reels e TikTok, o vídeo e o texto já vêm prontos. Segure o botão amarelo." }
+    { quem: "Você, ou a IA", voce: true, titulo: "Aprovar e postar", texto: "Você aprova, ou liga o modo automático e a IA aprova e posta sozinha. Sobe direto para o YouTube Shorts; Reels e TikTok saem com o vídeo e o texto prontos." }
   ];
   const DUR = [4.2, 4.6, 4.6, 4.4, 4.2, 4.6, 4.4, 7];
   const player = $("#player"), segsEl = $("#segs"), capEl = $("#capitulos"), cenas = $$(".cena");
@@ -1231,7 +1303,7 @@ dialog.zoom .fechar { position: absolute; top: 10px; right: 10px; }
   function reiniciaAprovar() {
     feito = false; seg.style.setProperty("--p", 0); seg.classList.remove("cheio"); quadroA.classList.remove("aprovado");
     seg.firstChild.textContent = "Segure para aprovar"; seg.querySelector("small").textContent = "como no painel do Clipador";
-    progA.textContent = "Aprovou, sobe sozinho para o YouTube Shorts.";
+    progA.innerHTML = "Ou deixe no <b>automático</b>: a IA aprova e posta sem você.";
   }
   seg.addEventListener("pointerdown", comeca);
   ["pointerup", "pointerleave", "pointercancel"].forEach(ev => seg.addEventListener(ev, solta));
