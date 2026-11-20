@@ -190,7 +190,7 @@ img, video { max-width: 100%; display: block; }
 .esteira::after { right: 0; background: linear-gradient(-90deg, var(--chao), transparent); }
 
 /* ---------- títulos de seção ---------- */
-.secao { padding-block: 80px; }
+.secao { padding-block: clamp(52px, 8vw, 84px); }
 .secao h2 { font-weight: 700; font-size: clamp(34px, 7.4vw, 60px); line-height: 1.04; letter-spacing: -.04em; margin: 0; text-wrap: balance; max-width: 17ch; }
 .secao .lead { color: var(--tinta-2); font-size: 19px; line-height: 1.45; max-width: 40ch; margin: 16px 0 0; letter-spacing: -.015em; }
 /* palavras que acendem conforme a leitura */
@@ -471,7 +471,7 @@ dialog.zoom .fechar { position: absolute; top: 10px; right: 10px; }
 .micro span::before { content: "✓"; color: var(--verde); font-weight: 700; }
 .micro-centro { justify-content: center; margin-top: 12px; }
 
-.chamada { padding-block: 40px; }
+.chamada { padding-block: 8px; }
 .chamada-in { display: grid; gap: 18px; padding: clamp(22px, 4vw, 36px); border-radius: var(--r-l); background: linear-gradient(135deg, rgba(255,122,26,.16), rgba(255,122,26,.04)); border: 1px solid rgba(255,122,26,.28); }
 .chamada-frase { margin: 0; font-size: clamp(22px, 4.4vw, 32px); font-weight: 700; line-height: 1.15; letter-spacing: -.035em; text-wrap: balance; max-width: 26ch; }
 .chamada-acao { display: grid; gap: 12px; justify-items: start; }
@@ -608,6 +608,50 @@ dialog.zoom .fechar { position: absolute; top: 10px; right: 10px; }
 .queima i { display: block; height: 100%; width: 100%; background: linear-gradient(90deg, var(--laranja), var(--vermelho)); transform-origin: left; transform: scaleX(var(--q, 0)); }
 .pavio-pe { margin: 0; font-size: 13px; color: var(--tinta-2); }
 .pavio.acabou .relogio, .pavio.acabou .queima { display: none; }
+
+/* ---------- roda no seu computador ---------- */
+.sistemas { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 28px; }
+.sistema { position: relative; display: grid; gap: 4px; padding: 22px 18px; border-radius: var(--r-l); background: var(--chapa); border: 1px solid var(--fio-forte); transition: border-color .3s, background-color .3s; }
+.sistema .so-ic svg { width: 44px; height: 44px; color: var(--tinta-2); }
+.sistema b { font-size: 24px; font-weight: 700; letter-spacing: -.03em; margin-top: 6px; }
+.sistema .so-txt { font-size: 14px; color: var(--tinta-2); }
+.sistema .seu { position: absolute; top: 14px; right: 14px; display: none; align-items: center; gap: 4px; padding: 4px 10px 4px 8px; border-radius: 999px; background: var(--verde); color: #021a08; font-size: 12px; font-weight: 700; }
+.sistema .seu svg { width: 14px; height: 14px; }
+.sistema.e-o-seu { border-color: rgba(48,209,88,.6); background: linear-gradient(var(--verde-fundo), var(--verde-fundo)), var(--chapa); }
+.sistema.e-o-seu .seu { display: inline-flex; }
+.sistema.e-o-seu .so-ic svg { color: var(--verde); }
+.detectado:empty { display: none; }
+.vantagens { list-style: none; margin: 20px 0 0; padding: 0; display: grid; gap: 10px; }
+.vantagens li { display: grid; grid-template-columns: 22px 1fr; gap: 10px; font-size: 17px; }
+.vantagens svg { width: 20px; height: 20px; color: var(--verde); margin-top: 2px; }
+#maquina .acoes { margin-top: 26px; }
+@media (min-width: 760px) { .vantagens { grid-template-columns: repeat(3, 1fr); } }
+
+/* ---------- selo da garantia ---------- */
+.garantia-cartao { display: grid; gap: 24px; align-items: center; justify-items: center; text-align: center; padding: clamp(26px, 5vw, 48px); border-radius: var(--r-l); border: 1px solid rgba(48,209,88,.4); background: radial-gradient(120% 90% at 50% 0%, rgba(48,209,88,.16), transparent 60%), var(--chapa); }
+.selo { width: min(200px, 56vw); aspect-ratio: 1; }
+.selo svg { width: 100%; height: 100%; overflow: visible; }
+.selo-borda { fill: rgba(48,209,88,.10); stroke: var(--verde); stroke-width: 2; }
+.selo-miolo { fill: #0c1a10; stroke: rgba(48,209,88,.55); stroke-width: 1.5; stroke-dasharray: 3 4; }
+.selo-texto { fill: var(--verde); font: 700 12px/1 var(--f); }
+.selo-escudo { fill: var(--verde); }
+.selo-num { fill: #021a08; font: 800 48px/1 var(--f); letter-spacing: -.04em; }
+.selo-dias { fill: #021a08; font: 800 12px/1 var(--f); letter-spacing: .16em; }
+.selo-gira { transform-origin: 100px 100px; }
+@media (prefers-reduced-motion: no-preference) {
+  .selo-gira { animation: girar 28s linear infinite; }
+  @keyframes girar { to { transform: rotate(360deg); } }
+}
+.garantia-txt h2 { max-width: 20ch; margin-inline: auto; }
+.garantia-txt .lead { margin-inline: auto; }
+.garantia-pontos { list-style: none; margin: 20px 0 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 20px; }
+.garantia-pontos li { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; }
+.garantia-pontos svg { width: 18px; height: 18px; color: var(--verde); }
+@media (min-width: 900px) {
+  .garantia-cartao { grid-template-columns: auto 1fr; justify-items: start; text-align: left; gap: 48px; }
+  .garantia-txt h2, .garantia-txt .lead { margin-inline: 0; }
+  .garantia-pontos { justify-content: flex-start; }
+}
 </style>
 
 <div class="lido" aria-hidden="true"></div>
@@ -987,7 +1031,7 @@ dialog.zoom .fechar { position: absolute; top: 10px; right: 10px; }
             <li class="grupo"><details><summary><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M3 6.5A1.5 1.5 0 0 1 4.5 5h4l2 2h9A1.5 1.5 0 0 1 21 8.5v9a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 17.5z"/></svg><span class="nome">.claude/skills/</span><span class="oque">3 skills prontas</span></summary><ul><li class="arq " style="--i:14"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M3 6.5A1.5 1.5 0 0 1 4.5 5h4l2 2h9A1.5 1.5 0 0 1 21 8.5v9a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 17.5z"/></svg><span class="nome">fabrica/</span><span class="oque">liga a linha de produção</span></li><li class="arq " style="--i:15"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M3 6.5A1.5 1.5 0 0 1 4.5 5h4l2 2h9A1.5 1.5 0 0 1 21 8.5v9a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 17.5z"/></svg><span class="nome">postador/</span><span class="oque">programa os aprovados nas redes</span></li><li class="arq " style="--i:16"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M3 6.5A1.5 1.5 0 0 1 4.5 5h4l2 2h9A1.5 1.5 0 0 1 21 8.5v9a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 17.5z"/></svg><span class="nome">analista/</span><span class="oque">lê os resultados uma vez por semana</span></li></ul></details></li>
             <li class="arq " style="--i:17"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/></svg><span class="nome">.claude/workflows/producao.js</span><span class="oque">a ordem que nunca pula etapa</span></li>
             <li class="arq " style="--i:18"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M3 6.5A1.5 1.5 0 0 1 4.5 5h4l2 2h9A1.5 1.5 0 0 1 21 8.5v9a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 17.5z"/></svg><span class="nome">painel/</span><span class="oque">a tela onde você pede e aprova</span></li>
-            <li class="arq " style="--i:19"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M3 6.5A1.5 1.5 0 0 1 4.5 5h4l2 2h9A1.5 1.5 0 0 1 21 8.5v9a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 17.5z"/></svg><span class="nome">motor/</span><span class="oque">voz, imagem, música, vídeo e a trava que protege o Mac</span></li>
+            <li class="arq " style="--i:19"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M3 6.5A1.5 1.5 0 0 1 4.5 5h4l2 2h9A1.5 1.5 0 0 1 21 8.5v9a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 17.5z"/></svg><span class="nome">motor/</span><span class="oque">voz, imagem, música, vídeo e a trava que protege o computador</span></li>
             <li class="arq " style="--i:20"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M3 6.5A1.5 1.5 0 0 1 4.5 5h4l2 2h9A1.5 1.5 0 0 1 21 8.5v9a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 17.5z"/></svg><span class="nome">estilos/</span><span class="oque">o molde visual dos bonecos</span></li>
           </ul>
         </div>
@@ -1000,41 +1044,49 @@ dialog.zoom .fechar { position: absolute; top: 10px; right: 10px; }
     </div>
   </section>
 
-  <!-- SUA MÁQUINA RODA? -->
+  <!-- RODA NO SEU COMPUTADOR -->
   <section class="secao faixa" id="maquina">
-    <div class="miolo maquina">
-      <div>
-        <h2 class="acende js-palavras">Sua máquina roda a Fábrica?</h2>
-        <p class="lead">Ela trabalha no seu Mac, não na nuvem de ninguém. Confira em 10 segundos antes de comprar.</p>
-        <p class="detectado" id="detectado" aria-live="polite">Toque nos itens que você tem.</p>
-        <ul class="checa" id="checa">
-          <li><button type="button" class="req" data-req="mac" aria-pressed="false"><span class="caixinha" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span><b>Mac com chip da Apple</b><small>M1, M2, M3 ou M4. Não roda no Windows nem no celular.</small></span></button></li>
-          <li><button type="button" class="req" data-req="disco" aria-pressed="false"><span class="caixinha" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span><b>72 GB livres no disco</b><small>Para as IAs de voz, imagem e vídeo. Confira em Ajustes do Sistema › Geral › Armazenamento.</small></span></button></li>
-          <li><button type="button" class="req" data-req="claude" aria-pressed="false"><span class="caixinha" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span><b>Plano pago do Claude</b><small>É o Claude que comanda os 13 agentes.</small></span></button></li>
-        </ul>
+    <div class="miolo">
+      <h2 class="acende js-palavras">Roda no seu computador.</h2>
+      <p class="lead">Mac ou Windows, notebook ou desktop. Você instala uma vez, com o passo a passo em vídeo, e a Fábrica trabalha sozinha enquanto você faz outra coisa.</p>
+      <div class="sistemas">
+        <div class="sistema" data-so="mac"><span class="so-ic"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" aria-hidden="true"><rect x="10" y="10" width="28" height="19" rx="2.5"/><path d="M5 35h38l-3 4H8z"/></svg></span><b>Mac</b><span class="so-txt">MacBook, iMac ou Mac mini</span><span class="seu" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>É o seu</span></div>
+        <div class="sistema" data-so="win"><span class="so-ic"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="9" width="36" height="24" rx="3"/><path d="M18 39h12M24 33v6"/></svg></span><b>Windows</b><span class="so-txt">Notebook ou desktop</span><span class="seu" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>É o seu</span></div>
       </div>
-      <div class="veredito" id="veredito" data-estado="0">
-        <div class="medidor" aria-hidden="true"><i id="medidor"></i></div>
-        <p class="veredito-titulo" id="veredito-titulo">Faltam 3 itens</p>
-        <p class="veredito-texto" id="veredito-texto">Marque o que você já tem.</p>
-        <a class="botao js-comprar-rolar" id="veredito-cta" href="#oferta" hidden>Quero a Fábrica <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        <dl class="ficha">
-          <div><dt>Cada vídeo</dt><dd>45 a 90 min</dd></div>
-          <div><dt>Ao mesmo tempo</dt><dd>2 vídeos</dd></div>
-          <div><dt>Para postar sozinho</dt><dd>Chrome aberto</dd></div>
-          <div><dt>Testada em</dt><dd>Mac M1 Max, 32 GB</dd></div>
-        </dl>
-      </div>
+      <p class="detectado" id="detectado" aria-live="polite"></p>
+      <ul class="vantagens">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Instala uma vez, com o vídeo do lado</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Trabalha sozinha enquanto você usa o computador</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Cerca de uma hora por vídeo, sem você mexer</li>
+      </ul>
+      <div class="acoes"><a class="botao brilha js-comprar-rolar" href="#oferta">Quero a Fábrica <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
     </div>
   </section>
 
   <!-- GARANTIA -->
   <section class="secao faixa" id="garantia">
-    <div class="miolo garantia">
-      <div class="selo-garantia" aria-hidden="true"><b>7</b><span>dias</span></div>
-      <div>
-        <h2>Testa. Não gostou, devolve.</h2>
-        <p class="lead">Faça seus primeiros vídeos com a Fábrica. Se não gostar do que ela entrega, peça o dinheiro de volta em até 7 dias e recebe cada centavo.</p>
+    <div class="miolo">
+      <div class="garantia-cartao">
+        <div class="selo" aria-hidden="true">
+          <svg viewBox="0 0 200 200">
+            <defs><path id="roda-selo" d="M100,100 m-82,0 a82,82 0 1,1 164,0 a82,82 0 1,1 -164,0"/></defs>
+            <circle cx="100" cy="100" r="97" class="selo-borda"/>
+            <circle cx="100" cy="100" r="68" class="selo-miolo"/>
+            <g class="selo-gira"><text class="selo-texto"><textPath href="#roda-selo" startOffset="0" textLength="508" lengthAdjust="spacing">GARANTIA INCONDICIONAL · 7 DIAS · RISCO ZERO · TESTE SEM MEDO · </textPath></text></g>
+            <path class="selo-escudo" d="M100 52 L134 64 V96 C134 120 119 136 100 146 C81 136 66 120 66 96 V64 Z"/>
+            <text x="100" y="104" text-anchor="middle" class="selo-num">7</text>
+            <text x="100" y="124" text-anchor="middle" class="selo-dias">DIAS</text>
+          </svg>
+        </div>
+        <div class="garantia-txt">
+          <h2>Teste por 7 dias. Não gostou, devolvemos tudo.</h2>
+          <p class="lead">Instale, faça seus vídeos e veja a Fábrica trabalhando. Se não for para você, peça o reembolso em até 7 dias e recebe 100% do valor de volta.</p>
+          <ul class="garantia-pontos">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Reembolso de 100%</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Sem precisar explicar o motivo</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>O risco é todo nosso</li>
+          </ul>
+        </div>
       </div>
     </div>
   </section>
@@ -1047,7 +1099,7 @@ dialog.zoom .fechar { position: absolute; top: 10px; right: 10px; }
         <ul class="lista">
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>A Fábrica completa: painel, motor e linha de produção</li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>13 agentes e 3 skills prontos, um conferindo o outro</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Passo a passo em vídeo para instalar no seu Mac</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Passo a passo em vídeo para instalar no seu computador</li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Vídeo pronto para TikTok, Reels e Shorts, com título, legenda e capa</li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>7 dias de garantia</li>
         </ul>
@@ -1077,7 +1129,7 @@ dialog.zoom .fechar { position: absolute; top: 10px; right: 10px; }
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>13 agentes: roteiro, conferência, voz, cenas, animação, cortes, capa e agenda</li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Pronto para TikTok, Reels e Shorts</li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Sem gravar, sem editar, sem aparecer</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Roda no Mac com chip da Apple, com o passo a passo em vídeo</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Roda no Mac e no Windows, com o passo a passo em vídeo</li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>R$ 47,90 só até 30/11, pagamento único, com 7 dias de garantia</li>
       </ul>
       <div class="acoes">
@@ -1094,8 +1146,8 @@ dialog.zoom .fechar { position: absolute; top: 10px; right: 10px; }
         <details><summary>Preciso saber editar?</summary><p>Não. Você escreve o tema e aprova. Roteiro, voz, animação, cortes e capa ficam com a Fábrica.</p></details>
         <details><summary>Preciso aparecer ou gravar minha voz?</summary><p>Não. A narração é feita com uma voz própria do canal, sintética, sempre a mesma.</p></details>
         <details><summary>A IA não vai inventar coisa?</summary><p>É exatamente para isso que existe a conferência: uma IA escreve, outra confere cada frase contra a fonte. O que não tem fonte volta para ser reescrito.</p></details>
-        <details><summary>Roda no Windows ou no celular?</summary><p>Não. A Fábrica roda no Mac com chip da Apple (M1, M2, M3 ou M4). Pelo celular você compra agora e instala no Mac depois.</p></details>
-        <details><summary>Quanto tempo leva cada vídeo?</summary><p>De 45 a 90 minutos, dois vídeos por vez. Você pode usar o Mac enquanto isso: as IAs pesadas rodam uma de cada vez.</p></details>
+        <details><summary>Roda no Windows? E no Mac?</summary><p>Roda nos dois. No celular não: você compra pelo celular e instala no computador.</p></details>
+        <details><summary>Quanto tempo leva cada vídeo?</summary><p>Cerca de uma hora, e ela faz dois por vez. Você pode usar o computador enquanto isso.</p></details>
         <details><summary>Por que R$ 47,90?</summary><p>É o preço do mês de lançamento. Vale até 30/11.</p></details>
         <details><summary>E se eu não gostar?</summary><p>Você tem 7 dias. Peça o dinheiro de volta e recebe tudo.</p></details>
         <details><summary>Meus vídeos vão ter esses mesmos números?</summary><p>Não dá para prometer. Os números da página são reais, mas cada canal tem seu tema e seu ritmo, e só cresce quem posta com constância. O que a Fábrica tira de você é a parte difícil: fazer o vídeo todo dia.</p></details>
@@ -1337,37 +1389,14 @@ dialog.zoom .fechar { position: absolute; top: 10px; right: 10px; }
     else { const ioC = new IntersectionObserver(([en]) => { if (en.isIntersecting) { caixaEl.classList.add("aberta"); ioC.disconnect(); } }, { threshold: .15 }); ioC.observe(caixaEl); }
   }
 
-  /* ---- sua máquina roda? ---- */
-  const reqs = $$(".req"), vered = $("#veredito"), vTit = $("#veredito-titulo"), vTxt = $("#veredito-texto"), vCta = $("#veredito-cta"), medidor = $("#medidor"), detectado = $("#detectado");
-  const FALTA = { mac: "um Mac com chip da Apple", disco: "72 GB livres", claude: "um plano pago do Claude" };
-  function avaliar() {
-    const tem = reqs.filter(b => b.getAttribute("aria-pressed") === "true");
-    const n = tem.length, faltam = reqs.filter(b => b.getAttribute("aria-pressed") !== "true").map(b => FALTA[b.dataset.req]);
-    vered.dataset.estado = n; medidor.style.transform = `scaleX(${n / 3})`;
-    if (n === 3) { vTit.textContent = "Sua máquina roda a Fábrica"; vTxt.textContent = "Está tudo pronto. Instalou, o primeiro vídeo sai em cerca de uma hora."; vCta.hidden = false; }
-    else { vTit.textContent = faltam.length === 1 ? "Falta 1 item" : `Faltam ${faltam.length} itens`; vTxt.textContent = "Ainda falta: " + faltam.join(", ") + "."; vCta.hidden = true; }
-  }
-  reqs.forEach(b => b.addEventListener("click", () => { b.setAttribute("aria-pressed", b.getAttribute("aria-pressed") === "true" ? "false" : "true"); avaliar(); }));
-  avaliar();
-  function detectar() {
-    const ua = navigator.userAgent || "";
-    if (/iPhone|iPad|Android/i.test(ua)) { detectado.innerHTML = "Você está no celular. Tudo bem: compre agora e instale no Mac depois."; return; }
-    if (/Windows/i.test(ua)) { detectado.innerHTML = "Você está num computador com Windows. A Fábrica roda só no Mac com chip da Apple."; return; }
-    if (!/Mac/i.test(ua)) return;
-    try {
-      const c = document.createElement("canvas"), gl = c.getContext("webgl");
-      const ext = gl && gl.getExtension("WEBGL_debug_renderer_info");
-      const r = ext ? gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) : "";
-      const chip = (r.match(/Apple (M\d[\w ]*?)(?:,|\)|$)/) || [])[1];
-      gl && gl.getExtension("WEBGL_lose_context")?.loseContext();
-      if (chip) {
-        detectado.innerHTML = `Encontramos um <b>Apple ${chip.trim()}</b> neste Mac. O primeiro item já está marcado.`;
-        const b = reqs.find(x => x.dataset.req === "mac"); b.setAttribute("aria-pressed", "true"); avaliar();
-      } else detectado.textContent = "Você está num Mac. Confira se o chip é da Apple em Menu Apple › Sobre este Mac.";
-    } catch (_) {}
-  }
-  const maq = $("#maquina");
-  if ("IntersectionObserver" in window) { const ioM = new IntersectionObserver(([en]) => { if (en.isIntersecting) { detectar(); ioM.disconnect(); } }, { rootMargin: "200px" }); ioM.observe(maq); } else detectar();
+  /* ---- roda no seu computador ---- */
+  (() => {
+    const det = $("#detectado"), ua = navigator.userAgent || "";
+    const marca = so => { const c = $(`.sistema[data-so="${so}"]`); if (c) c.classList.add("e-o-seu"); };
+    if (/iPhone|iPad|Android/i.test(ua)) det.textContent = "Você está no celular: compre agora e instale no computador quando chegar em casa.";
+    else if (/Windows/i.test(ua)) { marca("win"); det.textContent = "Você está no Windows. Ele roda a Fábrica."; }
+    else if (/Mac/i.test(ua)) { marca("mac"); det.textContent = "Você está no Mac. Ele roda a Fábrica."; }
+  })();
 
   /* ---- preço de lançamento até 30/11 ---- */
   const INICIO = new Date("2026-11-01T00:00:00-03:00").getTime(), FIM = new Date("2026-11-30T23:59:59-03:00").getTime();
