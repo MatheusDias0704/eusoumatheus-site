@@ -147,15 +147,15 @@ img, video { max-width: 100%; display: block; }
 }
 .tela video { width: 100%; height: 100%; object-fit: cover; }
 .ouvir {
-  position: absolute; left: 12px; right: 12px; bottom: 30%;
-  display: flex; align-items: center; gap: 12px; min-height: 60px; padding: 10px 16px;
+  position: absolute; z-index: 5; left: 10px; right: 10px; bottom: 10px;
+  display: flex; align-items: center; gap: 10px; min-height: 52px; padding: 8px 14px;
   border: 0; border-radius: 20px; cursor: pointer; text-align: left;
   background: var(--laranja); color: var(--sobre-laranja);
   font: 700 16px/1.2 var(--f); letter-spacing: -.01em;
   transition: background-color .25s var(--suave), transform .2s var(--suave), bottom .6s var(--suave);
   box-shadow: 0 16px 40px -12px rgba(0,0,0,.8);
 }
-.ouvir.tocando { bottom: 12px; background: rgba(8,8,10,.88); color: var(--tinta); }
+.ouvir.tocando { background: rgba(8,8,10,.88); color: var(--tinta); }
 .ouvir:active { transform: scale(.98); }
 .ouvir svg { width: 28px; height: 28px; flex: none; }
 .ouvir small { display: block; font-weight: 500; font-size: 13px; opacity: .78; margin-top: 2px; }
@@ -652,6 +652,84 @@ dialog.zoom .fechar { position: absolute; top: 10px; right: 10px; }
   .garantia-txt h2, .garantia-txt .lead { margin-inline: 0; }
   .garantia-pontos { justify-content: flex-start; }
 }
+
+/* ---------- mini vídeo do painel no topo ---------- */
+.tela video, .dm-selo-video { position: absolute; inset: 0; opacity: 0; transition: opacity .5s var(--suave); }
+.tela[data-fase="video"] video, .tela.com-som video { opacity: 1; }
+.tela .progresso { z-index: 3; }
+.dm-selo-video { inset: 14px auto auto 14px; z-index: 4; height: max-content; padding: 6px 10px; border-radius: 999px; background: rgba(8,8,10,.8); font-size: 12px; font-weight: 700; color: var(--tinta); }
+.tela[data-fase="video"]:not(.com-som) .dm-selo-video { opacity: 1; }
+.demo { position: absolute; inset: 0; display: grid; grid-template-rows: auto auto minmax(0, 1fr); background: #0d0d10; transition: opacity .5s var(--suave); }
+.tela[data-fase="video"] .demo, .tela.com-som .demo { opacity: 0; }
+.dm-topo { display: flex; align-items: center; justify-content: space-between; padding: 14px 14px 8px; }
+.dm-marca { display: inline-flex; align-items: center; gap: 7px; font-size: 15px; font-weight: 700; letter-spacing: -.02em; }
+.dm-marca i { width: 16px; height: 16px; border-radius: 5px; background: var(--laranja); }
+.dm-status { display: inline-flex; align-items: center; gap: 6px; padding: 4px 9px; border-radius: 999px; background: var(--chapa-2); font-size: 11px; font-weight: 600; color: var(--tinta-2); transition: background-color .3s, color .3s; }
+.dm-status i { width: 7px; height: 7px; border-radius: 50%; background: var(--tinta-3); }
+.dm-status.trabalhando { background: var(--laranja-fundo); color: var(--laranja); }
+.dm-status.trabalhando i { background: var(--laranja); }
+.dm-status.feito { background: var(--verde-fundo); color: var(--verde); }
+.dm-status.feito i { background: var(--verde); }
+.dm-abas { display: flex; gap: 4px; padding: 0 10px 9px; border-bottom: 1px solid var(--fio); font-size: 11px; font-weight: 600; color: var(--tinta-3); }
+.dm-abas span { padding: 5px 7px; border-radius: 7px; white-space: nowrap; transition: background-color .3s, color .3s; }
+.dm-abas span.on { background: var(--chapa-2); color: var(--tinta); }
+.dm-abas b { margin-left: 4px; padding: 0 5px; border-radius: 99px; background: var(--fio-forte); font-size: 10px; font-variant-numeric: tabular-nums; display: inline-block; }
+.dm-abas b.pulo { background: var(--laranja); color: var(--sobre-laranja); }
+@media (prefers-reduced-motion: no-preference) { .dm-abas b.pulo { animation: pulo .45s cubic-bezier(.3,1.6,.5,1); } @keyframes pulo { 40% { transform: scale(1.5); } } }
+.dm-palco { position: relative; }
+.dm-fase { position: absolute; inset: 0 0 58px; padding: 12px 14px; display: grid; align-content: start; gap: 10px; opacity: 0; visibility: hidden; transform: translateY(12px) scale(.98); transition: opacity .45s var(--suave), transform .55s var(--suave), visibility 0s linear .55s; }
+.tela[data-fase="tema"] .dm-fase[data-f="tema"], .tela[data-fase="linha"] .dm-fase[data-f="linha"], .tela[data-fase="revisar"] .dm-fase[data-f="revisar"] { opacity: 1; visibility: visible; transform: none; transition: opacity .45s var(--suave), transform .55s var(--suave), visibility 0s; }
+.dm-fase[data-f="tema"] { align-content: center; }
+.dm-rot { margin: 0; font-size: 12px; color: var(--tinta-2); }
+.dm-caixa { min-height: 66px; padding: 12px 13px; border-radius: 12px; background: var(--chapa); border: 1px solid rgba(255,122,26,.5); box-shadow: 0 0 0 3px var(--laranja-fundo); font-size: 16px; font-weight: 600; letter-spacing: -.02em; line-height: 1.3; }
+.dm-caret { display: inline-block; width: 2px; height: 1.05em; margin-left: 2px; vertical-align: -2px; background: var(--laranja); }
+@media (prefers-reduced-motion: no-preference) { .dm-caret { animation: piscar 1s steps(1) infinite; } }
+.dm-botao { justify-self: start; padding: 10px 16px; border-radius: 999px; background: var(--laranja); color: var(--sobre-laranja); font-size: 13px; font-weight: 700; transition: transform .15s var(--suave), box-shadow .3s; }
+.dm-botao.aperta, .dm-aprovar.aperta { transform: scale(.9); box-shadow: 0 0 0 6px rgba(255,122,26,.25); }
+.dm-dica { margin: 0; font-size: 12px; color: var(--tinta-3); }
+.dm-card { display: grid; grid-template-columns: 50px minmax(0, 1fr); gap: 11px; padding: 9px; border-radius: 12px; background: var(--chapa); border: 1px solid rgba(255,122,26,.35); }
+.dm-thumb { position: relative; width: 50px; aspect-ratio: 9 / 16; border-radius: 8px; overflow: hidden; background: var(--chapa-2); }
+.dm-thumb img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.08); transition: opacity .5s var(--suave), transform .8s var(--suave); }
+.dm-thumb img.ver { opacity: 1; transform: none; }
+.dm-esq { position: absolute; inset: 10px 8px; display: grid; align-content: start; gap: 5px; }
+.dm-esq i { height: 4px; border-radius: 2px; background: var(--fio-forte); }
+.dm-esq i:nth-child(2) { width: 70%; } .dm-esq i:nth-child(3) { width: 85%; }
+.dm-info { display: grid; align-content: center; gap: 5px; min-width: 0; }
+.dm-info b { font-size: 13px; line-height: 1.2; letter-spacing: -.015em; }
+.dm-info span { font-size: 11px; font-weight: 600; color: var(--laranja); }
+.dm-prog { display: block; height: 5px; border-radius: 3px; background: var(--chapa-2); overflow: hidden; }
+.dm-prog i { display: block; height: 100%; background: var(--laranja); transform-origin: left; transform: scaleX(0); transition: transform .5s var(--suave); }
+.dm-etapas { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+.dm-etapas li { display: grid; grid-template-columns: 18px 1fr auto; align-items: center; gap: 8px; padding: 2px 6px; line-height: 1.3; border-radius: 7px; font-size: 12px; color: var(--tinta-3); transition: background-color .25s, color .25s; }
+.dm-bola { width: 16px; height: 16px; border-radius: 50%; border: 1.5px solid var(--fio-forte); display: grid; place-items: center; transition: background-color .25s, border-color .25s; }
+.dm-bola svg { width: 10px; height: 10px; color: #021a08; opacity: 0; transform: scale(.3); transition: opacity .2s, transform .35s cubic-bezier(.3,1.6,.5,1); }
+.dm-etapas li.agora { color: var(--tinta); background: var(--laranja-fundo); }
+.dm-etapas li.agora .dm-bola { border-color: var(--laranja); border-top-color: transparent; }
+@media (prefers-reduced-motion: no-preference) { .dm-etapas li.agora .dm-bola { animation: rodar .7s linear infinite; } @keyframes rodar { to { transform: rotate(360deg); } } }
+.dm-etapas li.feita { color: var(--tinta-2); }
+.dm-etapas li.feita .dm-bola { background: var(--verde); border-color: var(--verde); }
+.dm-etapas li.feita .dm-bola svg { opacity: 1; transform: none; }
+.dm-rev { display: grid; justify-items: center; gap: 7px; text-align: center; }
+.dm-rev-capa { position: relative; width: 40%; aspect-ratio: 9 / 16; border-radius: 12px; overflow: hidden; border: 1px solid var(--fio-forte); box-shadow: 0 20px 40px -18px rgba(0,0,0,.9); }
+.dm-rev-capa img { width: 100%; height: 100%; object-fit: cover; }
+.dm-rev b { font-size: 14px; letter-spacing: -.02em; }
+.dm-chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 5px; }
+.dm-chip { padding: 3px 8px; border-radius: 999px; background: var(--chapa-2); font-size: 10.5px; font-weight: 600; color: var(--tinta-2); }
+.dm-chip.ok { background: var(--verde-fundo); color: var(--verde); }
+.dm-acoes { display: flex; gap: 6px; }
+.dm-aprovar, .dm-ajuste { padding: 8px 14px; border-radius: 999px; font-size: 12px; font-weight: 700; transition: transform .15s var(--suave), box-shadow .3s; }
+.dm-aprovar { background: var(--verde); color: #021a08; }
+.dm-aprovar.aperta { box-shadow: 0 0 0 6px rgba(48,209,88,.3); }
+.dm-ajuste { background: var(--chapa-2); color: var(--tinta-2); }
+.dm-carimbo { position: absolute; left: 50%; top: 42%; padding: 6px 10px; border: 2.5px solid var(--verde); border-radius: 8px; background: rgba(8,8,10,.75); color: var(--verde); font-size: 15px; font-weight: 800; letter-spacing: .06em; transform: translate(-50%, -50%) rotate(-10deg) scale(2.2); opacity: 0; transition: transform .35s cubic-bezier(.3,1.5,.5,1), opacity .15s; }
+.dm-carimbo.bateu { transform: translate(-50%, -50%) rotate(-10deg) scale(1); opacity: 1; }
+.dm-toast { position: absolute; left: 10px; right: 10px; bottom: 64px; display: flex; align-items: center; gap: 8px; padding: 10px 12px; border-radius: 12px; background: var(--verde); color: #021a08; font-size: 12px; font-weight: 700; line-height: 1.25; opacity: 0; transform: translateY(14px); transition: opacity .3s, transform .45s cubic-bezier(.3,1.4,.5,1); }
+.dm-toast svg { width: 16px; height: 16px; flex: none; }
+.dm-toast.ver { opacity: 1; transform: none; }
+
+.tela:not([data-fase="video"]):not(.com-som) .ouvir { min-height: 44px; padding: 6px 12px; font-size: 14px; }
+.tela:not([data-fase="video"]):not(.com-som) .ouvir small { display: none; }
+.tela:not([data-fase="video"]):not(.com-som) .ouvir svg { width: 22px; height: 22px; }
 </style>
 
 <div class="lido" aria-hidden="true"></div>
@@ -677,9 +755,38 @@ dialog.zoom .fechar { position: absolute; top: 10px; right: 10px; }
       </div>
 
       <div class="tela-wrap">
-        <div class="tela">
+        <div class="tela" id="tela" data-fase="tema">
           <div class="progresso" aria-hidden="true"><i id="progresso"></i></div>
-          <video id="video" src="midia/caim-abel.mp4" poster="midia/caim-abel-poster.jpg" muted autoplay loop playsinline preload="metadata" aria-label="Vídeo do caso Caim e Abel, feito pela Fábrica"></video>
+          <div class="demo" id="demo" aria-hidden="true">
+            <div class="dm-topo"><span class="dm-marca"><i></i>Fábrica</span><span class="dm-status" id="dm-status"><i></i><span id="dm-status-txt">pronta</span></span></div>
+            <div class="dm-abas"><span id="ab-fab">Na fábrica<b id="n-fab">0</b></span><span id="ab-rev">Revisar<b id="n-rev">0</b></span><span id="ab-ag">Agendados<b id="n-ag">2</b></span></div>
+            <div class="dm-palco">
+              <div class="dm-fase" data-f="tema">
+                <p class="dm-rot">Tema do vídeo</p>
+                <div class="dm-caixa"><span id="dm-digita"></span><i class="dm-caret"></i></div>
+                <span class="dm-botao" id="dm-fazer">Fazer este vídeo</span>
+                <p class="dm-dica">Só isso. O resto é com a Fábrica.</p>
+              </div>
+              <div class="dm-fase" data-f="linha">
+                <div class="dm-card">
+                  <div class="dm-thumb"><span class="dm-esq"><i></i><i></i><i></i></span><img src="midia/cena-1.jpg" alt="" data-k="4"><img src="midia/cena-2.jpg" alt="" data-k="5"><img src="midia/capa-caim-abel.jpg" alt="" data-k="7"></div>
+                  <div class="dm-info"><b>Caim e Abel: o primeiro crime</b><span id="dm-etapa">Pauta</span><span class="dm-prog"><i id="dm-prog"></i></span></div>
+                </div>
+                <ul class="dm-etapas" id="dm-etapas"><li data-k="0"><span class="dm-bola"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span>Pauta</span><span class="dm-ia"></span></li><li data-k="1"><span class="dm-bola"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span>Roteiro</span><span class="dm-ia"></span></li><li data-k="2"><span class="dm-bola"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span>Conferência</span><span class="dm-ia"></span></li><li data-k="3"><span class="dm-bola"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span>Voz</span><span class="dm-ia"></span></li><li data-k="4"><span class="dm-bola"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span>Cenas</span><span class="dm-ia"></span></li><li data-k="5"><span class="dm-bola"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span>Animação</span><span class="dm-ia"></span></li><li data-k="6"><span class="dm-bola"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span>Cortes</span><span class="dm-ia"></span></li><li data-k="7"><span class="dm-bola"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span>Capa</span><span class="dm-ia"></span></li></ul>
+              </div>
+              <div class="dm-fase" data-f="revisar">
+                <div class="dm-rev">
+                  <div class="dm-rev-capa"><img src="midia/capa-caim-abel.jpg" alt=""><span class="dm-carimbo" id="dm-carimbo">APROVADO</span></div>
+                  <b>Caim e Abel: o primeiro crime</b>
+                  <span class="dm-chips"><span class="dm-chip ok">crítica 9/10</span><span class="dm-chip">89 s</span><span class="dm-chip">3 formatos</span></span>
+                  <span class="dm-acoes"><span class="dm-aprovar" id="dm-aprovar">Aprovar</span><span class="dm-ajuste">Pedir ajuste</span></span>
+                </div>
+              </div>
+            </div>
+            <div class="dm-toast" id="dm-toast"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Programado: amanhã, 08:00 · TikTok, Reels e Shorts</span></div>
+          </div>
+          <span class="dm-selo-video" aria-hidden="true">O vídeo que saiu</span>
+          <video id="video" src="midia/caim-abel.mp4" poster="midia/caim-abel-poster.jpg" muted loop playsinline preload="metadata" aria-label="Vídeo do caso Caim e Abel, feito pela Fábrica"></video>
           <button class="ouvir" id="ouvir" type="button" aria-pressed="false">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>
             <span><span id="ouvir-txt">Toque para ouvir</span><small>Este vídeo saiu da Fábrica, do tema ao post</small></span>
@@ -1211,16 +1318,70 @@ dialog.zoom .fechar { position: absolute; top: 10px; right: 10px; }
   const barra = $("#barra"), ctaHero = $("#cta-hero");
 
 
-  /* ---- vídeo com som ---- */
-  const v = $("#video"), ouvir = $("#ouvir"), ouvirTxt = $("#ouvir-txt"), barraV = $("#progresso");
+  /* ---- mini vídeo do painel (topo) ---- */
+  const v = $("#video"), ouvir = $("#ouvir"), ouvirTxt = $("#ouvir-txt"), barraV = $("#progresso"), tela = $("#tela");
+  const dm = {
+    digita: $("#dm-digita"), fazer: $("#dm-fazer"), status: $("#dm-status"), statusTxt: $("#dm-status-txt"),
+    nFab: $("#n-fab"), nRev: $("#n-rev"), nAg: $("#n-ag"), abFab: $("#ab-fab"), abRev: $("#ab-rev"), abAg: $("#ab-ag"),
+    etapas: $$("#dm-etapas li"), etapaTxt: $("#dm-etapa"), prog: $("#dm-prog"), thumbs: $$(".dm-thumb img"),
+    aprovar: $("#dm-aprovar"), carimbo: $("#dm-carimbo"), toast: $("#dm-toast")
+  };
+  const ETAPAS = ["Pauta", "Roteiro", "Conferência", "Voz", "Cenas", "Animação", "Cortes", "Capa"];
+  const TEMA = "Caim e Abel: o primeiro crime";
+  let rodada = 0, visivel = true, comSom = false;
+  const espera = ms => new Promise(r => setTimeout(r, ms));
+  const pula = el => { el.classList.remove("pulo"); void el.offsetWidth; el.classList.add("pulo"); };
+  const aba = qual => [dm.abFab, dm.abRev, dm.abAg].forEach(a => a.classList.toggle("on", a === qual));
+  const status = (cls, txt) => { dm.status.className = "dm-status " + cls; dm.statusTxt.textContent = txt; };
+  function zera() {
+    dm.digita.textContent = ""; dm.nFab.textContent = "0"; dm.nRev.textContent = "0"; dm.nAg.textContent = "2";
+    dm.etapas.forEach(li => li.className = ""); dm.thumbs.forEach(t => t.classList.remove("ver"));
+    dm.prog.style.transform = "scaleX(0)"; dm.etapaTxt.textContent = ETAPAS[0];
+    dm.carimbo.classList.remove("bateu"); dm.toast.classList.remove("ver"); aba(dm.abFab); status("", "pronta");
+  }
+  async function filme() {
+    const eu = ++rodada;
+    const vivo = async ms => { await espera(ms); while ((!visivel || comSom) && eu === rodada) await espera(250); return eu === rodada; };
+    while (eu === rodada) {
+      zera(); tela.dataset.fase = "tema";
+      if (!await vivo(500)) return;
+      for (let i = 1; i <= TEMA.length; i++) { dm.digita.textContent = TEMA.slice(0, i); if (!await vivo(38)) return; }
+      if (!await vivo(250)) return;
+      dm.fazer.classList.add("aperta"); if (!await vivo(220)) return; dm.fazer.classList.remove("aperta");
+      tela.dataset.fase = "linha"; dm.nFab.textContent = "1"; pula(dm.nFab); status("trabalhando", "trabalhando");
+      for (let k = 0; k < ETAPAS.length; k++) {
+        dm.etapas[k].className = "agora"; dm.etapaTxt.textContent = ETAPAS[k] + "…";
+        if (!await vivo(560)) return;
+        dm.etapas[k].className = "feita"; dm.prog.style.transform = `scaleX(${(k + 1) / ETAPAS.length})`;
+        dm.thumbs.forEach(t => { if (+t.dataset.k === k) { dm.thumbs.forEach(o => o.classList.remove("ver")); t.classList.add("ver"); } });
+      }
+      dm.etapaTxt.textContent = "Pronto para revisar";
+      if (!await vivo(450)) return;
+      tela.dataset.fase = "revisar"; aba(dm.abRev); dm.nFab.textContent = "0"; dm.nRev.textContent = "1"; pula(dm.nRev); status("", "esperando você");
+      if (!await vivo(1300)) return;
+      dm.aprovar.classList.add("aperta"); if (!await vivo(260)) return; dm.aprovar.classList.remove("aperta");
+      dm.carimbo.classList.add("bateu"); status("feito", "aprovado");
+      if (!await vivo(450)) return;
+      dm.toast.classList.add("ver"); aba(dm.abAg); dm.nRev.textContent = "0"; dm.nAg.textContent = "3"; pula(dm.nAg);
+      if (!await vivo(1800)) return;
+      tela.dataset.fase = "video"; v.currentTime = 0; v.play().catch(() => {});
+      if (!await vivo(5200)) return;
+      if (!comSom) v.pause();
+    }
+  }
+  function soltaSom() { comSom = false; tela.classList.remove("com-som"); v.muted = true; ouvir.classList.remove("tocando"); ouvirTxt.textContent = "Toque para ouvir"; ouvir.setAttribute("aria-pressed", "false"); if (tela.dataset.fase !== "video") v.pause(); }
   ouvir.addEventListener("click", () => {
-    if (v.muted) { v.muted = false; v.currentTime = 0; v.play().catch(() => {}); ouvir.classList.add("tocando"); ouvirTxt.textContent = "Tocando com som · toque para silenciar"; ouvir.setAttribute("aria-pressed", "true"); }
-    else { v.muted = true; ouvir.classList.remove("tocando"); ouvirTxt.textContent = "Toque para ouvir"; ouvir.setAttribute("aria-pressed", "false"); }
+    if (!comSom) { comSom = true; tela.classList.add("com-som"); v.muted = false; v.currentTime = 0; v.play().catch(() => {}); ouvir.classList.add("tocando"); ouvirTxt.textContent = "Tocando com som · toque para voltar"; ouvir.setAttribute("aria-pressed", "true"); }
+    else soltaSom();
   });
   v.addEventListener("timeupdate", () => { if (v.duration) barraV.style.transform = `scaleX(${v.currentTime / v.duration})`; });
-  if (calmo) { v.removeAttribute("autoplay"); v.pause(); }
+  if (calmo) {
+    tela.dataset.fase = "revisar"; dm.carimbo.classList.add("bateu"); dm.toast.classList.add("ver"); aba(dm.abAg); dm.nAg.textContent = "3"; status("feito", "aprovado");
+  } else {
+    filme();
+    if ("IntersectionObserver" in window) new IntersectionObserver(([en]) => { visivel = en.isIntersecting; if (!visivel && !comSom) v.pause(); if (!visivel && comSom) soltaSom(); }, { threshold: .15 }).observe(tela);
+  }
   if (!calmo && "IntersectionObserver" in window) {
-    new IntersectionObserver(([en]) => { if (en.isIntersecting) v.play().catch(() => {}); else v.pause(); }, { threshold: .15 }).observe(v);
     const est = $("#esteira");
     new IntersectionObserver(([en]) => est.classList.toggle("parada", !en.isIntersecting)).observe(est);
   }
