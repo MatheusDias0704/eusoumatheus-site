@@ -206,7 +206,7 @@ section { position: relative; }
 .ba-arrow { font-family: var(--f-hand); font-size: 40px; color: var(--pen); }
 .result { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: center; gap: 4px 14px; border-top: 1.5px dashed rgba(19, 18, 24, .3); padding-top: 16px; text-align: center; }
 .result b { font: 900 clamp(40px, 7vw, 76px)/.9 var(--f-display); font-stretch: 125%; color: var(--pen); font-variant-numeric: tabular-nums; }
-.result span { font-size: 16px; color: var(--ink-2); }
+.result > span { font-size: 16px; color: var(--ink-2); }
 .case.star { border: 3px solid var(--ink); }
 
 /* =================== ARSENAL =================== */
@@ -244,7 +244,7 @@ section { position: relative; }
 .row.rev .row-track { animation-direction: reverse; animation-duration: 54s; }
 .row:hover .row-track { animation-play-state: paused; }
 @keyframes slide { to { transform: translateX(-50%); } }
-.row img { height: clamp(150px, 22vw, 240px); width: auto; max-width: none; background: #fff; padding: 6px; box-shadow: 3px 8px 18px rgba(19, 18, 24, .16); transition: transform .3s var(--ease); }
+.row img { height: clamp(190px, 26vw, 240px); width: auto; max-width: none; background: #fff; padding: 6px; box-shadow: 3px 8px 18px rgba(19, 18, 24, .16); transition: transform .3s var(--ease); }
 .row img:nth-child(odd) { transform: rotate(-1.2deg); }
 .row img:nth-child(even) { transform: rotate(1deg); }
 .row img:hover { transform: scale(1.04) rotate(0); }
