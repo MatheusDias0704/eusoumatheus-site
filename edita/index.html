@@ -9,7 +9,7 @@
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
 <title>Edita · presente do Matheus</title>
-<meta name="description" content="Os 6 passos para editar vídeo com o Claude, com o link e o prompt de cada um, mais as regras de ritmo para colar.">
+<meta name="description" content="Um prompt só: cola no Claude e ele prepara tudo para editar o seu vídeo, com as regras de ritmo já dentro.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Caveat:wght@500;700&family=JetBrains+Mono:wght@500&display=swap">
@@ -140,6 +140,10 @@ html:not(.js) .seg::after{transform:none}
 .js .rev{opacity:0;transform:translateY(16px)}
 .js .rev.in{opacity:1;transform:none;transition:opacity .6s ease,transform .7s var(--ease)}
 .js .clip:nth-of-type(odd) .card.rev.in{transform:rotate(-.25deg)}
+.recebe span.d{display:none}
+@media (min-width:860px){.recebe span.d{display:block}}
+.pm{box-shadow:5px 6px 0 var(--pen)}
+.js .trancado .rev{opacity:1;transform:none}
 .amostra{margin:0 0 -2px;font-size:26px;padding-left:4px}
 
 /* ---------- ficha da trava ---------- */
@@ -160,7 +164,8 @@ html:not(.js) .seg::after{transform:none}
 .trava-form .priv{font:500 13px/1.4 var(--f-mono);color:var(--ink-2)}
 
 .trancado{max-height:170px;overflow:hidden;-webkit-mask-image:linear-gradient(#000 20%,transparent);mask-image:linear-gradient(#000 20%,transparent);user-select:none}
-.tl>.trancado{max-height:210px}
+.tl>.trancado{max-height:330px;-webkit-mask-image:linear-gradient(#000 55%,transparent);mask-image:linear-gradient(#000 55%,transparent)}
+.liberado .tl>.trancado{max-height:none;-webkit-mask-image:none;mask-image:none}
 .liberado .trancado{max-height:none;overflow:visible;-webkit-mask-image:none;mask-image:none;user-select:auto}
 
 /* ---------- regras ---------- */
@@ -182,6 +187,8 @@ html:not(.js) .seg::after{transform:none}
 .js .ficha-r.in .rng i{transform:none;transition:transform .9s var(--ease) .3s}
 .js .regs dd{clip-path:inset(-20% 100% -20% 0)}
 .js .ficha-r.in .regs dd{clip-path:inset(-20% -4% -20% 0);transition:clip-path .7s steps(14,end);transition-delay:calc(var(--i)*110ms + 150ms)}
+.pm .cmd pre{font-size:13.5px}
+.mao p{margin:6px 0 0;color:var(--ink-2);font-size:16px}
 .act{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
 details{margin-top:16px;background:var(--sheet);border-radius:4px}
 summary{cursor:pointer;min-height:44px;display:flex;align-items:center;font:800 16px var(--f-display);color:var(--pen-deep)}
@@ -236,8 +243,8 @@ footer a{display:inline-block;padding-block:14px}
       <span class="m">reels pronto<svg class="draw" viewBox="0 0 400 100" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M18 62 C 8 20, 120 6, 210 8 C 320 10, 396 28, 388 56 C 380 88, 270 94, 190 92 C 100 90, 22 86, 16 52" fill="none" stroke="#131218" stroke-width="3.5" stroke-linecap="round" vector-effect="non-scaling-stroke" style="animation-delay:.5s;animation-duration:1.2s"/></svg></span>
       <span class="s">editando com o Claude</span>
     </h1>
-    <p class="sub">Todo mundo edita vídeo com IA, mas ninguém mostra como funciona de verdade. Aqui estão os 6 passos do vídeo, com o que colar em cada um.</p>
-    <div class="go"><a class="btn btn-pen" href="#p1">Começar pelo passo 1</a><a class="btn line" href="#regras">Ir às regras de ritmo</a></div>
+    <p class="sub">Todo mundo edita vídeo com IA, mas ninguém mostra como funciona de verdade. Aqui é um prompt só: você cola no Claude e ele prepara tudo.</p>
+    <div class="go"><a class="btn btn-pen" id="go-prompt" href="#trava">Quero o prompt ↓</a><a class="btn line" href="#p1">Ver os 3 passos</a></div>
 
     <div class="mini" aria-hidden="true">
       <span class="tape"></span>
@@ -265,21 +272,18 @@ footer a{display:inline-block;padding-block:14px}
     <div class="recebe">
       <span class="tape"></span>
       <ol>
-        <li style="--c:var(--v)"><span class="no">1</span><b>Baixar o Claude</b><span class="d">Link direto do download.</span></li>
-        <li style="--c:var(--v)"><span class="no">2</span><b>A pasta do vídeo</b><span class="d">Como o Claude passa a enxergar os seus arquivos.</span></li>
-        <li style="--c:var(--t-ink)"><span class="no">3</span><b>As skills do HyperFrames</b><span class="d">Um prompt e um comando, mais os links do GitHub e do skills.sh.</span></li>
-        <li style="--c:var(--t-ink)"><span class="no">4</span><b>As suas referências</b><span class="d">O prompt para o Claude estudar o seu gosto.</span></li>
-        <li style="--c:var(--v)"><span class="no">5</span><b>O pedido de edição</b><span class="d">O prompt que transforma o bruto em reels.</span></li>
-        <li style="--c:var(--s-ink)"><span class="no">6</span><b>Os ajustes</b><span class="d">4 frases prontas para pedir mudança como num editor.</span></li>
-        <li class="extra" style="--c:var(--pen)"><span class="no">+</span><b>As regras de ritmo</b><span class="d">11 itens para colar no Claude, em texto e em arquivo .txt.</span></li>
+        <li style="--c:var(--v)"><span class="no">1</span><b>O prompt mestre</b><span class="d">Um texto só. Colado no Claude, ele instala o HyperFrames e cria as pastas <code>referencias</code> e <code>bruto</code>.</span></li>
+        <li style="--c:var(--t-ink)"><span class="no">2</span><b>Os 3 passos</b><span class="d">Só o que o Claude não faz por você: abrir o app, colar, jogar os vídeos.</span></li>
+        <li style="--c:var(--s-ink)"><span class="no">3</span><b>Os ajustes</b><span class="d">4 frases prontas para pedir mudança como num editor.</span></li>
+        <li class="extra" style="--c:var(--pen)"><span class="no">+</span><b>As regras de ritmo</b><span class="d">11 itens, já dentro do prompt. Ficam gravadas na pasta e valem em todo vídeo.</span></li>
       </ol>
     </div>
   </section>
 </div>
 
 <div class="wrap">
-  <p class="hand amostra">A amostra: o passo 1 inteiro.</p>
-  <section class="tl" id="tl" aria-label="Os 6 passos">
+  <p class="hand amostra">Os 3 passos.</p>
+  <section class="tl" id="tl" aria-label="Os 3 passos">
     <div class="rail" aria-hidden="true">
       <i style="--c:0"></i><i style="--c:1"></i><i style="--c:2"></i>
       <em style="--c:0;color:var(--v)">V</em><em style="--c:1;color:var(--t-ink)">T</em><em style="--c:2;color:var(--s-ink)">S</em>
@@ -291,9 +295,28 @@ footer a{display:inline-block;padding-block:14px}
       <div class="card rev">
         <span class="tape"></span>
         <div class="n">passo 1</div>
-        <h3>Baixe o app do Claude e abra a aba Code.</h3>
+        <h3>Baixe e abra o app do Claude, vá na aba Code e escolha uma pasta vazia.</h3>
         <p>Funciona no Mac, no Windows e no Linux.</p>
         <div class="links"><a class="btn sm" href="https://claude.com/download" target="_blank" rel="noopener">Baixar o Claude</a></div>
+      </div>
+    </article>
+
+    <article class="clip" id="p2" style="--c:1;--col:var(--t);--nink:var(--t-ink)">
+      <span class="seg"></span>
+      <div class="card rev">
+        <div class="n">passo 2</div>
+        <h3>Cole o prompt mestre. O Claude prepara tudo.</h3>
+        <p>Ele instala o HyperFrames, cria as pastas <b>referencias</b> e <b>bruto</b>, grava as regras de ritmo num CLAUDE.md da pasta e explica o que jogar onde.</p>
+      </div>
+    </article>
+
+    <article class="clip" id="p3" style="--c:2;--col:var(--s);--nink:var(--s-ink)">
+      <span class="seg"></span>
+      <div class="card rev">
+        <div class="n">passo 3</div>
+        <h3>Jogue os vídeos nas pastas e peça a edição.</h3>
+        <p>De 3 a 5 vídeos de referência em <b>referencias</b>, o seu vídeo gravado em <b>bruto</b>. Aí escreva:</p>
+        <div class="cmd"><pre id="p3t">Edita o meu vídeo</pre><button class="cp" data-t="p3t" type="button">Copiar</button></div>
       </div>
     </article>
 
@@ -301,8 +324,8 @@ footer a{display:inline-block;padding-block:14px}
       <form class="ficha trava-form" id="trava" novalidate>
         <span class="tape"></span>
         <div>
-          <h2>Quer os outros 5 passos?</h2>
-          <p class="lead">Deixa o seu contato e o resto abre aqui mesmo, com os prompts e as regras de ritmo.</p>
+          <h2>Quer o prompt mestre?</h2>
+          <p class="lead">Deixa o seu contato e o prompt abre aqui mesmo, pronto para copiar.</p>
         </div>
         <label>Seu nome <input name="nome" autocomplete="given-name" required></label>
         <label>WhatsApp com DDD <input name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" placeholder="(21) 99999-9999" required></label>
@@ -315,52 +338,45 @@ footer a{display:inline-block;padding-block:14px}
       </form>
     </div>
 
-    <div class="trancado" data-trava inert>
-      <article class="clip" id="p2" style="--c:0;--col:var(--v);--nink:var(--pen)">
-        <span class="seg"></span>
-        <div class="card rev">
-          <div class="n">passo 2</div>
-          <h3>Crie uma pasta só para esse vídeo e escolha ela no Claude.</h3>
-          <p>Pronto: agora o Claude enxerga os seus arquivos.</p>
-        </div>
-      </article>
+    <div class="trancado" data-trava inert id="prompt">
+      <div class="clip">
+        <div class="card rev pm">
+          <span class="tape"></span>
+          <div class="n">o presente</div>
+          <h3>O prompt mestre: copie e cole no Claude.</h3>
+          <p>Cole na aba Code, numa pasta vazia. É só isso.</p>
+          <div class="cmd"><div class="lab">PROMPT MESTRE</div><pre id="pm">Quero editar os meus vídeos com você nesta pasta. Prepare tudo para mim, sem eu precisar mexer em nada:
 
-      <article class="clip" id="p3" style="--c:1;--col:var(--t);--nink:var(--t-ink)">
-        <span class="seg"></span>
-        <div class="card rev">
-          <div class="n">passo 3</div>
-          <h3>Peça para o Claude instalar as skills do HyperFrames.</h3>
-          <p>É o que transforma o Claude num estúdio de vídeo. O HyperFrames é código aberto da HeyGen. Você não instala nada na mão.</p>
-          <div class="cmd"><div class="lab">PROMPT</div><pre id="c3a">Instala as skills do HyperFrames rodando: npx skills add heygen-com/hyperframes (se perguntar, escolhe Core Skills).</pre><button class="cp" data-t="c3a" type="button">Copiar</button></div>
-          <div class="cmd"><div class="lab">COMANDO</div><pre id="c3b">npx skills add heygen-com/hyperframes</pre><button class="cp" data-t="c3b" type="button">Copiar</button></div>
-          <div class="links"><a class="btn sm line" href="https://github.com/heygen-com/hyperframes" target="_blank" rel="noopener">HyperFrames no GitHub</a><a class="btn sm line" href="https://skills.sh/heygen-com/hyperframes" target="_blank" rel="noopener">Ver no skills.sh</a></div>
-        </div>
-      </article>
+1. Instale as skills do HyperFrames (estúdio de vídeo de código aberto da HeyGen) rodando: npx skills add heygen-com/hyperframes
+   Se o comando perguntar, escolha "Core Skills". Se faltar o Node.js ou outra coisa no meu computador, me explique em uma frase como resolver e espere eu dizer "pronto".
+2. Crie duas pastas aqui: "referencias" e "bruto".
+3. Crie nesta pasta um arquivo CLAUDE.md com as REGRAS DE RITMO abaixo, para você seguir em todo vídeo que editar aqui, mesmo em outra conversa.
+4. Quando terminar, me diga em 3 linhas curtas: o que eu jogo em "referencias" (3 a 5 vídeos no estilo que eu gosto), o que eu jogo em "bruto" (o vídeo que eu gravei) e qual frase eu escrevo para você editar.
 
-      <article class="clip" id="p4" style="--c:1;--col:var(--t);--nink:var(--t-ink)">
-        <span class="seg"></span>
-        <div class="card rev">
-          <div class="n">passo 4</div>
-          <h3>Mostre o seu gosto: 3 a 5 vídeos de referência.</h3>
-          <p>Separe de 3 a 5 vídeos no estilo que você curte e jogue na pasta.</p>
-          <div class="cmd"><div class="lab">PROMPT</div><pre id="c4">Na pasta referencias tem vídeos no estilo que eu gosto. Estuda o ritmo, a legenda, os efeitos e o som deles. Se inspira, não copia: a minha edição não pode ficar igual à deles.</pre><button class="cp" data-t="c4" type="button">Copiar</button></div>
-        </div>
-      </article>
+Quando eu pedir a edição: estude os vídeos de "referencias" (o ritmo, a legenda, os efeitos e o som), se inspire sem copiar, edite o vídeo de "bruto" num reels vertical com legenda, motion e som, confira cada regra de ritmo e me entregue para revisar dizendo quais regras passaram. Depois eu peço ajustes falando normal.
 
-      <article class="clip" id="p5" style="--c:0;--col:var(--v);--nink:var(--pen)">
-        <span class="seg"></span>
-        <div class="card rev">
-          <div class="n">passo 5</div>
-          <h3>Grave do seu jeito e peça a edição.</h3>
-          <p>Jogue o vídeo bruto na pasta e peça. Cole também as <a href="#regras">regras de ritmo</a> aqui, antes do pedido.</p>
-          <div class="cmd"><div class="lab">PROMPT</div><pre id="c5">Edita o vídeo bruto.mp4 num reels vertical com legenda, motion e som, no estilo das referências, seguindo as minhas regras de ritmo. Me entrega para revisar.</pre><button class="cp" data-t="c5" type="button">Copiar</button></div>
+REGRAS DE RITMO
+- Vertical, 1080 x 1920 (9:16).
+- O vídeo começa com a imagem mais forte e o título grande na tela, no quadro zero. Esse quadro também vira a capa.
+- Cada cena dura de 2,5 a 4 segundos. Se a frase for curta, mantenha a cena e mude algo dentro dela (zoom, movimento de câmera, um elemento entrando), em vez de trocar de cenário.
+- Todo texto na tela fica parado e legível por pelo menos 1,5 segundo.
+- Transição entre cenas de 0,3 a 0,5 segundo.
+- No máximo 1 clarão (flash) a cada 15 segundos, mais ou menos. Câmera suave; tremida só num impacto de verdade.
+- No máximo 10% do vídeo com a imagem parada. Meça e diga quanto deu.
+- Sem silêncio: nenhum trecho sem voz. Um buraco mudo de 4 segundos, mesmo com música, parece defeito.
+- Música 18 dB abaixo da voz. Música e efeitos com som entre 300 e 2000 Hz, para aparecer no alto-falante do celular.
+- Volume final perto de -14 LUFS (aceito de -15 a -13).
+- O vídeo termina 2,4 segundos depois da última palavra.</pre></div>
+          <div class="act">
+            <button class="btn btn-pen cp" id="bigcp" data-t="pm" type="button">Copiar o prompt</button>
+            <a class="btn line" href="midia/prompt-edita.txt" download>Baixar .txt</a>
+          </div>
         </div>
-      </article>
+      </div>
 
-      <article class="clip" id="p6" style="--c:2;--col:var(--s);--nink:var(--s-ink)">
-        <span class="seg"></span>
+      <div class="clip">
         <div class="card rev">
-          <div class="n">passo 6</div>
+          <div class="n">depois</div>
           <h3>Peça ajustes falando normal.</h3>
           <p>Não gostou de alguma coisa? Fala como falaria com um editor.</p>
           <div class="cmd"><pre id="a1">Aumenta esse título.</pre><button class="cp" data-t="a1" type="button">Copiar</button></div>
@@ -368,13 +384,13 @@ footer a{display:inline-block;padding-block:14px}
           <div class="cmd"><pre id="a3">A música tá alta, abaixa.</pre><button class="cp" data-t="a3" type="button">Copiar</button></div>
           <div class="cmd"><pre id="a4">Troca a legenda para branco com contorno.</pre><button class="cp" data-t="a4" type="button">Copiar</button></div>
         </div>
-      </article>
+      </div>
     </div>
   </section>
 
   <section class="block" id="regras">
-    <h2 class="sec-title" style="text-align:left">Regras de ritmo para colar no Claude</h2>
-    <p class="reg-in">São as regras que os vídeos do Matheus seguem. Cola uma vez na conversa, ou no começo do pedido do passo 5, e o Claude confere cada item antes de entregar.</p>
+    <h2 class="sec-title" style="text-align:left">O que já vai dentro do prompt</h2>
+    <p class="reg-in">As regras de ritmo que os vídeos do Matheus seguem. O Claude grava tudo num CLAUDE.md da pasta, então valem em todo vídeo, até em outra conversa. Você não cola nada: é só para conferir.</p>
 
     <div class="trancado" data-trava inert>
       <div class="ficha-r rev" id="ficha">
@@ -393,44 +409,18 @@ footer a{display:inline-block;padding-block:14px}
           <div class="row" style="--i:9"><dt>Volume final</dt><dd>−14 <small>LUFS</small></dd></div>
           <div class="row" style="--i:10"><dt>Fim</dt><dd>+2,4 <small>s após a última palavra</small></dd></div>
         </dl>
-        <div class="act">
-          <button class="btn btn-pen cp" id="bigcp" data-t="regtxt" type="button">Copiar as regras</button>
-          <a class="btn line" href="midia/regras-de-ritmo.txt" download>Baixar o .txt</a>
-        </div>
-        <details><summary>Ver o texto inteiro</summary><pre id="regtxt">Regras de ritmo para editar os meus vídeos. Siga todas, em todo vídeo, e confira cada uma antes de me entregar.
-
-FORMATO
-- Vertical, 1080 x 1920 (9:16).
-
-PRIMEIRO QUADRO
-- O vídeo já começa com a imagem mais forte e o título grande na tela, no quadro zero. Esse quadro também vira a capa.
-
-CENAS
-- Cada cena dura de 2,5 a 4 segundos.
-- Se a frase for curta, não troque de cenário: mantenha a cena e mude algo dentro dela (um zoom, um movimento de câmera, um elemento entrando).
-
-TEXTO NA TELA
-- Todo texto fica parado e legível por pelo menos 1,5 segundo.
-
-TRANSIÇÕES E EFEITOS
-- Transição entre cenas de 0,3 a 0,5 segundo.
-- No máximo 1 clarão (flash) a cada 15 segundos, mais ou menos.
-- Câmera suave. Tremida só num impacto de verdade.
-
-MOVIMENTO
-- No máximo 10% do vídeo com a imagem parada. Meça e me diga quanto deu.
-
-SOM
-- Sem silêncio: nenhum trecho sem voz. Um buraco mudo de 4 segundos, mesmo com música, parece defeito.
-- Música 18 dB abaixo da voz.
-- Música e efeitos com som entre 300 e 2000 Hz, para aparecer no alto-falante do celular.
-- Volume final perto de -14 LUFS (aceito de -15 a -13).
-
-FIM
-- O vídeo termina 2,4 segundos depois da última palavra.
-
-Quando terminar, me mostre a lista acima com "ok" ou "não passou" em cada item.</pre></details>
+        <div class="act"><a class="btn sm line" href="midia/regras-de-ritmo.txt" download>Baixar só as regras (.txt)</a></div>
       </div>
+
+      <details>
+        <summary>Prefere fazer à mão?</summary>
+        <div class="mao">
+          <p>Os mesmos passos, um prompt de cada vez, para colar no Claude na ordem.</p>
+          <div class="cmd"><div class="lab">1 · SKILLS DO HYPERFRAMES</div><pre id="m1">Instala as skills do HyperFrames rodando: npx skills add heygen-com/hyperframes (se perguntar, escolhe Core Skills).</pre><button class="cp" data-t="m1" type="button">Copiar</button></div>
+          <div class="cmd"><div class="lab">2 · REFERÊNCIAS</div><pre id="m2">Na pasta referencias tem vídeos no estilo que eu gosto. Estuda o ritmo, a legenda, os efeitos e o som deles. Se inspira, não copia: a minha edição não pode ficar igual à deles.</pre><button class="cp" data-t="m2" type="button">Copiar</button></div>
+          <div class="cmd"><div class="lab">3 · O PEDIDO</div><pre id="m3">Edita o vídeo bruto.mp4 num reels vertical com legenda, motion e som, no estilo das referências, seguindo as minhas regras de ritmo. Me entrega para revisar.</pre><button class="cp" data-t="m3" type="button">Copiar</button></div>
+        </div>
+      </details>
     </div>
   </section>
 
@@ -506,4 +496,10 @@ addEventListener('scroll',req,{passive:true});addEventListener('resize',req);upd
     fetch(URL, { method: 'POST', mode: 'no-cors', body: corpo }).then(fim, fim);
   });
 })();
+</script>
+<script>
+/* depois de liberar, o botão do topo leva ao prompt (a ficha some) */
+(function(){function aponta(){var g=document.getElementById('go-prompt'),t=document.querySelector('[data-trava]');if(!g||!t)return;t.id=t.id||'material';g.textContent='Copiar o prompt ↓';g.href='#'+t.id;}
+try{if(localStorage.getItem('liberado-edita'))aponta();}catch(e){}
+var f=document.getElementById('trava');if(f)f.addEventListener('submit',function(){setTimeout(function(){if(document.documentElement.classList.contains('liberado'))aponta();},50);});})();
 </script>

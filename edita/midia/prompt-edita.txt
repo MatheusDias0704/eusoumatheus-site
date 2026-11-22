@@ -1,0 +1,22 @@
+Quero editar os meus vídeos com você nesta pasta. Prepare tudo para mim, sem eu precisar mexer em nada:
+
+1. Instale as skills do HyperFrames (estúdio de vídeo de código aberto da HeyGen) rodando: npx skills add heygen-com/hyperframes
+   Se o comando perguntar, escolha "Core Skills". Se faltar o Node.js ou outra coisa no meu computador, me explique em uma frase como resolver e espere eu dizer "pronto".
+2. Crie duas pastas aqui: "referencias" e "bruto".
+3. Crie nesta pasta um arquivo CLAUDE.md com as REGRAS DE RITMO abaixo, para você seguir em todo vídeo que editar aqui, mesmo em outra conversa.
+4. Quando terminar, me diga em 3 linhas curtas: o que eu jogo em "referencias" (3 a 5 vídeos no estilo que eu gosto), o que eu jogo em "bruto" (o vídeo que eu gravei) e qual frase eu escrevo para você editar.
+
+Quando eu pedir a edição: estude os vídeos de "referencias" (o ritmo, a legenda, os efeitos e o som), se inspire sem copiar, edite o vídeo de "bruto" num reels vertical com legenda, motion e som, confira cada regra de ritmo e me entregue para revisar dizendo quais regras passaram. Depois eu peço ajustes falando normal.
+
+REGRAS DE RITMO
+- Vertical, 1080 x 1920 (9:16).
+- O vídeo começa com a imagem mais forte e o título grande na tela, no quadro zero. Esse quadro também vira a capa.
+- Cada cena dura de 2,5 a 4 segundos. Se a frase for curta, mantenha a cena e mude algo dentro dela (zoom, movimento de câmera, um elemento entrando), em vez de trocar de cenário.
+- Todo texto na tela fica parado e legível por pelo menos 1,5 segundo.
+- Transição entre cenas de 0,3 a 0,5 segundo.
+- No máximo 1 clarão (flash) a cada 15 segundos, mais ou menos. Câmera suave; tremida só num impacto de verdade.
+- No máximo 10% do vídeo com a imagem parada. Meça e diga quanto deu.
+- Sem silêncio: nenhum trecho sem voz. Um buraco mudo de 4 segundos, mesmo com música, parece defeito.
+- Música 18 dB abaixo da voz. Música e efeitos com som entre 300 e 2000 Hz, para aparecer no alto-falante do celular.
+- Volume final perto de -14 LUFS (aceito de -15 a -13).
+- O vídeo termina 2,4 segundos depois da última palavra.

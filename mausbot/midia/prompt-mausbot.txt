@@ -1,0 +1,7 @@
+Quero instalar o OpenMausBot (https://github.com/milind-soni/OpenMausBot), o app de código aberto que junta o Claude Code, o Codex e o Grok num time de agentes. Faça por mim, seguindo só o README oficial desse repositório:
+
+1. Veja qual é o meu sistema (Mac com chip Apple, Mac Intel, Windows ou Ubuntu) e se o Node.js é a versão 24 ou mais nova. Se não for, me diga em uma frase como atualizar e espere eu dizer "pronto".
+2. Instale pelo caminho do terminal que o README mostra: npm install -g openmausbot
+3. Abra o openmausbot e me guie no assistente da primeira vez, um passo por vez: qual provedor escolher (o Claude Code que eu já uso), entrar na conta e escolher o modelo. Conectar o celular pode pular.
+4. Antes de qualquer coisa que peça senha, login, chave de API ou pagamento, pare e me pergunte. Não digite nenhuma senha por mim.
+5. No fim, me explique em 3 linhas: como criar o meu primeiro bot, como mudar o nível de aprovação para ele me perguntar antes de agir, e como fechar e abrir o app de novo.

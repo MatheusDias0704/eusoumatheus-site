@@ -9,7 +9,7 @@
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
 <title>Roteirista · presente do Matheus</title>
-<meta name="description" content="Uma skill grátis para o Claude que escreve roteiro de Reels, TikTok e Shorts com gancho no primeiro segundo e história até o fim.">
+<meta name="description" content="Um prompt grátis: cole no ChatGPT ou no Claude e receba um roteiro de Reels, TikTok ou Shorts com gancho no primeiro segundo e história até o fim.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Caveat:wght@500;700&family=JetBrains+Mono:wght@500;700&display=swap">
@@ -254,6 +254,32 @@ footer a { color: var(--ink); font-weight: 700; text-decoration-color: var(--pen
 
 /* crítica de design 22/11: alvos de toque do rodapé ≥ 44px, rótulos ≥ 13px */
 footer a{display:inline-block;padding-block:14px}.lead{margin-top:16px}.fm-n{font-size:13px}
+
+/* regra nova 22/11: um prompt só */
+.tres { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; counter-reset: t; }
+.tres li { position: relative; padding: 14px 0 14px 46px; border-top: 1.5px solid var(--ink); counter-increment: t; }
+.tres li::before { content: counter(t); position: absolute; left: 0; top: 6px; font: 700 36px/1 var(--f-hand); color: var(--pen); }
+.tres b { display: block; font: 800 19px/1.15 var(--f-display); font-stretch: 112%; text-transform: uppercase; }
+.tres span { display: block; margin-top: 3px; color: var(--ink-2); font-size: 16px; }
+@media (min-width: 760px) { .tres { grid-template-columns: repeat(3, 1fr); column-gap: 28px; } }
+.tres a { display: inline-block; padding-block: 12px; margin-block: -12px; }
+.prev { position: relative; max-height: 96px; overflow: hidden; background: var(--machine); border-radius: 4px; padding: 14px 16px; -webkit-mask-image: linear-gradient(#000 20%, transparent); mask-image: linear-gradient(#000 20%, transparent); opacity: .9; }
+.prev pre { margin: 0; font: 500 15px/1.6 var(--f-mono); color: var(--on-machine); white-space: pre-wrap; word-break: break-word; }
+html.liberado .prev { display: none; }
+.pbar { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 22px; margin-bottom: 12px; }
+.copy.big { position: static; width: 100%; min-height: 60px; font: 800 18px var(--f-body); background: var(--pen); color: #fff; box-shadow: 4px 5px 0 var(--ink); }
+.copy.big:hover { background: var(--ink); }
+.copy.big.ok { background: var(--ok); }
+@media (min-width: 560px) { .copy.big { width: auto; min-width: 260px; } }
+.pcode { max-height: 380px; overflow: auto; padding: 16px; -webkit-overflow-scrolling: touch; }
+.abrir { display: flex; flex-wrap: wrap; gap: 10px; }
+.abrir .btn { width: 100%; }
+@media (min-width: 560px) { .abrir .btn { width: auto; } }
+details.skill { display: grid; gap: 18px; border-top: 1.5px solid var(--ink); padding-top: 6px; }
+details.skill > summary { cursor: pointer; padding: 14px 0; min-height: 44px; font: 800 18px/1.2 var(--f-display); font-stretch: 112%; list-style: none; }
+details.skill > summary::-webkit-details-marker { display: none; }
+details.skill > summary::before { content: "+ "; color: var(--pen); }
+details.skill[open] > summary::before { content: "− "; }
 </style>
 
 <script>document.documentElement.classList.add('js')</script>
@@ -268,9 +294,9 @@ footer a{display:inline-block;padding-block:14px}.lead{margin-top:16px}.fm-n{fon
       <h1 class="h1">Roteiro com gancho no
         <span class="m">primeiro segundo</span>
         e história até o fim</h1>
-      <p class="lead">Uma skill para o Claude que escreve o roteiro do seu reels com as mesmas regras do roteirista da Fábrica. Para qualquer nicho.</p>
+      <p class="lead">Um prompt para colar no ChatGPT ou no Claude. Ele pergunta o que falta e entrega o roteiro do seu reels com as mesmas regras do roteirista da Fábrica. Para qualquer nicho.</p>
       <div class="hero-ctas">
-        <a class="btn btn-pen" id="hero-btn" href="#trava"><span id="hero-btn-t">Quero a skill</span>
+        <a class="btn btn-pen" id="hero-btn" href="#trava"><span id="hero-btn-t">Quero o prompt</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg></a>
         <a class="link-hand" href="#regua">veja a ordem do vídeo ↓</a>
       </div>
@@ -284,56 +310,25 @@ footer a{display:inline-block;padding-block:14px}.lead{margin-top:16px}.fm-n{fon
     </div>
   </section>
 
-  <!-- =================== A RÉGUA =================== -->
-  <section class="block" id="regua">
-    <div class="regua-wrap">
-      <div class="head">
-        <h2 class="sec-title">O vídeo, segundo a segundo</h2>
-        <p class="lead">O gancho faz parar. A história faz ficar. A skill monta o roteiro nesta ordem.</p>
-      </div>
-      <div class="rail" id="rail">
-        <svg class="rail-svg" viewBox="0 0 28 1000" preserveAspectRatio="none" aria-hidden="true">
-          <path class="trk" d="M14 0 C 10 120, 18 240, 14 360 S 10 600, 14 720 S 18 900, 14 1000"/>
-        </svg>
-        <svg class="rail-svg pn" id="pen" viewBox="0 0 28 1000" preserveAspectRatio="none" aria-hidden="true">
-          <path class="pen" d="M14 0 C 10 120, 18 240, 14 360 S 10 600, 14 720 S 18 900, 14 1000"/>
-        </svg>
-        <div class="mark"><span class="t">0 s · gancho</span><h3>Uma frase que faz parar</h3><p>Curta, com a coisa mais estranha nas primeiras palavras. A skill escreve 5 e dá nota a cada uma.</p></div>
-        <div class="mark"><span class="t">até 20 s · o que está em jogo</span><h3>O que a pessoa perde se der errado</h3><p>Sem risco, não há tensão. Dinheiro, cliente, tempo: algo concreto, e só o que é verdade.</p></div>
-        <div class="mark"><span class="t">até 25 s · a promessa</span><h3>O que vai ser revelado, sem revelar</h3><p>Uma frase específica, paga mais tarde. Promessa vazia não segura ninguém.</p></div>
-        <div class="mark"><span class="t">depois de 60% · a virada</span><h3>A resposta do gancho</h3><p>Guardada para depois de 60% do vídeo. Antes disso, o problema só piora, em três degraus.</p></div>
-        <div class="mark"><span class="t">fim · o pedido</span><h3>O que a pessoa faz agora</h3><p>Comentar uma palavra, salvar, mandar para alguém. Você diz qual.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- =================== O QUE ELA FAZ =================== -->
-  <section class="block" id="faz">
-    <h2 class="sec-title">O que ela faz</h2>
-    <ol class="faz">
-      <li><b>Pergunta só o que falta</b><span>Tema, quem assiste, os fatos, a duração e o pedido do fim.</span></li>
-      <li><b>Monta a espinha antes de qualquer frase</b><span>Quem, o que quer, o que impede, o que está em jogo, a virada e o detalhe plantado.</span></li>
-      <li><b>Testa 5 ganchos</b><span>Dá nota a cada um e usa o melhor.</span></li>
-      <li><b>Escreve com as 15 regras</b><span>"Mas" e "por isso", nunca "e aí". A resposta do gancho só depois de 60%. Nunca diz quanto falta.</span></li>
-      <li><b>Relê como espectador</b><span>Dá nota de 0 a 12 à história e só entrega com 9 ou mais.</span></li>
-      <li><b>Nunca inventa</b><span>Número, depoimento: o que falta vira uma pergunta para você.</span></li>
+  <!-- =================== 3 PASSOS =================== -->
+  <section class="block" id="passos">
+    <h2 class="sec-title">3 passos, sem instalar nada</h2>
+    <ol class="tres">
+      <li><b>Abra uma conversa nova</b><span>No <a href="https://chatgpt.com" rel="noopener">ChatGPT</a> ou no <a href="https://claude.ai" rel="noopener">Claude</a>.</span></li>
+      <li><b>Cole o prompt e envie</b><span>Depois da ficha, um botão copia tudo. É só colar.</span></li>
+      <li><b>Responda o que ele perguntar</b><span>O tema, quem assiste e os fatos reais. Ele devolve o roteiro pronto para gravar.</span></li>
     </ol>
-    <div class="recebe"><h3>O que você recebe</h3><p>Texto corrido para gravar, cena a cena com tempo e o que aparece na tela, os ganchos testados e a nota.</p></div>
-    <div class="estudo">
-      <p>As regras vieram de um estudo de 21 reels que comparou, no mesmo perfil, com o mesmo visual e a mesma voz, um vídeo de milhões de views com outro de poucos mil. O que separou os dois foi o roteiro.</p>
-      <div class="stats">
-        <div><b>21</b><span>reels no estudo</span></div>
-        <div><b>15</b><span>regras na skill</span></div>
-        <div><b>9<small>/12</small></b><span>nota mínima para entregar</span></div>
-      </div>
-    </div>
+    <div class="prev" aria-hidden="true"><pre>A partir de agora você é o meu roteirista. Você escreve roteiros de vídeo vertical curto (15 a 90 s) que fazem a pessoa **parar** no primeiro segundo e **ficar** até o fim.
+
+A ideia central: **o gancho faz parar; a história faz ficar.** Um roteiro com bom gancho, mas contado como lista de fatos ("Primeiro… Segundo… Terceiro…"), perde a pessoa no meio. Os vídeos que prendem contam uma pessoa, um problema que piora e uma virada guardada para o fim.
+</pre></div>
   </section>
 
   <!-- =================== A FICHA (formulário) =================== -->
   <section class="block" id="ficha" data-trava-caixa>
     <div class="ficha">
       <span class="tape" aria-hidden="true"></span>
-      <h2>Quero a skill</h2>
+      <h2>Quero o prompt</h2>
       <p class="sub hand">preenche a ficha e o resto abre aqui embaixo</p>
       <form class="trava-form" id="trava" novalidate>
         <label>Seu nome <input name="nome" autocomplete="given-name" required></label>
@@ -346,43 +341,174 @@ footer a{display:inline-block;padding-block:14px}.lead{margin-top:16px}.fm-n{fon
         <p class="priv">Seus dados ficam só com o Matheus. Para sair da lista, é só pedir.</p>
       </form>
     </div>
-    <p class="cadeado hand" aria-hidden="true">↓ trancado: o .zip, a instalação, o como usar e o exemplo completo ↓</p>
+    <p class="cadeado hand" aria-hidden="true">↓ trancado: o prompt para copiar e o exemplo completo ↓</p>
   </section>
 
   <!-- =================== TRANCADO =================== -->
   <div class="trancado" data-trava inert id="material">
-    <section class="block" id="baixar">
-      <h2 class="sec-title">Baixar e instalar</h2>
-      <div class="dl"><a class="btn btn-pen" href="midia/roteirista-skill.zip" download>Baixar a skill (.zip)</a></div>
-      <div class="two" id="instalar">
-        <div class="card">
-          <h3>No claude.ai (site ou app)</h3>
-          <ol class="steps">
-            <li><b>Baixe o .zip</b> desta página. Não precisa abrir.</li>
-            <li>Em <span class="q">Settings</span> › <span class="q">Capabilities</span>, ligue <span class="q">Code execution and file creation</span>. No layout novo, o nome é <span class="q">Create and edit files</span>.</li>
-            <li>Vá em <span class="q">Customize</span> › <span class="q">Skills</span> (<a href="https://claude.ai/customize/skills" rel="noopener">link direto</a>), clique em <span class="q">+</span>, depois <span class="q">+ Create skill</span> › <span class="q">Upload a skill</span> e escolha o .zip.</li>
-            <li>Ligue o interruptor da skill <b>roteirista</b> na lista.</li>
-          </ol>
+    <section class="block" id="prompt">
+      <h2 class="sec-title">Seu prompt</h2>
+      <p class="lead">Copie, cole numa conversa nova do ChatGPT ou do Claude e envie. Ele te cumprimenta e pergunta o que falta.</p>
+      <div class="pbox" data-c>
+        <div class="pbar">
+          <button class="copy big" type="button" data-rot="Copiar o prompt">Copiar o prompt</button>
+          <a class="link-hand" href="midia/prompt-roteirista.txt" download>Baixar .txt</a>
         </div>
-        <div class="card">
-          <h3>No Claude Code (aba Code do app ou terminal)</h3>
-          <ol class="steps">
-            <li>Descompacte o .zip e coloque a pasta <span class="q">roteirista</span> em <span class="q">~/.claude/skills/</span>. Fica <span class="q">~/.claude/skills/roteirista/SKILL.md</span>.</li>
-            <li>Ou cole este pedido no Claude Code para ele fazer por você:</li>
-          </ol>
-          <div class="cmd" data-c><code>Baixa https://eusoumatheus.com.br/roteirista/midia/roteirista-skill.zip, descompacta e põe a pasta roteirista em ~/.claude/skills/.</code><button class="copy" type="button">Copiar</button></div>
-        </div>
+        <div class="cmd pcode" tabindex="0" aria-label="Texto do prompt, role para ler"><code>A partir de agora você é o meu roteirista. Você escreve roteiros de vídeo vertical curto (15 a 90 s) que fazem a pessoa **parar** no primeiro segundo e **ficar** até o fim.
+
+A ideia central: **o gancho faz parar; a história faz ficar.** Um roteiro com bom gancho, mas contado como lista de fatos ("Primeiro… Segundo… Terceiro…"), perde a pessoa no meio. Os vídeos que prendem contam uma pessoa, um problema que piora e uma virada guardada para o fim.
+
+Estas regras vêm de um estudo de 21 reels que comparou, no mesmo perfil, com o mesmo visual e a mesma voz, um vídeo de milhões de views com outro de poucos mil. O que separou os dois foi o roteiro, não o tema nem a edição.
+
+## Regra de ouro: nunca inventar
+
+- Nunca invente número, resultado, nome, depoimento, fala de cliente, estudo ou data. Todo fato do roteiro sai do que a pessoa te deu ou de uma fonte que ela pode conferir.
+- Se falta um fato para a história funcionar, **pergunte** ou deixe marcado assim: `[CONFIRMAR: quanto custou?]`, só na lista "Para confirmar" do fim. As falas usam só o que é verdade, para dar para gravar do jeito que estão. Nunca preencha com um número "de exemplo" que pareça real.
+- Exemplo do dia a dia ("a conta que chega antes do salário") pode, desde que fique claro que é exemplo, não fato.
+- Não prometa resultado que a pessoa não pode garantir ("você vai faturar 10 mil").
+
+## Passo 1 · Entender o pedido (pergunte só o que falta)
+
+Você precisa de 5 coisas. Tire do pedido o que já veio e pergunte **só o que faltar**, tudo numa mensagem curta:
+
+1. **O tema** e o que a pessoa quer que o público sinta ou faça.
+2. **Quem assiste** (ex.: dona de clínica, quem quer emagrecer, dono de loja).
+3. **Os fatos** que entram: números, o caso real, o antes e depois. Só o que for verdade.
+4. **A duração** (se não disser, use 35 a 45 s).
+5. **O fim**: o que a pessoa deve fazer (comentar uma palavra, salvar, mandar para alguém, ir ao link).
+
+Se a pessoa disser "faz do seu jeito", siga com o que tiver e marque os fatos que faltam com `[CONFIRMAR: …]`.
+
+## Passo 2 · A espinha da história (antes de qualquer frase)
+
+Monte esta tabela primeiro. Cada linha precisa de um fato real do pedido. Se uma linha não tiver, a história não fecha: mude o ângulo antes de escrever.
+
+| | Pergunta | Exemplo (dono de padaria que perdia cliente na fila) |
+|---|---|---|
+| **Quem** | Uma pessoa só no centro, do começo ao fim (o cliente, o dono, "você"). | O dono da padaria |
+| **Quer** | O que ela busca, pelo que ela **faz**. | Vender mais pão de manhã |
+| **Impede** | O que fica no caminho. | A fila: o cliente desiste e vai embora |
+| **Em jogo** | O que se perde se der errado. Dito até os 20 s. | O cliente que não volta mais |
+| **Virada** | O que muda tudo. Guardada para depois de 60% do vídeo. | O problema não era a fila, era o caixa único |
+| **Plantado** | Um detalhe que aparece no começo e volta na virada. | "Repara no balcão" → o balcão tinha dois lugares e um só caixa |
+| **Degraus** | Como o problema **piora** em 2 ou 3 passos, do menor para o maior (consequências que crescem, não uma lista de causas). | fila de 5 → cliente desiste → o melhor cliente some |
+| **Promessa** | O que o vídeo promete mostrar até os 25 s e paga depois de 60%. | "tem uma coisa nesse balcão que explica tudo, já chego nela" |
+
+**Em jogo** é sempre algo concreto que a pessoa perde: dinheiro, cliente, tempo, saúde, vergonha. Se o pedido não disse, não deduza como fato: escreva como pergunta ("quanto custa um cliente que não volta?") ou marque `[CONFIRMAR: …]`.
+
+Tema de explicação (dica, lista, como fazer) também precisa de um **Quem**: a pessoa que passou por aquilo, ou "você" vivendo o problema. Nunca uma aula sem ninguém.
+
+## Passo 3 · O gancho (antes do resto)
+
+Escreva **5 ganchos diferentes** para a primeira frase e dê nota a cada um:
+
+- **Para o dedo (0 a 4):** curto (cabe em 2,5 s), com a coisa mais estranha nas primeiras palavras, e uma imagem forte já no primeiro quadro.
+- **Vira a crença (0 a 4):** contraria o que a pessoa acha, ou abre uma pergunta que ela precisa ver respondida.
+- **Entende sem contexto (0 a 2):** quem nunca te viu entende de primeira.
+- **É verdade?** sim ou não. Gancho que os fatos não sustentam fica com **nota 0**, por mais forte que seja.
+
+Use o de maior nota (mínimo 7 de 10; se nenhum chegar a 7, escreva mais). Varie o tipo: pergunta, afirmação que choca, número real, "ninguém te conta que…", cena no meio da ação, o desejo de quem assiste ("Se você quer X, presta atenção nisso").
+
+## Passo 4 · As falas (a partir da espinha)
+
+Escreva as falas seguindo a espinha, nunca na ordem em que os fatos aconteceram. As 15 regras:
+
+**O meio e o fim**
+1. **"Mas" e "por isso", nunca "e aí".** Entre uma parte e a próxima, a ligação é "mas" (algo complica) ou "por isso / só que / então" (uma coisa causa a outra). Parte que só se liga por "e depois" sai ou muda de lugar.
+2. **A pergunta do gancho só se responde depois de 60% do vídeo** (conte pelas palavras, sem o pedido do fim: a frase que **dá a resposta** começa depois de 60% desse total; em vídeo de menos de 40 s, depois de 50%). Nada de entregar a resposta no começo, nem de contar o resultado antes da causa.
+3. **A ordem é a do suspense, não a do relógio.** Pode começar pelo meio da ação e depois voltar ("Volta um pouco.").
+4. **O que está em jogo é dito até os 20 s.** Sem risco, não há tensão.
+5. **Promessa construída, não anunciada.** "Fica até o fim" e "ninguém espera isso" não seguram ninguém. Se prometer surpresa, ela tem que surpreender.
+6. **Cena, não lista.** Cada parte tem um lugar, uma pessoa e uma ação. Lista de nomes ou de itens vira uma palavra só.
+7. **Uma frase de ouro por cena.** Escolha a frase mais forte, dê pausa a ela, e conte o resto como ação. Diálogo de pingue-pongue cansa.
+8. **A lição nasce da virada** e cabe em uma frase. Teste: ela serviria em qualquer outro vídeo? Então é genérica, reescreva.
+
+**O que os vídeos campeões fazem**
+9. **Promessa específica cedo, paga tarde.** Até os 25 s, uma frase diz **o que** vai ser revelado, sem revelar ("tem um número nessa conta que muda tudo, já chego nele"). Só paga depois de 60%. Promessa sem pagamento é pior que nenhuma.
+10. **O problema aperta em 3 degraus**, cada um ligado por "Mas…" ou "Até que…", e o pior fica por último.
+11. **Segundo gancho entre 50% e 60%**: uma frase específica que abre a parte nova ("e o que mudou não tem nada a ver com o treino"), seguida de algo novo de verdade, nunca de repetição. Frase vazia ("agora vem a parte simples") não conta.
+12. **Nunca diga quanto falta.** Nada de "são 7 dicas": quem sabe que falta muito vai embora. Lista visível só até 3 itens, e cada item é um degrau.
+13. **Nada antes da hora.** Pedido para seguir, propaganda, "parte 2" ou resumo nunca antes dos 30 s.
+14. **Algo de casa em jogo:** dinheiro, tempo, filho, saúde, medo, vergonha, o cliente que some. Use um exemplo concreto do dia a dia de quem assiste.
+15. **O fim pede uma ação concreta**, nunca genérica. "Comenta SIM ou NÃO" ou "Comenta ROTEIRO que eu te mando" funciona; "se gostou, compartilha" não. O convite conversa com o gancho.
+
+**Como falar**
+- Frases curtas, mas ligadas. Fala de gente, não de anúncio.
+- Nada de metáfora fofa, de explicar o óbvio ou de dar vida à ferramenta ("o meu robozinho").
+- Ritmo de leitura: cerca de **2,6 palavras por segundo**. 40 s ≈ 105 palavras. Mire na duração pedida (aceite de 80% a 120%). Passou? Corte primeiro repetição e frase que só informa; nunca o gancho, a promessa, a virada ou o pedido do fim.
+- Número escrito do jeito que se fala, se for para narrar ("três mil reais").
+
+## Passo 5 · Confira como espectador (antes de entregar)
+
+Agora mude de papel: você **não escreveu** esse roteiro. Leia só as falas, do começo ao fim, como quem está rolando o feed. Se você tiver como abrir um subagente ou uma conversa separada, faça a nota lá, porque quem escreve tende a se dar nota alta.
+
+1. **Teste do ouvido:** quem nunca te viu entende? Cada frase dá vontade de ouvir a próxima? Em algum ponto daria para sair sem perder nada? Ali falta um "mas".
+2. **A nota (0 a 12):** dê 0, 1 ou 2 para cada linha. Seja duro: na dúvida entre duas notas, fique com a menor.
+
+| Linha | 2 | 1 | 0 |
+|---|---|---|---|
+| **Quem** claro | uma pessoa no centro, do começo ao fim | aparece, mas some no meio | ninguém, é uma aula |
+| **Quer e impede** | o que ela quer + o problema piora 2 ou 3 vezes | o problema é dito uma vez só | não tem problema |
+| **Em jogo** dito cedo | perda concreta (dinheiro, cliente, saúde) até os 20 s | perda vaga ou depois dos 20 s | nada a perder |
+| **Virada guardada** | promessa específica até 25 s, resposta depois de 60% | resposta cedo ou promessa genérica | a resposta vem no gancho |
+| **Plantado e colhido** | um detalhe do começo volta na virada | volta, mas sem peso | nada volta |
+| **Lição nasce da virada** | uma frase que só cabe neste vídeo | serviria em outro vídeo do mesmo nicho | não tem lição, ou contradiz a história |
+
+   - Sem promessa específica até os 25 s, ou promessa não paga: no máximo 1 em Virada guardada.
+   - O problema não aperta pelo menos 2 vezes: no máximo 1 em Quer e impede.
+   - Diz quanto falta, ou pede para seguir antes dos 30 s: no máximo 1 em Em jogo dito cedo.
+3. **Só entregue com 9 ou mais e nenhuma linha com 0.** Se não chegou, reescreva (mudando ordem, corte, ligação ou escolha da frase de ouro) e dê a nota de novo, do zero, sobre a versão nova (de novo num subagente, se tiver).
+   - Degrau só conta se a situação **piora** para a pessoa (perde mais, arrisca mais). Repetir o mesmo problema com outras palavras não é degrau.
+4. Confira se nenhum fato foi inventado. Tudo que não veio do pedido fica marcado com `[CONFIRMAR: …]`.
+
+## Como entregar
+
+Entregue nesta ordem, sem enrolação antes:
+
+```
+# Roteiro · &lt;título&gt;
+Duração estimada: &lt;N&gt; s (&lt;palavras&gt; palavras) · Para: &lt;quem assiste&gt;
+
+## Para gravar (o texto corrido)
+&lt;todas as falas em sequência, do jeito que se fala, uma frase por linha&gt;
+
+## Cena a cena
+| # | Tempo | Fala | Na tela |
+|---|---|---|---|
+| 1 | 0–3 s | &lt;gancho&gt; | &lt;a imagem mais forte + o texto grande do gancho&gt; |
+| … |
+
+## Espinha da história
+&lt;a tabela do passo 2&gt;
+
+## Ganchos testados
+| # | Gancho | Para o dedo | Vira a crença | Sem contexto | É verdade? | Nota |
+|---|---|---|---|---|---|---|
+| G1 | … | 3 | 3 | 2 | sim | 8 |
+**Escolhido:** G&lt;n&gt;, porque &lt;uma linha&gt;.
+
+## Nota da história: &lt;n&gt;/12
+&lt;uma linha por item da nota, com a fala que justifica&gt;
+
+## Para confirmar
+&lt;a lista dos [CONFIRMAR] que ficaram, ou "nada"&gt;
+```
+
+Na coluna **Na tela**: o primeiro quadro já é a imagem mais forte, com o texto do gancho grande (ele também vira a capa). Texto na tela fica parado pelo menos 1,5 s para dar tempo de ler. Cada cena dura de 2,5 a 4 s: fala curta divide a cena com a próxima; fala longa ganha 2 planos (ex.: aberto e close) no mesmo lugar.
+
+Se a pessoa pedir ajuste ("deixa mais curto", "muda o gancho"), mude só o que ela pediu e confira a nota de novo.
+
+## Para começar
+Agora me cumprimente em uma linha e me pergunte, numa mensagem só e curta, as 5 coisas do Passo 1 (tema, quem assiste, os fatos reais, a duração e o que eu quero que comentem no fim). Se eu já tiver mandado alguma delas junto com este texto, não pergunte de novo. Escreva sempre em português do Brasil.</code></div>
+      </div>
+      <div class="abrir">
+        <a class="btn btn-ghost" href="https://chatgpt.com" rel="noopener">Abrir o ChatGPT</a>
+        <a class="btn btn-ghost" href="https://claude.ai" rel="noopener">Abrir o Claude</a>
       </div>
     </section>
 
-    <section class="block" id="usar">
-      <h2 class="sec-title">Como usar</h2>
-      <p class="lead">No Claude Code, digite <span class="q">/roteirista</span> e conte o tema. No claude.ai, é só pedir. Mande os fatos reais (números, o caso, o antes e depois) e o que você quer que comentem no fim.</p>
-      <div class="cmd" data-c><code>Usa a skill roteirista e escreve um reels de 40 segundos sobre [seu tema]. Quem assiste: [seu público]. Fatos reais: [números, o caso, antes e depois]. No fim, quero que comentem [palavra].</code><button class="copy" type="button">Copiar</button></div>
-    </section>
-
     <section class="block" id="exemplo">
-      <h2 class="sec-title">Um exemplo de uso</h2>
+      <h2 class="sec-title">Um exemplo do que ele entrega</h2>
       <div class="fake"><b>Pedido de exemplo, com dados inventados para o teste.</b> A Carla, a loja e os números são fictícios. Teste feito em 22/11/2026.</div>
       <div class="sub2">O pedido</div>
       <p class="pedido">Sou a Carla, tenho uma loja de roupa feminina em Goiânia e vendo pelo Instagram. Meu público é mulher de 30 a 50 anos. Fato real: eu postava a peça no manequim e vendia umas 4 por semana pelo direct. Quase toda cliente perguntava "será que fica bem em mim?" e muitas sumiam depois disso. Há 1 mês comecei a mostrar a mesma peça em 3 clientes de verdade (elas autorizaram), uma P, uma M e uma GG. A pergunta quase sumiu do direct e as vendas foram pra 11 por semana. Quero um reels de uns 35 segundos ensinando outras lojistas a fazer isso. No fim, quero que comentem PROVADOR pra eu mandar o passo a passo.</p>
@@ -411,7 +537,7 @@ footer a{display:inline-block;padding-block:14px}.lead{margin-top:16px}.fm-n{fon
         <div class="gc zero"><span class="tx">G5 · Foto no manequim não vende roupa.</span><span class="sc">0</span><span class="sb">verdade: não. Os fatos mostram 4 vendas por semana, não zero. Nota 0.</span></div>
       </div>
 
-      <div class="nota"><b>9</b><div><strong>de 12</strong><br><span>Nota da história. Um espectador separado deu 8 na primeira versão; a skill reescreveu e chegou a 9.</span></div></div>
+      <div class="nota"><b>9</b><div><strong>de 12</strong><br><span>Nota da história. Um espectador separado deu 8 na primeira versão; o roteirista reescreveu e chegou a 9.</span></div></div>
 
       <div class="sub2">Cena a cena (resumo)</div>
       <div class="cenas" tabindex="0" aria-label="Cena a cena, role para ver">
@@ -431,7 +557,79 @@ footer a{display:inline-block;padding-block:14px}.lead{margin-top:16px}.fm-n{fon
       </div>
       <div class="dl"><a class="btn btn-ghost" href="midia/exemplo-roteiro.md" download>Ver o exemplo completo</a></div>
     </section>
+
+    <section class="block" id="skill">
+      <details class="skill">
+        <summary>Quer usar sempre no Claude, sem colar toda vez? Instale como skill</summary>
+        <div class="dl"><a class="btn btn-pen" href="midia/roteirista-skill.zip" download>Baixar a skill (.zip)</a></div>
+        <div class="two" id="instalar">
+          <div class="card">
+            <h3>No claude.ai (site ou app)</h3>
+            <ol class="steps">
+              <li><b>Baixe o .zip</b> desta página. Não precisa abrir.</li>
+              <li>Em <span class="q">Settings</span> › <span class="q">Capabilities</span>, ligue <span class="q">Code execution and file creation</span>. No layout novo, o nome é <span class="q">Create and edit files</span>.</li>
+              <li>Vá em <span class="q">Customize</span> › <span class="q">Skills</span> (<a href="https://claude.ai/customize/skills" rel="noopener">link direto</a>), clique em <span class="q">+</span>, depois <span class="q">+ Create skill</span> › <span class="q">Upload a skill</span> e escolha o .zip.</li>
+              <li>Ligue o interruptor da skill <b>roteirista</b> na lista.</li>
+            </ol>
+          </div>
+          <div class="card">
+            <h3>No Claude Code (aba Code do app ou terminal)</h3>
+            <ol class="steps">
+              <li>Descompacte o .zip e coloque a pasta <span class="q">roteirista</span> em <span class="q">~/.claude/skills/</span>. Fica <span class="q">~/.claude/skills/roteirista/SKILL.md</span>.</li>
+              <li>Ou cole este pedido no Claude Code para ele fazer por você:</li>
+            </ol>
+            <div class="cmd" data-c><code>Baixa https://eusoumatheus.com.br/roteirista/midia/roteirista-skill.zip, descompacta e põe a pasta roteirista em ~/.claude/skills/.</code><button class="copy" type="button">Copiar</button></div>
+          </div>
+        </div>
+        <p class="lead">Depois de instalada, no Claude Code digite <span class="q">/roteirista</span> e conte o tema. No claude.ai, é só pedir e mandar os fatos reais.</p>
+      </details>
+    </section>
   </div>
+  <!-- =================== A RÉGUA =================== -->
+  <section class="block" id="regua">
+    <div class="regua-wrap">
+      <div class="head">
+        <h2 class="sec-title">O vídeo, segundo a segundo</h2>
+        <p class="lead">O gancho faz parar. A história faz ficar. O prompt monta o roteiro nesta ordem.</p>
+      </div>
+      <div class="rail" id="rail">
+        <svg class="rail-svg" viewBox="0 0 28 1000" preserveAspectRatio="none" aria-hidden="true">
+          <path class="trk" d="M14 0 C 10 120, 18 240, 14 360 S 10 600, 14 720 S 18 900, 14 1000"/>
+        </svg>
+        <svg class="rail-svg pn" id="pen" viewBox="0 0 28 1000" preserveAspectRatio="none" aria-hidden="true">
+          <path class="pen" d="M14 0 C 10 120, 18 240, 14 360 S 10 600, 14 720 S 18 900, 14 1000"/>
+        </svg>
+        <div class="mark"><span class="t">0 s · gancho</span><h3>Uma frase que faz parar</h3><p>Curta, com a coisa mais estranha nas primeiras palavras. Ele escreve 5 e dá nota a cada uma.</p></div>
+        <div class="mark"><span class="t">até 20 s · o que está em jogo</span><h3>O que a pessoa perde se der errado</h3><p>Sem risco, não há tensão. Dinheiro, cliente, tempo: algo concreto, e só o que é verdade.</p></div>
+        <div class="mark"><span class="t">até 25 s · a promessa</span><h3>O que vai ser revelado, sem revelar</h3><p>Uma frase específica, paga mais tarde. Promessa vazia não segura ninguém.</p></div>
+        <div class="mark"><span class="t">depois de 60% · a virada</span><h3>A resposta do gancho</h3><p>Guardada para depois de 60% do vídeo. Antes disso, o problema só piora, em três degraus.</p></div>
+        <div class="mark"><span class="t">fim · o pedido</span><h3>O que a pessoa faz agora</h3><p>Comentar uma palavra, salvar, mandar para alguém. Você diz qual.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =================== O QUE ELA FAZ =================== -->
+  <section class="block" id="faz">
+    <h2 class="sec-title">O que ele faz</h2>
+    <ol class="faz">
+      <li><b>Pergunta só o que falta</b><span>Tema, quem assiste, os fatos, a duração e o pedido do fim.</span></li>
+      <li><b>Monta a espinha antes de qualquer frase</b><span>Quem, o que quer, o que impede, o que está em jogo, a virada e o detalhe plantado.</span></li>
+      <li><b>Testa 5 ganchos</b><span>Dá nota a cada um e usa o melhor.</span></li>
+      <li><b>Escreve com as 15 regras</b><span>"Mas" e "por isso", nunca "e aí". A resposta do gancho só depois de 60%. Nunca diz quanto falta.</span></li>
+      <li><b>Relê como espectador</b><span>Dá nota de 0 a 12 à história e só entrega com 9 ou mais.</span></li>
+      <li><b>Nunca inventa</b><span>Número, depoimento: o que falta vira uma pergunta para você.</span></li>
+    </ol>
+    <div class="recebe"><h3>O que você recebe</h3><p>Texto corrido para gravar, cena a cena com tempo e o que aparece na tela, os ganchos testados e a nota.</p></div>
+    <div class="estudo">
+      <p>As regras vieram de um estudo de 21 reels que comparou, no mesmo perfil, com o mesmo visual e a mesma voz, um vídeo de milhões de views com outro de poucos mil. O que separou os dois foi o roteiro.</p>
+      <div class="stats">
+        <div><b>21</b><span>reels no estudo</span></div>
+        <div><b>15</b><span>regras no prompt</span></div>
+        <div><b>9<small>/12</small></b><span>nota mínima para entregar</span></div>
+      </div>
+    </div>
+  </section>
+
   <noscript><style>.trancado{max-height:none;-webkit-mask-image:none;mask-image:none}</style></noscript>
 </div>
 
@@ -469,7 +667,7 @@ footer a{display:inline-block;padding-block:14px}.lead{margin-top:16px}.fm-n{fon
     document.documentElement.classList.add('liberado');
     document.querySelectorAll('[data-trava]').forEach(function (el) { el.classList.remove('trancado'); el.removeAttribute('inert'); });
     var f = document.getElementById('trava'); if (f) f.closest('[data-trava-caixa]').hidden = true;
-    var hb = document.getElementById('hero-btn'); if (hb) { hb.setAttribute('href', '#baixar'); document.getElementById('hero-btn-t').textContent = 'Baixar a skill'; }
+    var hb = document.getElementById('hero-btn'); if (hb) { hb.setAttribute('href', '#prompt'); document.getElementById('hero-btn-t').textContent = 'Copiar o prompt'; }
     if (rolar) { var a = document.querySelector('[data-trava]'); if (a) a.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
   }
   try { if (localStorage.getItem(CHAVE)) libera(false); } catch (e) {}
@@ -496,11 +694,11 @@ footer a{display:inline-block;padding-block:14px}.lead{margin-top:16px}.fm-n{fon
   function fb(t) { var a = document.createElement('textarea'); a.value = t; a.style.cssText = 'position:fixed;opacity:0;top:0'; document.body.appendChild(a); a.select(); try { document.execCommand('copy'); } catch (e) {} a.remove(); }
   function cp(t) { if (navigator.clipboard && navigator.clipboard.writeText) return navigator.clipboard.writeText(t).catch(function () { fb(t); }); fb(t); return Promise.resolve(); }
   document.querySelectorAll('[data-c]').forEach(function (box) {
-    var b = box.querySelector('.copy');
+    var b = box.querySelector('.copy'), rot = b.getAttribute('data-rot') || 'Copiar';
     b.addEventListener('click', function () {
       cp(box.querySelector('code').textContent.trim());
       b.textContent = 'Copiado'; b.classList.add('ok');
-      setTimeout(function () { b.textContent = 'Copiar'; b.classList.remove('ok'); }, 1600);
+      setTimeout(function () { b.textContent = rot; b.classList.remove('ok'); }, 1600);
     });
   });
 

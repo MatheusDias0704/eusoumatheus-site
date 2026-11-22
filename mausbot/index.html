@@ -9,7 +9,7 @@
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
 <title>MausBot · presente do Matheus</title>
-<meta name="description" content="O link oficial do MausBot (OpenMausBot) no GitHub e o passo a passo em português para montar seu time de agentes de IA.">
+<meta name="description" content="Um prompt para colar no Claude: ele instala o MausBot (OpenMausBot) por você e te guia na primeira vez. Com o link oficial no GitHub.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Caveat:wght@500;700&family=JetBrains+Mono:wght@400;700&display=swap">
@@ -236,6 +236,26 @@ footer a { font-weight: 700; }
   .rede .pulso { display: none; }
 }
 
+
+/* prompt único */
+.cod { background: var(--machine); color: var(--on-machine); border-radius: 4px; box-shadow: 5px 6px 0 var(--pen); position: relative; overflow: hidden; }
+.cod::before { content: ""; position: absolute; inset: 0; pointer-events: none; background-image: linear-gradient(rgba(181,154,246,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(181,154,246,.07) 1px, transparent 1px); background-size: var(--cell) var(--cell); }
+.cod-sc { position: relative; max-height: 480px; overflow: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; }
+.cod-hd { position: sticky; top: 0; z-index: 2; display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 12px; background: var(--machine-2); border-bottom: 1px solid rgba(181,154,246,.25); }
+.cod-hd span { flex: 1 1 100%; font: 500 13px/1 var(--f-mono); color: var(--on-machine-2); }
+.cod-hd .btn { flex: 1 1 130px; }
+.cod-hd .btn-copiar { flex: 2 1 200px; min-height: 52px; font-size: 18px; }
+.btn-sm { min-height: 48px; padding: 12px 20px; font-size: 16px; }
+.cod pre { position: relative; margin: 0; padding: 16px; font: 400 15px/1.55 var(--f-mono); white-space: pre-wrap; word-break: break-word; }
+.cod.teaser { margin-top: 26px; max-height: 190px; -webkit-mask-image: linear-gradient(#000 20%, transparent 100%); mask-image: linear-gradient(#000 20%, transparent 100%); box-shadow: none; user-select: none; }
+.liberado .cod.teaser { display: none; }
+html:not(.liberado) .trancado > .sec-h, html:not(.liberado) .trancado > .sec-s { display: none; }
+.sec-h { margin-top: 36px; font-size: clamp(26px, 5.6vw, 40px); line-height: .95; margin-bottom: 8px; }
+.sec-s { margin: 0 0 16px; color: var(--ink-2); }
+.mao { margin-top: 32px; border-top: 2px dashed rgba(19, 18, 24, .3); }
+.mao > summary { cursor: pointer; display: flex; align-items: center; min-height: 56px; padding-block: 12px; font: 900 20px/1.1 var(--f-display); font-stretch: 112%; text-transform: uppercase; color: var(--pen-deep); }
+.mao[open] > summary { color: var(--ink); }
+
 /* crítica de design 22/11: alvos de toque do rodapé ≥ 44px, rótulos ≥ 13px */
 footer a{display:inline-block;padding-block:14px}
 </style>
@@ -250,7 +270,7 @@ footer a{display:inline-block;padding-block:14px}
     <span class="hand write" style="font-size:30px">presente da palavra TIME</span>
     <h1 class="h1">Seu time de agentes de IA, com os <em>agentes que você já tem</em></h1>
     <p class="sub">O MausBot (OpenMausBot) junta Claude Code, Codex e Grok num app de chat: cada bot é um contato, você conversa, vê eles trabalhando e aprova o que importa.</p>
-    <a class="btn btn-pen so-trava" href="#trava">Liberar o passo a passo ↓</a>
+    <a class="btn btn-pen so-trava" href="#trava">Liberar o prompt ↓</a>
   </div>
 
   <div class="rede-box">
@@ -302,12 +322,12 @@ footer a{display:inline-block;padding-block:14px}
 
   <div class="recebe">
     <span class="hand" style="font-size:28px">o que você recebe</span>
-    <h2>O passo a passo em português</h2>
+    <h2>Um prompt que instala por você</h2>
     <ul class="rec-list">
-      <li><b>Instalar</b><span>O app no Mac, Windows ou Ubuntu, ou pelo terminal.</span></li>
-      <li><b>Primeira vez</b><span>O que o assistente pergunta e como responder.</span></li>
-      <li><b>Usar</b><span>Os bots como contatos, e o cartão para permitir ou negar.</span></li>
-      <li><b>Times prontos</b><span>Um time inteiro instalado a partir de um arquivo.</span></li>
+      <li><b>O prompt pronto</b><span>Você cola no Claude (aba Code) e ele confere o seu sistema e o Node.</span></li>
+      <li><b>Instalação feita por ele</b><span>Pelo caminho do terminal do README oficial.</span></li>
+      <li><b>A primeira vez, guiada</b><span>Ele te leva no assistente, um passo por vez.</span></li>
+      <li><b>Para antes de senha, login, chave ou pagamento</b><span>Isso é você que digita.</span></li>
       <li><b>Os avisos do projeto</b><span>O que ler antes de começar.</span></li>
     </ul>
   </div>
@@ -315,27 +335,45 @@ footer a{display:inline-block;padding-block:14px}
 
 <section id="passos">
   <div class="pass-head">
-    <span class="hand" style="font-size:28px">tudo vem do README e dos documentos oficiais do projeto</span>
-    <h2>Passo a passo</h2>
+    <span class="hand" style="font-size:28px">é só copiar e colar</span>
+    <h2>3 passos</h2>
   </div>
   <div class="passos">
     <div class="passo"><span class="n">1</span>
       <div class="body">
-        <h3>Tenha pelo menos um agente instalado e logado</h3>
-        <p>Eles aparecem sozinhos no app.</p>
-        <div class="agentes">
-          <a href="https://claude.com/claude-code" target="_blank" rel="noopener">Claude Code</a>
-          <a href="https://github.com/openai/codex" target="_blank" rel="noopener">Codex</a>
-          <a href="https://x.ai/cli" target="_blank" rel="noopener">Grok CLI</a>
-        </div>
+        <h3>Tenha o Claude Code</h3>
+        <p>Baixe o app do Claude e vá na aba Code.</p>
+        <div><a class="btn btn-line" href="https://claude.com/download" target="_blank" rel="noopener">Baixar o app do Claude</a></div>
       </div></div>
+    <div class="passo"><span class="n">2</span>
+      <div class="body">
+        <h3>Cole o prompt</h3>
+        <p>O Claude instala o MausBot e te guia.</p>
+        <div><a class="btn btn-pen so-trava" href="#trava">Liberar o prompt ↓</a></div>
+      </div></div>
+    <div class="passo"><span class="n">3</span>
+      <div class="body">
+        <h3>Quando ele pedir login ou senha, é você que digita</h3>
+        <p>O prompt manda ele parar antes de qualquer senha, login, chave ou pagamento.</p>
+      </div></div>
+  </div>
+
+  <div class="cod teaser" aria-hidden="true">
+    <div class="cod-hd"><span>prompt-mausbot.txt</span></div>
+    <pre>Quero instalar o OpenMausBot (https://github.com/milind-soni/OpenMausBot), o app de código aberto que junta o Claude Code, o Codex e o Grok num time de agentes. Faça por mim, seguindo só o README oficial desse repositório:
+
+1. Veja qual é o meu sistema (Mac com chip Apple, Mac Intel, Windows ou Ubuntu) e se o Node.js é a versão 24 ou mais nova. Se não for, me diga em uma frase como atualizar e espere eu dizer "pronto".
+2. Instale pelo caminho do terminal que o README mostra: npm install -g openmausbot
+3. Abra o openmausbot e me guie no assistente da primeira vez, um passo por vez: qual provedor escolher (o Claude Code que eu já uso), entrar na conta e escolher o modelo. Conectar o celular pode pular.
+4. Antes de qualquer coisa que peça senha, login, chave de API ou pagamento, pare e me pergunte. Não digite nenhuma senha por mim.
+5. No fim, me explique em 3 linhas: como criar o meu primeiro bot, como mudar o nível de aprovação para ele me perguntar antes de agir, e como fechar e abrir o app de novo.</pre>
   </div>
 
   <div class="ficha-wrap" data-trava-caixa>
     <div class="ficha" id="ficha">
       <span class="tape"></span>
-      <h2>Libere o resto</h2>
-      <p class="lede">Passos 2 a 5, os comandos e os avisos. Preencha a ficha e abre aqui mesmo.</p>
+      <h2>Libere o prompt</h2>
+      <p class="lede">O prompt inteiro, o plano à mão e os avisos. Preencha a ficha e abre aqui mesmo.</p>
       <form class="trava-form" id="trava" novalidate>
         <label>Seu nome <input name="nome" autocomplete="given-name" required></label>
         <label>WhatsApp com DDD <input name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" placeholder="(21) 99999-9999" required></label>
@@ -350,8 +388,51 @@ footer a{display:inline-block;padding-block:14px}
   </div>
 
   <div class="trancado" data-trava inert>
-    <div class="passos" style="margin-top:0">
-      <div class="passo"><span class="n">2</span>
+    <h2 class="sec-h">O prompt</h2>
+    <p class="sec-s">O texto inteiro. Cole numa conversa nova na aba Code do Claude.</p>
+    <div class="cod">
+      <div class="cod-sc">
+        <div class="cod-hd"><span>prompt-mausbot.txt</span><button class="btn btn-pen btn-copiar" type="button" data-copy-from="prompt">Copiar o prompt</button><a class="btn btn-light btn-sm" href="midia/prompt-mausbot.txt" download="prompt-mausbot.txt">Baixar .txt</a></div>
+<pre id="prompt">Quero instalar o OpenMausBot (https://github.com/milind-soni/OpenMausBot), o app de código aberto que junta o Claude Code, o Codex e o Grok num time de agentes. Faça por mim, seguindo só o README oficial desse repositório:
+
+1. Veja qual é o meu sistema (Mac com chip Apple, Mac Intel, Windows ou Ubuntu) e se o Node.js é a versão 24 ou mais nova. Se não for, me diga em uma frase como atualizar e espere eu dizer "pronto".
+2. Instale pelo caminho do terminal que o README mostra: npm install -g openmausbot
+3. Abra o openmausbot e me guie no assistente da primeira vez, um passo por vez: qual provedor escolher (o Claude Code que eu já uso), entrar na conta e escolher o modelo. Conectar o celular pode pular.
+4. Antes de qualquer coisa que peça senha, login, chave de API ou pagamento, pare e me pergunte. Não digite nenhuma senha por mim.
+5. No fim, me explique em 3 linhas: como criar o meu primeiro bot, como mudar o nível de aprovação para ele me perguntar antes de agir, e como fechar e abrir o app de novo.</pre>
+      </div>
+    </div>
+
+    <div class="avisos">
+      <span class="tape"></span>
+      <h3>Antes de começar</h3>
+      <ul>
+        <li>O app é gratuito, mas o uso das IAs é o seu: as suas assinaturas ou chaves de API. O “OMB Cloud” hospedado é um serviço pago e opcional.</li>
+        <li>Por padrão, cada bot começa em “Full access” (o modo mais solto). Você pode mudar o nível de aprovação por bot ou conversa.</li>
+        <li>O projeto não tem token nem criptomoeda: qualquer moeda com esse nome não é deles.</li>
+        <li>A pasta enterprise/ do repositório tem outra licença.</li>
+      </ul>
+      <div class="links">
+        <a href="https://www.openmausbot.com" target="_blank" rel="noopener">Site oficial</a>
+        <a href="https://github.com/milind-soni/OpenMausBot" target="_blank" rel="noopener">Repositório</a>
+        <a href="https://github.com/milind-soni/OpenMausBot/releases" target="_blank" rel="noopener">Releases</a>
+      </div>
+    </div>
+
+    <details class="mao">
+      <summary>Prefere instalar à mão?</summary>
+      <div class="passos" style="margin-top:0">
+    <div class="passo"><span class="n">1</span>
+      <div class="body">
+        <h3>Tenha pelo menos um agente instalado e logado</h3>
+        <p>Eles aparecem sozinhos no app.</p>
+        <div class="agentes">
+          <a href="https://claude.com/claude-code" target="_blank" rel="noopener">Claude Code</a>
+          <a href="https://github.com/openai/codex" target="_blank" rel="noopener">Codex</a>
+          <a href="https://x.ai/cli" target="_blank" rel="noopener">Grok CLI</a>
+        </div>
+      </div></div>
+        <div class="passo"><span class="n">2</span>
         <div class="body">
           <h3>Baixe o app</h3>
           <p>Na página de <a href="https://github.com/milind-soni/OpenMausBot/releases/latest" target="_blank" rel="noopener">releases</a>, escolha o seu:</p>
@@ -384,22 +465,7 @@ footer a{display:inline-block;padding-block:14px}
           <div><a class="btn btn-line" href="https://github.com/milind-soni/openmausbot-teams" target="_blank" rel="noopener">Ver os times prontos</a></div>
         </div></div>
     </div>
-
-    <div class="avisos">
-      <span class="tape"></span>
-      <h3>Antes de começar</h3>
-      <ul>
-        <li>O app é gratuito, mas o uso das IAs é o seu: as suas assinaturas ou chaves de API. O “OMB Cloud” hospedado é um serviço pago e opcional.</li>
-        <li>Por padrão, cada bot começa em “Full access” (o modo mais solto). Você pode mudar o nível de aprovação por bot ou conversa.</li>
-        <li>O projeto não tem token nem criptomoeda: qualquer moeda com esse nome não é deles.</li>
-        <li>A pasta enterprise/ do repositório tem outra licença.</li>
-      </ul>
-      <div class="links">
-        <a href="https://www.openmausbot.com" target="_blank" rel="noopener">Site oficial</a>
-        <a href="https://github.com/milind-soni/OpenMausBot" target="_blank" rel="noopener">Repositório</a>
-        <a href="https://github.com/milind-soni/OpenMausBot/releases" target="_blank" rel="noopener">Releases</a>
-      </div>
-    </div>
+    </details>
   </div>
 </section>
 
@@ -447,6 +513,14 @@ footer a{display:inline-block;padding-block:14px}
       copiar(b.closest('.cmd').querySelector('pre').textContent.trim());
       b.textContent = 'Copiado'; b.classList.add('ok');
       setTimeout(function () { b.textContent = 'Copiar'; b.classList.remove('ok'); }, 1600);
+    });
+  });
+  d.querySelectorAll('[data-copy-from]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      copiar(d.getElementById(b.getAttribute('data-copy-from')).textContent.trim());
+      var o = b.getAttribute('data-o') || b.textContent; b.setAttribute('data-o', o);
+      b.textContent = 'Copiado'; clearTimeout(b._t);
+      b._t = setTimeout(function () { b.textContent = o; }, 1600);
     });
   });
 })();

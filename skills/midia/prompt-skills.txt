@@ -1,0 +1,14 @@
+Instala estas 5 skills para mim, uma por vez. São do skills.sh, o diretório aberto de skills:
+
+npx skills add https://github.com/mattpocock/skills --skill claude-handoff
+npx skills add https://github.com/leonxlnx/taste-skill --skill design-taste-frontend
+npx skills add https://github.com/mattpocock/skills --skill grilling
+npx skills add https://github.com/vercel-labs/agent-browser --skill agent-browser
+npx skills add https://github.com/vercel-labs/skills --skill find-skills
+
+Regras:
+- Se o comando perguntar onde instalar ou para qual agente, escolha o Claude Code e a instalação para o meu usuário (para valer em todos os meus projetos).
+- Se faltar o Node.js no meu computador, me explique em uma frase como instalar e espere eu dizer "pronto".
+- Se alguma der erro, tente de novo uma vez e, se continuar, me diga qual foi e siga com as outras.
+
+No fim, me mostre em uma linha o que cada skill faz e me dê um pedido de exemplo para eu testar a find-skills agora.

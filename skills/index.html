@@ -9,7 +9,7 @@
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
 <title>5 skills pro Claude · presente do Matheus</title>
-<meta name="description" content="5 skills muito instaladas do skills.sh para o Claude, com o comando de instalar e o link de cada uma.">
+<meta name="description" content="Um prompt para copiar e colar no Claude: ele instala 5 skills muito instaladas do skills.sh para você.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Caveat:wght@500;700&family=JetBrains+Mono:wght@500&display=swap">
@@ -144,19 +144,29 @@ h1 .m svg path{fill:none;stroke:var(--pen);stroke-width:3.5;stroke-linecap:round
 /* trava */
 .trancado{max-height:170px;overflow:hidden;pointer-events:none;user-select:none;-webkit-user-select:none;
   -webkit-mask-image:linear-gradient(#000 0%,transparent 100%);mask-image:linear-gradient(#000 0%,transparent 100%);opacity:.55}
-.liberado .trancado{max-height:none}
+.liberado .trancado,.liberado .trancado.tr-prompt{max-height:none}
 html.no-js .trancado,.no-js .trancado{max-height:none;-webkit-mask-image:none;mask-image:none;opacity:1;pointer-events:auto}
 .sample-end{position:relative;margin:20px 0 0;text-align:center;font-size:28px}
 
-/* como instalar */
-.como{position:relative;margin:40px 0 0;background:#fff;padding:30px 20px 26px;box-shadow:4px 12px 30px rgba(19,18,24,.14);transform:rotate(-.4deg)}
-.como .tape{top:-12px;left:18%;transform:rotate(-4deg)}
-.como h2{margin:0;font:900 clamp(24px,6vw,34px)/1 var(--f-display);font-stretch:125%;text-transform:uppercase}
-.como ol{list-style:none;margin:14px 0 0;padding:0;display:grid;gap:12px}
-.como li{display:grid;grid-template-columns:34px minmax(0,1fr);gap:10px;align-items:baseline}
-.como li b{font:700 30px/1 var(--f-hand);color:var(--pen);text-align:center}
-.como a{color:var(--pen);font-weight:700;text-underline-offset:4px}
-.como a:hover{color:var(--ink)}
+
+/* prompt principal */
+.receb em{font-style:normal;font-weight:700;color:var(--pen-deep)}
+.receb .aba{font-weight:800}
+.receb .lk{min-height:44px;margin-top:2px}
+.receb li{align-items:start}
+.prompt{display:grid;gap:10px;justify-items:center;text-align:center;padding-top:34px}
+.prompt .hand{font-size:28px;margin:0}
+.pbtns{display:grid;gap:4px;justify-items:center;width:100%}
+.cp-big{width:100%;max-width:420px;min-height:64px;padding:0 24px;border:0;border-radius:4px;background:var(--pen);color:#fff;font:800 20px/1 var(--f-body);cursor:pointer;box-shadow:4px 5px 0 var(--ink);transition:background .2s var(--ease),transform .12s var(--ease)}
+.cp-big:hover{background:var(--ink)}.cp-big:active{transform:scale(.98)}
+.cp-big.ok{background:var(--pen-deep)}
+.pbox{position:relative;width:100%;margin:6px 0 0;text-align:left;background:var(--machine);color:var(--on-machine);border-radius:4px;padding:18px 16px;font:500 14.5px/1.6 var(--f-mono);white-space:pre-wrap;word-break:break-word;overflow:hidden}
+.trancado.tr-prompt{max-height:430px}
+.trancado .cp-big{background:var(--ink-2);box-shadow:none}
+.cmd.ref{padding:10px 12px;gap:8px;opacity:.96}
+.cmd.ref code{font-size:13px}
+.cmd.ref .cp{min-height:44px;padding:0 16px;font-size:14px}
+.ref-nota{text-align:center;max-width:30em}
 
 /* convite (fora da trava) */
 .rip{position:relative;z-index:2;margin:64px calc(50% - 50vw) 0}
@@ -206,29 +216,27 @@ footer a{display:inline-block;padding-block:14px}
   <header class="hero">
     <h1><span class="s">5 skills que deixam o seu Claude</span>
       <span class="m">mais esperto<svg viewBox="0 0 400 100" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M12 58 C 8 18, 120 6, 215 8 C 320 8, 394 22, 390 52 C 386 86, 280 96, 190 94 C 90 92, 6 84, 14 46 C 18 28, 60 16, 110 12"/></svg></span></h1>
-    <p class="sub">São 5 das skills mais instaladas do skills.sh, o diretório aberto de skills para agentes de IA. Cada uma com o comando pronto para copiar.</p>
+    <p class="sub">Um prompt só. Você cola no Claude e ele instala 5 das skills mais instaladas do skills.sh, o diretório aberto de skills para agentes de IA.</p>
     <p class="fonte">Números do skills.sh em <b>22/11/2026</b>.</p>
   </header>
 
   <div class="grid2">
     <section class="box r1" aria-labelledby="rc">
       <span class="tape"></span>
-      <h2 id="rc">O que você recebe</h2>
+      <h2 id="rc">3 passos</h2>
       <ol class="receb">
-        <li><b class="n">5</b><div><strong>claude-handoff</strong><span>Resume a conversa enorme para um agente novo continuar de onde parou.</span></div></li>
-        <li><b class="n">4</b><div><strong>design-taste-frontend</strong><span>Faz sites e landing pages sem cara de template de IA.</span></div></li>
-        <li><b class="n">3</b><div><strong>grilling</strong><span>O Claude te entrevista até o seu plano ficar redondo.</span></div></li>
-        <li><b class="n">2</b><div><strong>agent-browser</strong><span>A IA mexe no navegador sozinha: abre, clica, preenche e tira dados.</span></div></li>
-        <li><b class="n">1</b><div><strong>find-skills</strong><span>Você diz o que quer fazer e ela acha e instala a skill certa.</span></div></li>
+        <li><b class="n">1</b><div><span>Baixe e abra o app do Claude no computador e vá na aba <b class="aba">Code</b>. <a class="lk" href="https://claude.com/download" rel="noopener">claude.com/download</a></span></div></li>
+        <li><b class="n">2</b><div><span>Cole o prompt e envie. O Claude instala as 5 e te avisa.</span></div></li>
+        <li><b class="n">3</b><div><span>Teste: peça <em>“Usa a find-skills e acha uma skill para eu editar vídeo.”</em></span></div></li>
       </ol>
-      <p class="hand nota">Cada uma com o comando de instalar e o link do skills.sh.</p>
+      <p class="hand nota">É só copiar e colar.</p>
     </section>
 
     <div data-trava-caixa>
       <section class="box ficha r2" aria-labelledby="ft">
         <span class="tape"></span>
-        <h2 id="ft">Libere o ranking</h2>
-        <p class="hand quem">Do 4º ao 1º lugar, e como instalar.</p>
+        <h2 id="ft">Libere o prompt</h2>
+        <p class="hand quem">O prompt inteiro e o ranking do 4º ao 1º.</p>
         <form class="trava-form" id="trava" novalidate>
           <label>Seu nome <input name="nome" autocomplete="given-name" required></label>
           <label>WhatsApp com DDD <input name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" placeholder="(21) 99999-9999" required></label>
@@ -243,9 +251,35 @@ footer a{display:inline-block;padding-block:14px}
     </div>
   </div>
 
+  <div class="trancado tr-prompt" data-trava inert>
+    <section class="prompt" aria-labelledby="pt">
+      <h2 class="sec-title" id="pt">O prompt</h2>
+      <p class="hand">copie, cole no Claude e envie</p>
+      <div class="pbtns">
+        <button class="cp-big" type="button" data-alvo="prompt-skills">Copiar o prompt</button>
+        <a class="lk" href="midia/prompt-skills.txt" download>Baixar .txt</a>
+      </div>
+      <pre class="pbox" id="prompt-skills">Instala estas 5 skills para mim, uma por vez. São do skills.sh, o diretório aberto de skills:
+
+npx skills add https://github.com/mattpocock/skills --skill claude-handoff
+npx skills add https://github.com/leonxlnx/taste-skill --skill design-taste-frontend
+npx skills add https://github.com/mattpocock/skills --skill grilling
+npx skills add https://github.com/vercel-labs/agent-browser --skill agent-browser
+npx skills add https://github.com/vercel-labs/skills --skill find-skills
+
+Regras:
+- Se o comando perguntar onde instalar ou para qual agente, escolha o Claude Code e a instalação para o meu usuário (para valer em todos os meus projetos).
+- Se faltar o Node.js no meu computador, me explique em uma frase como instalar e espere eu dizer "pronto".
+- Se alguma der erro, tente de novo uma vez e, se continuar, me diga qual foi e siga com as outras.
+
+No fim, me mostre em uma linha o que cada skill faz e me dê um pedido de exemplo para eu testar a find-skills agora.</pre>
+    </section>
+  </div>
+
   <div class="rank-head">
     <h2 class="sec-title">Do 5º ao 1º lugar</h2>
     <p class="hand">escrito do menor pro maior</p>
+    <p class="fonte ref-nota">O prompt acima já instala as 5. O comando de cada cartão é só referência.</p>
   </div>
 
   <!-- amostra: o 5º lugar completo -->
@@ -255,7 +289,7 @@ footer a{display:inline-block;padding-block:14px}
     <div class="barra"><b style="--p:.111"></b></div>
     <h3 class="nome">claude-handoff</h3><p class="de">de mattpocock/skills</p>
     <p class="desc">A conversa ficou enorme? Ela escreve um resumo do que já foi feito para um agente novo continuar o trabalho numa conversa limpa, sem perder nada (e tira senhas e chaves do resumo).</p>
-    <div class="cmd"><code>npx skills add https://github.com/mattpocock/skills --skill claude-handoff</code><button class="cp" type="button">Copiar</button></div>
+    <div class="cmd ref"><code>npx skills add https://github.com/mattpocock/skills --skill claude-handoff</code><button class="cp" type="button">Copiar</button></div>
     <a class="lk" href="https://skills.sh/mattpocock/skills/claude-handoff" rel="noopener">Ver no skills.sh</a>
   </article>
 
@@ -266,7 +300,7 @@ footer a{display:inline-block;padding-block:14px}
       <div class="barra"><b style="--p:.18"></b></div>
       <h3 class="nome">design-taste-frontend</h3><p class="de">de leonxlnx/taste-skill</p>
       <p class="desc">Faz sites e landing pages sem cara de template de IA: escolhe uma direção visual antes de começar e proíbe os clichês de IA.</p>
-      <div class="cmd"><code>npx skills add https://github.com/leonxlnx/taste-skill --skill design-taste-frontend</code><button class="cp" type="button">Copiar</button></div>
+      <div class="cmd ref"><code>npx skills add https://github.com/leonxlnx/taste-skill --skill design-taste-frontend</code><button class="cp" type="button">Copiar</button></div>
       <a class="lk" href="https://skills.sh/leonxlnx/taste-skill/design-taste-frontend" rel="noopener">Ver no skills.sh</a>
     </article>
 
@@ -276,7 +310,7 @@ footer a{display:inline-block;padding-block:14px}
       <div class="barra"><b style="--p:.244"></b></div>
       <h3 class="nome">grilling</h3><p class="de">de mattpocock/skills</p>
       <p class="desc">O Claude te entrevista, pergunta atrás de pergunta, cada uma com a resposta que ele recomenda, até o seu plano ficar redondo.</p>
-      <div class="cmd"><code>npx skills add https://github.com/mattpocock/skills --skill grilling</code><button class="cp" type="button">Copiar</button></div>
+      <div class="cmd ref"><code>npx skills add https://github.com/mattpocock/skills --skill grilling</code><button class="cp" type="button">Copiar</button></div>
       <a class="lk" href="https://skills.sh/mattpocock/skills/grilling" rel="noopener">Ver no skills.sh</a>
     </article>
 
@@ -286,7 +320,7 @@ footer a{display:inline-block;padding-block:14px}
       <div class="barra"><b style="--p:.356"></b></div>
       <h3 class="nome">agent-browser</h3><p class="de">de vercel-labs/agent-browser</p>
       <p class="desc">A IA mexe no navegador sozinha: abre a página, clica, preenche formulário e tira dados, mantendo a sessão entre um comando e outro.</p>
-      <div class="cmd"><code>npx skills add https://github.com/vercel-labs/agent-browser --skill agent-browser</code><button class="cp" type="button">Copiar</button></div>
+      <div class="cmd ref"><code>npx skills add https://github.com/vercel-labs/agent-browser --skill agent-browser</code><button class="cp" type="button">Copiar</button></div>
       <a class="lk" href="https://skills.sh/vercel-labs/agent-browser/agent-browser" rel="noopener">Ver no skills.sh</a>
     </article>
 
@@ -298,23 +332,14 @@ footer a{display:inline-block;padding-block:14px}
       <p class="de">de vercel-labs/skills</p>
       <span class="stamp">1º lugar · comece por ela</span>
       <p class="desc">Você diz o que quer fazer e ela acha e instala a skill certa. Comece por ela.</p>
-      <div class="cmd"><code>npx skills add https://github.com/vercel-labs/skills --skill find-skills</code><button class="cp" type="button">Copiar</button></div>
+      <div class="cmd ref"><code>npx skills add https://github.com/vercel-labs/skills --skill find-skills</code><button class="cp" type="button">Copiar</button></div>
       <div class="pedido">
         <p class="hand">Depois de instalar, peça assim:</p>
-        <div class="cmd"><code>Usa a find-skills e acha uma skill para eu editar vídeo.</code><button class="cp" type="button">Copiar</button></div>
+        <div class="cmd ref"><code>Usa a find-skills e acha uma skill para eu editar vídeo.</code><button class="cp" type="button">Copiar</button></div>
       </div>
       <a class="lk" href="https://skills.sh/vercel-labs/skills/find-skills" rel="noopener">Ver no skills.sh</a>
     </article>
 
-    <section class="como" aria-labelledby="c">
-      <span class="tape"></span>
-      <h2 id="c">Como instalar</h2>
-      <ol>
-        <li><b>1</b><span>Abra o app do Claude no computador, na aba <b style="font:800 17px var(--f-body);color:inherit">Code</b> (ou o terminal). <a href="https://claude.com/download" rel="noopener">Baixar o app</a></span></li>
-        <li><b>2</b><span>Cole o comando da skill e mande rodar. Ou só peça: "instala essa skill pra mim" e cole o comando.</span></li>
-        <li><b>3</b><span>Depois é só pedir a tarefa normalmente. O Claude usa a skill quando ela serve.</span></li>
-      </ol>
-    </section>
   </div>
   <noscript><style>.trancado{max-height:none!important;-webkit-mask-image:none!important;mask-image:none!important;opacity:1!important;pointer-events:auto!important}[data-trava-caixa]{display:none}</style></noscript>
 
@@ -368,6 +393,11 @@ footer a{display:inline-block;padding-block:14px}
     if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(ok,fb)}else fb()
   }
   document.querySelectorAll('.cp').forEach(function(b){b.addEventListener('click',function(){copiar(b.previousElementSibling.textContent.trim(),b)})});
+  document.querySelectorAll('.cp-big').forEach(function(b){b.addEventListener('click',function(){
+    var t=document.getElementById(b.dataset.alvo).textContent.trim();
+    function ok(){b.textContent='Copiado';b.classList.add('ok');setTimeout(function(){b.textContent='Copiar o prompt';b.classList.remove('ok')},1600)}
+    function fb(){var a=document.createElement('textarea');a.value=t;a.style.cssText='position:fixed;left:-999px;top:0';document.body.appendChild(a);a.select();try{document.execCommand('copy')}catch(e){}document.body.removeChild(a);ok()}
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(ok,fb)}else fb()})});
 
   /* ranking: entra, escreve, números rolam */
   var its=document.querySelectorAll('.it');
