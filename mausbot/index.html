@@ -262,6 +262,34 @@ footer a{display:inline-block;padding-block:14px}
 <noscript><style>.trancado{max-height:none;opacity:1;-webkit-mask-image:none;mask-image:none;pointer-events:auto;user-select:auto}.so-trava{display:none}</style></noscript>
 <script>document.documentElement.classList.add('js')</script>
 <body>
+<!-- MENU DO SITE (site/_comum/menu.html): o montar_site.py põe no topo de todas as páginas. Mudou aqui, muda em todas. -->
+<style>
+.sitemenu{position:relative;z-index:60;background:#f2f1ed;border-bottom:2px solid #131218;font-family:"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+.sitemenu *{box-sizing:border-box;margin:0;padding:0}
+.sitemenu .sm-in{max-width:1180px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:56px;padding:0 max(16px,env(safe-area-inset-left,0px))}
+.sitemenu a{color:#131218;text-decoration:none;display:inline-flex;align-items:center;min-height:44px}
+.sitemenu .sm-logo{font:900 17px/1 "Archivo",system-ui,sans-serif;font-stretch:125%;text-transform:uppercase;letter-spacing:.01em;white-space:nowrap}
+.sitemenu ul{list-style:none;display:flex;gap:4px;align-items:center}
+.sitemenu li a{font:800 14px/1 "Archivo",system-ui,sans-serif;font-stretch:112%;text-transform:uppercase;padding:0 10px;border-radius:3px;white-space:nowrap;transition:background .15s,color .15s}
+.sitemenu li a:hover{background:rgba(107,47,226,.1);color:#6b2fe2}
+.sitemenu li a[aria-current="page"]{background:#6b2fe2;color:#fff}
+.sitemenu li a.sm-free{color:#6b2fe2}
+.sitemenu li a.sm-free[aria-current="page"]{color:#fff}
+.sitemenu a:focus-visible{outline:2px dashed #6b2fe2;outline-offset:2px}
+@media (max-width:420px){.sitemenu .sm-logo{font-size:15px;font-stretch:112%}.sitemenu li a{font-size:13px;padding:0 7px;font-stretch:100%}.sitemenu ul{gap:0}}
+@media (max-width:350px){.sitemenu .sm-logo{display:none}.sitemenu .sm-in{justify-content:center}}
+</style>
+<nav class="sitemenu" aria-label="Menu do site">
+  <div class="sm-in">
+    <a class="sm-logo" href="/">Matheus</a>
+    <ul>
+      <li><a href="/#oferta" data-porta="sob-medida">Sob medida</a></li>
+      <li><a href="/prontos/" data-porta="prontos">Prontos</a></li>
+      <li><a class="sm-free" href="/gratis/" data-porta="gratis" aria-current="page">Grátis</a></li>
+    </ul>
+  </div>
+</nav>
+
 <div class="paper">
 <div class="wrap">
 
