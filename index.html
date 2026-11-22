@@ -336,21 +336,6 @@ section { position: relative; }
 .mini-mods { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 .mini-mods span { font: 700 14px/1.2 var(--f-body); background: rgba(107, 47, 226, .07); border: 1px solid rgba(107, 47, 226, .2); border-radius: 4px; padding: 10px; color: var(--ink); }
 .mini-mods span::before { content: "✓ "; color: var(--pen); font-weight: 900; }
-/* =================== PRONTOS (produtos pagos) =================== */
-.prontos-sub { margin: -8px auto 0; text-align: center; font-size: clamp(24px, 2.6vw, 32px); color: var(--pen); }
-.prods { display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); max-width: 900px; margin: 0 auto; width: 100%; }
-.prod { position: relative; display: grid; grid-template-columns: 112px 1fr; gap: 16px; align-items: center; padding: 18px; background: var(--machine); color: var(--on-machine); border: 2px solid var(--ink); border-radius: 4px; box-shadow: 5px 6px 0 var(--pen); text-decoration: none; transition: transform .15s var(--ease), box-shadow .15s var(--ease); }
-.prod:hover { transform: translate(-2px, -2px); box-shadow: 7px 8px 0 var(--pen); }
-.prod .tape { top: -12px; left: 50%; transform: translateX(-50%) rotate(-2deg); width: 80px; height: 22px; }
-.prod video { width: 112px; aspect-ratio: 9 / 16; object-fit: cover; border-radius: 6px; border: 2px solid rgba(240, 237, 250, .25); background: #000; display: block; }
-.prod .info { display: grid; gap: 8px; align-content: center; min-width: 0; }
-.prod h3 { overflow-wrap: break-word; hyphens: auto; }
-@media (max-width: 420px) { .prod { grid-template-columns: 92px 1fr; gap: 14px; padding: 16px; } .prod video { width: 92px; } .prod h3 { font-size: 20px; font-stretch: 112%; } }
-.prod h3 { margin: 0; font: 900 clamp(22px, 2.4vw, 28px)/.98 var(--f-display); font-stretch: 125%; text-transform: uppercase; }
-.prod p { margin: 0; font-size: 16px; line-height: 1.4; color: var(--on-machine-2); }
-.prod .price { font: 500 15px/1 var(--f-mono); color: var(--on-machine); }
-.prod .go { font: 800 15px/1 var(--f-display); font-stretch: 112%; text-transform: uppercase; color: var(--pen-soft); min-height: 44px; display: inline-flex; align-items: center; gap: 8px; }
-.prod .go::after { content: "→"; font-family: var(--f-body); }
 /* =================== GRÁTIS (presentes dos vídeos, 2026-11-22) =================== */
 .gratis-sub { margin: -8px auto 0; text-align: center; font-size: clamp(24px, 2.6vw, 32px); color: var(--pen); }
 .gifts { display: grid; gap: 22px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); }
@@ -370,6 +355,7 @@ section { position: relative; }
 .gift.first .tag { background: rgba(255,255,255,.18); color: #fff; }
 .gift.first .go { color: #fff; }
 @media (min-width: 980px) { .gifts { grid-template-columns: repeat(3, 1fr); } .gift.first { grid-column: span 2; } .gift.first h3 { font-size: clamp(30px, 3vw, 40px); } .gift.first p { font-size: 19px; max-width: 46ch; } }
+.gratis-nota a { color: var(--pen); font-weight: 700; text-underline-offset: 3px; display: inline-block; padding-block: 12px; }
 .gratis-nota { margin: 0; text-align: center; font-size: 15px; color: var(--ink-2); }
 @media (max-width: 520px) {
   .pw b { font-size: 16px; font-stretch: 100%; }
@@ -514,7 +500,6 @@ section { position: relative; }
     <a class="sm-logo" href="/">Matheus</a>
     <ul>
       <li><a href="/#oferta" data-porta="sob-medida" aria-current="page">Sob medida</a></li>
-      <li><a href="/prontos/" data-porta="prontos">Prontos</a></li>
       <li><a class="sm-free" href="/gratis/" data-porta="gratis">Grátis</a></li>
     </ul>
   </div>
@@ -759,21 +744,7 @@ section { position: relative; }
     </div>
   </div>
 
-  <!-- =================== 6. PRONTOS PRA INSTALAR (produtos) =================== -->
-  <div class="wrap block" id="prontos">
-    <h2 class="sec-title">Prontos pra instalar</h2>
-    <p class="prontos-sub hand">sistemas meus que você instala e já usa</p>
-    <div class="prods" data-rv>
-      <a class="prod" href="/fabricadevideosdeia/"><span class="tape"></span>
-        <video src="midia/fabrica-thumb.mp4" poster="midia/fabrica-thumb.jpg" autoplay muted loop playsinline aria-label="Vídeo feito pela Fábrica"></video>
-        <span class="info"><h3>Fábrica de Vídeos IA</h3><p>Vídeo pronto todo dia, sem editar.</p><span class="price">R$ 47,90</span><span class="go">Ver a Fábrica</span></span></a>
-      <a class="prod" href="/clipadorcomia/"><span class="tape"></span>
-        <video src="midia/clipador-thumb.mp4" poster="midia/clipador-thumb.jpg" autoplay muted loop playsinline aria-label="Corte feito pelo Clipador"></video>
-        <span class="info"><h3>Clipador</h3><p>Corta live sozinho e entrega pronto.</p><span class="price">R$ 49,90</span><span class="go">Ver o Clipador</span></span></a>
-    </div>
-  </div>
-
-  <!-- =================== 7. GRÁTIS (presentes dos vídeos) =================== -->
+  <!-- =================== 6. GRÁTIS (presentes dos vídeos) =================== -->
   <div class="wrap block" id="gratis">
     <h2 class="sec-title">Quer começar sozinho?</h2>
     <p class="gratis-sub hand">é de graça: copia um prompt, cola e já funciona</p>
@@ -805,6 +776,57 @@ section { position: relative; }
         <span class="go">Pegar grátis</span></a>
     </div>
     <p class="gratis-nota">Você deixa nome, WhatsApp e e-mail e o material abre na hora. <a href="/gratis/">Ver todos os materiais grátis</a></p>
+  </div>
+
+
+  <style>
+/* =================== LOJA (produtos, fora do caderno) =================== */
+.loja-ponte { margin: 8px auto 0; text-align: center; font-family: var(--f-hand); font-weight: 500; line-height: 1.05; font-size: clamp(26px, 3vw, 34px); color: var(--pen); }
+.loja-ponte span { display: block; font-size: 1.3em; line-height: .8; }
+.loja { position: relative; width: 100vw; margin: 28px 0 0 calc(50% - 50vw); background: #08080a; color: #f5f5f7;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", system-ui, sans-serif;
+  padding: clamp(64px, 8vw, 104px) 20px clamp(64px, 8vw, 96px);
+  clip-path: polygon(0 18px, 4% 6px, 9% 16px, 15% 4px, 22% 14px, 29% 2px, 36% 15px, 43% 5px, 50% 17px, 57% 3px, 64% 14px, 71% 4px, 78% 16px, 85% 5px, 91% 15px, 96% 3px, 100% 12px, 100% 100%, 0 100%); }
+.loja h2 { margin: 0 auto; max-width: 18ch; text-wrap: balance; text-align: center; font-weight: 700; font-size: clamp(34px, 5vw, 60px); line-height: 1.02; letter-spacing: -.035em; }
+.loja .loja-sub { margin: 16px auto 0; max-width: 46ch; text-wrap: balance; text-align: center; font-size: clamp(17px, 1.6vw, 20px); line-height: 1.45; color: #a1a1a6; }
+.loja-grid { display: grid; gap: 22px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 400px), 1fr)); max-width: 1040px; margin: clamp(40px, 5vw, 60px) auto 0; }
+.produto { --ac: #ff7a1a; --on-ac: #1a0a00; --card: #141416; display: grid; grid-template-columns: minmax(150px, 210px) 1fr; gap: clamp(18px, 2.4vw, 30px); align-items: center;
+  padding: clamp(18px, 2.4vw, 28px); background: var(--card); border-radius: 22px; border: 1px solid rgba(255,255,255,.08); border-top: 3px solid var(--ac); text-decoration: none; color: inherit;
+  transition: transform .2s var(--ease), border-color .2s var(--ease); }
+.produto.clip { --ac: #9a95ff; --on-ac: #07070d; --card: #111221; }
+.produto:hover { transform: translateY(-4px); border-color: rgba(255,255,255,.18); border-top-color: var(--ac); }
+.produto .tela { position: relative; aspect-ratio: 9 / 16; border-radius: 16px; overflow: hidden; background: #000; border: 1px solid rgba(255,255,255,.14); }
+.produto video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.produto .info { display: grid; gap: 12px; align-content: center; min-width: 0; }
+.produto .nome { margin: 0; font-weight: 700; font-size: clamp(26px, 2.6vw, 34px); line-height: 1.02; letter-spacing: -.03em; overflow-wrap: break-word; }
+.produto .nome b { color: var(--ac); font-weight: 700; }
+.produto .faz { margin: 0; font-size: 17px; line-height: 1.4; color: #c7c7cc; }
+.produto .preco { font-size: 15px; color: #a1a1a6; font-variant-numeric: tabular-nums; }
+.produto .preco strong { color: #f5f5f7; font-size: 22px; font-weight: 700; letter-spacing: -.02em; margin-right: 4px; }
+.produto .botao { justify-self: start; display: inline-flex; align-items: center; gap: 8px; min-height: 48px; padding: 0 22px; border-radius: 999px; background: var(--ac); color: var(--on-ac); font-weight: 700; font-size: 16px; }
+.produto .botao::after { content: "→"; transition: transform .2s var(--ease); }
+.produto:hover .botao::after { transform: translateX(3px); }
+.produto:focus-visible { outline: 3px solid var(--ac); outline-offset: 4px; }
+@media (max-width: 520px) {
+  .produto { grid-template-columns: 128px 1fr; gap: 16px; padding: 16px; border-radius: 18px; }
+  .produto .tela { border-radius: 12px; }
+  .produto .nome { font-size: 24px; }
+  .produto .faz { font-size: 16px; }
+  .produto .botao { padding: 0 18px; font-size: 15px; }
+}
+</style>
+<p class="loja-ponte">e se você faz vídeo pra internet<span>↓</span></p>
+  <div class="loja" id="sistemas" aria-labelledby="loja-t">
+    <h2 id="loja-t">Dois sistemas prontos pra instalar.</h2>
+    <p class="loja-sub">Você instala no seu computador e ele faz a parte chata por você.</p>
+    <div class="loja-grid">
+      <a class="produto" href="/fabricadevideosdeia/">
+        <span class="tela"><video src="midia/fabrica-thumb.mp4" poster="midia/fabrica-thumb.jpg" autoplay muted loop playsinline aria-label="Vídeo feito pela Fábrica de Vídeos IA"></video></span>
+        <span class="info"><h3 class="nome">Fábrica de <b>Vídeos IA</b></h3><p class="faz">Você escreve o tema. Ela entrega o vídeo pronto, sem você editar.</p><span class="preco"><strong>R$ 47,90</strong></span><span class="botao">Ver a Fábrica</span></span></a>
+      <a class="produto clip" href="/clipadorcomia/">
+        <span class="tela"><video src="midia/clipador-thumb.mp4" poster="midia/clipador-thumb.jpg" autoplay muted loop playsinline aria-label="Corte feito pelo Clipador"></video></span>
+        <span class="info"><h3 class="nome"><b>Clipador</b></h3><p class="faz">Corta a live sozinho e entrega os cortes prontos pra postar.</p><span class="preco"><strong>R$ 49,90</strong></span><span class="botao">Ver o Clipador</span></span></a>
+    </div>
   </div>
 
   <div class="wrap sign">
@@ -929,7 +951,7 @@ section { position: relative; }
   });
 
   // entrada suave dos blocos
-  const rvSel = ['.sec-sub', '.rc-wrap', '.machine-head', '.merge', '.payoff', '.sdr', '.arm', '.main-offer', '.faq-t', '.faq details', '.sign-name', '.sign-line', '.also'];
+  const rvSel = ['.sec-sub', '.rc-wrap', '.machine-head', '.merge', '.payoff', '.sdr', '.arm', '.main-offer', '.faq-t', '.faq details', '.sign-name', '.sign-line'];
   document.querySelectorAll(rvSel.join(',')).forEach(el => {
     el.setAttribute('data-rv', '');
     const sib = [...el.parentElement.children].filter(c => c.matches(rvSel.join(',')));
