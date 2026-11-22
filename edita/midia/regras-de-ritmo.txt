@@ -1,0 +1,33 @@
+Regras de ritmo para editar os meus vídeos. Siga todas, em todo vídeo, e confira cada uma antes de me entregar.
+
+FORMATO
+- Vertical, 1080 x 1920 (9:16).
+
+PRIMEIRO QUADRO
+- O vídeo já começa com a imagem mais forte e o título grande na tela, no quadro zero. Esse quadro também vira a capa.
+
+CENAS
+- Cada cena dura de 2,5 a 4 segundos.
+- Se a frase for curta, não troque de cenário: mantenha a cena e mude algo dentro dela (um zoom, um movimento de câmera, um elemento entrando).
+
+TEXTO NA TELA
+- Todo texto fica parado e legível por pelo menos 1,5 segundo.
+
+TRANSIÇÕES E EFEITOS
+- Transição entre cenas de 0,3 a 0,5 segundo.
+- No máximo 1 clarão (flash) a cada 15 segundos, mais ou menos.
+- Câmera suave. Tremida só num impacto de verdade.
+
+MOVIMENTO
+- No máximo 10% do vídeo com a imagem parada. Meça e me diga quanto deu.
+
+SOM
+- Sem silêncio: nenhum trecho sem voz. Um buraco mudo de 4 segundos, mesmo com música, parece defeito.
+- Música 18 dB abaixo da voz.
+- Música e efeitos com som entre 300 e 2000 Hz, para aparecer no alto-falante do celular.
+- Volume final perto de -14 LUFS (aceito de -15 a -13).
+
+FIM
+- O vídeo termina 2,4 segundos depois da última palavra.
+
+Quando terminar, me mostre a lista acima com "ok" ou "não passou" em cada item.

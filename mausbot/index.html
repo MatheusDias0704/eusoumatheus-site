@@ -1,0 +1,485 @@
+<!doctype html>
+<html lang="pt-BR">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta property="og:title" content="MausBot: o seu time de agentes de IA">
+<meta property="og:description" content="O passo a passo em português do OpenMausBot, projeto gratuito e de código aberto.">
+<meta property="og:image" content="https://eusoumatheus.com.br/mausbot/midia/compartilhar.jpg">
+<meta property="og:url" content="https://eusoumatheus.com.br/mausbot/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<title>MausBot · presente do Matheus</title>
+<meta name="description" content="O link oficial do MausBot (OpenMausBot) no GitHub e o passo a passo em português para montar seu time de agentes de IA.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Caveat:wght@500;700&family=JetBrains+Mono:wght@400;700&display=swap">
+<style>
+/* Caderno do Matheus: papel quadriculado, caneta roxa, fita, máquina escura. Um tema só: papel é papel.
+   Momento de efeito: a rede de agentes desenhada à caneta, e o recorte do GitHub colado com fita. */
+:root {
+  --paper: #f2f1ed;
+  --grid: rgba(44, 40, 78, .085);
+  --grid-major: rgba(44, 40, 78, .15);
+  --ink: #131218;
+  --ink-2: #4b4957;
+  --pen: #6b2fe2;
+  --pen-deep: #3d1a8f;
+  --pen-soft: #b59af6;
+  --machine: #100e17;
+  --machine-2: #1c1928;
+  --on-machine: #f0edfa;
+  --on-machine-2: #a29db8;
+  --tape: rgba(236, 226, 178, .8);
+  --f-display: "Archivo", "Arial Narrow", system-ui, sans-serif;
+  --f-hand: "Caveat", "Comic Sans MS", cursive;
+  --f-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  --f-body: "Archivo", system-ui, -apple-system, sans-serif;
+  --cell: 24px;
+  --ease: cubic-bezier(.2, .8, .2, 1);
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html, body { background: var(--paper); color: var(--ink); }
+body { margin: 0; font-family: var(--f-body); font-size: 17px; line-height: 1.5; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+::selection { background: var(--pen); color: #fff; }
+:focus-visible { outline: 2px dashed var(--pen); outline-offset: 4px; border-radius: 2px; }
+a { color: inherit; }
+.paper {
+  position: relative; isolation: isolate; overflow-x: clip;
+  background-color: var(--paper);
+  background-image:
+    linear-gradient(var(--grid-major) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-major) 1px, transparent 1px),
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 120px 120px, 120px 120px, var(--cell) var(--cell), var(--cell) var(--cell);
+}
+.paper::after {
+  content: ""; position: absolute; inset: 0; z-index: 3; pointer-events: none;
+  mix-blend-mode: multiply; opacity: .5;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='900' height='900'><filter id='f'><feTurbulence type='fractalNoise' baseFrequency='.0065' numOctaves='5' seed='11'/><feDiffuseLighting lighting-color='%23ffffff' surfaceScale='2.4'><feDistantLight azimuth='225' elevation='58'/></feDiffuseLighting></filter><rect width='100%25' height='100%25' filter='url(%23f)'/></svg>");
+  background-size: 900px 900px;
+}
+.wrap {
+  position: relative; z-index: 2; max-width: 1080px; margin: 0 auto; padding-block: 22px 0;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.hand { font-family: var(--f-hand); font-weight: 500; color: var(--pen); line-height: 1.05; }
+.tape { position: absolute; width: 92px; height: 26px; background: var(--tape); z-index: 4; box-shadow: 0 1px 2px rgba(0,0,0,.08); mix-blend-mode: multiply; }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px; cursor: pointer; border: 0;
+  font: 700 17px/1 var(--f-body); text-decoration: none; background: var(--ink); color: var(--paper);
+  padding: 18px 24px; border-radius: 4px; min-height: 54px; transition: background .2s var(--ease), transform .12s var(--ease);
+}
+.btn:hover { background: var(--pen); }
+.btn:active { transform: scale(.98); }
+.btn svg { width: 18px; height: 18px; flex: none; }
+.btn-pen { background: var(--pen); color: #fff; }
+.btn-pen:hover { background: var(--ink); }
+.btn-light { background: var(--on-machine); color: var(--machine); }
+.btn-light:hover { background: var(--pen-soft); }
+.btn-line { background: transparent; color: var(--ink); border: 2px solid var(--ink); padding-block: 16px; }
+.btn-line:hover { background: var(--ink); color: var(--paper); }
+.link-hand {
+  display: inline-block; padding-block: 10px; font-family: var(--f-hand); font-weight: 700; font-size: 26px; color: var(--pen);
+  text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 6px; text-decoration-style: wavy;
+}
+.link-hand:hover { color: var(--ink); }
+.write { clip-path: inset(-20% 100% -20% 0); animation: write 1.1s steps(28, end) .3s forwards; }
+@keyframes write { to { clip-path: inset(-20% -2% -20% 0); } }
+h1, h2, h3 { margin: 0; font-family: var(--f-display); font-weight: 900; font-stretch: 125%; text-transform: uppercase; letter-spacing: -.01em; }
+h2 { font-size: clamp(28px, 6.2vw, 52px); line-height: .92; text-wrap: balance; }
+h3 { font-size: 21px; line-height: 1; font-stretch: 112%; }
+section { position: relative; padding-top: 56px; }
+
+/* topo */
+.topo { display: grid; gap: 18px; padding-block: 18px 6px; }
+.t-txt { display: grid; gap: 16px; justify-items: start; }
+.h1 { font-size: clamp(30px, 8.4vw, 56px); line-height: .92; text-wrap: balance; }
+.h1 em { font-style: normal; color: var(--pen); }
+.sub { margin: 0; font-size: 18px; max-width: 34em; color: var(--ink-2); }
+.sub strong { color: var(--ink); }
+.so-trava { margin-top: 4px; }
+/* rede à caneta */
+.rede-box { position: relative; width: min(100%, 520px); justify-self: center; }
+.rede { display: block; width: 100%; height: auto; overflow: visible; }
+.rede .fill { fill: #fff; }
+.rede .fill.chief { fill: var(--pen); }
+.rede .ln { fill: none; stroke: var(--ink); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.rede .ln.alt { stroke: var(--pen); stroke-width: 1.6; opacity: .7; }
+.rede .ln.alt.w { stroke: #fff; opacity: .8; }
+.rede .cord { fill: none; stroke: var(--pen); stroke-width: 3; stroke-linecap: round; }
+.rede .nm { font: 800 17px var(--f-body); fill: var(--ink); text-anchor: middle; }
+.rede .nm.chief { fill: #fff; font-size: 18px; font-weight: 900; }
+.rede .pulso { fill: var(--ink); opacity: 0; }
+.js .rede .ln, .js .rede .cord { stroke-dasharray: 1; stroke-dashoffset: 1; }
+.js .rede .fill, .js .rede .nm { opacity: 0; }
+.js .rede.go .ln, .js .rede.go .cord { stroke-dashoffset: 0; transition: stroke-dashoffset .8s var(--ease); transition-delay: calc(var(--d) * 1s); }
+.js .rede.go .fill, .js .rede.go .nm { opacity: 1; transition: opacity .35s ease; transition-delay: calc(var(--d) * 1s + .25s); }
+.js .rede.go .pulso { opacity: 1; transition: opacity .3s ease 2.6s; }
+.rede-nota { position: absolute; right: 0; bottom: -4px; font-size: 26px; transform: rotate(-4deg); }
+
+/* recorte do GitHub */
+.duo { display: grid; gap: 34px; padding-top: 44px; align-items: start; }
+.clip { position: relative; background: #fff; padding: 30px 20px 22px; transform: rotate(-1.2deg); box-shadow: 4px 12px 28px rgba(19, 18, 24, .14); display: grid; gap: 12px; }
+.clip .tape.a { top: -12px; left: 14%; transform: rotate(-5deg); }
+.clip .tape.b { top: -10px; right: 12%; transform: rotate(4deg); width: 70px; }
+.repo { display: flex; align-items: center; gap: 10px; font: 700 14px/1.2 var(--f-mono); color: var(--ink-2); overflow-wrap: anywhere; }
+.repo svg { width: 24px; height: 24px; flex: none; fill: var(--ink); }
+.stars { position: relative; justify-self: start; margin: 12px 18px 8px; padding: 4px 6px; }
+.stars b { display: block; font: 900 clamp(54px, 17vw, 88px)/1 var(--f-display); font-stretch: 100%; color: var(--ink); font-variant-numeric: tabular-nums; }
+.stars svg { position: absolute; inset: -12px -20px; width: calc(100% + 40px); height: calc(100% + 24px); overflow: visible; pointer-events: none; }
+.stars svg path { fill: none; stroke: var(--pen); stroke-width: 3; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; }
+.js .go .stars svg path { transition: stroke-dashoffset 1.1s var(--ease) .5s; stroke-dashoffset: 0; }
+.no-js .stars svg path { stroke-dashoffset: 0; }
+.stars-k { font: 800 16px/1 var(--f-display); font-stretch: 112%; text-transform: uppercase; }
+.f3 { display: grid; grid-template-columns: repeat(3, auto); justify-content: start; gap: 0; margin-top: 6px; border-top: 1.5px dashed rgba(19, 18, 24, .3); }
+.f3 div { padding: 12px 14px 0 0; margin-right: 14px; border-right: 1px dotted rgba(19, 18, 24, .3); font: 400 14px/1.3 var(--f-mono); color: var(--ink-2); }
+.f3 div:last-child { border: 0; margin: 0; padding-right: 0; }
+.f3 b { display: block; font: 700 15px/1.3 var(--f-mono); color: var(--ink); }
+.clip .nota { margin: 4px 0 4px; font-size: 16px; }
+.clip .btn { justify-self: start; }
+
+/* o que você recebe */
+.recebe { display: grid; gap: 14px; }
+.recebe h2 { font-size: clamp(28px, 6vw, 44px); }
+.rec-list { list-style: none; margin: 4px 0 0; padding: 0; display: grid; }
+.rec-list li { position: relative; padding: 13px 0 13px 40px; border-bottom: 1.5px dashed rgba(19, 18, 24, .28); font-size: 17px; line-height: 1.35; }
+.rec-list li::before { content: "✓"; position: absolute; left: 4px; top: 6px; font: 700 32px/1 var(--f-hand); color: var(--pen); }
+.rec-list b { display: block; font: 900 16px/1.1 var(--f-display); font-stretch: 112%; text-transform: uppercase; margin-bottom: 3px; }
+.rec-list span { color: var(--ink-2); }
+
+/* passos */
+.pass-head { display: grid; gap: 10px; }
+.pass-head p { margin: 0; color: var(--ink-2); max-width: 38em; }
+.passos { display: grid; margin-top: 18px; }
+.passo { display: grid; grid-template-columns: 52px minmax(0, 1fr); gap: 14px; padding: 24px 0; border-top: 2px dashed rgba(19, 18, 24, .3); }
+.passo .n { position: relative; width: 46px; height: 46px; display: grid; place-items: center; font: 900 26px/1 var(--f-display); font-stretch: 125%; color: var(--pen); transform: rotate(-4deg); }
+.passo .n::before { content: ""; position: absolute; inset: 0; border: 2.5px solid var(--pen); border-radius: 52% 48% 55% 45% / 48% 54% 46% 52%; }
+.passo .body { display: grid; gap: 10px; align-content: start; min-width: 0; }
+.passo p { margin: 0; }
+.passo p a, .avisos a, .nota a { color: var(--pen); font-weight: 700; }
+.agentes { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
+.agentes a { display: inline-flex; align-items: center; min-height: 48px; padding: 0 18px; background: #fff; border: 2px solid var(--ink); border-radius: 4px; font-weight: 800; text-decoration: none; transition: background .2s, color .2s; }
+.agentes a:hover { background: var(--ink); color: var(--paper); }
+.dl { display: grid; gap: 10px; margin-top: 4px; }
+.dl a { display: grid; gap: 4px; padding: 14px 16px; background: #fff; border: 2px solid var(--ink); border-radius: 4px; text-decoration: none; box-shadow: 3px 4px 0 var(--ink); transition: transform .15s var(--ease), box-shadow .15s var(--ease); }
+.dl a:hover { transform: translate(2px, 2px); box-shadow: 1px 2px 0 var(--ink); }
+.dl a b { font: 800 17px/1.2 var(--f-display); font-stretch: 112%; }
+.dl a small { font-size: 15px; line-height: 1.35; color: var(--ink-2); }
+.dl a code { font: 700 14px/1.2 var(--f-mono); color: var(--pen); overflow-wrap: anywhere; }
+.ou { margin: 6px 0 0; font-family: var(--f-hand); font-weight: 700; font-size: 26px; color: var(--pen); line-height: 1.1; }
+/* comandos (máquina) */
+.cmd { background: var(--machine); border-radius: 4px; overflow: hidden; color: var(--on-machine); }
+.cmd .bar { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 4px 6px 4px 14px; border-bottom: 1px solid rgba(181, 154, 246, .25); color: var(--on-machine-2); font: 500 14px var(--f-mono); }
+.cmd pre { margin: 0; padding: 14px; font: 400 16px/1.5 var(--f-mono); white-space: pre-wrap; word-break: break-word; }
+.cmd pre::before { content: "$ "; color: var(--pen-soft); }
+.cp { min-height: 44px; min-width: 88px; padding: 0 14px; border: 1.5px solid rgba(181, 154, 246, .5); background: transparent; color: var(--on-machine); font: 700 15px var(--f-body); border-radius: 4px; cursor: pointer; transition: background .15s, color .15s; }
+.cp:hover { background: var(--on-machine); color: var(--machine); }
+.cp.ok { background: var(--pen-soft); color: var(--machine); border-color: var(--pen-soft); }
+.avisos { position: relative; margin-top: 26px; background: #fff; padding: 28px 20px 22px; box-shadow: 4px 10px 26px rgba(19, 18, 24, .12); transform: rotate(.5deg); }
+.avisos .tape { top: -12px; left: 50%; margin-left: -46px; transform: rotate(-3deg); }
+.avisos h3 { font-size: 24px; margin-bottom: 12px; }
+.avisos ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 12px; }
+.avisos li { position: relative; padding-left: 26px; color: var(--ink-2); }
+.avisos li::before { content: ""; position: absolute; left: 2px; top: 10px; width: 12px; height: 3px; background: var(--pen); transform: rotate(-8deg); border-radius: 2px; }
+.links { display: flex; flex-wrap: wrap; gap: 0 22px; margin-top: 14px; }
+.links a { display: inline-flex; align-items: center; min-height: 44px; }
+
+/* a trava */
+.ficha-wrap { padding-top: 8px; }
+.ficha { position: relative; margin-top: 22px; background: #fff; padding: 30px 20px 22px; box-shadow: 4px 12px 30px rgba(19, 18, 24, .16); transform: rotate(-.6deg);
+  border-left: 4px solid var(--pen-soft); }
+.ficha .tape { top: -12px; right: 14%; transform: rotate(5deg); }
+.ficha h2 { font-size: clamp(26px, 6vw, 40px); }
+.ficha .lede { margin: 10px 0 14px; color: var(--ink-2); max-width: 32em; }
+.trava-form { display: grid; gap: 14px; }
+.trava-form label { display: grid; gap: 4px; font: 800 15px/1.1 var(--f-display); font-stretch: 112%; text-transform: uppercase; }
+.trava-form input:not([type=checkbox]) { width: 100%; min-height: 52px; padding: 8px 4px; font: 500 19px var(--f-body); color: var(--ink); background: transparent; border: 0; border-bottom: 2.5px solid var(--ink); border-radius: 0; text-transform: none; }
+.trava-form input:not([type=checkbox]):focus { outline: 0; border-color: var(--pen); background: rgba(107, 47, 226, .06); }
+.trava-form .aceite { display: flex; align-items: flex-start; gap: 12px; min-height: 44px; padding-block: 6px; font: 400 16px/1.35 var(--f-body); text-transform: none; font-stretch: 100%; color: var(--ink); }
+.trava-form .aceite input { flex: none; width: 24px; height: 24px; margin: 1px 0 0; accent-color: var(--pen); }
+.trava-form button { width: 100%; }
+.trava-form button[disabled] { opacity: .7; cursor: progress; }
+.trava-form .mel { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+.trava-form .erro { margin: 0; font-weight: 700; color: #a3170f; }
+.trava-form .priv { margin: 0; font-size: 15px; color: var(--ink-2); }
+.trancado { max-height: 190px; overflow: hidden; opacity: .6; user-select: none; pointer-events: none;
+  -webkit-mask-image: linear-gradient(#000 0, transparent 100%); mask-image: linear-gradient(#000 0, transparent 100%); }
+.liberado .trancado { max-height: none; opacity: 1; user-select: auto; pointer-events: auto; -webkit-mask-image: none; mask-image: none; }
+.liberado .so-trava { display: none; }
+
+/* convite */
+.convite { margin-top: 60px; position: relative; background: var(--machine); color: var(--on-machine); padding: 36px 22px 34px; display: grid; gap: 14px; justify-items: start; border-radius: 4px; overflow: hidden; }
+.convite::before { content: ""; position: absolute; inset: 0; pointer-events: none; background-image: linear-gradient(rgba(181, 154, 246, .07) 1px, transparent 1px), linear-gradient(90deg, rgba(181, 154, 246, .07) 1px, transparent 1px); background-size: var(--cell) var(--cell); }
+.convite > * { position: relative; }
+.convite .hand { color: var(--pen-soft); font-size: 28px; }
+.convite h2 { font-size: clamp(26px, 5.6vw, 44px); }
+.convite p { margin: 0; color: var(--on-machine-2); max-width: 34em; }
+.convite .sec { color: var(--on-machine); font-weight: 700; min-height: 44px; display: inline-flex; align-items: center; }
+footer { padding: 34px 0 44px; font-size: 15px; color: var(--ink-2); }
+footer a { font-weight: 700; }
+
+@media (min-width: 820px) {
+  body { font-size: 18px; }
+  .topo { grid-template-columns: 1.2fr .8fr; align-items: center; gap: 40px; padding-top: 40px; }
+  .duo { grid-template-columns: 1fr 1fr; gap: 56px; }
+  .dl { grid-template-columns: 1fr 1fr; }
+  .convite { padding: 52px 48px; }
+  .passo { grid-template-columns: 64px minmax(0, 1fr); gap: 20px; }
+}
+@media (max-width: 380px) { .f3 { grid-template-columns: 1fr 1fr; row-gap: 4px; } .f3 div:nth-child(2) { border: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .write { animation: none; clip-path: none; }
+  .js .rede .ln, .js .rede .cord, .js .stars svg path { stroke-dashoffset: 0; transition: none; }
+  .js .rede .fill, .js .rede .nm { opacity: 1; transition: none; }
+  .rede .pulso { display: none; }
+}
+
+/* crítica de design 22/11: alvos de toque do rodapé ≥ 44px, rótulos ≥ 13px */
+footer a{display:inline-block;padding-block:14px}
+</style>
+<noscript><style>.trancado{max-height:none;opacity:1;-webkit-mask-image:none;mask-image:none;pointer-events:auto;user-select:auto}.so-trava{display:none}</style></noscript>
+<script>document.documentElement.classList.add('js')</script>
+<body>
+<div class="paper">
+<div class="wrap">
+
+<header class="topo" id="topo">
+  <div class="t-txt">
+    <span class="hand write" style="font-size:30px">presente da palavra TIME</span>
+    <h1 class="h1">Seu time de agentes de IA, com os <em>agentes que você já tem</em></h1>
+    <p class="sub">O MausBot (OpenMausBot) junta Claude Code, Codex e Grok num app de chat: cada bot é um contato, você conversa, vê eles trabalhando e aprova o que importa.</p>
+    <a class="btn btn-pen so-trava" href="#trava">Liberar o passo a passo ↓</a>
+  </div>
+
+  <div class="rede-box">
+    <svg class="rede" id="rede" viewBox="0 0 340 300" role="img" aria-label="Claude Code, Codex e Grok ligados por traços ao Chief of Staff, o centro do time">
+      <!-- traços -->
+      <path class="cord" pathLength="1" style="--d:1.2" d="M62 64 C64 94 98 98 122 118"/>
+      <path class="cord" pathLength="1" style="--d:1.4" d="M278 64 C276 94 242 98 218 118"/>
+      <path class="cord" pathLength="1" style="--d:1.6" d="M170 178 C166 200 175 214 170 236"/>
+      <!-- Claude Code -->
+      <rect class="fill" style="--d:.1" x="8" y="14" width="138" height="50"/>
+      <path class="ln" pathLength="1" style="--d:.1" d="M9 16 L145 13 L147 63 L10 65 Z"/>
+      <path class="ln alt" pathLength="1" style="--d:.2" d="M12 19 L142 17 L143 60 L13 62"/>
+      <text class="nm" style="--d:.1" x="77" y="45">Claude Code</text>
+      <!-- Codex -->
+      <rect class="fill" style="--d:.3" x="194" y="14" width="138" height="50"/>
+      <path class="ln" pathLength="1" style="--d:.3" d="M195 14 L331 16 L330 65 L193 63 Z"/>
+      <path class="ln alt" pathLength="1" style="--d:.4" d="M198 18 L327 20 L326 60 L197 59"/>
+      <text class="nm" style="--d:.3" x="263" y="45">Codex</text>
+      <!-- Grok -->
+      <rect class="fill" style="--d:.5" x="101" y="236" width="138" height="50"/>
+      <path class="ln" pathLength="1" style="--d:.5" d="M102 238 L238 235 L240 285 L100 286 Z"/>
+      <path class="ln alt" pathLength="1" style="--d:.6" d="M105 241 L235 239 L236 282 L104 282"/>
+      <text class="nm" style="--d:.5" x="170" y="267">Grok</text>
+      <!-- Chief of Staff -->
+      <rect class="fill chief" style="--d:1.9" x="66" y="118" width="208" height="60"/>
+      <path class="ln" pathLength="1" style="--d:1.9" d="M65 120 L273 116 L275 177 L67 180 Z"/>
+      <path class="ln alt w" pathLength="1" style="--d:2.1" d="M71 125 L268 122 L269 172 L72 174"/>
+      <text class="nm chief" style="--d:1.9" x="170" y="154">Chief of Staff</text>
+      <!-- pulsos -->
+      <circle class="pulso" r="4.5"><animateMotion dur="2.8s" repeatCount="indefinite" path="M62 64 C64 94 98 98 122 118"/></circle>
+      <circle class="pulso" r="4.5"><animateMotion dur="2.8s" begin="0.9s" repeatCount="indefinite" path="M278 64 C276 94 242 98 218 118"/></circle>
+      <circle class="pulso" r="4.5"><animateMotion dur="2.8s" begin="1.8s" repeatCount="indefinite" path="M170 178 C166 200 175 214 170 236"/></circle>
+    </svg>
+    <span class="hand rede-nota">tudo num app de chat</span>
+  </div>
+</header>
+
+<div class="duo">
+  <aside class="clip" id="fatos" aria-label="Fatos do repositório no GitHub">
+    <span class="tape a"></span><span class="tape b"></span>
+    <div class="repo"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38v-1.34c-2.23.48-2.7-1.08-2.7-1.08-.36-.93-.89-1.17-.89-1.17-.73-.5.05-.49.05-.49.8.06 1.23.83 1.23.83.71 1.22 1.87.87 2.33.66.07-.52.28-.87.5-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48v2.2c0 .21.15.46.55.38A8 8 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg> GitHub · milind-soni/OpenMausBot</div>
+    <div class="stars"><b id="est" data-v="26754">26.754</b>
+      <svg viewBox="0 0 100 40" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M6 10 C20 -2 80 -4 95 12 C102 26 80 38 48 38 C16 39 -2 30 4 16 C7 9 14 6 22 5"/></svg></div>
+    <div class="stars-k">estrelas no GitHub</div>
+    <div class="f3"><div><b>Apache-2.0</b>licença</div><div><b>0.1.177</b>versão</div><div><b>22/11/2026</b>dados de</div></div>
+    <p class="nota"><strong>Projeto de código aberto de Milind Soni.</strong> Não é meu: estou só mostrando o caminho.</p>
+    <a class="btn btn-pen" href="https://github.com/milind-soni/OpenMausBot" target="_blank" rel="noopener">Abrir no GitHub →</a>
+  </aside>
+
+  <div class="recebe">
+    <span class="hand" style="font-size:28px">o que você recebe</span>
+    <h2>O passo a passo em português</h2>
+    <ul class="rec-list">
+      <li><b>Instalar</b><span>O app no Mac, Windows ou Ubuntu, ou pelo terminal.</span></li>
+      <li><b>Primeira vez</b><span>O que o assistente pergunta e como responder.</span></li>
+      <li><b>Usar</b><span>Os bots como contatos, e o cartão para permitir ou negar.</span></li>
+      <li><b>Times prontos</b><span>Um time inteiro instalado a partir de um arquivo.</span></li>
+      <li><b>Os avisos do projeto</b><span>O que ler antes de começar.</span></li>
+    </ul>
+  </div>
+</div>
+
+<section id="passos">
+  <div class="pass-head">
+    <span class="hand" style="font-size:28px">tudo vem do README e dos documentos oficiais do projeto</span>
+    <h2>Passo a passo</h2>
+  </div>
+  <div class="passos">
+    <div class="passo"><span class="n">1</span>
+      <div class="body">
+        <h3>Tenha pelo menos um agente instalado e logado</h3>
+        <p>Eles aparecem sozinhos no app.</p>
+        <div class="agentes">
+          <a href="https://claude.com/claude-code" target="_blank" rel="noopener">Claude Code</a>
+          <a href="https://github.com/openai/codex" target="_blank" rel="noopener">Codex</a>
+          <a href="https://x.ai/cli" target="_blank" rel="noopener">Grok CLI</a>
+        </div>
+      </div></div>
+  </div>
+
+  <div class="ficha-wrap" data-trava-caixa>
+    <div class="ficha" id="ficha">
+      <span class="tape"></span>
+      <h2>Libere o resto</h2>
+      <p class="lede">Passos 2 a 5, os comandos e os avisos. Preencha a ficha e abre aqui mesmo.</p>
+      <form class="trava-form" id="trava" novalidate>
+        <label>Seu nome <input name="nome" autocomplete="given-name" required></label>
+        <label>WhatsApp com DDD <input name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" placeholder="(21) 99999-9999" required></label>
+        <label>E-mail <input name="email" type="email" inputmode="email" autocomplete="email" required></label>
+        <input name="site" tabindex="-1" autocomplete="off" aria-hidden="true" class="mel">
+        <label class="aceite"><input type="checkbox" name="aceite" required> Aceito receber mensagens do Matheus no WhatsApp e no e-mail.</label>
+        <button class="btn btn-pen" type="submit">Liberar o material</button>
+        <p class="erro" role="alert" hidden></p>
+        <p class="priv">Seus dados ficam só com o Matheus. Para sair da lista, é só pedir.</p>
+      </form>
+    </div>
+  </div>
+
+  <div class="trancado" data-trava inert>
+    <div class="passos" style="margin-top:0">
+      <div class="passo"><span class="n">2</span>
+        <div class="body">
+          <h3>Baixe o app</h3>
+          <p>Na página de <a href="https://github.com/milind-soni/OpenMausBot/releases/latest" target="_blank" rel="noopener">releases</a>, escolha o seu:</p>
+          <div class="dl">
+            <a href="https://github.com/milind-soni/OpenMausBot/releases/latest" target="_blank" rel="noopener"><b>Mac com chip Apple</b><small>Arraste para Aplicativos</small><code>OpenMausBot.dmg</code></a>
+            <a href="https://github.com/milind-soni/OpenMausBot/releases/latest" target="_blank" rel="noopener"><b>Mac Intel</b><code>OpenMausBot-intel.dmg</code></a>
+            <a href="https://github.com/milind-soni/OpenMausBot/releases/latest" target="_blank" rel="noopener"><b>Windows</b><small>O instalador ainda não é assinado: o Windows mostra “editor desconhecido”. Clique em “Mais informações” e “Executar assim mesmo”.</small><code>OpenMausBot-setup.exe</code></a>
+            <a href="https://github.com/milind-soni/OpenMausBot/releases/latest" target="_blank" rel="noopener"><b>Ubuntu 24.04</b><code>OpenMausBot-amd64.deb</code></a>
+          </div>
+          <p class="ou">Ou pelo terminal (com Node 24 ou mais novo):</p>
+          <div class="cmd"><div class="bar"><span>terminal</span><button class="cp" type="button">Copiar</button></div><pre>npm install -g openmausbot</pre></div>
+          <div class="cmd"><div class="bar"><span>depois</span><button class="cp" type="button">Copiar</button></div><pre>openmausbot</pre></div>
+          <p class="ou">Ou sem instalar:</p>
+          <div class="cmd"><div class="bar"><span>sem instalar</span><button class="cp" type="button">Copiar</button></div><pre>npx openmausbot</pre></div>
+        </div></div>
+      <div class="passo"><span class="n">3</span>
+        <div class="body">
+          <h3>Na primeira vez, o assistente pergunta</h3>
+          <p>Qual provedor (ChatGPT/Codex, Claude Code ou chave de API), você entra na conta, escolhe o modelo e salva. Conectar o celular é opcional (“Skip for now”). O app abre no navegador, num endereço local. Mantenha o terminal aberto; Ctrl+C para o servidor sem apagar nada.</p>
+        </div></div>
+      <div class="passo"><span class="n">4</span>
+        <div class="body">
+          <h3>Use</h3>
+          <p>Cada bot é um contato na barra lateral. Você escolhe o modelo de cada um (Claude e Codex lado a lado) e troca no meio da conversa. Quando um bot vai rodar comando, editar arquivo ou tem uma pergunta, chega um cartão para você Permitir ou Negar.</p>
+        </div></div>
+      <div class="passo"><span class="n">5</span>
+        <div class="body">
+          <h3>Times prontos</h3>
+          <p>Dá para instalar um time inteiro a partir de um arquivo: bots, o “Chief of Staff”, canais e rotinas. As conexões ficam desligadas até você aprovar e as rotinas chegam pausadas.</p>
+          <div><a class="btn btn-line" href="https://github.com/milind-soni/openmausbot-teams" target="_blank" rel="noopener">Ver os times prontos</a></div>
+        </div></div>
+    </div>
+
+    <div class="avisos">
+      <span class="tape"></span>
+      <h3>Antes de começar</h3>
+      <ul>
+        <li>O app é gratuito, mas o uso das IAs é o seu: as suas assinaturas ou chaves de API. O “OMB Cloud” hospedado é um serviço pago e opcional.</li>
+        <li>Por padrão, cada bot começa em “Full access” (o modo mais solto). Você pode mudar o nível de aprovação por bot ou conversa.</li>
+        <li>O projeto não tem token nem criptomoeda: qualquer moeda com esse nome não é deles.</li>
+        <li>A pasta enterprise/ do repositório tem outra licença.</li>
+      </ul>
+      <div class="links">
+        <a href="https://www.openmausbot.com" target="_blank" rel="noopener">Site oficial</a>
+        <a href="https://github.com/milind-soni/OpenMausBot" target="_blank" rel="noopener">Repositório</a>
+        <a href="https://github.com/milind-soni/OpenMausBot/releases" target="_blank" rel="noopener">Releases</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<aside class="convite">
+  <span class="hand">se gostou de ver agentes em time</span>
+  <h2>Gostou de ver agentes trabalhando em time?</h2>
+  <p>Eu uso a mesma ideia num sistema que trabalha sozinho: o Clipador assiste às lives, acha os melhores momentos e entrega cortes verticais prontos.</p>
+  <a class="btn btn-light" href="https://eusoumatheus.com.br/clipadorcomia/">Ver o Clipador</a>
+  <a class="sec" href="https://eusoumatheus.com.br/fabricadevideosdeia/">ou a Fábrica de Vídeos IA</a>
+</aside>
+
+<footer>Feito por Matheus · <a href="https://www.instagram.com/eusoumathheus/">@eusoumathheus</a> · <a href="https://eusoumatheus.com.br/">eusoumatheus.com.br</a></footer>
+</div>
+</div>
+
+<script>
+(function () {
+  var d = document, reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // rede se desenha e o recorte ganha o círculo quando entram na tela
+  function visivel(el, fn) {
+    if (!el) return;
+    if (!('IntersectionObserver' in window)) return fn();
+    var io = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { io.disconnect(); fn(); } }, { threshold: .3 });
+    io.observe(el);
+  }
+  var rede = d.getElementById('rede');
+  visivel(rede, function () { rede.classList.add('go'); });
+  var clip = d.getElementById('fatos');
+  visivel(clip, function () {
+    clip.classList.add('go');
+    var el = d.getElementById('est'), v = +el.getAttribute('data-v');
+    if (reduce) return;
+    var t0 = null;
+    (function f(t) { if (!t0) t0 = t; var k = Math.min((t - t0) / 1400, 1); k = 1 - Math.pow(1 - k, 3);
+      el.textContent = Math.round(v * k).toLocaleString('pt-BR'); if (k < 1) requestAnimationFrame(f); })(performance.now());
+  });
+  // copiar
+  function copiar(txt) {
+    function fb() { var a = d.createElement('textarea'); a.value = txt; a.style.cssText = 'position:fixed;opacity:0'; d.body.appendChild(a); a.select(); try { d.execCommand('copy'); } catch (e) {} d.body.removeChild(a); }
+    if (navigator.clipboard && navigator.clipboard.writeText) return navigator.clipboard.writeText(txt).catch(fb);
+    fb();
+  }
+  d.querySelectorAll('.cp').forEach(function (b) {
+    b.addEventListener('click', function () {
+      copiar(b.closest('.cmd').querySelector('pre').textContent.trim());
+      b.textContent = 'Copiado'; b.classList.add('ok');
+      setTimeout(function () { b.textContent = 'Copiar'; b.classList.remove('ok'); }, 1600);
+    });
+  });
+})();
+</script>
+<script>
+(function () {
+  var PAGINA = 'mausbot';
+  var URL = 'https://script.google.com/macros/s/AKfycbwEmfsRfxQWtBnSJgEFPuI3vzzz0esUcQ9yq86pO-PZbxWlcSdCojR3XPnDUmdf4iy5/exec';
+  var CHAVE = 'liberado-' + PAGINA;
+  function libera(rolar) {
+    document.documentElement.classList.add('liberado');
+    document.querySelectorAll('[data-trava]').forEach(function (el) { el.classList.remove('trancado'); el.removeAttribute('inert'); });
+    var f = document.getElementById('trava'); if (f) f.closest('[data-trava-caixa]').hidden = true;
+    if (rolar) { var a = document.querySelector('[data-trava]'); if (a) a.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  }
+  try { if (localStorage.getItem(CHAVE)) libera(false); } catch (e) {}
+  var f = document.getElementById('trava'); if (!f) return;
+  f.addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    var d = new FormData(f), erro = f.querySelector('.erro');
+    var tel = String(d.get('whatsapp') || '').replace(/\D/g, ''), mail = String(d.get('email') || '').trim();
+    var msg = !String(d.get('nome') || '').trim() ? 'Escreve o seu nome.'
+      : tel.length < 10 ? 'Confere o WhatsApp com DDD.'
+      : !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(mail) ? 'Confere o e-mail.'
+      : !d.get('aceite') ? 'Marca o aceite para liberar.' : '';
+    if (msg) { erro.textContent = msg; erro.hidden = false; return; }
+    erro.hidden = true;
+    var corpo = new URLSearchParams({ pagina: PAGINA, nome: d.get('nome'), whatsapp: tel, email: mail, aceite: 'sim',
+      site: d.get('site') || '', origem: location.search.slice(0, 200) + ' ' + document.referrer.slice(0, 100) });
+    var b = f.querySelector('button'); b.disabled = true; b.textContent = 'Liberando…';
+    var fim = function () { try { localStorage.setItem(CHAVE, '1'); } catch (e) {} libera(true); };
+    if (URL.indexOf('http') !== 0) { fim(); return; }
+    fetch(URL, { method: 'POST', mode: 'no-cors', body: corpo }).then(fim, fim);
+  });
+})();
+</script>
