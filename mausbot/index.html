@@ -8,6 +8,46 @@
 <meta property="og:url" content="https://eusoumatheus.com.br/mausbot/">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1674928984046943');
+fbq('track', 'PageView');
+(function () {
+  var PRODUTOS = {
+    fabricadevideosdeia: { nome: "Fábrica de Vídeos IA", valor: 47.90 },
+    clipadorcomia: { nome: "Clipador", valor: 49.90 }
+  };
+  var KIWIFY = { "BV0kRB8": "fabricadevideosdeia", "RE7MXng": "clipadorcomia" };
+  var pasta = location.pathname.split("/").filter(Boolean)[0] || "";
+  var aqui = PRODUTOS[pasta];
+  if (aqui) fbq("track", "ViewContent", { content_name: aqui.nome, value: aqui.valor, currency: "BRL" });
+
+  // utm_* do anúncio: guarda na sessão (a pessoa pode navegar antes de comprar)
+  var CHAVES = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"];
+  var q = new URLSearchParams(location.search), utm = {};
+  try { utm = JSON.parse(sessionStorage.getItem("utm") || "{}"); } catch (e) {}
+  if (CHAVES.some(function (k) { return q.get(k); })) utm = {};  // anúncio novo troca o anterior inteiro
+  CHAVES.forEach(function (k) { if (q.get(k)) utm[k] = q.get(k); });
+  try { sessionStorage.setItem("utm", JSON.stringify(utm)); } catch (e) {}
+
+  document.addEventListener("click", function (ev) {
+    var a = ev.target.closest && ev.target.closest('a[href*="pay.kiwify.com.br"]');
+    if (!a) return;
+    var u = new URL(a.href);
+    Object.keys(utm).forEach(function (k) { if (!u.searchParams.has(k)) u.searchParams.set(k, utm[k]); });
+    a.href = u.toString();
+    var codigo = u.pathname.split("/").filter(Boolean)[0];
+    var p = PRODUTOS[KIWIFY[codigo]] || aqui;
+    fbq("track", "InitiateCheckout", p ? { content_name: p.nome, value: p.valor, currency: "BRL" } : {});
+  }, true);
+})();
+</script>
+<noscript><img height="1" width="1" style="display:none" alt=""
+src="https://www.facebook.com/tr?id=1674928984046943&ev=PageView&noscript=1"></noscript>
 <title>MausBot · presente do Matheus</title>
 <meta name="description" content="Um prompt para colar no Claude: ele instala o MausBot (OpenMausBot) por você e te guia na primeira vez. Com o link oficial no GitHub.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
