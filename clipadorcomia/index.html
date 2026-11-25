@@ -713,6 +713,80 @@ dialog.zoom .fechar { position: absolute; top: 10px; right: 10px; }
   html { scroll-behavior: auto; }
   .cena, .formato, .momento, .barra, .barras i, .janela-corte, .leque img, .vertical-q .frente, .vertical-q .fundo, .carta, .comparacao .lado { transition: none !important; }
 }
+/*PAREDE-CSS*/
+/* ---------- parede de vídeos (os 10 anúncios) ---------- */
+.pv { padding-block: clamp(40px, 7vw, 72px) clamp(36px, 6vw, 60px); position: relative; }
+.pv-cabeca { display: grid; gap: 12px; }
+.pv-sobre { display: inline-flex; align-items: center; gap: 10px; margin: 0; font: 600 13px/1 var(--f-tempo); letter-spacing: .06em; text-transform: uppercase; color: var(--tinta-2); }
+.pv-rec { width: 10px; height: 10px; border-radius: 50%; background: #ff453a; box-shadow: 0 0 0 4px rgba(255, 69, 58, .2); flex: none; }
+.pv h2 { margin: 0; text-wrap: balance; }
+.pv .pv-lead { color: var(--tinta-2); font-size: 18px; line-height: 1.45; max-width: 44ch; margin: 0; }
+.pv-corpo { position: relative; margin-top: 24px; }
+.pv-fila { display: flex; gap: 12px; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scrollbar-width: none;
+  padding: 8px max(16px, env(safe-area-inset-left, 0px)) 14px; scroll-padding-inline: max(16px, env(safe-area-inset-left, 0px)); list-style: none; margin: 0; }
+.pv-fila::-webkit-scrollbar { display: none; }
+@media (min-width: 1152px) { .pv-fila { padding-inline: calc((100vw - 1120px) / 2); scroll-padding-inline: calc((100vw - 1120px) / 2); } }
+.pv-fila li { flex: none; scroll-snap-align: start; }
+.pv-card { position: relative; display: block; width: clamp(156px, 42vw, 216px); aspect-ratio: 9 / 16; padding: 0; border: 0; border-radius: 18px; overflow: hidden; cursor: pointer;
+  background: var(--pv-placa); color: #fff; font: inherit; text-align: left; isolation: isolate;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, .1), 0 18px 40px -22px rgba(0, 0, 0, .9); transition: transform .35s var(--suave), box-shadow .35s var(--suave); }
+.pv-card video, .pv-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.pv-card::after { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, transparent 62%, rgba(0, 0, 0, .78)); pointer-events: none; }
+.pv-card:hover { transform: translateY(-4px); box-shadow: 0 0 0 2px var(--pv-acento), 0 24px 50px -22px rgba(0, 0, 0, .9); }
+.pv-card:active { transform: scale(.97); }
+.pv-card:focus-visible { outline: 3px solid var(--pv-acento); outline-offset: 3px; }
+.pv-n { position: absolute; z-index: 2; top: 10px; left: 10px; padding: 4px 8px; border-radius: 999px; background: rgba(0, 0, 0, .55); font: 600 12px/1 var(--f-tempo); letter-spacing: .04em; -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+.pv-pe { position: absolute; z-index: 2; left: 10px; right: 10px; bottom: 10px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.pv-play { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: var(--pv-acento); color: var(--pv-sobre); box-shadow: 0 8px 20px -6px rgba(0, 0, 0, .6); transition: transform .3s var(--suave); }
+.pv-play svg { width: 18px; height: 18px; margin-left: 2px; }
+.pv-card:hover .pv-play { transform: scale(1.08); }
+.pv-dur { font: 600 13px/1 var(--f-tempo); text-shadow: 0 1px 6px rgba(0, 0, 0, .8); }
+.pv-setas { display: none; }
+@media (hover: hover) and (min-width: 760px) {
+  .pv-setas { display: flex; gap: 8px; justify-content: flex-end; margin-top: -4px; }
+  .pv-seta { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(255, 255, 255, .18); background: transparent; color: var(--tinta); cursor: pointer; transition: background .2s, border-color .2s; }
+  .pv-seta:hover { background: rgba(255, 255, 255, .08); border-color: rgba(255, 255, 255, .35); }
+  .pv-seta svg { width: 20px; height: 20px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .pv-rec { animation: pv-rec 1.4s ease-in-out infinite; }
+  @keyframes pv-rec { 50% { opacity: .35; } }
+  .pv.pronto .pv-fila li { animation: pv-entra .6s var(--suave) both; animation-delay: calc(var(--i) * 60ms); }
+  @keyframes pv-entra { from { opacity: 0; transform: translateY(18px) scale(.96); } }
+}
+
+/* o player em tela cheia, estilo stories */
+.pv-tela { position: fixed; inset: 0; width: 100%; height: 100%; max-width: none; max-height: none; margin: 0; padding: 0; border: 0; background: #000; color: #fff; overflow: hidden; }
+.pv-tela::backdrop { background: rgba(0, 0, 0, .92); }
+.pv-tela[open] { display: grid; place-items: center; }
+.pv-palco { position: relative; height: 100%; max-height: 100dvh; aspect-ratio: 9 / 16; max-width: 100vw; background: #000; }
+.pv-palco video { width: 100%; height: 100%; object-fit: contain; background: #000; }
+.pv-barras { position: absolute; z-index: 3; top: max(10px, env(safe-area-inset-top, 0px)); left: 10px; right: 10px; display: flex; gap: 4px; }
+.pv-barras i { flex: 1; height: 3px; border-radius: 3px; background: rgba(255, 255, 255, .3); overflow: hidden; }
+.pv-barras i::after { content: ""; display: block; height: 100%; background: #fff; transform-origin: left; transform: scaleX(var(--p, 0)); }
+.pv-barras i.feita::after { transform: scaleX(1); }
+.pv-fechar { position: absolute; z-index: 4; top: calc(max(10px, env(safe-area-inset-top, 0px)) + 12px); right: 8px; display: grid; place-items: center; width: 44px; height: 44px; border: 0; border-radius: 50%; background: rgba(0, 0, 0, .45); color: #fff; cursor: pointer; }
+.pv-fechar svg { width: 22px; height: 22px; }
+.pv-conta { position: absolute; z-index: 3; top: calc(max(10px, env(safe-area-inset-top, 0px)) + 24px); left: 14px; font: 600 13px/1 var(--f-tempo); text-shadow: 0 1px 6px rgba(0, 0, 0, .8); }
+.pv-toque { position: absolute; z-index: 2; top: 70px; bottom: 96px; border: 0; background: transparent; cursor: pointer; padding: 0; }
+.pv-toque.ant { left: 0; width: 30%; }
+.pv-toque.meio { left: 30%; width: 40%; }
+.pv-toque.prox { right: 0; width: 30%; }
+.pv-pausa { position: absolute; z-index: 3; top: 50%; left: 50%; width: 72px; height: 72px; margin: -36px 0 0 -36px; border-radius: 50%; background: rgba(0, 0, 0, .5); display: grid; place-items: center; opacity: 0; transition: opacity .2s; pointer-events: none; }
+.pv-pausa svg { width: 30px; height: 30px; }
+.pv-tela.pausado .pv-pausa { opacity: 1; }
+.pv-rodape { position: absolute; z-index: 4; left: 12px; right: 12px; bottom: max(14px, env(safe-area-inset-bottom, 0px)); display: flex; justify-content: center; }
+.pv-rodape .botao { width: 100%; max-width: 380px; justify-content: center; }
+.pv-lado { display: none; }
+@media (hover: hover) and (min-width: 760px) {
+  .pv-lado { position: fixed; z-index: 5; top: 50%; display: grid; place-items: center; width: 52px; height: 52px; margin-top: -26px; border: 1px solid rgba(255, 255, 255, .22); border-radius: 50%; background: rgba(255, 255, 255, .08); color: #fff; cursor: pointer; transition: background .2s; }
+  .pv-lado:hover { background: rgba(255, 255, 255, .18); }
+  .pv-lado svg { width: 24px; height: 24px; }
+  .pv-lado.ant { left: calc(50% - min(50vw, 28.125dvh) - 76px); }
+  .pv-lado.prox { right: calc(50% - min(50vw, 28.125dvh) - 76px); }
+}
+body.pv-aberto { overflow: hidden; }
+/*/PAREDE-CSS*/
 </style>
 
 <div class="lido" aria-hidden="true"></div>
@@ -765,6 +839,44 @@ dialog.zoom .fechar { position: absolute; top: 10px; right: 10px; }
       </div>
     </div>
   </section>
+
+<!--PAREDE-->
+  <!-- PAREDE DE VÍDEOS: os 10 anúncios, para escolher e assistir com som -->
+  <section class="pv secao" id="pv" aria-labelledby="pv-titulo" style="--pv-acento: var(--cor); --pv-sobre: #17133a; --pv-fundo: var(--noite); --pv-placa: var(--placa);">
+    <div class="faixa"><div class="miolo pv-cabeca">
+      <p class="pv-sobre"><span class="pv-rec" aria-hidden="true"></span>10 vídeos · 30 segundos cada</p>
+      <h2 id="pv-titulo">Dez vídeos. Trinta segundos cada. Escolha um.</h2>
+      <p class="pv-lead">Toque em qualquer um. Abre com som e passa sozinho para o próximo, como nos stories.</p>
+    </div></div>
+    <div class="pv-corpo">
+      <ul class="pv-fila" aria-label="Vídeos sobre o Clipador">
+        <li style="--i:0"><button class="pv-card" type="button" aria-label="Assistir com som: “Seiscentos e cinquenta e quatro cortes em trinta e sete horas. Eu não editei nenhum.” (34 segundos)" data-video="midia/anuncios/g03.mp4" data-previa="midia/anuncios/g03-previa.mp4"><img src="midia/anuncios/g03.jpg" alt="" loading="lazy" decoding="async"><span class="pv-n">01</span><span class="pv-pe"><span class="pv-play"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12.4-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5z"/></svg></span><span class="pv-dur">0:34</span></span></button></li><li style="--i:1"><button class="pv-card" type="button" aria-label="Assistir com som: “A live ainda tá rolando, e essa IA já cortou o melhor momento.” (31 segundos)" data-video="midia/anuncios/g02.mp4" data-previa="midia/anuncios/g02-previa.mp4"><img src="midia/anuncios/g02.jpg" alt="" loading="lazy" decoding="async"><span class="pv-n">02</span><span class="pv-pe"><span class="pv-play"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12.4-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5z"/></svg></span><span class="pv-dur">0:31</span></span></button></li><li style="--i:2"><button class="pv-card" type="button" aria-label="Assistir com som: “Para de assistir live inteira pra fazer corte.” (29 segundos)" data-video="midia/anuncios/g09.mp4" data-previa="midia/anuncios/g09-previa.mp4"><img src="midia/anuncios/g09.jpg" alt="" loading="lazy" decoding="async"><span class="pv-n">03</span><span class="pv-pe"><span class="pv-play"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12.4-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5z"/></svg></span><span class="pv-dur">0:29</span></span></button></li><li style="--i:3"><button class="pv-card" type="button" aria-label="Assistir com som: “Essa IA já olhou mais de dezessete mil canais atrás de live boa.” (32 segundos)" data-video="midia/anuncios/g04.mp4" data-previa="midia/anuncios/g04-previa.mp4"><img src="midia/anuncios/g04.jpg" alt="" loading="lazy" decoding="async"><span class="pv-n">04</span><span class="pv-pe"><span class="pv-play"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12.4-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5z"/></svg></span><span class="pv-dur">0:32</span></span></button></li><li style="--i:4"><button class="pv-card" type="button" aria-label="Assistir com som: “O chat avisa quando a live explode. Essa IA lê até o chat.” (32 segundos)" data-video="midia/anuncios/g06.mp4" data-previa="midia/anuncios/g06-previa.mp4"><img src="midia/anuncios/g06.jpg" alt="" loading="lazy" decoding="async"><span class="pv-n">05</span><span class="pv-pe"><span class="pv-play"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12.4-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5z"/></svg></span><span class="pv-dur">0:32</span></span></button></li><li style="--i:5"><button class="pv-card" type="button" aria-label="Assistir com som: “Qual é o melhor momento de uma live inteira? Essa IA acha sozinha.” (32 segundos)" data-video="midia/anuncios/g07.mp4" data-previa="midia/anuncios/g07-previa.mp4"><img src="midia/anuncios/g07.jpg" alt="" loading="lazy" decoding="async"><span class="pv-n">06</span><span class="pv-pe"><span class="pv-play"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12.4-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5z"/></svg></span><span class="pv-dur">0:32</span></span></button></li><li style="--i:6"><button class="pv-card" type="button" aria-label="Assistir com som: “Assistir horas de live pra achar trinta segundos bons? Isso acabou.” (31 segundos)" data-video="midia/anuncios/g05.mp4" data-previa="midia/anuncios/g05-previa.mp4"><img src="midia/anuncios/g05.jpg" alt="" loading="lazy" decoding="async"><span class="pv-n">07</span><span class="pv-pe"><span class="pv-play"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12.4-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5z"/></svg></span><span class="pv-dur">0:31</span></span></button></li><li style="--i:7"><button class="pv-card" type="button" aria-label="Assistir com som: “Se você quer um canal de cortes postando todo dia sem editar, olha isso.” (32 segundos)" data-video="midia/anuncios/g01.mp4" data-previa="midia/anuncios/g01-previa.mp4"><img src="midia/anuncios/g01.jpg" alt="" loading="lazy" decoding="async"><span class="pv-n">08</span><span class="pv-pe"><span class="pv-play"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12.4-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5z"/></svg></span><span class="pv-dur">0:32</span></span></button></li><li style="--i:8"><button class="pv-card" type="button" aria-label="Assistir com som: “Como eu faço corte de live sem abrir o editor?” (30 segundos)" data-video="midia/anuncios/g08.mp4" data-previa="midia/anuncios/g08-previa.mp4"><img src="midia/anuncios/g08.jpg" alt="" loading="lazy" decoding="async"><span class="pv-n">09</span><span class="pv-pe"><span class="pv-play"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12.4-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5z"/></svg></span><span class="pv-dur">0:30</span></span></button></li><li style="--i:9"><button class="pv-card" type="button" aria-label="Assistir com som: “Eu tenho um editor de corte que assiste a live inteira e não para.” (31 segundos)" data-video="midia/anuncios/g10.mp4" data-previa="midia/anuncios/g10-previa.mp4"><img src="midia/anuncios/g10.jpg" alt="" loading="lazy" decoding="async"><span class="pv-n">10</span><span class="pv-pe"><span class="pv-play"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12.4-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5z"/></svg></span><span class="pv-dur">0:31</span></span></button></li>
+      </ul>
+      <div class="faixa"><div class="miolo pv-setas">
+        <button class="pv-seta" type="button" data-dir="-1" aria-label="Vídeos anteriores"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
+        <button class="pv-seta" type="button" data-dir="1" aria-label="Mais vídeos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+      </div></div>
+    </div>
+    <dialog class="pv-tela" id="pv-tela" aria-label="Vídeos sobre o Clipador">
+      <div class="pv-palco">
+        <video id="pv-video" playsinline preload="auto"></video>
+        <div class="pv-barras" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <span class="pv-conta" id="pv-conta" aria-live="polite"></span>
+        <button class="pv-toque ant" type="button" aria-label="Vídeo anterior"></button>
+        <button class="pv-toque meio" type="button" aria-label="Pausar ou continuar"></button>
+        <button class="pv-toque prox" type="button" aria-label="Próximo vídeo"></button>
+        <span class="pv-pausa" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12.4-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5z"/></svg></span>
+        <button class="pv-lado ant" type="button" aria-label="Vídeo anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
+        <button class="pv-lado prox" type="button" aria-label="Próximo vídeo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+        <button class="pv-fechar" type="button" aria-label="Fechar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+        <div class="pv-rodape"><a class="botao pv-cta" href="#oferta">Quero o Clipador <i class="ic seta" aria-hidden="true"></i></a></div>
+      </div>
+    </dialog>
+  </section>
+<!--/PAREDE-->
+
+
+
 
   <!-- TIMELINE DE CORTES -->
   <section class="timeline" id="timeline" aria-label="Cortes que já saíram do Clipador">
@@ -1459,4 +1571,79 @@ dialog.zoom .fechar { position: absolute; top: 10px; right: 10px; }
   }
   if (tique()) { const t = setInterval(() => { if (!tique()) clearInterval(t); }, 1000); }
 })();
+/*PAREDE-JS*/
+/* ---- parede de vídeos: prévias rodando + player em tela cheia com som ---- */
+(() => {
+  const sec = document.getElementById("pv"); if (!sec) return;
+  const calmo = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const cards = [...sec.querySelectorAll(".pv-card")], fila = sec.querySelector(".pv-fila");
+  const tela = document.getElementById("pv-tela"), v = document.getElementById("pv-video");
+  const barras = [...tela.querySelectorAll(".pv-barras i")], conta = document.getElementById("pv-conta");
+  const LISTA = cards.map(c => ({ src: c.dataset.video, poster: c.querySelector("img").getAttribute("src") }));
+  let atual = 0;
+
+  /* prévias: só tocam as que estão na tela */
+  if (!calmo && "IntersectionObserver" in window) {
+    const io = new IntersectionObserver(ens => ens.forEach(en => {
+      const c = en.target; let p = c.querySelector("video");
+      if (en.isIntersecting) {
+        if (!p) {
+          p = document.createElement("video"); p.muted = true; p.loop = true; p.playsInline = true; p.setAttribute("playsinline", ""); p.setAttribute("aria-hidden", "true");
+          p.preload = "auto"; p.src = c.dataset.previa; c.insertBefore(p, c.querySelector(".pv-n"));
+        }
+        p.play().catch(() => {});
+      } else if (p) p.pause();
+    }), { threshold: .55 });
+    cards.forEach(c => io.observe(c));
+    new IntersectionObserver(([en]) => { if (en.isIntersecting) sec.classList.add("pronto"); }, { threshold: .1 }).observe(sec);
+  }
+
+  sec.querySelectorAll(".pv-seta").forEach(b => b.addEventListener("click", () => {
+    const passo = cards[0].getBoundingClientRect().width + 12;
+    fila.scrollBy({ left: (b.dataset.dir === "1" ? 1 : -1) * passo * 2, behavior: calmo ? "auto" : "smooth" });
+  }));
+
+  function carrega(i) {
+    atual = (i + LISTA.length) % LISTA.length;
+    v.poster = LISTA[atual].poster; v.src = LISTA[atual].src;
+    barras.forEach((b, k) => { b.classList.toggle("feita", k < atual); b.style.setProperty("--p", 0); });
+    conta.textContent = String(atual + 1).padStart(2, "0") + " / " + LISTA.length;
+    tela.classList.remove("pausado");
+    v.muted = false; v.play().catch(() => { v.muted = true; v.play().catch(() => {}); });
+  }
+  function abre(i) {
+    document.querySelectorAll("video").forEach(x => { if (x !== v) x.pause(); });
+    if (typeof tela.showModal === "function") tela.showModal(); else tela.setAttribute("open", "");
+    document.body.classList.add("pv-aberto");
+    carrega(i);
+  }
+  function fecha() {
+    v.pause(); v.removeAttribute("src"); v.load();
+    if (tela.open && typeof tela.close === "function") tela.close(); else tela.removeAttribute("open");
+    document.body.classList.remove("pv-aberto");
+    cards[atual] && cards[atual].focus({ preventScroll: true });
+  }
+  cards.forEach((c, i) => c.addEventListener("click", () => abre(i)));
+  tela.addEventListener("close", () => { v.pause(); document.body.classList.remove("pv-aberto"); });
+  tela.querySelector(".pv-fechar").addEventListener("click", fecha);
+  tela.querySelector(".pv-toque.ant").addEventListener("click", () => { if (v.currentTime > 2) { v.currentTime = 0; v.play().catch(() => {}); } else carrega(atual - 1); });
+  tela.querySelector(".pv-toque.prox").addEventListener("click", () => carrega(atual + 1));
+  tela.querySelector(".pv-lado.prox").addEventListener("click", () => carrega(atual + 1));
+  tela.querySelector(".pv-lado.ant").addEventListener("click", () => carrega(atual - 1));
+  tela.querySelector(".pv-toque.meio").addEventListener("click", () => {
+    if (v.paused) { v.play().catch(() => {}); tela.classList.remove("pausado"); } else { v.pause(); tela.classList.add("pausado"); }
+  });
+  v.addEventListener("timeupdate", () => { if (v.duration) barras[atual].style.setProperty("--p", v.currentTime / v.duration); });
+  v.addEventListener("ended", () => { if (atual < LISTA.length - 1) carrega(atual + 1); else { barras[atual].classList.add("feita"); tela.classList.add("pausado"); } });
+  tela.addEventListener("keydown", e => {
+    if (e.key === "ArrowRight") { e.preventDefault(); carrega(atual + 1); }
+    else if (e.key === "ArrowLeft") { e.preventDefault(); carrega(atual - 1); }
+  });
+  tela.querySelector(".pv-cta").addEventListener("click", e => {
+    e.preventDefault(); fecha();
+    const alvo = document.getElementById("oferta");
+    if (alvo) setTimeout(() => alvo.scrollIntoView({ behavior: calmo ? "auto" : "smooth", block: "start" }), 60);
+  });
+})();
+/*/PAREDE-JS*/
 </script>
