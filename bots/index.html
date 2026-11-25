@@ -1,0 +1,726 @@
+<!doctype html>
+<html lang="pt-BR">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta property="og:title" content="Seu time de bots no Grok Bot, de presente">
+<meta property="og:description" content="Um prompt para o Claude montar o seu time de bots e escrever a configuração de cada um.">
+<meta property="og:image" content="https://eusoumatheus.com.br/bots/midia/compartilhar.jpg">
+<meta property="og:url" content="https://eusoumatheus.com.br/bots/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1674928984046943');
+fbq('track', 'PageView');
+(function () {
+  var PRODUTOS = {
+    fabricadevideosdeia: { nome: "Fábrica de Vídeos IA", valor: 47.90 },
+    clipadorcomia: { nome: "Clipador", valor: 49.90 }
+  };
+  var KIWIFY = { "BV0kRB8": "fabricadevideosdeia", "RE7MXng": "clipadorcomia" };
+  var pasta = location.pathname.split("/").filter(Boolean)[0] || "";
+  var aqui = PRODUTOS[pasta];
+  if (aqui) fbq("track", "ViewContent", { content_name: aqui.nome, value: aqui.valor, currency: "BRL" });
+
+  // utm_* do anúncio: guarda na sessão (a pessoa pode navegar antes de comprar)
+  var CHAVES = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"];
+  var q = new URLSearchParams(location.search), utm = {};
+  try { utm = JSON.parse(sessionStorage.getItem("utm") || "{}"); } catch (e) {}
+  if (CHAVES.some(function (k) { return q.get(k); })) utm = {};  // anúncio novo troca o anterior inteiro
+  CHAVES.forEach(function (k) { if (q.get(k)) utm[k] = q.get(k); });
+  try { sessionStorage.setItem("utm", JSON.stringify(utm)); } catch (e) {}
+
+  document.addEventListener("click", function (ev) {
+    var a = ev.target.closest && ev.target.closest('a[href*="pay.kiwify.com.br"]');
+    if (!a) return;
+    var u = new URL(a.href);
+    Object.keys(utm).forEach(function (k) { if (!u.searchParams.has(k)) u.searchParams.set(k, utm[k]); });
+    a.href = u.toString();
+    var codigo = u.pathname.split("/").filter(Boolean)[0];
+    var p = PRODUTOS[KIWIFY[codigo]] || aqui;
+    fbq("track", "InitiateCheckout", p ? { content_name: p.nome, value: p.valor, currency: "BRL" } : {});
+  }, true);
+})();
+</script>
+<noscript><img height="1" width="1" style="display:none" alt=""
+src="https://www.facebook.com/tr?id=1674928984046943&ev=PageView&noscript=1"></noscript>
+<title>Time de bots · presente do Matheus</title>
+<meta name="description" content="Um prompt para colar no Claude: ele desenha o seu time de bots no Grok Bot e escreve a configuração de cada um.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Caveat:wght@500;700&family=JetBrains+Mono:wght@400;700&display=swap">
+<style>
+/* Caderno do Matheus: papel quadriculado, caneta roxa, fita, máquina escura. Um tema só: papel é papel.
+   Momento de efeito: o organograma do time desenhado à caneta, e o carimbo APROVADO batendo no fim. */
+:root {
+  --paper: #f2f1ed;
+  --grid: rgba(44, 40, 78, .085);
+  --grid-major: rgba(44, 40, 78, .15);
+  --ink: #131218;
+  --ink-2: #4b4957;
+  --pen: #6b2fe2;
+  --pen-deep: #3d1a8f;
+  --pen-soft: #b59af6;
+  --machine: #100e17;
+  --machine-2: #1c1928;
+  --on-machine: #f0edfa;
+  --on-machine-2: #a29db8;
+  --tape: rgba(236, 226, 178, .8);
+  --f-display: "Archivo", "Arial Narrow", system-ui, sans-serif;
+  --f-hand: "Caveat", "Comic Sans MS", cursive;
+  --f-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  --f-body: "Archivo", system-ui, -apple-system, sans-serif;
+  --cell: 24px;
+  --ease: cubic-bezier(.2, .8, .2, 1);
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html, body { background: var(--paper); color: var(--ink); }
+body { margin: 0; font-family: var(--f-body); font-size: 17px; line-height: 1.5; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+::selection { background: var(--pen); color: #fff; }
+:focus-visible { outline: 2px dashed var(--pen); outline-offset: 4px; border-radius: 2px; }
+a { color: inherit; }
+.paper {
+  position: relative; isolation: isolate; overflow-x: clip;
+  background-color: var(--paper);
+  background-image:
+    linear-gradient(var(--grid-major) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-major) 1px, transparent 1px),
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 120px 120px, 120px 120px, var(--cell) var(--cell), var(--cell) var(--cell);
+}
+.paper::after {
+  content: ""; position: absolute; inset: 0; z-index: 3; pointer-events: none;
+  mix-blend-mode: multiply; opacity: .5;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='900' height='900'><filter id='f'><feTurbulence type='fractalNoise' baseFrequency='.0065' numOctaves='5' seed='11'/><feDiffuseLighting lighting-color='%23ffffff' surfaceScale='2.4'><feDistantLight azimuth='225' elevation='58'/></feDiffuseLighting></filter><rect width='100%25' height='100%25' filter='url(%23f)'/></svg>");
+  background-size: 900px 900px;
+}
+.wrap {
+  position: relative; z-index: 2; max-width: 1080px; margin: 0 auto; padding-block: 22px 0;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.hand { font-family: var(--f-hand); font-weight: 500; color: var(--pen); line-height: 1.05; }
+.tape { position: absolute; width: 92px; height: 26px; background: var(--tape); z-index: 4; box-shadow: 0 1px 2px rgba(0,0,0,.08); mix-blend-mode: multiply; }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px; cursor: pointer; border: 0;
+  font: 700 17px/1 var(--f-body); text-decoration: none; background: var(--ink); color: var(--paper);
+  padding: 18px 24px; border-radius: 4px; min-height: 54px; transition: background .2s var(--ease), transform .12s var(--ease);
+}
+.btn:hover { background: var(--pen); }
+.btn:active { transform: scale(.98); }
+.btn svg { width: 18px; height: 18px; flex: none; }
+.btn-pen { background: var(--pen); color: #fff; }
+.btn-pen:hover { background: var(--ink); }
+.btn-light { background: var(--on-machine); color: var(--machine); }
+.btn-light:hover { background: var(--pen-soft); }
+.btn-line { background: transparent; color: var(--ink); border: 2px solid var(--ink); padding-block: 16px; }
+.btn-line:hover { background: var(--ink); color: var(--paper); }
+.link-hand {
+  display: inline-block; padding-block: 10px; font-family: var(--f-hand); font-weight: 700; font-size: 26px; color: var(--pen);
+  text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 6px; text-decoration-style: wavy;
+}
+.link-hand:hover { color: var(--ink); }
+.write { clip-path: inset(-20% 100% -20% 0); animation: write 1.1s steps(28, end) .3s forwards; }
+@keyframes write { to { clip-path: inset(-20% -2% -20% 0); } }
+h1, h2, h3 { margin: 0; font-family: var(--f-display); font-weight: 900; font-stretch: 125%; text-transform: uppercase; letter-spacing: -.01em; }
+h2 { font-size: clamp(28px, 6.2vw, 52px); line-height: .92; text-wrap: balance; }
+h3 { font-size: 21px; line-height: 1; font-stretch: 112%; }
+section { position: relative; padding-top: 56px; }
+
+/* topo */
+.topo { display: grid; gap: 18px; padding-block: 18px 6px; }
+.t-txt { display: grid; gap: 16px; justify-items: start; }
+.h1 { font-size: clamp(30px, 8.4vw, 56px); line-height: .92; text-wrap: balance; }
+.h1 em { font-style: normal; color: var(--pen); }
+.sub { margin: 0; font-size: 18px; max-width: 34em; color: var(--ink-2); }
+.sub strong { color: var(--ink); }
+.so-trava { margin-top: 4px; }
+/* rede à caneta */
+
+/* recorte do GitHub */
+.duo { display: grid; gap: 34px; padding-top: 44px; align-items: start; }
+.clip { position: relative; background: #fff; padding: 30px 20px 22px; transform: rotate(-1.2deg); box-shadow: 4px 12px 28px rgba(19, 18, 24, .14); display: grid; gap: 12px; }
+.clip .tape.a { top: -12px; left: 14%; transform: rotate(-5deg); }
+.clip .tape.b { top: -10px; right: 12%; transform: rotate(4deg); width: 70px; }
+.repo { display: flex; align-items: center; gap: 10px; font: 700 14px/1.2 var(--f-mono); color: var(--ink-2); overflow-wrap: anywhere; }
+.repo svg { width: 24px; height: 24px; flex: none; fill: var(--ink); }
+.stars { position: relative; justify-self: start; margin: 12px 18px 8px; padding: 4px 6px; }
+.stars b { display: block; font: 900 clamp(54px, 17vw, 88px)/1 var(--f-display); font-stretch: 100%; color: var(--ink); font-variant-numeric: tabular-nums; }
+.stars svg { position: absolute; inset: -12px -20px; width: calc(100% + 40px); height: calc(100% + 24px); overflow: visible; pointer-events: none; }
+.stars svg path { fill: none; stroke: var(--pen); stroke-width: 3; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; }
+.js .go .stars svg path { transition: stroke-dashoffset 1.1s var(--ease) .5s; stroke-dashoffset: 0; }
+.no-js .stars svg path { stroke-dashoffset: 0; }
+.stars-k { font: 800 16px/1 var(--f-display); font-stretch: 112%; text-transform: uppercase; }
+.f3 { display: grid; grid-template-columns: repeat(3, auto); justify-content: start; gap: 0; margin-top: 6px; border-top: 1.5px dashed rgba(19, 18, 24, .3); }
+.f3 div { padding: 12px 14px 0 0; margin-right: 14px; border-right: 1px dotted rgba(19, 18, 24, .3); font: 400 14px/1.3 var(--f-mono); color: var(--ink-2); }
+.f3 div:last-child { border: 0; margin: 0; padding-right: 0; }
+.f3 b { display: block; font: 700 15px/1.3 var(--f-mono); color: var(--ink); }
+.clip .nota { margin: 4px 0 4px; font-size: 16px; }
+.clip .btn { justify-self: start; }
+
+/* o que você recebe */
+.recebe { display: grid; gap: 14px; }
+.recebe h2 { font-size: clamp(28px, 6vw, 44px); }
+.rec-list { list-style: none; margin: 4px 0 0; padding: 0; display: grid; }
+.rec-list li { position: relative; padding: 13px 0 13px 40px; border-bottom: 1.5px dashed rgba(19, 18, 24, .28); font-size: 17px; line-height: 1.35; }
+.rec-list li::before { content: "✓"; position: absolute; left: 4px; top: 6px; font: 700 32px/1 var(--f-hand); color: var(--pen); }
+.rec-list b { display: block; font: 900 16px/1.1 var(--f-display); font-stretch: 112%; text-transform: uppercase; margin-bottom: 3px; }
+.rec-list span { color: var(--ink-2); }
+
+/* passos */
+.pass-head { display: grid; gap: 10px; }
+.pass-head p { margin: 0; color: var(--ink-2); max-width: 38em; }
+.passos { display: grid; margin-top: 18px; }
+.passo { display: grid; grid-template-columns: 52px minmax(0, 1fr); gap: 14px; padding: 24px 0; border-top: 2px dashed rgba(19, 18, 24, .3); }
+.passo .n { position: relative; width: 46px; height: 46px; display: grid; place-items: center; font: 900 26px/1 var(--f-display); font-stretch: 125%; color: var(--pen); transform: rotate(-4deg); }
+.passo .n::before { content: ""; position: absolute; inset: 0; border: 2.5px solid var(--pen); border-radius: 52% 48% 55% 45% / 48% 54% 46% 52%; }
+.passo .body { display: grid; gap: 10px; align-content: start; min-width: 0; }
+.passo p { margin: 0; }
+.passo p a, .avisos a, .nota a { color: var(--pen); font-weight: 700; }
+.agentes { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
+.agentes a { display: inline-flex; align-items: center; min-height: 48px; padding: 0 18px; background: #fff; border: 2px solid var(--ink); border-radius: 4px; font-weight: 800; text-decoration: none; transition: background .2s, color .2s; }
+.agentes a:hover { background: var(--ink); color: var(--paper); }
+.dl { display: grid; gap: 10px; margin-top: 4px; }
+.dl a { display: grid; gap: 4px; padding: 14px 16px; background: #fff; border: 2px solid var(--ink); border-radius: 4px; text-decoration: none; box-shadow: 3px 4px 0 var(--ink); transition: transform .15s var(--ease), box-shadow .15s var(--ease); }
+.dl a:hover { transform: translate(2px, 2px); box-shadow: 1px 2px 0 var(--ink); }
+.dl a b { font: 800 17px/1.2 var(--f-display); font-stretch: 112%; }
+.dl a small { font-size: 15px; line-height: 1.35; color: var(--ink-2); }
+.dl a code { font: 700 14px/1.2 var(--f-mono); color: var(--pen); overflow-wrap: anywhere; }
+.ou { margin: 6px 0 0; font-family: var(--f-hand); font-weight: 700; font-size: 26px; color: var(--pen); line-height: 1.1; }
+/* comandos (máquina) */
+.cmd { background: var(--machine); border-radius: 4px; overflow: hidden; color: var(--on-machine); }
+.cmd .bar { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 4px 6px 4px 14px; border-bottom: 1px solid rgba(181, 154, 246, .25); color: var(--on-machine-2); font: 500 14px var(--f-mono); }
+.cmd pre { margin: 0; padding: 14px; font: 400 16px/1.5 var(--f-mono); white-space: pre-wrap; word-break: break-word; }
+.cmd pre::before { content: "$ "; color: var(--pen-soft); }
+.cp { min-height: 44px; min-width: 88px; padding: 0 14px; border: 1.5px solid rgba(181, 154, 246, .5); background: transparent; color: var(--on-machine); font: 700 15px var(--f-body); border-radius: 4px; cursor: pointer; transition: background .15s, color .15s; }
+.cp:hover { background: var(--on-machine); color: var(--machine); }
+.cp.ok { background: var(--pen-soft); color: var(--machine); border-color: var(--pen-soft); }
+.avisos { position: relative; margin-top: 26px; background: #fff; padding: 28px 20px 22px; box-shadow: 4px 10px 26px rgba(19, 18, 24, .12); transform: rotate(.5deg); }
+.avisos .tape { top: -12px; left: 50%; margin-left: -46px; transform: rotate(-3deg); }
+.avisos h3 { font-size: 24px; margin-bottom: 12px; }
+.avisos ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 12px; }
+.avisos li { position: relative; padding-left: 26px; color: var(--ink-2); }
+.avisos li::before { content: ""; position: absolute; left: 2px; top: 10px; width: 12px; height: 3px; background: var(--pen); transform: rotate(-8deg); border-radius: 2px; }
+.links { display: flex; flex-wrap: wrap; gap: 0 22px; margin-top: 14px; }
+.links a { display: inline-flex; align-items: center; min-height: 44px; }
+
+/* a trava */
+.ficha-wrap { padding-top: 8px; }
+.ficha { position: relative; margin-top: 22px; background: #fff; padding: 30px 20px 22px; box-shadow: 4px 12px 30px rgba(19, 18, 24, .16); transform: rotate(-.6deg);
+  border-left: 4px solid var(--pen-soft); }
+.ficha .tape { top: -12px; right: 14%; transform: rotate(5deg); }
+.ficha h2 { font-size: clamp(26px, 6vw, 40px); }
+.ficha .lede { margin: 10px 0 14px; color: var(--ink-2); max-width: 32em; }
+.trava-form { display: grid; gap: 14px; }
+.trava-form label { display: grid; gap: 4px; font: 800 15px/1.1 var(--f-display); font-stretch: 112%; text-transform: uppercase; }
+.trava-form input:not([type=checkbox]) { width: 100%; min-height: 52px; padding: 8px 4px; font: 500 19px var(--f-body); color: var(--ink); background: transparent; border: 0; border-bottom: 2.5px solid var(--ink); border-radius: 0; text-transform: none; }
+.trava-form input:not([type=checkbox]):focus { outline: 0; border-color: var(--pen); background: rgba(107, 47, 226, .06); }
+.trava-form .aceite { display: flex; align-items: flex-start; gap: 12px; min-height: 44px; padding-block: 6px; font: 400 16px/1.35 var(--f-body); text-transform: none; font-stretch: 100%; color: var(--ink); }
+.trava-form .aceite input { flex: none; width: 24px; height: 24px; margin: 1px 0 0; accent-color: var(--pen); }
+.trava-form button { width: 100%; }
+.trava-form button[disabled] { opacity: .7; cursor: progress; }
+.trava-form .mel { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+.trava-form .erro { margin: 0; font-weight: 700; color: #a3170f; }
+.trava-form .priv { margin: 0; font-size: 15px; color: var(--ink-2); }
+.trancado { max-height: 190px; overflow: hidden; opacity: .6; user-select: none; pointer-events: none;
+  -webkit-mask-image: linear-gradient(#000 0, transparent 100%); mask-image: linear-gradient(#000 0, transparent 100%); }
+.liberado .trancado { max-height: none; opacity: 1; user-select: auto; pointer-events: auto; -webkit-mask-image: none; mask-image: none; }
+.liberado .so-trava { display: none; }
+
+/* convite */
+.convite { margin-top: 60px; position: relative; background: var(--machine); color: var(--on-machine); padding: 36px 22px 34px; display: grid; gap: 14px; justify-items: start; border-radius: 4px; overflow: hidden; }
+.convite::before { content: ""; position: absolute; inset: 0; pointer-events: none; background-image: linear-gradient(rgba(181, 154, 246, .07) 1px, transparent 1px), linear-gradient(90deg, rgba(181, 154, 246, .07) 1px, transparent 1px); background-size: var(--cell) var(--cell); }
+.convite > * { position: relative; }
+.convite .hand { color: var(--pen-soft); font-size: 28px; }
+.convite h2 { font-size: clamp(26px, 5.6vw, 44px); }
+.convite p { margin: 0; color: var(--on-machine-2); max-width: 34em; }
+.convite .sec { color: var(--on-machine); font-weight: 700; min-height: 44px; display: inline-flex; align-items: center; }
+footer { padding: 34px 0 44px; font-size: 15px; color: var(--ink-2); }
+footer a { font-weight: 700; }
+
+@media (min-width: 820px) {
+  body { font-size: 18px; }
+  .topo { grid-template-columns: 1.2fr .8fr; align-items: center; gap: 40px; padding-top: 40px; }
+  .duo { grid-template-columns: 1fr 1fr; gap: 56px; }
+  .dl { grid-template-columns: 1fr 1fr; }
+  .convite { padding: 52px 48px; }
+  .passo { grid-template-columns: 64px minmax(0, 1fr); gap: 20px; }
+}
+@media (max-width: 380px) { .f3 { grid-template-columns: 1fr 1fr; row-gap: 4px; } .f3 div:nth-child(2) { border: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .write { animation: none; clip-path: none; }
+}
+
+
+/* prompt único */
+.cod { background: var(--machine); color: var(--on-machine); border-radius: 4px; box-shadow: 5px 6px 0 var(--pen); position: relative; overflow: hidden; }
+.cod::before { content: ""; position: absolute; inset: 0; pointer-events: none; background-image: linear-gradient(rgba(181,154,246,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(181,154,246,.07) 1px, transparent 1px); background-size: var(--cell) var(--cell); }
+.cod-sc { position: relative; max-height: 480px; overflow: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; }
+.cod-hd { position: sticky; top: 0; z-index: 2; display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 12px; background: var(--machine-2); border-bottom: 1px solid rgba(181,154,246,.25); }
+.cod-hd span { flex: 1 1 100%; font: 500 13px/1 var(--f-mono); color: var(--on-machine-2); }
+.cod-hd .btn { flex: 1 1 130px; }
+.cod-hd .btn-copiar { flex: 2 1 200px; min-height: 52px; font-size: 18px; }
+.btn-sm { min-height: 48px; padding: 12px 20px; font-size: 16px; }
+.cod pre { position: relative; margin: 0; padding: 16px; font: 400 15px/1.55 var(--f-mono); white-space: pre-wrap; word-break: break-word; }
+.cod.teaser { margin-top: 26px; max-height: 190px; -webkit-mask-image: linear-gradient(#000 20%, transparent 100%); mask-image: linear-gradient(#000 20%, transparent 100%); box-shadow: none; user-select: none; }
+.liberado .cod.teaser { display: none; }
+html:not(.liberado) .trancado > .sec-h, html:not(.liberado) .trancado > .sec-s { display: none; }
+.sec-h { margin-top: 36px; font-size: clamp(26px, 5.6vw, 40px); line-height: .95; margin-bottom: 8px; }
+.sec-s { margin: 0 0 16px; color: var(--ink-2); }
+.mao { margin-top: 32px; border-top: 2px dashed rgba(19, 18, 24, .3); }
+.mao > summary { cursor: pointer; display: flex; align-items: center; min-height: 56px; padding-block: 12px; font: 900 20px/1.1 var(--f-display); font-stretch: 112%; text-transform: uppercase; color: var(--pen-deep); }
+.mao[open] > summary { color: var(--ink); }
+
+/* crítica de design 22/11: alvos de toque do rodapé ≥ 44px, rótulos ≥ 13px */
+footer a{display:inline-block;padding-block:14px}
+
+/* organograma à caneta (momento de efeito) e o carimbo */
+.org-box { position: relative; display: grid; width: min(100%, 460px); justify-self: center; padding-top: 6px; }
+.org { display: block; width: 100%; height: auto; overflow: visible; }
+.org .fill { fill: #fff; }
+.org .fill.dir { fill: var(--pen); }
+.org .fill.voce { fill: var(--ink); }
+.org .ln { fill: none; stroke: var(--ink); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.org .ln.alt { stroke: var(--pen); stroke-width: 1.5; opacity: .7; }
+.org .ln.alt.w { stroke: #fff; opacity: .8; }
+.org .cord { fill: none; stroke: var(--pen); stroke-width: 2.6; stroke-linecap: round; }
+.org .m { fill: var(--sheet, #fffdf8); stroke: var(--ink); stroke-width: 2; }
+.org .nm { font: 800 15px var(--f-body); fill: var(--ink); text-anchor: middle; }
+.org .nm.w { fill: #fff; font-size: 17px; font-weight: 900; }
+.org .pulso { fill: var(--pen); opacity: 0; }
+.js .org .ln, .js .org .cord { stroke-dasharray: 1; stroke-dashoffset: 1; }
+.js .org .fill, .js .org .nm, .js .org .m { opacity: 0; }
+.js .org.go .ln, .js .org.go .cord { stroke-dashoffset: 0; transition: stroke-dashoffset .7s var(--ease); transition-delay: calc(var(--d) * 1s); }
+.js .org.go .fill, .js .org.go .nm, .js .org.go .m { opacity: 1; transition: opacity .3s ease; transition-delay: calc(var(--d) * 1s + .2s); }
+.js .org.go .pulso { opacity: 1; transition: opacity .3s ease 2.6s; }
+.org-nota { position: absolute; right: 0; top: 0; font-size: 22px; line-height: 1; transform: rotate(4deg); width: 30%; text-align: right; }
+.carimbo { position: relative; justify-self: end; margin: 4px 6px 0 0; width: max-content; display: grid; justify-items: center; padding: 6px 10px 5px; border: 3px solid var(--pen); border-radius: 6px; color: var(--pen); transform: rotate(-9deg); background: rgba(242, 241, 237, .7); }
+.carimbo b { font: 900 19px/1 var(--f-display); font-stretch: 125%; letter-spacing: .04em; text-transform: uppercase; }
+.carimbo small { font: 700 13px/1.2 var(--f-mono); }
+.js .carimbo { opacity: 0; transform: rotate(-9deg) scale(1.6); }
+.js .org-box.go .carimbo { opacity: 1; transform: rotate(-9deg) scale(1); transition: transform .28s cubic-bezier(.3, 1.6, .5, 1) 2.9s, opacity .1s linear 2.9s; }
+.clip .num { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+.uno { grid-template-columns: minmax(0, 1fr) !important; max-width: 720px; }
+.fim-txt { display: grid; gap: 14px; align-content: center; }
+.fonte { font: 400 14px/1.35 var(--f-mono); color: var(--ink-2); margin: 0; }
+.cod.sm .cod-sc { max-height: 360px; }
+.cod-hd .cp-sm { flex: 1 1 130px; min-height: 48px; }
+.mao .passos { margin-top: 0; }
+.mao .sec-h { margin-top: 28px; }
+@media (prefers-reduced-motion: reduce) {
+  .js .org .ln, .js .org .cord { stroke-dashoffset: 0; transition: none; }
+  .js .org .fill, .js .org .nm, .js .org .m { opacity: 1; transition: none; }
+  .org .pulso { display: none; }
+  .js .stars svg path { stroke-dashoffset: 0; transition: none; }
+  .js .carimbo { opacity: 1; transform: rotate(-9deg); transition: none; }
+}
+
+</style>
+<noscript><style>.trancado{max-height:none;opacity:1;-webkit-mask-image:none;mask-image:none;pointer-events:auto;user-select:auto}.so-trava{display:none}</style></noscript>
+<script>document.documentElement.classList.add('js')</script>
+<body>
+<!-- MENU DO SITE (site/_comum/menu.html): o montar_site.py põe no topo de todas as páginas. Mudou aqui, muda em todas. -->
+<style>
+.sitemenu{position:relative;z-index:60;background:#f2f1ed;border-bottom:2px solid #131218;font-family:"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+.sitemenu *{box-sizing:border-box;margin:0;padding:0}
+.sitemenu .sm-in{max-width:1180px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:56px;padding:0 max(16px,env(safe-area-inset-left,0px))}
+.sitemenu a{color:#131218;text-decoration:none;display:inline-flex;align-items:center;min-height:44px}
+.sitemenu .sm-logo{font:900 17px/1 "Archivo",system-ui,sans-serif;font-stretch:125%;text-transform:uppercase;letter-spacing:.01em;white-space:nowrap}
+.sitemenu ul{list-style:none;display:flex;gap:4px;align-items:center}
+.sitemenu li a{font:800 14px/1 "Archivo",system-ui,sans-serif;font-stretch:112%;text-transform:uppercase;padding:0 10px;border-radius:3px;white-space:nowrap;transition:background .15s,color .15s}
+.sitemenu li a:hover{background:rgba(107,47,226,.1);color:#6b2fe2}
+.sitemenu li a[aria-current="page"]{background:#6b2fe2;color:#fff}
+.sitemenu li a.sm-free{color:#6b2fe2}
+.sitemenu li a.sm-free[aria-current="page"]{color:#fff}
+.sitemenu a:focus-visible{outline:2px dashed #6b2fe2;outline-offset:2px}
+@media (max-width:420px){.sitemenu .sm-logo{font-size:15px;font-stretch:112%}.sitemenu li a{font-size:13px;padding:0 7px;font-stretch:100%}.sitemenu ul{gap:0}}
+@media (max-width:350px){.sitemenu .sm-logo{display:none}.sitemenu .sm-in{justify-content:center}}
+</style>
+<nav class="sitemenu" aria-label="Menu do site">
+  <div class="sm-in">
+    <a class="sm-logo" href="/">Matheus</a>
+    <ul>
+      <li><a href="/#oferta" data-porta="sob-medida">Sob medida</a></li>
+      <li><a class="sm-free" href="/gratis/" data-porta="gratis" aria-current="page">Grátis</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="paper">
+<div class="wrap">
+
+<header class="topo" id="topo">
+  <div class="t-txt">
+    <span class="hand write" style="font-size:30px">presente da palavra BOT</span>
+    <h1 class="h1">Seu time de bots no Grok Bot, <em>montado pelo Claude</em></h1>
+    <p class="sub">Um prompt só. O Claude te faz umas perguntas, desenha o organograma e escreve a configuração de cada bot. <strong>Você cola no Grok Bot e o diretor cria o resto.</strong></p>
+    <a class="btn btn-pen so-trava" href="#trava" id="go-prompt">Liberar o prompt ↓</a>
+  </div>
+
+  <div class="org-box" id="org-box">
+    <span class="hand org-nota">só o diretor fala com você</span>
+      <svg class="org" id="org" viewBox="0 0 340 350" role="img" aria-label="Organograma: você fala só com o diretor; o diretor coordena 5 chefes (Conteúdo, Anúncios, Comercial, Tecnologia e Operações), e cada chefe tem os seus membros">
+      <path class="cord" pathLength="1" style="--d:.35" d="M170 52 C167 62 173 70 170 80"/>
+      <path class="cord" pathLength="1" style="--d:.9" d="M170 132 L170 152 M56 152 C120 150 220 154 284 152 M56 152 L56 172 M284 152 L284 172 M113 152 L113 262 M227 152 L227 262 M170 152 L170 172"/>
+      <rect class="fill voce" style="--d:0.1" x="120" y="8" width="100" height="42"/><path class="ln" pathLength="1" style="--d:0.1" d="M121 10 L219 7 L221 49 L120 51 Z"/><path class="ln alt w" pathLength="1" style="--d:0.2" d="M124 13 L216 11 L217 46 L123 47"/><text class="nm w" style="--d:0.1" x="170" y="34">Você</text>
+      <rect class="fill dir" style="--d:0.6" x="80" y="80" width="180" height="52"/><path class="ln" pathLength="1" style="--d:0.6" d="M81 82 L259 79 L261 131 L80 133 Z"/><path class="ln alt w" pathLength="1" style="--d:0.7" d="M84 85 L256 83 L257 128 L83 129"/><text class="nm w" style="--d:0.6" x="170" y="112">Diretor</text>
+      <rect class="fill " style="--d:1.4" x="4" y="172" width="104" height="44"/><path class="ln" pathLength="1" style="--d:1.4" d="M5 174 L107 171 L109 215 L4 217 Z"/><path class="ln alt" pathLength="1" style="--d:1.5" d="M8 177 L104 175 L105 212 L7 213"/><text class="nm " style="--d:1.4" x="56" y="200">Conteúdo</text>
+      <rect class="fill " style="--d:1.5499999999999998" x="118" y="172" width="104" height="44"/><path class="ln" pathLength="1" style="--d:1.5499999999999998" d="M119 174 L221 171 L223 215 L118 217 Z"/><path class="ln alt" pathLength="1" style="--d:1.6" d="M122 177 L218 175 L219 212 L121 213"/><text class="nm " style="--d:1.5499999999999998" x="170" y="200">Anúncios</text>
+      <rect class="fill " style="--d:1.7" x="232" y="172" width="104" height="44"/><path class="ln" pathLength="1" style="--d:1.7" d="M233 174 L335 171 L337 215 L232 217 Z"/><path class="ln alt" pathLength="1" style="--d:1.8" d="M236 177 L332 175 L333 212 L235 213"/><text class="nm " style="--d:1.7" x="284" y="200">Comercial</text>
+      <rect class="fill " style="--d:1.8499999999999999" x="61" y="262" width="104" height="44"/><path class="ln" pathLength="1" style="--d:1.8499999999999999" d="M62 264 L164 261 L166 305 L61 307 Z"/><path class="ln alt" pathLength="1" style="--d:1.9" d="M65 267 L161 265 L162 302 L64 303"/><text class="nm " style="--d:1.8499999999999999" x="113" y="290">Tecnologia</text>
+      <rect class="fill " style="--d:2.0" x="175" y="262" width="104" height="44"/><path class="ln" pathLength="1" style="--d:2.0" d="M176 264 L278 261 L280 305 L175 307 Z"/><path class="ln alt" pathLength="1" style="--d:2.1" d="M179 267 L275 265 L276 302 L178 303"/><text class="nm " style="--d:2.0" x="227" y="290">Operações</text>
+      <path class="ln" pathLength="1" style="--d:1.90" d="M56 216 L30 234"/>
+      <circle class="m" style="--d:2.00" cx="30" cy="243" r="8"/>
+      <path class="ln" pathLength="1" style="--d:1.90" d="M56 216 L56 234"/>
+      <circle class="m" style="--d:2.00" cx="56" cy="243" r="8"/>
+      <path class="ln" pathLength="1" style="--d:1.90" d="M56 216 L82 234"/>
+      <circle class="m" style="--d:2.00" cx="82" cy="243" r="8"/>
+      <path class="ln" pathLength="1" style="--d:2.05" d="M170 216 L157 234"/>
+      <circle class="m" style="--d:2.15" cx="157" cy="243" r="8"/>
+      <path class="ln" pathLength="1" style="--d:2.05" d="M170 216 L183 234"/>
+      <circle class="m" style="--d:2.15" cx="183" cy="243" r="8"/>
+      <path class="ln" pathLength="1" style="--d:2.20" d="M284 216 L258 234"/>
+      <circle class="m" style="--d:2.30" cx="258" cy="243" r="8"/>
+      <path class="ln" pathLength="1" style="--d:2.20" d="M284 216 L284 234"/>
+      <circle class="m" style="--d:2.30" cx="284" cy="243" r="8"/>
+      <path class="ln" pathLength="1" style="--d:2.20" d="M284 216 L310 234"/>
+      <circle class="m" style="--d:2.30" cx="310" cy="243" r="8"/>
+      <path class="ln" pathLength="1" style="--d:2.35" d="M113 306 L87 324"/>
+      <circle class="m" style="--d:2.45" cx="87" cy="333" r="8"/>
+      <path class="ln" pathLength="1" style="--d:2.35" d="M113 306 L113 324"/>
+      <circle class="m" style="--d:2.45" cx="113" cy="333" r="8"/>
+      <path class="ln" pathLength="1" style="--d:2.35" d="M113 306 L139 324"/>
+      <circle class="m" style="--d:2.45" cx="139" cy="333" r="8"/>
+      <path class="ln" pathLength="1" style="--d:2.50" d="M227 306 L214 324"/>
+      <circle class="m" style="--d:2.60" cx="214" cy="333" r="8"/>
+      <path class="ln" pathLength="1" style="--d:2.50" d="M227 306 L240 324"/>
+      <circle class="m" style="--d:2.60" cx="240" cy="333" r="8"/>
+      <circle class="pulso" r="4.5"><animateMotion dur="2.4s" repeatCount="indefinite" path="M170 80 C173 70 167 62 170 52"/></circle>
+      </svg>
+    <span class="carimbo" aria-hidden="true"><b>Aprovado</b><small>só com o seu ok</small></span>
+  </div>
+</header>
+
+<div class="duo uno">
+
+  <div class="recebe">
+    <span class="hand" style="font-size:28px">o que você recebe</span>
+    <h2>Um prompt que monta o time por você</h2>
+    <ul class="rec-list">
+      <li><b>O prompt pronto</b><span>Você cola no Claude e ele te entrevista, uma pergunta por vez.</span></li>
+      <li><b>O organograma do seu time</b><span>Um diretor, um chefe por área e os membros embaixo.</span></li>
+      <li><b>A configuração de cada bot</b><span>Missão, rotina, o que faz sozinho, o que precisa do seu ok e o que nunca faz.</span></li>
+      <li><b>O texto para colar no diretor</b><span>Ele salva as regras do time e cria os outros bots.</span></li>
+      <li><b>O modelo em branco e um exemplo</b><span>Para quem prefere fazer à mão.</span></li>
+    </ul>
+  </div>
+</div>
+
+<section id="passos">
+  <div class="pass-head">
+    <span class="hand" style="font-size:28px">é só copiar e colar</span>
+    <h2>3 passos</h2>
+  </div>
+  <div class="passos">
+    <div class="passo"><span class="n">1</span>
+      <div class="body">
+        <h3>Cole o prompt no Claude</h3>
+        <p>Numa conversa nova. Responda as perguntas e diga “ok” no organograma.</p>
+        <div><a class="btn btn-pen so-trava" href="#trava">Liberar o prompt ↓</a></div>
+      </div></div>
+    <div class="passo"><span class="n">2</span>
+      <div class="body">
+        <h3>Cole o texto final no seu bot do Grok Bot</h3>
+        <p>Ele vira o diretor, salva as regras do time e cria os outros bots, cada um com a sua configuração.</p>
+      </div></div>
+    <div class="passo"><span class="n">3</span>
+      <div class="body">
+        <h3>Mande a frase de teste</h3>
+        <p>O pedido tem que parar em “esperando você”. Nada é postado nem anunciado sem o seu ok.</p>
+      </div></div>
+  </div>
+
+  <div class="cod teaser" aria-hidden="true">
+    <div class="cod-hd"><span>prompt-bots.txt</span></div>
+    <pre>Quero montar um time de bots no Grok Bot: um diretor que fala comigo, um chefe por área e os membros embaixo. Faça o trabalho por mim:
+
+1. Me faça no máximo 6 perguntas, uma por vez, e espere cada resposta: o que eu faço ou vendo; quais áreas do meu trabalho tomam mais tempo; quais ferramentas eu uso no dia a dia; o que nunca pode sair sem o meu ok; se eu faço anúncio, quanto um bot pode mexer na verba sem me perguntar; e a que horas eu quero receber o resumo do dia.
+2. Desenhe o organograma: 1 diretor, 1 chefe por área (no máximo 5) e até 3 membros por chefe. Nomes curtos no padrão "Nome - Função". Me mostre numa lista e espere eu dizer "ok".</pre>
+  </div>
+
+  <div class="ficha-wrap" data-trava-caixa>
+    <div class="ficha" id="ficha">
+      <span class="tape"></span>
+      <h2>Libere o prompt</h2>
+      <p class="lede">O prompt inteiro, as regras do time, o modelo em branco e o exemplo. Preencha a ficha e abre aqui mesmo.</p>
+      <form class="trava-form" id="trava" novalidate>
+        <label>Seu nome <input name="nome" autocomplete="given-name" required></label>
+        <label>WhatsApp com DDD <input name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" placeholder="(21) 99999-9999" required></label>
+        <label>E-mail <input name="email" type="email" inputmode="email" autocomplete="email" required></label>
+        <input name="site" tabindex="-1" autocomplete="off" aria-hidden="true" class="mel">
+        <label class="aceite"><input type="checkbox" name="aceite" required> Aceito receber mensagens do Matheus no WhatsApp e no e-mail.</label>
+        <button class="btn btn-pen" type="submit">Liberar o material</button>
+        <p class="erro" role="alert" hidden></p>
+        <p class="priv">Seus dados ficam só com o Matheus. Para sair da lista, é só pedir.</p>
+      </form>
+    </div>
+  </div>
+
+  <div class="trancado" data-trava inert>
+    <h2 class="sec-h">O prompt</h2>
+    <p class="sec-s">O texto inteiro, com o modelo de configuração já dentro. Cole numa conversa nova do Claude.</p>
+    <div class="cod">
+      <div class="cod-sc">
+        <div class="cod-hd"><span>prompt-bots.txt</span><button class="btn btn-pen btn-copiar" type="button" data-copy-from="prompt">Copiar o prompt</button><a class="btn btn-light btn-sm" href="midia/prompt-bots.txt" download="prompt-bots.txt">Baixar .txt</a></div>
+<pre id="prompt">Quero montar um time de bots no Grok Bot: um diretor que fala comigo, um chefe por área e os membros embaixo. Faça o trabalho por mim:
+
+1. Me faça no máximo 6 perguntas, uma por vez, e espere cada resposta: o que eu faço ou vendo; quais áreas do meu trabalho tomam mais tempo; quais ferramentas eu uso no dia a dia; o que nunca pode sair sem o meu ok; se eu faço anúncio, quanto um bot pode mexer na verba sem me perguntar; e a que horas eu quero receber o resumo do dia.
+2. Desenhe o organograma: 1 diretor, 1 chefe por área (no máximo 5) e até 3 membros por chefe. Nomes curtos no padrão "Nome - Função". Me mostre numa lista e espere eu dizer "ok".
+3. Escreva a nota do time: quem responde a quem, o que precisa da minha aprovação na hora, o que entra no resumo do dia e o que nenhum bot pode fazer. Só o diretor fala comigo no dia a dia; o chefe de conteúdo pode falar comigo só para pedir aprovação de um vídeo.
+4. Escreva a configuração permanente de cada bot no MODELO abaixo, completa, sem resumir. Um bloco por bot, na ordem: diretor, chefes, membros.
+5. Em todo bot entram estas regras: nunca guardar ou repetir senha, token ou código de login; nunca inventar número, resultado ou status (se não sabe, diz que não sabe e vai conferir); nada é postado, anunciado ou disparado sem a minha marca de aprovado, com data; rotina de horário só no diretor e nos chefes, membros trabalham sob demanda; mensagem entre bots curta, porque conversa entre bots gasta o limite.
+6. No fim, me entregue um texto único para eu colar no meu bot principal do Grok Bot. Nele, o bot principal salva a configuração de diretor como instrução permanente, salva a nota do time na memória compartilhada e cria cada um dos outros bots colando a configuração dele na íntegra. Se ele não conseguir criar um bot pelo chat, eu uso "Novo Bot" e colo o mesmo texto: me diga isso em uma linha.
+7. Se você conseguir usar o navegador, ofereça abrir o Grok Bot e fazer o passo 6 por mim. Antes de qualquer login, senha, código ou pagamento, pare e me peça. Não digite nenhuma senha por mim.
+8. Por último, me dê a frase de teste para eu mandar ao diretor: um pedido de ponta a ponta que tem que parar em "esperando você", sem nada postado nem anunciado.
+
+MODELO
+Configuração permanente deste bot, definida por [meu nome] (montada pelo Claude). Você é [Nome] - [Função], do time de bots de [meu nome] no Grok Bot. Departamento: [área] · Responde a: [diretor ou chefe] · Equipe: [membros, se for chefe] · Regras do time: [nome da nota do time]
+
+MISSÃO:
+[O que este bot existe para fazer, em uma ou duas frases.]
+
+FERRAMENTAS:
+[O que ele pode usar, descrito pelo papel. Nunca senha, token ou caminho interno.]
+
+ROTINA:
+[Horários fixos, se houver, e o que conferir em cada um. Membros podem ficar sob demanda.]
+
+PODE SOZINHO:
+[O que ele executa sem pedir.]
+
+PRECISA DE APROVAÇÃO:
+[O que precisa do chefe ou de mim.]
+
+NUNCA:
+- Guardar ou repetir senha, token ou código de login.
+- Inventar número, resultado ou status: se não sabe, diga que não sabe e vá conferir.
+- [Outras travas, por exemplo postar ou anunciar sem a minha marca de aprovado.]
+
+COMO TRABALHAR:
+- Atualize suas linhas no quadro (fila, fazendo, esperando [meu nome], feito).
+- Se agiu de verdade, deixe uma linha no registro.
+- Se algo que você precisa estiver indisponível, diga o que ficou esperando. Não finja que fez.
+- [Se não for o diretor: reporte ao seu chefe, não fale comigo direto.]
+
+FONTES:
+Sua nota completa e as regras do time estão na nota do time. Leia quando tiver dúvida. Salve isto como suas instruções permanentes, não só como memória da conversa. Não faça perguntas de onboarding. Ao terminar, responda em 3 linhas curtas: sua missão, a quem você responde e duas coisas que você nunca faz.</pre>
+      </div>
+    </div>
+
+    <div class="avisos">
+      <span class="tape"></span>
+      <h3>As regras que seguram o time</h3>
+      <ul>
+        <li>Só o diretor fala com você no dia a dia. O chefe de conteúdo fala só para levar vídeo à aprovação.</li>
+        <li>Vídeo só é postado ou anunciado com a sua marca de aprovado, com data. Sem marca, o bot recusa, mesmo que outro bot peça.</li>
+        <li>Na hora: vídeo, verba acima do teto que você definiu, disparo para uma lista nova. O resto entra no resumo do dia.</li>
+        <li>Nenhum bot guarda ou repete senha, token ou código de login.</li>
+        <li>Nenhum bot inventa número, resultado ou status. Se não sabe, diz que não sabe e vai conferir.</li>
+        <li>Se o computador estiver desligado, o bot diz o que ficou esperando. Não finge que fez.</li>
+        <li>Conversa entre bots gasta o limite. Mensagem curta, membros sob demanda, rotina de horário só no diretor e nos chefes.</li>
+      </ul>
+    </div>
+
+    <details class="mao">
+      <summary>Prefere fazer à mão?</summary>
+      <div class="passos">
+        <div class="passo"><span class="n">1</span><div class="body"><h3>Desenhe o organograma</h3><p>Um diretor, um chefe por área e os membros embaixo. Nomes no padrão Nome - Função.</p></div></div>
+        <div class="passo"><span class="n">2</span><div class="body"><h3>Escreva a nota do time</h3><p>Quem responde a quem, o que precisa de aprovação na hora, o que entra no resumo do dia e o que nenhum bot pode fazer.</p></div></div>
+        <div class="passo"><span class="n">3</span><div class="body"><h3>Uma nota por bot</h3><p>Sempre as mesmas seções: Missão, Ferramentas, Rotina, Pode sozinho, Precisa de aprovação, Nunca, Como trabalhar e Fontes.</p></div></div>
+        <div class="passo"><span class="n">4</span><div class="body"><h3>Comece pelo diretor e por um chefe</h3><p>Configure o bot principal como diretor e salve as regras do time na memória compartilhada. Crie um chefe e pergunte a missão, a quem responde e o que nunca faz. Tem que bater com a nota.</p></div></div>
+        <div class="passo"><span class="n">5</span><div class="body"><h3>Depois, o resto</h3><p>Os outros chefes e, por último, os membros. Cole a configuração inteira, sem resumir. Se o diretor não conseguir criar pelo chat, use “Novo Bot” e cole o mesmo texto.</p></div></div>
+        <div class="passo"><span class="n">6</span><div class="body"><h3>Organize e ligue as rotinas</h3><p>Uma seção por área, o diretor fixo no topo. Rotina de horário só no diretor e nos chefes.</p></div></div>
+        <div class="passo"><span class="n">7</span><div class="body"><h3>Teste até a trava</h3><p>Mande ao diretor um pedido de ponta a ponta. Tem que parar em “esperando você”.</p></div></div>
+      </div>
+      <h3 class="sec-h">O modelo em branco</h3>
+      <div class="cod sm">
+        <div class="cod-sc">
+          <div class="cod-hd"><span>modelo de configuração</span><button class="btn btn-pen cp-sm" type="button" data-copy-from="modelo">Copiar o modelo</button></div>
+<pre id="modelo">Configuração permanente deste bot, definida por [meu nome] (montada pelo Claude). Você é [Nome] - [Função], do time de bots de [meu nome] no Grok Bot. Departamento: [área] · Responde a: [diretor ou chefe] · Equipe: [membros, se for chefe] · Regras do time: [nome da nota do time]
+
+MISSÃO:
+[O que este bot existe para fazer, em uma ou duas frases.]
+
+FERRAMENTAS:
+[O que ele pode usar, descrito pelo papel. Nunca senha, token ou caminho interno.]
+
+ROTINA:
+[Horários fixos, se houver, e o que conferir em cada um. Membros podem ficar sob demanda.]
+
+PODE SOZINHO:
+[O que ele executa sem pedir.]
+
+PRECISA DE APROVAÇÃO:
+[O que precisa do chefe ou de mim.]
+
+NUNCA:
+- Guardar ou repetir senha, token ou código de login.
+- Inventar número, resultado ou status: se não sabe, diga que não sabe e vá conferir.
+- [Outras travas, por exemplo postar ou anunciar sem a minha marca de aprovado.]
+
+COMO TRABALHAR:
+- Atualize suas linhas no quadro (fila, fazendo, esperando [meu nome], feito).
+- Se agiu de verdade, deixe uma linha no registro.
+- Se algo que você precisa estiver indisponível, diga o que ficou esperando. Não finja que fez.
+- [Se não for o diretor: reporte ao seu chefe, não fale comigo direto.]
+
+FONTES:
+Sua nota completa e as regras do time estão na nota do time. Leia quando tiver dúvida. Salve isto como suas instruções permanentes, não só como memória da conversa. Não faça perguntas de onboarding. Ao terminar, responda em 3 linhas curtas: sua missão, a quem você responde e duas coisas que você nunca faz.</pre>
+        </div>
+      </div>
+      <h3 class="sec-h">Um exemplo preenchido</h3>
+      <p class="sec-s">Time de mentira, só para ver o tom.</p>
+      <div class="cod sm">
+        <div class="cod-sc">
+          <div class="cod-hd"><span>exemplo: chefe de conteúdo</span><button class="btn btn-pen cp-sm" type="button" data-copy-from="exemplo">Copiar o exemplo</button></div>
+<pre id="exemplo">Configuração permanente deste bot, definida pela Ana (montada pelo Claude). Você é Norte - Chefe de Conteúdo, do time de bots da Ana no Grok Bot. Departamento: conteúdo · Responde a: Aurora · Equipe: Estúdio, Editor, Social Media · Regras do time: Time
+
+MISSÃO:
+Decide o que produzir, mantém a fila de vídeos andando, leva cada peça pronta para a Ana aprovar e, depois do ok, aciona quem posta e quem anuncia.
+
+FERRAMENTAS:
+Quadro e registro do time. Acesso à fila de produção e ao calendário das redes, sem credenciais no texto.
+
+ROTINA:
+- 10h: revisa a fila de vídeos e o que está esperando aprovação.
+
+PODE SOZINHO:
+- Distribuir pautas e cortes para a equipe.
+- Atualizar a fila e o quadro.
+
+PRECISA DE APROVAÇÃO:
+- Levar cada vídeo pronto à Ana. Sem a marca de aprovado, ninguém posta nem anuncia.
+
+NUNCA:
+- Postar, programar ou anunciar vídeo sem a marca de aprovado da Ana.
+- Guardar ou repetir senha, token ou código de login.
+- Inventar número, resultado ou status: se não sabe, diga que não sabe e vá conferir.
+- Falar com a Ana direto, exceto para pedir a aprovação do vídeo.
+
+COMO TRABALHAR:
+- Atualize suas linhas no quadro (fila, fazendo, esperando Ana, feito).
+- Se agiu de verdade, deixe uma linha no registro.
+- Se algo que você precisa estiver indisponível, diga o que ficou esperando. Não finja que fez.
+- Você reporta à Aurora, exceto quando for levar um vídeo para a Ana aprovar.
+
+FONTES:
+Sua nota completa e as regras do time estão na nota do time. Leia quando tiver dúvida. Salve isto como suas instruções permanentes, não só como memória da conversa. Não faça perguntas de onboarding. Ao terminar, responda em 3 linhas curtas: sua missão, a quem você responde e duas coisas que você nunca faz.</pre>
+        </div>
+      </div>
+    </details>
+  </div>
+</section>
+
+<div class="duo fim">
+  <aside class="clip" id="fatos" aria-label="O meu time hoje">
+    <span class="tape a"></span><span class="tape b"></span>
+    <span class="hand" style="font-size:26px">o meu time, hoje</span>
+    <div class="num">
+      <div class="stars"><b>19</b>
+        <svg viewBox="0 0 100 40" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M6 10 C20 -2 80 -4 95 12 C102 26 80 38 48 38 C16 39 -2 30 4 16 C7 9 14 6 22 5"/></svg></div>
+      <div class="stars-k">bots trabalhando</div>
+    </div>
+    <div class="f3"><div><b>1</b>diretor</div><div><b>5</b>chefes</div><div><b>13</b>membros</div></div>
+    <p class="nota">Eu falo com um só. O Claude escreveu a configuração de cada um, no mesmo modelo que vai no prompt.</p>
+    <p class="fonte">organograma do meu time no Grok Bot, 25/11/2026</p>
+  </aside>
+  <div class="fim-txt">
+    <span class="hand" style="font-size:28px">por que funciona</span>
+    <h2>Você fala com um só</h2>
+    <p class="sub">O diretor recebe o pedido, passa para o chefe da área e só volta quando precisa do seu ok. O resto ele resolve com o time.</p>
+  </div>
+</div>
+
+<aside class="convite">
+  <span class="hand">se quiser pronto</span>
+  <h2>Quer um time desses trabalhando na sua empresa?</h2>
+  <p>Eu monto sistemas de IA sob medida que fazem o trabalho sozinhos, com você aprovando o que importa.</p>
+  <a class="btn btn-light" href="https://eusoumatheus.com.br/#oferta">Ver o sob medida</a>
+  <a class="sec" href="https://eusoumatheus.com.br/gratis/">ou os outros materiais grátis</a>
+</aside>
+
+<footer>Feito por Matheus · <a href="https://www.instagram.com/eusoumathheus/" target="_blank" rel="noopener">@eusoumathheus</a> · <a href="https://eusoumatheus.com.br/">eusoumatheus.com.br</a></footer>
+</div>
+</div>
+
+<script>
+(function () {
+  var d = document;
+  function visivel(el, fn) {
+    if (!el) return;
+    if (!('IntersectionObserver' in window)) return fn();
+    var io = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { io.disconnect(); fn(); } }, { threshold: .3 });
+    io.observe(el);
+  }
+  var box = d.getElementById('org-box'), org = d.getElementById('org');
+  visivel(box, function () { box.classList.add('go'); org.classList.add('go'); });
+  var fatos = d.getElementById('fatos');
+  visivel(fatos, function () { fatos.classList.add('go'); });
+  function copiar(txt) {
+    function fb() { var a = d.createElement('textarea'); a.value = txt; a.style.cssText = 'position:fixed;opacity:0'; d.body.appendChild(a); a.select(); try { d.execCommand('copy'); } catch (e) {} d.body.removeChild(a); }
+    if (navigator.clipboard && navigator.clipboard.writeText) return navigator.clipboard.writeText(txt).catch(fb);
+    fb();
+  }
+  d.querySelectorAll('[data-copy-from]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      copiar(d.getElementById(b.getAttribute('data-copy-from')).textContent.trim());
+      var o = b.getAttribute('data-o') || b.textContent; b.setAttribute('data-o', o);
+      b.textContent = 'Copiado'; clearTimeout(b._t);
+      b._t = setTimeout(function () { b.textContent = o; }, 1600);
+    });
+  });
+})();
+</script>
+<script>
+(function () {
+  var PAGINA = 'bots';
+  var URL = 'https://script.google.com/macros/s/AKfycbwEmfsRfxQWtBnSJgEFPuI3vzzz0esUcQ9yq86pO-PZbxWlcSdCojR3XPnDUmdf4iy5/exec';
+  var CHAVE = 'liberado-' + PAGINA;
+  function libera(rolar) {
+    document.documentElement.classList.add('liberado');
+    document.querySelectorAll('[data-trava]').forEach(function (el) { el.classList.remove('trancado'); el.removeAttribute('inert'); });
+    var f = document.getElementById('trava'); if (f) f.closest('[data-trava-caixa]').hidden = true;
+    if (rolar) { var a = document.querySelector('[data-trava]'); if (a) a.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  }
+  try { if (localStorage.getItem(CHAVE)) libera(false); } catch (e) {}
+  var f = document.getElementById('trava'); if (!f) return;
+  f.addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    var d = new FormData(f), erro = f.querySelector('.erro');
+    var tel = String(d.get('whatsapp') || '').replace(/\D/g, ''), mail = String(d.get('email') || '').trim();
+    var msg = !String(d.get('nome') || '').trim() ? 'Escreve o seu nome.'
+      : tel.length < 10 ? 'Confere o WhatsApp com DDD.'
+      : !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(mail) ? 'Confere o e-mail.'
+      : !d.get('aceite') ? 'Marca o aceite para liberar.' : '';
+    if (msg) { erro.textContent = msg; erro.hidden = false; return; }
+    erro.hidden = true;
+    var corpo = new URLSearchParams({ pagina: PAGINA, nome: d.get('nome'), whatsapp: tel, email: mail, aceite: 'sim',
+      site: d.get('site') || '', origem: location.search.slice(0, 200) + ' ' + document.referrer.slice(0, 100) });
+    var b = f.querySelector('button'); b.disabled = true; b.textContent = 'Liberando…';
+    var fim = function () { try { localStorage.setItem(CHAVE, '1'); } catch (e) {} libera(true); };
+    if (URL.indexOf('http') !== 0) { fim(); return; }
+    fetch(URL, { method: 'POST', mode: 'no-cors', body: corpo }).then(fim, fim);
+  });
+})();
+</script>
+<script>
+/* depois de liberar, o botão do topo leva ao prompt (a ficha some) */
+(function(){function aponta(){var g=document.getElementById('go-prompt'),t=document.querySelector('[data-trava]');if(!g||!t)return;t.id=t.id||'material';g.textContent='Copiar o prompt ↓';g.href='#'+t.id;}
+try{if(localStorage.getItem('liberado-bots'))aponta();}catch(e){}
+var f=document.getElementById('trava');if(f)f.addEventListener('submit',function(){setTimeout(function(){if(document.documentElement.classList.contains('liberado'))aponta();},50);});})();
+</script>
