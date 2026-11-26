@@ -50,11 +50,12 @@ fbq('track', 'PageView');
 <noscript><img height="1" width="1" style="display:none" alt=""
 src="https://www.facebook.com/tr?id=1674928984046943&ev=PageView&noscript=1"></noscript>
 <title>Clipador · cortes com IA</title>
+<link rel="icon" type="image/svg+xml" href="midia/icone.svg">
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="O Clipador assiste às lives de GTA ou de qualquer nicho, acha os melhores momentos e entrega cortes verticais com legenda, título e crédito do streamer. Você só aprova.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&family=Bricolage+Grotesque:opsz,wght@12..96,800&display=swap">
 <style>
 /* Direção (26/11): mesmo molde da página da Fábrica. Palco escuro e quieto, título enorme e centralizado, cara de app.
    Uma cor só (lilás do Clipador, sólido), sem degradê, brilho nem aurora. Destaque = cartão claro (papel). Geist. */
@@ -168,7 +169,7 @@ img, video { max-width: 100%; display: block; }
 .topo .miolo { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .marca { display: flex; align-items: center; gap: 10px; font: 700 19px/1 var(--f-titulo); letter-spacing: -.035em; }
 .marca .tesoura { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 8px; background: var(--grad); color: var(--sobre-cor); }
-.marca .tesoura svg { width: 18px; height: 18px; }
+.marca .tesoura svg { width: 22px; height: 22px; }
 .topo .entrar { font-size: 15px; font-weight: 600; color: var(--tinta); text-decoration: none; padding: 8px 12px; border-radius: 8px; border: 1px solid var(--fio-forte); }
 .topo .entrar:hover { border-color: var(--cor); }
 
@@ -888,13 +889,19 @@ body::after { content: ""; position: fixed; inset: 0; pointer-events: none; z-in
   .barra .botao { min-height: 48px; padding: 0 18px; font-size: 15px; }
 }
 @media (max-width: 380px) { .barra .botao .ic { display: none; } }
+/* logo (26/11): a palavra cortada ao meio, a metade de cima escorrega */
+.logo-clip { position: relative; display: inline-block; font: 800 27px/1 "Bricolage Grotesque", "Geist", sans-serif; font-variation-settings: "opsz" 96; letter-spacing: -.055em; color: transparent; white-space: nowrap; }
+.logo-clip::before, .logo-clip::after { content: attr(data-t); position: absolute; inset: 0; }
+.logo-clip::before { color: var(--tinta); clip-path: inset(0 0 52% 0); transform: translateX(.09em); }
+.logo-clip::after { color: var(--cor); clip-path: inset(57% 0 0 0); }
+.pd-marca .logo-clip { font-size: 17px; }
 </style>
 
 <div class="lido" aria-hidden="true"></div>
 
 <header class="topo faixa">
   <div class="miolo">
-    <div class="marca"><span class="tesoura" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="7" r="3"/><circle cx="6" cy="17" r="3"/><path d="M8.5 8.5 20 18M8.5 15.5 20 6"/></svg></span>Clipador</div>
+    <div class="marca" role="img" aria-label="Clipador"><span class="logo-clip" data-t="clipador" aria-hidden="true">clipador</span></div>
     <a class="entrar js-comprar-rolar" href="#oferta">Quero o Clipador <span>R$ 49,90</span></a>
   </div>
 </header>
@@ -923,7 +930,7 @@ body::after { content: ""; position: fixed; inset: 0; pointer-events: none; z-in
           <div class="visor">
         <div class="tela" role="img" aria-label="Demonstração do painel do Clipador: a live entra, a IA corta, aprova sozinha e posta o corte no YouTube Shorts">
           <div class="pd" id="pd" aria-hidden="true">
-            <div class="pd-topo"><span class="pd-marca"><i></i>Clipador</span><span class="pd-auto"><i></i>Automático</span></div>
+            <div class="pd-topo"><span class="pd-marca"><span class="logo-clip" data-t="clipador">clipador</span></span><span class="pd-auto"><i></i>Automático</span></div>
             <div class="pd-abas"><span>Radar</span><span class="on">Revisar<b id="pd-rev">0</b></span><span>Postados<b id="pd-post">0</b></span></div>
             <div class="pd-live"><span class="etiqueta vivo">Ao vivo</span><span id="pd-live-txt">vigiando <b>@mrfalll</b></span><span class="pd-barras"><i style="--d:0"></i><i style="--d:1"></i><i style="--d:2"></i><i style="--d:3"></i><i style="--d:4"></i></span></div>
             <ul class="pd-lista" id="pd-lista"></ul>

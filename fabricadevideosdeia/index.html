@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta property="og:title" content="Fábrica de Vídeos IA">
 <meta property="og:description" content="Vídeos 100% feitos com IA, do roteiro à postagem.">
-<meta property="og:image" content="https://eusoumatheus.com.br/fabricadevideosdeia/midia/caim-abel-poster.jpg">
+<meta property="og:image" content="https://eusoumatheus.com.br/fabricadevideosdeia/midia/fabrica-rodando.jpg">
 <meta property="og:url" content="https://eusoumatheus.com.br/fabricadevideosdeia/">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
@@ -50,10 +50,11 @@ fbq('track', 'PageView');
 <noscript><img height="1" width="1" style="display:none" alt=""
 src="https://www.facebook.com/tr?id=1674928984046943&ev=PageView&noscript=1"></noscript>
 <title>Fábrica de Vídeos IA</title>
+<link rel="icon" type="image/svg+xml" href="midia/icone.svg">
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&family=Bricolage+Grotesque:opsz,wght@12..96,800&display=swap">
 <style>
 /* Direção: palco escuro e quieto, título enorme e centralizado, cara de app.
    Uma cor só (laranja da Fábrica), sem brilho nem gradiente. Destaque = cartão claro (papel).
@@ -129,7 +130,7 @@ img, video { max-width: 100%; display: block; }
 .topo .miolo { height: 64px; }
 .marca { font-weight: 700; font-size: 17px; letter-spacing: -.03em; }
 .marca .mk { width: 28px; height: 28px; border-radius: 9px; background: var(--laranja); color: var(--sobre-laranja); display: grid; place-items: center; flex: none; }
-.marca .mk svg { width: 13px; height: 13px; }
+.marca .mk svg { width: 21px; height: 21px; }
 .topo .entrar { display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 16px; border-radius: 999px; background: var(--papel); color: var(--tinta-papel); font-weight: 600; font-size: 14.5px; transition: background-color .16s var(--suave), transform .16s var(--suave); }
 .topo .entrar:hover { background: #E3E2DC; color: var(--tinta-papel); }
 .topo .entrar:active { transform: scale(.98); }
@@ -819,14 +820,20 @@ body::after { content: ""; position: fixed; inset: 0; pointer-events: none; z-in
   .barra .p small { font-size: 12px; }
   .barra .botao { min-height: 48px; padding: 0 18px; font-size: 15px; }
 }
-@media (max-width: 380px) { .barra .botao svg { display: none; } .marca .mk { display: none; } }
+@media (max-width: 380px) { .barra .botao svg { display: none; } .marca { font-size: 14px; } .marca .mk { width: 26px; height: 26px; } .topo .entrar { padding: 0 12px; } }
+/* logo (26/11): "fábrica" em minúscula, o pingo do i é a bolinha de gravando */
+.logo-fab { font: 800 27px/1 "Bricolage Grotesque", "Geist", sans-serif; font-variation-settings: "opsz" 96; letter-spacing: -.055em; color: var(--tinta); white-space: nowrap; }
+.logo-fab .i { position: relative; display: inline-block; }
+.logo-fab .i::after { content: ""; position: absolute; left: 50%; top: .06em; width: .21em; height: .21em; margin-left: -.105em; border-radius: 50%; background: var(--laranja); }
+.logo-fab .i > span { color: transparent; }
+.logo-fab .i > span::before { content: "ı"; position: absolute; color: var(--tinta); }
 </style>
 
 <div class="lido" aria-hidden="true"></div>
 
 <header class="topo faixa">
   <div class="miolo">
-    <div class="marca"><span class="mk" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12.4-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5z" fill="currentColor"/></svg></span>Fábrica de Vídeos IA</div>
+    <div class="marca" role="img" aria-label="Fábrica de Vídeos IA"><span class="logo-fab" aria-hidden="true">fábr<span class="i"><span>i</span></span>ca</span></div>
     <a class="entrar js-comprar-rolar" href="#oferta">Quero a Fábrica <span>R$ 47,90</span></a>
   </div>
 </header>
