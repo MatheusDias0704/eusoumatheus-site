@@ -173,41 +173,52 @@ h1{margin:0;font:900 clamp(40px,11vw,84px)/.9 var(--f-display);font-stretch:125%
   <nav class="more rv" style="--i:9" aria-label="Outras opções">
     <a href="/#oferta">Quer um sistema sob medida pra sua empresa? <span aria-hidden="true">→</span></a>
   </nav>
-  <style>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@500&display=swap">
+<style>
 /* =================== LOJA (produtos, fora do caderno) =================== */
 .loja-ponte { margin: 8px auto 0; text-align: center; font-family: var(--f-hand); font-weight: 500; line-height: 1.05; font-size: clamp(26px, 3vw, 34px); color: var(--pen); }
 .loja-ponte span { display: block; font-size: 1.3em; line-height: .8; }
-.loja { position: relative; width: 100vw; margin: 28px 0 0 calc(50% - 50vw); background: #08080a; color: #f5f5f7;
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", system-ui, sans-serif;
+.loja { position: relative; width: 100vw; margin: 28px 0 0 calc(50% - 50vw); background: #0B0B0C; color: #F4F3F0;
+  font-family: "Geist", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   padding: clamp(64px, 8vw, 104px) 20px clamp(64px, 8vw, 96px);
   clip-path: polygon(0 18px, 4% 6px, 9% 16px, 15% 4px, 22% 14px, 29% 2px, 36% 15px, 43% 5px, 50% 17px, 57% 3px, 64% 14px, 71% 4px, 78% 16px, 85% 5px, 91% 15px, 96% 3px, 100% 12px, 100% 100%, 0 100%); }
-.loja h2 { margin: 0 auto; max-width: 18ch; text-wrap: balance; text-align: center; font-weight: 700; font-size: clamp(34px, 5vw, 60px); line-height: 1.02; letter-spacing: -.035em; }
-.loja .loja-sub { margin: 16px auto 0; max-width: 46ch; text-wrap: balance; text-align: center; font-size: clamp(17px, 1.6vw, 20px); line-height: 1.45; color: #a1a1a6; }
+.loja h2 { margin: 0 auto; max-width: 18ch; text-wrap: balance; text-align: center; font-weight: 700; font-size: clamp(34px, 5vw, 60px); line-height: 1.02; letter-spacing: -.045em; }
+.loja .loja-sub { margin: 16px auto 0; max-width: 46ch; text-wrap: balance; text-align: center; font-size: clamp(17px, 1.6vw, 20px); line-height: 1.45; color: #C9C8C2; }
 .loja-grid { display: grid; gap: 22px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 400px), 1fr)); max-width: 1040px; margin: clamp(40px, 5vw, 60px) auto 0; }
-.produto { --ac: #ff7a1a; --on-ac: #1a0a00; --card: #141416; display: grid; grid-template-columns: minmax(150px, 210px) 1fr; gap: clamp(18px, 2.4vw, 30px); align-items: center;
-  padding: clamp(18px, 2.4vw, 28px); background: var(--card); border-radius: 22px; border: 1px solid rgba(255,255,255,.08); border-top: 3px solid var(--ac); text-decoration: none; color: inherit;
+.produto { --ac: #FF7A1A; --on-ac: #1a0a00; --card: #161618; display: grid; grid-template-columns: minmax(150px, 210px) 1fr; gap: clamp(18px, 2.4vw, 30px); align-items: center;
+  padding: clamp(18px, 2.4vw, 28px); background: var(--card); border-radius: 22px; border: 1px solid rgba(244,243,240,.09); text-decoration: none; color: inherit;
   transition: transform .2s var(--ease), border-color .2s var(--ease); }
-.produto.clip { --ac: #9a95ff; --on-ac: #07070d; --card: #111221; }
-.produto:hover { transform: translateY(-4px); border-color: rgba(255,255,255,.18); border-top-color: var(--ac); }
+.produto.clip { --ac: #9A95FF; --on-ac: #120F2A; --card: #161618; }
+.produto:hover { transform: translateY(-4px); border-color: rgba(244,243,240,.18); }
 .produto .tela { position: relative; aspect-ratio: 9 / 16; border-radius: 16px; overflow: hidden; background: #000; border: 1px solid rgba(255,255,255,.14); }
 .produto video { width: 100%; height: 100%; object-fit: cover; display: block; }
 .produto .info { display: grid; gap: 12px; align-content: center; min-width: 0; }
-.produto .nome { margin: 0; font-weight: 700; font-size: clamp(26px, 2.6vw, 34px); line-height: 1.02; letter-spacing: -.03em; overflow-wrap: break-word; }
-.produto .nome b { color: var(--ac); font-weight: 700; }
-.produto .faz { margin: 0; font-size: 17px; line-height: 1.4; color: #c7c7cc; }
-.produto .preco { font-size: 15px; color: #a1a1a6; font-variant-numeric: tabular-nums; }
+.produto .nome { margin: 0; font-size: clamp(36px, 3.6vw, 46px); line-height: 1; }
+.produto .nome small { display: block; margin-top: 6px; font: 500 11px/1 "Geist Mono", ui-monospace, monospace; letter-spacing: .2em; text-transform: uppercase; color: #8F8E88; }
+.produto .faz { margin: 0; font-size: 17px; line-height: 1.4; color: #C9C8C2; }
+.produto .preco { font-size: 15px; color: #8F8E88; font-variant-numeric: tabular-nums; }
 .produto .preco strong { color: #f5f5f7; font-size: 22px; font-weight: 700; letter-spacing: -.02em; margin-right: 4px; }
-.produto .botao { justify-self: start; display: inline-flex; align-items: center; gap: 8px; min-height: 48px; padding: 0 22px; border-radius: 999px; background: var(--ac); color: var(--on-ac); font-weight: 700; font-size: 16px; }
+.produto .botao { justify-self: start; display: inline-flex; align-items: center; gap: 8px; min-height: 48px; padding: 0 22px; border-radius: 999px; background: var(--ac); color: var(--on-ac); font-weight: 600; font-size: 16px; }
 .produto .botao::after { content: "→"; transition: transform .2s var(--ease); }
 .produto:hover .botao::after { transform: translateX(3px); }
 .produto:focus-visible { outline: 3px solid var(--ac); outline-offset: 4px; }
 @media (max-width: 520px) {
   .produto { grid-template-columns: 128px 1fr; gap: 16px; padding: 16px; border-radius: 18px; }
   .produto .tela { border-radius: 12px; }
-  .produto .nome { font-size: 24px; }
+  .produto .nome { font-size: 32px; }
   .produto .faz { font-size: 16px; }
-  .produto .botao { padding: 0 18px; font-size: 15px; }
+  .produto .botao { padding: 0 16px; font-size: 15px; white-space: nowrap; }
 }
+/* logos de letra (26/11): fábrica com o i gravando, clipador cortado ao meio */
+.logo-fab, .logo-clip { font: 800 1em/1 "Bricolage Grotesque", "Geist", sans-serif; font-variation-settings: "opsz" 96; letter-spacing: -.055em; white-space: nowrap; }
+.logo-fab .i { position: relative; display: inline-block; }
+.logo-fab .i::after { content: ""; position: absolute; left: 50%; top: .06em; width: .21em; height: .21em; margin-left: -.105em; border-radius: 50%; background: #FF7A1A; }
+.logo-fab .i > span { color: transparent; }
+.logo-fab .i > span::before { content: "ı"; position: absolute; color: var(--logo-tinta, #F4F3F0); }
+.logo-clip { position: relative; display: inline-block; color: transparent; }
+.logo-clip::before, .logo-clip::after { content: attr(data-t); position: absolute; inset: 0; }
+.logo-clip::before { color: var(--logo-tinta, #F4F3F0); clip-path: inset(0 0 52% 0); transform: translateX(.09em); }
+.logo-clip::after { color: var(--logo-lilas, #9A95FF); clip-path: inset(57% 0 0 0); }
 </style>
 <p class="loja-ponte">e se você faz vídeo pra internet<span>↓</span></p>
   <div class="loja" id="sistemas" aria-labelledby="loja-t">
@@ -216,10 +227,10 @@ h1{margin:0;font:900 clamp(40px,11vw,84px)/.9 var(--f-display);font-stretch:125%
     <div class="loja-grid">
       <a class="produto" href="/fabricadevideosdeia/">
         <span class="tela"><video src="midia/fabrica-thumb.mp4" poster="midia/fabrica-thumb.jpg" autoplay muted loop playsinline aria-label="Vídeo feito pela Fábrica de Vídeos IA"></video></span>
-        <span class="info"><h3 class="nome">Fábrica de <b>Vídeos IA</b></h3><p class="faz">Você escreve o tema. Ela entrega o vídeo pronto, sem você editar.</p><span class="preco"><strong>R$ 47,90</strong></span><span class="botao">Ver a Fábrica</span></span></a>
+        <span class="info"><h3 class="nome" aria-label="Fábrica de Vídeos IA"><span class="logo-fab" aria-hidden="true">fábr<span class="i"><span>i</span></span>ca</span><small>de vídeos ia</small></h3><p class="faz">Você escreve o tema. Ela entrega o vídeo pronto, sem você editar.</p><span class="preco"><strong>R$ 47,90</strong></span><span class="botao">Ver a Fábrica</span></span></a>
       <a class="produto clip" href="/clipadorcomia/">
         <span class="tela"><video src="midia/clipador-thumb.mp4" poster="midia/clipador-thumb.jpg" autoplay muted loop playsinline aria-label="Corte feito pelo Clipador"></video></span>
-        <span class="info"><h3 class="nome"><b>Clipador</b></h3><p class="faz">Corta a live sozinho e entrega os cortes prontos pra postar.</p><span class="preco"><strong>R$ 49,90</strong></span><span class="botao">Ver o Clipador</span></span></a>
+        <span class="info"><h3 class="nome" aria-label="Clipador"><span class="logo-clip" data-t="clipador" aria-hidden="true">clipador</span></h3><p class="faz">Corta a live sozinho e entrega os cortes prontos pra postar.</p><span class="preco"><strong>R$ 49,90</strong></span><span class="botao">Ver o Clipador</span></span></a>
     </div>
   </div>
   <p class="foot">Feito por Matheus · <a href="https://www.instagram.com/eusoumathheus/" target="_blank" rel="noopener">@eusoumathheus</a> · <a href="https://eusoumatheus.com.br/">eusoumatheus.com.br</a></p>
