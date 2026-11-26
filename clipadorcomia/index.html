@@ -8,6 +8,7 @@
 <meta property="og:url" content="https://eusoumatheus.com.br/clipadorcomia/">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="facebook-domain-verification" content="7aqrfwv0p7mqdr6l049f3kh6x3nogn">
 <script>
 !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
 n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
@@ -53,31 +54,31 @@ src="https://www.facebook.com/tr?id=1674928984046943&ev=PageView&noscript=1"></n
 <meta name="description" content="O Clipador assiste às lives de GTA ou de qualquer nicho, acha os melhores momentos e entrega cortes verticais com legenda, título e crédito do streamer. Você só aprova.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
 <style>
-/* Direção: a página tem a cara de um corte de GTA. Título em caixa-alta condensada como a legenda dos cortes,
-   palavra-chave com tarja amarela (o "PERFEITA" dos clipes), selo roxo de "LIVE DE @", visor de câmera e timeline de edição.
-   Mesma ordem de dobras da Fábrica, mas outro mundo: a linha do Clipador é um player em "stories" que roda sozinho,
-   os números entram como tarjas de TV, as chamadas são fitas amarelas inclinadas.
-   Visual escuro único, por escolha (a página abre dentro do Instagram). */
+/* Direção (26/11): mesmo molde da página da Fábrica. Palco escuro e quieto, título enorme e centralizado, cara de app.
+   Uma cor só (lilás do Clipador, sólido), sem degradê, brilho nem aurora. Destaque = cartão claro (papel). Geist. */
 :root {
   color-scheme: dark;
-  --noite: #07070d;
-  --placa: #111221;
-  --placa-2: #1a1b2f;
-  --fio: rgba(240, 235, 255, .09);
-  --fio-forte: rgba(240, 235, 255, .18);
-  --tinta: #f6f4fb;
-  --tinta-2: #b0aac0;
-  --tinta-3: #8f89a1;
+  --noite: #0B0B0C;
+  --placa: #161618;
+  --placa-2: #1E1E21;
+  --placa-3: #2A2A2E;
+  --papel: #F4F3F0;
+  --tinta-papel: #0E0E10;
+  --fio: rgba(244, 243, 240, .09);
+  --fio-forte: rgba(244, 243, 240, .16);
+  --tinta: #F4F3F0;
+  --tinta-2: #C9C8C2;
+  --tinta-3: #8F8E88;
   --cor: #9a95ff;
   --cor-claro: #b9b5ff;
   --cor-fundo: rgba(124, 108, 255, .14);
-  --sobre-cor: #ffffff;
-  --grad: linear-gradient(110deg, #2f6bff 0%, #6a4dff 50%, #a83cff 100%);
-  --grad-texto: linear-gradient(100deg, #6ea8ff 0%, #9b7bff 20%, #e08cff 42%, #f6f4fb 56%, #f6f4fb 100%);
-  --grad-fixo: linear-gradient(100deg, #7fb0ff, #a58bff 50%, #e59bff);
-  --roxo: #8a3ffc;
+  --sobre-cor: #120F2A;
+  --grad: linear-gradient(var(--cor), var(--cor));
+  --grad-texto: linear-gradient(var(--cor), var(--cor));
+  --grad-fixo: linear-gradient(var(--cor), var(--cor));
+  --roxo: #2A2A2E;
   --roxo-claro: #b794ff;
   --roxo-fundo: rgba(138, 63, 252, .18);
   --vivo: #c81e1e;
@@ -86,9 +87,9 @@ src="https://www.facebook.com/tr?id=1674928984046943&ev=PageView&noscript=1"></n
   --verde: #3ddc84;
   --verde-fundo: rgba(61, 220, 132, .14);
 
-  --f-titulo: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", "Helvetica Neue", Arial, sans-serif;
-  --f: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", "Helvetica Neue", Arial, sans-serif;
-  --f-tempo: ui-monospace, "SF Mono", SFMono-Regular, Menlo, monospace;
+  --f-titulo: "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --f: "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --f-tempo: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
 
   --r-s: 8px; --r-m: 14px; --r-l: 22px;
   --suave: cubic-bezier(.22, 1, .36, 1);
@@ -713,80 +714,180 @@ dialog.zoom .fechar { position: absolute; top: 10px; right: 10px; }
   html { scroll-behavior: auto; }
   .cena, .formato, .momento, .barra, .barras i, .janela-corte, .leque img, .vertical-q .frente, .vertical-q .fundo, .carta, .comparacao .lado { transition: none !important; }
 }
-/*PAREDE-CSS*/
-/* ---------- parede de vídeos (os 10 anúncios) ---------- */
-.pv { padding-block: clamp(40px, 7vw, 72px) clamp(36px, 6vw, 60px); position: relative; }
-.pv-cabeca { display: grid; gap: 12px; }
-.pv-sobre { display: inline-flex; align-items: center; gap: 10px; margin: 0; font: 600 13px/1 var(--f-tempo); letter-spacing: .06em; text-transform: uppercase; color: var(--tinta-2); }
-.pv-rec { width: 10px; height: 10px; border-radius: 50%; background: #ff453a; box-shadow: 0 0 0 4px rgba(255, 69, 58, .2); flex: none; }
-.pv h2 { margin: 0; text-wrap: balance; }
-.pv .pv-lead { color: var(--tinta-2); font-size: 18px; line-height: 1.45; max-width: 44ch; margin: 0; }
-.pv-corpo { position: relative; margin-top: 24px; }
-.pv-fila { display: flex; gap: 12px; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scrollbar-width: none;
-  padding: 8px max(16px, env(safe-area-inset-left, 0px)) 14px; scroll-padding-inline: max(16px, env(safe-area-inset-left, 0px)); list-style: none; margin: 0; }
-.pv-fila::-webkit-scrollbar { display: none; }
-@media (min-width: 1152px) { .pv-fila { padding-inline: calc((100vw - 1120px) / 2); scroll-padding-inline: calc((100vw - 1120px) / 2); } }
-.pv-fila li { flex: none; scroll-snap-align: start; }
-.pv-card { position: relative; display: block; width: clamp(156px, 42vw, 216px); aspect-ratio: 9 / 16; padding: 0; border: 0; border-radius: 18px; overflow: hidden; cursor: pointer;
-  background: var(--pv-placa); color: #fff; font: inherit; text-align: left; isolation: isolate;
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, .1), 0 18px 40px -22px rgba(0, 0, 0, .9); transition: transform .35s var(--suave), box-shadow .35s var(--suave); }
-.pv-card video, .pv-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.pv-card::after { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, transparent 62%, rgba(0, 0, 0, .78)); pointer-events: none; }
-.pv-card:hover { transform: translateY(-4px); box-shadow: 0 0 0 2px var(--pv-acento), 0 24px 50px -22px rgba(0, 0, 0, .9); }
-.pv-card:active { transform: scale(.97); }
-.pv-card:focus-visible { outline: 3px solid var(--pv-acento); outline-offset: 3px; }
-.pv-n { position: absolute; z-index: 2; top: 10px; left: 10px; padding: 4px 8px; border-radius: 999px; background: rgba(0, 0, 0, .55); font: 600 12px/1 var(--f-tempo); letter-spacing: .04em; -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
-.pv-pe { position: absolute; z-index: 2; left: 10px; right: 10px; bottom: 10px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-.pv-play { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: var(--pv-acento); color: var(--pv-sobre); box-shadow: 0 8px 20px -6px rgba(0, 0, 0, .6); transition: transform .3s var(--suave); }
-.pv-play svg { width: 18px; height: 18px; margin-left: 2px; }
-.pv-card:hover .pv-play { transform: scale(1.08); }
-.pv-dur { font: 600 13px/1 var(--f-tempo); text-shadow: 0 1px 6px rgba(0, 0, 0, .8); }
-.pv-setas { display: none; }
-@media (hover: hover) and (min-width: 760px) {
-  .pv-setas { display: flex; gap: 8px; justify-content: flex-end; margin-top: -4px; }
-  .pv-seta { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(255, 255, 255, .18); background: transparent; color: var(--tinta); cursor: pointer; transition: background .2s, border-color .2s; }
-  .pv-seta:hover { background: rgba(255, 255, 255, .08); border-color: rgba(255, 255, 255, .35); }
-  .pv-seta svg { width: 20px; height: 20px; }
-}
-@media (prefers-reduced-motion: no-preference) {
-  .pv-rec { animation: pv-rec 1.4s ease-in-out infinite; }
-  @keyframes pv-rec { 50% { opacity: .35; } }
-  .pv.pronto .pv-fila li { animation: pv-entra .6s var(--suave) both; animation-delay: calc(var(--i) * 60ms); }
-  @keyframes pv-entra { from { opacity: 0; transform: translateY(18px) scale(.96); } }
-}
+/* ====================== visual novo (26/11): escuro, quieto, centralizado ====================== */
+body::after { content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 70; opacity: .045; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E"); }
+.miolo { max-width: 1180px; }
+.pontinhos { background-image: radial-gradient(rgba(244, 243, 240, .07) 1px, transparent 1.2px); background-size: 22px 22px; }
+::selection { background: var(--cor); color: var(--sobre-cor); }
+.lido { height: 2px; }
+.mk { background: none !important; color: var(--cor) !important; -webkit-text-fill-color: currentColor !important; }
+.etiqueta { background: var(--placa-3); color: var(--tinta); font-family: var(--f-tempo); font-weight: 500; letter-spacing: .06em; }
+.etiqueta.vivo { background: var(--vivo); color: #fff; }
 
-/* o player em tela cheia, estilo stories */
-.pv-tela { position: fixed; inset: 0; width: 100%; height: 100%; max-width: none; max-height: none; margin: 0; padding: 0; border: 0; background: #000; color: #fff; overflow: hidden; }
-.pv-tela::backdrop { background: rgba(0, 0, 0, .92); }
-.pv-tela[open] { display: grid; place-items: center; }
-.pv-palco { position: relative; height: 100%; max-height: 100dvh; aspect-ratio: 9 / 16; max-width: 100vw; background: #000; }
-.pv-palco video { width: 100%; height: 100%; object-fit: contain; background: #000; }
-.pv-barras { position: absolute; z-index: 3; top: max(10px, env(safe-area-inset-top, 0px)); left: 10px; right: 10px; display: flex; gap: 4px; }
-.pv-barras i { flex: 1; height: 3px; border-radius: 3px; background: rgba(255, 255, 255, .3); overflow: hidden; }
-.pv-barras i::after { content: ""; display: block; height: 100%; background: #fff; transform-origin: left; transform: scaleX(var(--p, 0)); }
-.pv-barras i.feita::after { transform: scaleX(1); }
-.pv-fechar { position: absolute; z-index: 4; top: calc(max(10px, env(safe-area-inset-top, 0px)) + 12px); right: 8px; display: grid; place-items: center; width: 44px; height: 44px; border: 0; border-radius: 50%; background: rgba(0, 0, 0, .45); color: #fff; cursor: pointer; }
-.pv-fechar svg { width: 22px; height: 22px; }
-.pv-conta { position: absolute; z-index: 3; top: calc(max(10px, env(safe-area-inset-top, 0px)) + 24px); left: 14px; font: 600 13px/1 var(--f-tempo); text-shadow: 0 1px 6px rgba(0, 0, 0, .8); }
-.pv-toque { position: absolute; z-index: 2; top: 70px; bottom: 96px; border: 0; background: transparent; cursor: pointer; padding: 0; }
-.pv-toque.ant { left: 0; width: 30%; }
-.pv-toque.meio { left: 30%; width: 40%; }
-.pv-toque.prox { right: 0; width: 30%; }
-.pv-pausa { position: absolute; z-index: 3; top: 50%; left: 50%; width: 72px; height: 72px; margin: -36px 0 0 -36px; border-radius: 50%; background: rgba(0, 0, 0, .5); display: grid; place-items: center; opacity: 0; transition: opacity .2s; pointer-events: none; }
-.pv-pausa svg { width: 30px; height: 30px; }
-.pv-tela.pausado .pv-pausa { opacity: 1; }
-.pv-rodape { position: absolute; z-index: 4; left: 12px; right: 12px; bottom: max(14px, env(safe-area-inset-bottom, 0px)); display: flex; justify-content: center; }
-.pv-rodape .botao { width: 100%; max-width: 380px; justify-content: center; }
-.pv-lado { display: none; }
-@media (hover: hover) and (min-width: 760px) {
-  .pv-lado { position: fixed; z-index: 5; top: 50%; display: grid; place-items: center; width: 52px; height: 52px; margin-top: -26px; border: 1px solid rgba(255, 255, 255, .22); border-radius: 50%; background: rgba(255, 255, 255, .08); color: #fff; cursor: pointer; transition: background .2s; }
-  .pv-lado:hover { background: rgba(255, 255, 255, .18); }
-  .pv-lado svg { width: 24px; height: 24px; }
-  .pv-lado.ant { left: calc(50% - min(50vw, 28.125dvh) - 76px); }
-  .pv-lado.prox { right: calc(50% - min(50vw, 28.125dvh) - 76px); }
+/* botões: cor sólida, sem sombra colorida nem reflexo */
+.botao { background: var(--cor); color: var(--sobre-cor); box-shadow: none; font-weight: 600; transition: background-color .16s var(--suave), transform .16s var(--suave); }
+.botao::after { display: none; }
+.botao:hover { background: var(--cor-claro); transform: none; box-shadow: none; }
+.botao:active { transform: scale(.98); }
+.botao:hover .ic { transform: translateX(3px); }
+.micro { justify-content: center; color: var(--tinta-3); }
+.acoes { flex-direction: column; justify-content: center; gap: 14px; }
+
+/* topo */
+.topo { position: sticky; top: 0; z-index: 30; padding-block: 0; background: color-mix(in oklab, var(--noite) 80%, transparent); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); border-bottom: 1px solid var(--fio); }
+.topo .miolo { height: 64px; }
+.marca { white-space: nowrap; }
+.marca .tesoura { border-radius: 9px; }
+.topo .entrar { display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 16px; border: 0; border-radius: 999px; background: var(--papel); color: var(--tinta-papel); font-weight: 600; font-size: 14.5px; white-space: nowrap; transition: background-color .16s var(--suave); }
+.topo .entrar:hover { background: #E3E2DC; }
+.topo .entrar span { color: #5A5950; font-weight: 500; }
+@media (max-width: 420px) { .topo .entrar span { display: none; } .topo .entrar { height: 36px; padding: 0 14px; font-size: 14px; } }
+
+/* hero */
+.hero { padding-block: clamp(40px, 5vw, 72px) clamp(64px, 9vw, 120px); text-align: center; }
+.hero::before { display: none; }
+.hero .miolo { display: grid; justify-items: center; grid-template-columns: none !important; grid-template-areas: none !important; gap: 0; }
+.pill { display: inline-flex; align-items: center; gap: 10px; min-height: 34px; padding: 6px 14px; border-radius: 999px; border: 1px solid var(--fio-forte); background: rgba(244, 243, 240, .04); font-size: 13.5px; line-height: 1.3; color: var(--tinta-2); }
+.pill i { width: 7px; height: 7px; border-radius: 50%; background: var(--vivo-claro); flex: none; }
+.hero h1 { font-size: clamp(40px, 6.4vw, 92px) !important; line-height: .96; letter-spacing: -.05em; margin: 26px auto 0; max-width: 14ch; }
+.hero .sub { margin: 28px auto 0; max-width: 36rem; font-size: clamp(17px, 1.6vw, 20px); line-height: 1.55; }
+.hero .sub b { font-weight: 500; }
+.hero .acoes { margin-top: 32px; }
+.trio { width: min(100%, 620px); margin: 36px auto 0; gap: 10px; border: 0; }
+.trio div, .trio div + div { justify-items: center; text-align: center; padding: 16px 10px; border: 1px solid var(--fio); border-radius: 16px; background: var(--placa); }
+.trio b { color: var(--tinta); font-size: clamp(19px, 2.4vw, 24px); white-space: nowrap; }
+.trio span { font-size: 12.5px; color: var(--tinta-3); }
+@media (max-width: 480px) { .trio { gap: 8px; } .trio b { font-size: 17px; } }
+
+.vitrine { position: relative; width: 100%; margin-top: clamp(56px, 7vw, 88px); display: grid; justify-items: center; gap: 28px; }
+.hero .miolo { grid-template-columns: minmax(0, 1fr) !important; }
+.visor-wrap { grid-area: auto; width: min(76vw, 330px); max-width: none; justify-self: center; gap: 14px; }
+.visor { padding: 9px; border-radius: 46px; background: #000; box-shadow: 0 0 0 1.5px var(--placa-3) inset, 0 40px 90px -30px rgba(0, 0, 0, .85); }
+.visor::before { display: none; }
+.tela { border-radius: 38px; }
+.pd { padding-top: 10px; }
+.pd { text-align: left; }
+.ex-tag { font: 400 11.5px/1.4 var(--f-tempo); letter-spacing: .08em; text-transform: uppercase; color: var(--tinta-3); }
+.vit-lado { display: grid; gap: 10px; width: min(100%, 420px); align-content: center; }
+.ev { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 14px; background: var(--placa); border: 1px solid var(--fio); font-size: 14px; line-height: 1.3; text-align: left; transition: opacity .42s var(--suave), translate .42s var(--suave); }
+.js .ev:not(.in) { opacity: 0; translate: 0 8px; }
+.ic-ev { flex: none; width: 32px; height: 32px; border-radius: 9px; display: grid; place-items: center; background: var(--placa-3); color: var(--tinta); }
+.ic-ev svg { width: 16px; height: 16px; }
+.ic-ev.l { background: var(--cor); color: var(--sobre-cor); }
+.ev .tx { flex: 1; min-width: 0; }
+.ev .tx b { display: block; font-weight: 600; letter-spacing: -.01em; }
+.ev .tx span { display: block; margin-top: 2px; color: var(--tinta-3); font-size: 12.5px; }
+.ev.papel { background: var(--papel); color: var(--tinta-papel); border-color: transparent; }
+.ev.papel .tx span { color: #5A5950; }
+@media (min-width: 1040px) {
+  .vitrine { grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; gap: 48px; }
+  .visor-wrap { grid-column: 2; grid-row: 1; }
+  .vit-esq { grid-column: 1; grid-row: 1; justify-self: end; width: 320px; }
+  .vit-dir { grid-column: 3; grid-row: 1; justify-self: start; width: 320px; }
+  .vit-esq .ev:nth-child(2) { translate: -28px 0; }
+  .vit-dir .ev:nth-child(1) { translate: 28px 0; }
+  .js .vit-esq .ev:nth-child(2):not(.in) { translate: -28px 8px; }
+  .js .vit-dir .ev:nth-child(1):not(.in) { translate: 28px 8px; }
 }
-body.pv-aberto { overflow: hidden; }
-/*/PAREDE-CSS*/
+@media (max-width: 1039px) { .vit-esq { margin-bottom: -18px; } }
+
+/* cortes postados e nichos */
+.timeline { background: transparent; border-color: var(--fio); }
+.timeline .rotulo { justify-content: center; }
+.trilho img { border: 1px solid var(--fio-forte); border-radius: 10px; }
+.agulha { display: none; }
+.nichos { text-align: center; padding-block: 40px 8px; }
+.nichos-fila span.on { color: var(--sobre-cor); }
+
+/* seções: linha fina em cima, títulos enormes no meio */
+.secao { padding-block: clamp(80px, 11vw, 152px); border-top: 1px solid var(--fio); text-align: center; }
+.secao h2 { margin-inline: auto; font-size: clamp(38px, 6.4vw, 88px); line-height: .98; letter-spacing: -.048em; max-width: 15ch; }
+.secao .lead { margin: 22px auto 0; max-width: 36rem; font-size: clamp(17px, 1.5vw, 20px); line-height: 1.55; }
+.linha .cabeca-secao { text-align: center; }
+.linha .player, .linha .capitulos { text-align: left; }
+.player { box-shadow: 0 40px 80px -30px rgba(0, 0, 0, .7); }
+
+/* chamadas: cartão no meio, sem fita colorida */
+.chamada { padding: 0 max(16px, env(safe-area-inset-left, 0px)) clamp(24px, 4vw, 40px); }
+.faixa-cor { max-width: 1180px; margin-inline: auto; padding: clamp(32px, 5vw, 56px) clamp(20px, 4vw, 48px); border-radius: 24px; background: var(--placa); border: 1px solid var(--fio); color: var(--tinta); text-align: center; }
+.faixa-cor::after { display: none; }
+.faixa-cor .miolo { grid-template-columns: none !important; justify-items: center; padding-inline: 0; gap: 24px; }
+.faixa-cor .frase { font-size: clamp(26px, 3.6vw, 44px); line-height: 1.02; letter-spacing: -.045em; max-width: 22ch; }
+.faixa-cor .acao { flex-direction: column; justify-content: center !important; }
+.faixa-cor .micro { color: var(--tinta-3); }
+.faixa-cor .micro span::before { background: var(--cor); }
+
+/* números: cartões no meio, o grande em papel */
+.tarjas { grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 12px; margin-top: 56px; }
+.tarja-tv { grid-template-columns: none; border-radius: 24px; background: var(--placa); border: 1px solid var(--fio); }
+.tarja-tv .fonte { writing-mode: horizontal-tb; transform: none; padding: 10px; background: transparent !important; color: var(--tinta-3) !important; font-family: var(--f-tempo); border-bottom: 1px solid var(--fio); }
+.tarja-tv .corpo { justify-items: center; text-align: center; padding: 26px 20px 30px; }
+.tarja-tv .valor { color: var(--tinta); }
+.tarja-tv.grande { grid-column: 1 / -1; background: var(--papel); color: var(--tinta-papel); border-color: transparent; }
+.tarja-tv.grande .fonte { color: #5A5950 !important; border-color: rgba(14, 14, 16, .1); }
+.tarja-tv.grande .valor { background: none; -webkit-text-fill-color: var(--tinta-papel); color: var(--tinta-papel); font-size: clamp(44px, 11vw, 128px); }
+.tarja-tv.grande .de { color: #5A5950; }
+.tarja-tv .de { font: 400 12.5px/1.5 var(--f-tempo); }
+.prints-topo { flex-direction: column; align-items: center; }
+.carta { text-align: left; }
+.aviso { margin-inline: auto; text-align: center; }
+
+/* por que agora, comparação, história */
+.janela { text-align: left; max-width: 980px; margin-inline: auto; }
+.janela li.aqui::after { box-shadow: none; }
+.enquanto { justify-content: center; }
+.comparacao { max-width: 760px; margin-inline: auto; text-align: left; }
+.comparacao:not(.ver-mao) li { border-color: var(--fio-forte); }
+.historia { grid-template-columns: none !important; justify-items: center; }
+.historia-texto { max-width: 40rem; text-align: center; justify-items: center; }
+.adesivos { justify-content: center; }
+.adesivos li { background: var(--placa); border: 1px solid var(--fio); }
+.nao-e { text-align: center; }
+
+/* a caixa e instalar */
+.kit { border: 1px solid var(--fio); text-align: left; }
+.kit-fita { color: var(--sobre-cor); }
+.itens li.destaque { background: var(--papel); color: var(--tinta-papel); border-color: transparent; }
+.itens li.destaque span { color: #5A5950; }
+.itens li.destaque .num { color: var(--tinta-papel); }
+.passos-3 { max-width: 980px; margin-inline: auto; text-align: left; }
+.vantagens { max-width: 900px; margin-inline: auto; justify-items: center; }
+.vantagens li { text-align: left; }
+.celular-aviso { margin-inline: auto; max-width: 40rem; background: var(--placa); border-color: var(--fio); }
+
+/* garantia sempre no meio */
+.garantia-cartao { grid-template-columns: none !important; justify-items: center !important; text-align: center !important; background: var(--placa) !important; border-color: var(--fio) !important; }
+.garantia-txt h2, .garantia-txt .lead { margin-inline: auto !important; }
+.garantia-pontos { justify-content: center !important; }
+
+/* oferta: um cartão só, no meio */
+.ingresso { max-width: 560px; margin: 48px auto 0; grid-template-columns: none !important; text-align: left; border: 1px solid var(--fio-forte) !important; background: var(--placa) !important; box-shadow: 0 40px 80px -30px rgba(0, 0, 0, .7); }
+.ingresso-preco { border-top: 1px solid var(--fio) !important; border-left: 0 !important; background: transparent !important; }
+.ingresso-preco::before, .ingresso-preco::after { display: none; }
+.lista { gap: 8px !important; }
+.lista li { align-items: center; padding: 13px 14px; border-radius: 12px; background: var(--placa-2); font-size: 16px; line-height: 1.35; }
+.lista .ic { margin-top: 0; }
+.preco { justify-content: center; }
+.nota { text-align: center; }
+.relogio div { background: var(--noite); }
+.relogio b { color: var(--tinta); }
+
+/* resumo, dúvidas, fechamento */
+.recap { max-width: 640px; margin-inline: auto; text-align: left; }
+.faq { max-width: 820px; margin: 48px auto 0; text-align: left; }
+.faq details[open] { border-color: var(--fio-forte); }
+.faq summary::after { background: var(--placa-2) !important; color: var(--tinta) !important; border-radius: 50% !important; }
+.fechamento h2 { max-width: 16ch; }
+.rodape { text-align: center; }
+.barra { background: color-mix(in oklab, var(--noite) 88%, transparent); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); }
+.barra .botao { white-space: nowrap; }
+@media (max-width: 480px) {
+  .barra .miolo { gap: 10px; }
+  .barra .p b { font-size: 20px; }
+  .barra .p small { font-size: 12px; }
+  .barra .botao { min-height: 48px; padding: 0 18px; font-size: 15px; }
+}
+@media (max-width: 380px) { .barra .botao .ic { display: none; } }
 </style>
 
 <div class="lido" aria-hidden="true"></div>
@@ -794,7 +895,7 @@ body.pv-aberto { overflow: hidden; }
 <header class="topo faixa">
   <div class="miolo">
     <div class="marca"><span class="tesoura" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="7" r="3"/><circle cx="6" cy="17" r="3"/><path d="M8.5 8.5 20 18M8.5 15.5 20 6"/></svg></span>Clipador</div>
-    <a class="entrar js-comprar-rolar" href="#oferta">R$ 49,90</a>
+    <a class="entrar js-comprar-rolar" href="#oferta">Quero o Clipador <span>R$ 49,90</span></a>
   </div>
 </header>
 
@@ -802,17 +903,24 @@ body.pv-aberto { overflow: hidden; }
   <!-- HERO -->
   <section class="hero faixa">
     <div class="miolo">
-      <div class="hero-texto">
-        <p class="chapeu"><span class="etiqueta vivo">Ao vivo</span>Cortes de GTA 6, ou do nicho que você quiser, todo dia, sem editar</p>
-        <h1 class="legenda-titulo" aria-label="Como chegar a 162 milhões de views em 28 dias postando todo dia, sem editar nada.">
+      <span class="pill"><i></i>Cortes de GTA 6, ou do nicho que você quiser, todo dia, sem editar</span>
+      <h1 class="legenda-titulo" aria-label="Como chegar a 162 milhões de views em 28 dias postando todo dia, sem editar nada.">
           <span aria-hidden="true"><span class="k" style="--i:0">Como</span> <span class="k" style="--i:1">chegar</span> <span class="k" style="--i:2">a</span> <span class="mk" style="--i:3">162 milhões</span> <span class="k" style="--i:4">de</span> <span class="k" style="--i:5">views</span> <span class="k" style="--i:6">em</span> <span class="k" style="--i:7">28</span> <span class="k" style="--i:8">dias</span> <span class="k" style="--i:9">postando</span> <span class="k" style="--i:10">todo</span> <span class="k" style="--i:11">dia,</span> <span class="k" style="--i:12">sem</span> <span class="k" style="--i:13">editar</span> <span class="k" style="--i:14">nada.</span></span>
         </h1>
-        <p class="fonte-dado"><span><b class="tab">162.665.999 views</b> e <b class="tab">US$ 16.665,68</b> no canal Boring History, de vídeo curto postado todo dia, pelo painel do YouTube, de 10/08 a 06/09/2026</span></p>
-      </div>
+      <p class="sub">Você cola o link do canal, da Twitch ou do YouTube, de GTA ou de qualquer nicho. <b>O Clipador assiste à live, acha os momentos em que o chat explode, corta em vertical e põe legenda, título e o crédito do streamer.</b> Você aprova, ou deixa no automático e a IA aprova e posta sozinha.</p>
+      <div class="acoes">
+          <a class="botao js-comprar-rolar" id="cta-hero" href="#oferta">Quero o Clipador <i class="ic seta" aria-hidden="true"></i></a>
+          <p class="micro"><span>R$ 49,90 até 30/11</span><span>Pagamento único</span><span>7 dias de garantia</span></p>
+        </div>
+      <div class="trio">
+          <div><b class="tab">654</b><span>cortes prontos em 37 horas</span></div>
+          <div><b class="tab">17.636</b><span>canais vistos pelo radar</span></div>
+          <div><b>0</b><span>edição feita por você</span></div>
+        </div>
 
-      <div class="visor-wrap">
-        <span class="etiqueta rec" aria-hidden="true">Demonstração do painel</span>
-        <div class="visor">
+      <div class="vitrine" id="vitrine">
+        <div class="visor-wrap">
+          <div class="visor">
         <div class="tela" role="img" aria-label="Demonstração do painel do Clipador: a live entra, a IA corta, aprova sozinha e posta o corte no YouTube Shorts">
           <div class="pd" id="pd" aria-hidden="true">
             <div class="pd-topo"><span class="pd-marca"><i></i>Clipador</span><span class="pd-auto"><i></i>Automático</span></div>
@@ -823,57 +931,20 @@ body.pv-aberto { overflow: hidden; }
           </div>
         </div>
         </div>
-      </div>
-
-      <div class="hero-acao">
-        <p class="sub">Você cola o link do canal, da Twitch ou do YouTube, de GTA ou de qualquer nicho. <b>O Clipador assiste à live, acha os momentos em que o chat explode, corta em vertical e põe legenda, título e o crédito do streamer.</b> Você aprova, ou deixa no automático e a IA aprova e posta sozinha.</p>
-        <div class="trio">
-          <div><b class="tab">654</b><span>cortes prontos em 37 horas</span></div>
-          <div><b class="tab">17.636</b><span>canais vistos pelo radar</span></div>
-          <div><b>0</b><span>edição feita por você</span></div>
+          <span class="ex-tag">Demonstração do painel</span>
         </div>
-        <div class="acoes">
-          <a class="botao js-comprar-rolar" id="cta-hero" href="#oferta">Quero o Clipador <i class="ic seta" aria-hidden="true"></i></a>
-          <p class="micro"><span>R$ 49,90 até 30/11</span><span>Pagamento único</span><span>7 dias de garantia</span></p>
+        <div class="vit-lado vit-esq" aria-hidden="true">
+          <div class="ev"><span class="ic-ev l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg></span><div class="tx"><b>Você colou o link do canal</b><span>Twitch ou YouTube, qualquer nicho</span></div></div>
+          <div class="ev"><span class="ic-ev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.3 7.4L3 21l2.1-5.6A8.4 8.4 0 1 1 21 11.5Z"/></svg></span><div class="tx"><b>O chat explodiu</b><span>O momento fica marcado na live</span></div></div>
+        </div>
+        <div class="vit-lado vit-dir" aria-hidden="true">
+          <div class="ev"><span class="ic-ev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4 8.1 15.9M14.5 14.5 20 20M8.1 8.1 12 12"/></svg></span><div class="tx"><b>Corte vertical pronto</b><span>Legenda, título e crédito do streamer</span></div></div>
+          <div class="ev papel"><div class="tx"><b>No ar no YouTube Shorts</b><span>Você só aprova, ou deixa no automático</span></div></div>
         </div>
       </div>
     </div>
   </section>
 
-<!--PAREDE-->
-  <!-- PAREDE DE VÍDEOS: os 10 anúncios, para escolher e assistir com som -->
-  <section class="pv secao" id="pv" aria-labelledby="pv-titulo" style="--pv-acento: var(--cor); --pv-sobre: #17133a; --pv-fundo: var(--noite); --pv-placa: var(--placa);">
-    <div class="faixa"><div class="miolo pv-cabeca">
-      <p class="pv-sobre"><span class="pv-rec" aria-hidden="true"></span>10 vídeos · 30 segundos cada</p>
-      <h2 id="pv-titulo">Dez vídeos. Trinta segundos cada. Escolha um.</h2>
-      <p class="pv-lead">Toque em qualquer um. Abre com som e passa sozinho para o próximo, como nos stories.</p>
-    </div></div>
-    <div class="pv-corpo">
-      <ul class="pv-fila" aria-label="Vídeos sobre o Clipador">
-        <li style="--i:0"><button class="pv-card" type="button" aria-label="Assistir com som: “Seiscentos e cinquenta e quatro cortes em trinta e sete horas. Eu não editei nenhum.” (34 segundos)" data-video="midia/anuncios/g03.mp4" data-previa="midia/anuncios/g03-previa.mp4"><img src="midia/anuncios/g03.jpg" alt="" loading="lazy" decoding="async"><span class="pv-n">01</span><span class="pv-pe"><span class="pv-play"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12.4-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5z"/></svg></span><span class="pv-dur">0:34</span></span></button></li><li style="--i:1"><button class="pv-card" type="button" aria-label="Assistir com som: “A live ainda tá rolando, e essa IA já cortou o melhor momento.” (31 segundos)" data-video="midia/anuncios/g02.mp4" data-previa="midia/anuncios/g02-previa.mp4"><img src="midia/anuncios/g02.jpg" alt="" loading="lazy" decoding="async"><span class="pv-n">02</span><span class="pv-pe"><span class="pv-play"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12.4-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5z"/></svg></span><span class="pv-dur">0:31</span></span></button></li><li style="--i:2"><button class="pv-card" type="button" aria-label="Assistir com som: “Para de assistir live inteira pra fazer corte.” (29 segundos)" data-video="midia/anuncios/g09.mp4" data-previa="midia/anuncios/g09-previa.mp4"><img src="midia/anuncios/g09.jpg" alt="" loading="lazy" decoding="async"><span class="pv-n">03</span><span class="pv-pe"><span class="pv-play"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12.4-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5z"/></svg></span><span class="pv-dur">0:29</span></span></button></li><li style="--i:3"><button class="pv-card" type="button" aria-label="Assistir com som: “Essa IA já olhou mais de dezessete mil canais atrás de live boa.” (32 segundos)" data-video="midia/anuncios/g04.mp4" data-previa="midia/anuncios/g04-previa.mp4"><img src="midia/anuncios/g04.jpg" alt="" loading="lazy" decoding="async"><span class="pv-n">04</span><span class="pv-pe"><span class="pv-play"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12.4-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5z"/></svg></span><span class="pv-dur">0:32</span></span></button></li><li style="--i:4"><button class="pv-card" type="button" aria-label="Assistir com som: “O chat avisa quando a live explode. Essa IA lê até o chat.” (32 segundos)" data-video="midia/anuncios/g06.mp4" data-previa="midia/anuncios/g06-previa.mp4"><img src="midia/anuncios/g06.jpg" alt="" loading="lazy" decoding="async"><span class="pv-n">05</span><span class="pv-pe"><span class="pv-play"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12.4-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5z"/></svg></span><span class="pv-dur">0:32</span></span></button></li><li style="--i:5"><button class="pv-card" type="button" aria-label="Assistir com som: “Qual é o melhor momento de uma live inteira? Essa IA acha sozinha.” (32 segundos)" data-video="midia/anuncios/g07.mp4" data-previa="midia/anuncios/g07-previa.mp4"><img src="midia/anuncios/g07.jpg" alt="" loading="lazy" decoding="async"><span class="pv-n">06</span><span class="pv-pe"><span class="pv-play"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12.4-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5z"/></svg></span><span class="pv-dur">0:32</span></span></button></li><li style="--i:6"><button class="pv-card" type="button" aria-label="Assistir com som: “Assistir horas de live pra achar trinta segundos bons? Isso acabou.” (31 segundos)" data-video="midia/anuncios/g05.mp4" data-previa="midia/anuncios/g05-previa.mp4"><img src="midia/anuncios/g05.jpg" alt="" loading="lazy" decoding="async"><span class="pv-n">07</span><span class="pv-pe"><span class="pv-play"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12.4-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5z"/></svg></span><span class="pv-dur">0:31</span></span></button></li><li style="--i:7"><button class="pv-card" type="button" aria-label="Assistir com som: “Se você quer um canal de cortes postando todo dia sem editar, olha isso.” (32 segundos)" data-video="midia/anuncios/g01.mp4" data-previa="midia/anuncios/g01-previa.mp4"><img src="midia/anuncios/g01.jpg" alt="" loading="lazy" decoding="async"><span class="pv-n">08</span><span class="pv-pe"><span class="pv-play"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12.4-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5z"/></svg></span><span class="pv-dur">0:32</span></span></button></li><li style="--i:8"><button class="pv-card" type="button" aria-label="Assistir com som: “Como eu faço corte de live sem abrir o editor?” (30 segundos)" data-video="midia/anuncios/g08.mp4" data-previa="midia/anuncios/g08-previa.mp4"><img src="midia/anuncios/g08.jpg" alt="" loading="lazy" decoding="async"><span class="pv-n">09</span><span class="pv-pe"><span class="pv-play"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12.4-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5z"/></svg></span><span class="pv-dur">0:30</span></span></button></li><li style="--i:9"><button class="pv-card" type="button" aria-label="Assistir com som: “Eu tenho um editor de corte que assiste a live inteira e não para.” (31 segundos)" data-video="midia/anuncios/g10.mp4" data-previa="midia/anuncios/g10-previa.mp4"><img src="midia/anuncios/g10.jpg" alt="" loading="lazy" decoding="async"><span class="pv-n">10</span><span class="pv-pe"><span class="pv-play"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12.4-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5z"/></svg></span><span class="pv-dur">0:31</span></span></button></li>
-      </ul>
-      <div class="faixa"><div class="miolo pv-setas">
-        <button class="pv-seta" type="button" data-dir="-1" aria-label="Vídeos anteriores"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
-        <button class="pv-seta" type="button" data-dir="1" aria-label="Mais vídeos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
-      </div></div>
-    </div>
-    <dialog class="pv-tela" id="pv-tela" aria-label="Vídeos sobre o Clipador">
-      <div class="pv-palco">
-        <video id="pv-video" playsinline preload="auto"></video>
-        <div class="pv-barras" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
-        <span class="pv-conta" id="pv-conta" aria-live="polite"></span>
-        <button class="pv-toque ant" type="button" aria-label="Vídeo anterior"></button>
-        <button class="pv-toque meio" type="button" aria-label="Pausar ou continuar"></button>
-        <button class="pv-toque prox" type="button" aria-label="Próximo vídeo"></button>
-        <span class="pv-pausa" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12.4-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5z"/></svg></span>
-        <button class="pv-lado ant" type="button" aria-label="Vídeo anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
-        <button class="pv-lado prox" type="button" aria-label="Próximo vídeo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
-        <button class="pv-fechar" type="button" aria-label="Fechar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
-        <div class="pv-rodape"><a class="botao pv-cta" href="#oferta">Quero o Clipador <i class="ic seta" aria-hidden="true"></i></a></div>
-      </div>
-    </dialog>
-  </section>
-<!--/PAREDE-->
 
 
 
@@ -901,7 +972,7 @@ body.pv-aberto { overflow: hidden; }
   </section>
 
   <!-- A LINHA DO CLIPADOR -->
-  <section class="secao linha faixa" id="linha">
+  <section class="secao linha faixa pontinhos" id="linha">
     <div class="miolo">
       <div class="cabeca-secao js-ver">
         <h2 class="legenda-titulo">Da live ao corte. <span class="mk espera">Sem você</span> tocar em nada.</h2>
@@ -1002,7 +1073,7 @@ body.pv-aberto { overflow: hidden; }
   <section class="chamada">
     <div class="faixa-cor"><div class="miolo">
       <p class="frase">Agora mesmo tem live de GTA rolando. Cada momento que ninguém corta podia ser o seu corte.</p>
-      <div class="acao"><a class="botao escuro js-comprar-rolar" href="#oferta">Quero o Clipador <i class="ic seta" aria-hidden="true"></i></a><p class="micro"><span>R$ 49,90 até 30/11</span><span>7 dias de garantia</span></p></div>
+      <div class="acao"><a class="botao js-comprar-rolar" href="#oferta">Quero o Clipador <i class="ic seta" aria-hidden="true"></i></a><p class="micro"><span>R$ 49,90 até 30/11</span><span>7 dias de garantia</span></p></div>
     </div></div>
   </section>
 
@@ -1046,7 +1117,7 @@ body.pv-aberto { overflow: hidden; }
   <section class="chamada">
     <div class="faixa-cor"><div class="miolo">
       <p class="frase">Canal que cresce é canal que posta todo dia. O Clipador faz a parte que cansa.</p>
-      <div class="acao"><a class="botao escuro js-comprar-rolar" href="#oferta">Quero o Clipador <i class="ic seta" aria-hidden="true"></i></a><p class="micro"><span>R$ 49,90 até 30/11</span><span>7 dias de garantia</span></p></div>
+      <div class="acao"><a class="botao js-comprar-rolar" href="#oferta">Quero o Clipador <i class="ic seta" aria-hidden="true"></i></a><p class="micro"><span>R$ 49,90 até 30/11</span><span>7 dias de garantia</span></p></div>
     </div></div>
   </section>
 
@@ -1098,7 +1169,7 @@ body.pv-aberto { overflow: hidden; }
   <section class="chamada">
     <div class="faixa-cor"><div class="miolo">
       <p class="frase">Você não precisa assistir à live. Nem aprovar, se não quiser: deixe no automático.</p>
-      <div class="acao"><a class="botao escuro js-comprar-rolar" href="#oferta">Quero o Clipador <i class="ic seta" aria-hidden="true"></i></a><p class="micro"><span>R$ 49,90 até 30/11</span><span>7 dias de garantia</span></p></div>
+      <div class="acao"><a class="botao js-comprar-rolar" href="#oferta">Quero o Clipador <i class="ic seta" aria-hidden="true"></i></a><p class="micro"><span>R$ 49,90 até 30/11</span><span>7 dias de garantia</span></p></div>
     </div></div>
   </section>
 
@@ -1179,7 +1250,7 @@ body.pv-aberto { overflow: hidden; }
       <div class="garantia-cartao">
         <div class="selo-g" aria-hidden="true">
           <svg viewBox="0 0 200 200">
-            <defs><linearGradient id="g-selo" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2f6bff"/><stop offset=".5" stop-color="#6a4dff"/><stop offset="1" stop-color="#a83cff"/></linearGradient><path id="roda-selo" d="M100,100 m-76,0 a76,76 0 1,1 152,0 a76,76 0 1,1 -152,0"/></defs>
+            <defs><linearGradient id="g-selo" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9a95ff"/><stop offset="1" stop-color="#9a95ff"/></linearGradient><path id="roda-selo" d="M100,100 m-76,0 a76,76 0 1,1 152,0 a76,76 0 1,1 -152,0"/></defs>
             <path class="selo-estrela" d="M100.0,2.0 L115.3,13.3 L133.5,7.9 L144.0,23.8 L163.0,24.9 L167.4,43.4 L184.9,51.0 L182.7,69.9 L196.5,83.0 L188.0,100.0 L196.5,117.0 L182.7,130.1 L184.9,149.0 L167.4,156.6 L163.0,175.1 L144.0,176.2 L133.5,192.1 L115.3,186.7 L100.0,198.0 L84.7,186.7 L66.5,192.1 L56.0,176.2 L37.0,175.1 L32.6,156.6 L15.1,149.0 L17.3,130.1 L3.5,117.0 L12.0,100.0 L3.5,83.0 L17.3,69.9 L15.1,51.0 L32.6,43.4 L37.0,24.9 L56.0,23.8 L66.5,7.9 L84.7,13.3 Z"/>
             <circle cx="100" cy="100" r="62" class="selo-miolo"/>
             <circle cx="100" cy="100" r="67" class="selo-anel"/>
@@ -1202,7 +1273,7 @@ body.pv-aberto { overflow: hidden; }
   </section>
 
   <!-- OFERTA -->
-  <section class="secao faixa" id="oferta">
+  <section class="secao faixa pontinhos" id="oferta">
     <div class="miolo">
       <div class="js-ver"><h2 class="legenda-titulo">Leve o Clipador <span class="mk espera">inteiro</span></h2></div>
       <div class="ingresso">
@@ -1320,6 +1391,17 @@ body.pv-aberto { overflow: hidden; }
     const tl = $("#timeline");
     new IntersectionObserver(([en]) => tl.classList.toggle("parada", !en.isIntersecting)).observe(tl);
   }
+
+  /* ---- os cartões ao lado do painel entram um por um ---- */
+  (() => {
+    const evs = [...document.querySelectorAll(".vitrine .ev")];
+    if (calmo || !("IntersectionObserver" in window)) return evs.forEach(e => e.classList.add("in"));
+    const io = new IntersectionObserver(([en]) => {
+      if (!en.isIntersecting) return; io.disconnect();
+      evs.forEach((e, i) => setTimeout(() => e.classList.add("in"), 250 + i * 600));
+    }, { threshold: .3 });
+    io.observe(document.getElementById("vitrine"));
+  })();
 
   /* ---- painel animado do topo: a live entra, a IA corta, aprova e posta ---- */
   (() => {
@@ -1571,79 +1653,4 @@ body.pv-aberto { overflow: hidden; }
   }
   if (tique()) { const t = setInterval(() => { if (!tique()) clearInterval(t); }, 1000); }
 })();
-/*PAREDE-JS*/
-/* ---- parede de vídeos: prévias rodando + player em tela cheia com som ---- */
-(() => {
-  const sec = document.getElementById("pv"); if (!sec) return;
-  const calmo = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const cards = [...sec.querySelectorAll(".pv-card")], fila = sec.querySelector(".pv-fila");
-  const tela = document.getElementById("pv-tela"), v = document.getElementById("pv-video");
-  const barras = [...tela.querySelectorAll(".pv-barras i")], conta = document.getElementById("pv-conta");
-  const LISTA = cards.map(c => ({ src: c.dataset.video, poster: c.querySelector("img").getAttribute("src") }));
-  let atual = 0;
-
-  /* prévias: só tocam as que estão na tela */
-  if (!calmo && "IntersectionObserver" in window) {
-    const io = new IntersectionObserver(ens => ens.forEach(en => {
-      const c = en.target; let p = c.querySelector("video");
-      if (en.isIntersecting) {
-        if (!p) {
-          p = document.createElement("video"); p.muted = true; p.loop = true; p.playsInline = true; p.setAttribute("playsinline", ""); p.setAttribute("aria-hidden", "true");
-          p.preload = "auto"; p.src = c.dataset.previa; c.insertBefore(p, c.querySelector(".pv-n"));
-        }
-        p.play().catch(() => {});
-      } else if (p) p.pause();
-    }), { threshold: .55 });
-    cards.forEach(c => io.observe(c));
-    new IntersectionObserver(([en]) => { if (en.isIntersecting) sec.classList.add("pronto"); }, { threshold: .1 }).observe(sec);
-  }
-
-  sec.querySelectorAll(".pv-seta").forEach(b => b.addEventListener("click", () => {
-    const passo = cards[0].getBoundingClientRect().width + 12;
-    fila.scrollBy({ left: (b.dataset.dir === "1" ? 1 : -1) * passo * 2, behavior: calmo ? "auto" : "smooth" });
-  }));
-
-  function carrega(i) {
-    atual = (i + LISTA.length) % LISTA.length;
-    v.poster = LISTA[atual].poster; v.src = LISTA[atual].src;
-    barras.forEach((b, k) => { b.classList.toggle("feita", k < atual); b.style.setProperty("--p", 0); });
-    conta.textContent = String(atual + 1).padStart(2, "0") + " / " + LISTA.length;
-    tela.classList.remove("pausado");
-    v.muted = false; v.play().catch(() => { v.muted = true; v.play().catch(() => {}); });
-  }
-  function abre(i) {
-    document.querySelectorAll("video").forEach(x => { if (x !== v) x.pause(); });
-    if (typeof tela.showModal === "function") tela.showModal(); else tela.setAttribute("open", "");
-    document.body.classList.add("pv-aberto");
-    carrega(i);
-  }
-  function fecha() {
-    v.pause(); v.removeAttribute("src"); v.load();
-    if (tela.open && typeof tela.close === "function") tela.close(); else tela.removeAttribute("open");
-    document.body.classList.remove("pv-aberto");
-    cards[atual] && cards[atual].focus({ preventScroll: true });
-  }
-  cards.forEach((c, i) => c.addEventListener("click", () => abre(i)));
-  tela.addEventListener("close", () => { v.pause(); document.body.classList.remove("pv-aberto"); });
-  tela.querySelector(".pv-fechar").addEventListener("click", fecha);
-  tela.querySelector(".pv-toque.ant").addEventListener("click", () => { if (v.currentTime > 2) { v.currentTime = 0; v.play().catch(() => {}); } else carrega(atual - 1); });
-  tela.querySelector(".pv-toque.prox").addEventListener("click", () => carrega(atual + 1));
-  tela.querySelector(".pv-lado.prox").addEventListener("click", () => carrega(atual + 1));
-  tela.querySelector(".pv-lado.ant").addEventListener("click", () => carrega(atual - 1));
-  tela.querySelector(".pv-toque.meio").addEventListener("click", () => {
-    if (v.paused) { v.play().catch(() => {}); tela.classList.remove("pausado"); } else { v.pause(); tela.classList.add("pausado"); }
-  });
-  v.addEventListener("timeupdate", () => { if (v.duration) barras[atual].style.setProperty("--p", v.currentTime / v.duration); });
-  v.addEventListener("ended", () => { if (atual < LISTA.length - 1) carrega(atual + 1); else { barras[atual].classList.add("feita"); tela.classList.add("pausado"); } });
-  tela.addEventListener("keydown", e => {
-    if (e.key === "ArrowRight") { e.preventDefault(); carrega(atual + 1); }
-    else if (e.key === "ArrowLeft") { e.preventDefault(); carrega(atual - 1); }
-  });
-  tela.querySelector(".pv-cta").addEventListener("click", e => {
-    e.preventDefault(); fecha();
-    const alvo = document.getElementById("oferta");
-    if (alvo) setTimeout(() => alvo.scrollIntoView({ behavior: calmo ? "auto" : "smooth", block: "start" }), 60);
-  });
-})();
-/*/PAREDE-JS*/
 </script>
