@@ -1,0 +1,727 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- Enquanto houver placeholders (checkout, garantia, depoimentos, CRM/RQE, CNPJ/contato), a página fica fora do Google. -->
+<meta name="robots" content="noindex, nofollow">
+<title>Tração Experience · 18 e 19 de dezembro · com Dr. Ade Salami</title>
+<meta name="description" content="Dois dias presenciais com o Dr. Ade Salami, fundador e presidente do Instituto Kós: marketing, vendas e gestão para médicos donos de clínica. 18 e 19 de dezembro, Edifício Itália, São Paulo.">
+<meta property="og:title" content="Tração Experience · com Dr. Ade Salami">
+<meta property="og:description" content="18 e 19 de dezembro, das 8h às 18h, no Edifício Itália, São Paulo. Marketing, vendas e gestão para médicos donos de clínica.">
+<meta name="theme-color" content="#131313">
+<link rel="icon" href="assets/kos-simbolo.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..800;1,400..800&family=Sora:wght@300..700&display=swap">
+<style>
+/* Identidade do Instituto Kós (institutokos.com.br): preto #131313, dourado em gradiente, Playfair Display + Sora,
+   seções escuras alternando com creme #f6f3ee. Tudo centralizado. */
+:root {
+  --bg: #131313; --surface: #1b1b1b; --surface-2: #222; --border: rgba(255, 255, 255, .1);
+  --text: #f3f3f2; --muted: #a8a8ad;
+  --gold: #c9a35a; --gold-light: #e6c784; --gold-soft: #d6b26b; --gold-strong: #a9823d;
+  --gold-grad: linear-gradient(135deg, #f3dc9c 0%, #d9b46a 45%, #b8893f 100%);
+  --gold-text: linear-gradient(100deg, #f3dc9c 0%, #dcb86e 45%, #b8893f 100%);
+  --cream: #f6f3ee; --cream-2: #efe9df; --ink: #131313; --ink-muted: #5f5b54; --gold-deep: #8a6226;
+  --f-display: "Playfair Display", Georgia, serif;
+  --f-body: "Sora", system-ui, -apple-system, sans-serif;
+  --r: 16px; --r-sm: 8px;
+  --ease: cubic-bezier(.2, .8, .2, 1);
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { background: var(--bg); color: var(--text); }
+html { scroll-behavior: smooth; }
+body { margin: 0; font-family: var(--f-body); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; text-align: center; font-weight: 400; }
+::selection { background: var(--gold); color: var(--ink); }
+:focus-visible { outline: 2px solid var(--gold-light); outline-offset: 4px; border-radius: 4px; }
+img { max-width: 100%; display: block; }
+p, h1, h2, h3, figure { margin: 0; }
+.wrap { position: relative; z-index: 2; max-width: 1120px; margin: 0 auto; padding-left: max(18px, env(safe-area-inset-left, 0px)); padding-right: max(18px, env(safe-area-inset-right, 0px)); }
+
+/* tipografia */
+.gold-it { font-style: italic; background: var(--gold-text); -webkit-background-clip: text; background-clip: text; color: transparent; padding-inline: .04em; }
+.label { font: 600 12px/1.4 var(--f-body); letter-spacing: .16em; text-transform: uppercase; color: var(--gold); }
+.label .sep { display: inline-block; width: 1px; height: .9em; background: currentColor; opacity: .5; margin: 0 .7em; vertical-align: -.1em; }
+.h2 { font: 500 clamp(32px, 4.6vw, 54px)/1.08 var(--f-display); letter-spacing: -.015em; text-wrap: balance; max-width: 18ch; }
+.sub { color: var(--muted); font-size: clamp(16px, 1.5vw, 18px); max-width: 52ch; text-wrap: pretty; }
+.sec { position: relative; padding-block: clamp(76px, 10vw, 128px); }
+.sec-head { display: grid; justify-items: center; gap: 16px; margin-bottom: clamp(36px, 5vw, 56px); }
+.light { background: var(--cream); color: var(--ink); }
+.light .sub { color: var(--ink-muted); }
+.light .label { color: var(--gold-deep); }
+.light .gold-it { background: linear-gradient(100deg, #b4863a 0%, #8f6526 55%, #6e4a18 100%); -webkit-background-clip: text; background-clip: text; }
+.light .ph { color: var(--ink-muted); border-color: rgba(138, 98, 38, .4); background: rgba(255,255,255,.6); }
+
+/* placeholder honesto e discreto: o que ainda não existe */
+.ph { display: inline-block; font: 400 12px/1.4 var(--f-body); color: var(--muted); border: 1px dashed rgba(201, 163, 90, .45); border-radius: 999px; padding: 6px 12px; background: rgba(201, 163, 90, .05); }
+
+/* botões */
+.btn { position: relative; overflow: hidden; display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 54px; padding: 16px 28px; border-radius: var(--r-sm); border: 0;
+  font: 600 14px/1 var(--f-body); letter-spacing: .06em; text-transform: uppercase; text-decoration: none; color: var(--ink); background: var(--gold-grad);
+  box-shadow: 0 10px 30px -10px rgba(217, 180, 106, .55), inset 0 1px 0 rgba(255,255,255,.45); transition: transform .2s var(--ease), box-shadow .2s var(--ease); }
+.btn::after { content: ""; position: absolute; inset: 0; background: linear-gradient(105deg, transparent 35%, rgba(255,255,255,.55) 50%, transparent 65%); transform: translateX(-120%); animation: sheen 4.5s var(--ease) 1.2s infinite; }
+@keyframes sheen { 0%, 70% { transform: translateX(-120%); } 100% { transform: translateX(120%); } }
+a.btn[href]:hover { transform: translateY(-2px); }
+.btn[aria-disabled="true"] { cursor: default; }
+.btn .soon { font: 600 11px/1 var(--f-body); letter-spacing: .08em; padding: 6px 8px; border-radius: 999px; background: rgba(19, 19, 19, .82); color: var(--gold-light); }
+.btn-ghost { background: transparent; color: var(--gold-light); box-shadow: inset 0 0 0 1px rgba(201, 163, 90, .5); }
+.btn-ghost::after { display: none; }
+
+/* entradas */
+.js [data-rv] { opacity: 0; transform: translateY(22px); transition: opacity .8s var(--ease), transform .8s var(--ease); transition-delay: calc(var(--d, 0) * 110ms); }
+.js [data-rv].in { opacity: 1; transform: none; }
+
+/* =================== TOPO =================== */
+.hero { position: relative; overflow: hidden; isolation: isolate; padding: 28px 0 0; }
+.rays { position: absolute; left: 50%; top: 36%; width: 2400px; height: 2400px; margin: -1200px 0 0 -1200px; z-index: -2; pointer-events: none;
+  background: repeating-conic-gradient(from 0deg, rgba(217, 180, 106, .16) 0deg .25deg, transparent .25deg 3deg);
+  -webkit-mask: radial-gradient(circle, #000 0, rgba(0,0,0,.55) 22%, transparent 48%); mask: radial-gradient(circle, #000 0, rgba(0,0,0,.55) 22%, transparent 48%);
+  animation: spin 160s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.glow { position: absolute; left: 50%; top: 62%; width: 900px; height: 900px; margin: -450px 0 0 -450px; z-index: -1; pointer-events: none; border-radius: 50%;
+  background: radial-gradient(circle, rgba(217, 180, 106, .30) 0%, rgba(217, 180, 106, .08) 38%, transparent 65%); }
+.orbit { position: absolute; left: 50%; top: 36%; border: 1px solid rgba(201, 163, 90, .12); border-radius: 50%; z-index: -1; pointer-events: none; transform: translate(-50%, -50%); }
+.orbit.o1 { width: 760px; height: 760px; } .orbit.o2 { width: 1180px; height: 1180px; border-color: rgba(201, 163, 90, .07); }
+.logo { width: 150px; height: auto; margin: 0 auto; }
+.chip { display: inline-flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 4px 0; margin-top: 26px; padding: 9px 18px; border-radius: 999px; border: 1px solid var(--border); background: rgba(27, 27, 27, .6); font-size: 13px; }
+.chip b { color: var(--gold-light); font-weight: 600; }
+.chip .sep { width: 1px; height: 14px; background: var(--border); margin: 0 12px; }
+.h1 { margin-top: 26px; font: 500 clamp(40px, 6.6vw, 84px)/1.04 var(--f-display); letter-spacing: -.02em; text-wrap: balance; max-width: 17ch; margin-inline: auto; }
+.h1 .big { display: inline-block; font-weight: 600; }
+.lead { margin: 22px auto 0; max-width: 46ch; color: #d6d6d6; font-size: clamp(16px, 1.6vw, 19px); text-wrap: pretty; }
+.lead b { color: var(--gold-light); font-weight: 600; }
+
+/* palco: nome do evento gigante atrás do Dr. Ade */
+.stage { position: relative; margin: 34px auto 0; width: min(100%, 1000px); display: grid; justify-items: center; }
+.wordmark { position: absolute; top: 4%; left: 50%; transform: translateX(-50%); width: 100%; display: grid; justify-items: center; line-height: .82; pointer-events: none; z-index: 0;
+  font: 600 clamp(64px, 15vw, 190px)/.82 var(--f-display); letter-spacing: -.02em; text-transform: uppercase; }
+.wordmark span:first-child { padding: .06em .04em .16em; margin-bottom: -.16em;  background: linear-gradient(180deg, rgba(243, 220, 156, .66) 30%, rgba(184, 137, 63, .34)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.wordmark span:last-child { color: transparent; -webkit-text-stroke: 1px rgba(201, 163, 90, .45); font-style: italic; font-weight: 500; }
+.ade { position: relative; z-index: 1; width: clamp(270px, 46vw, 470px); aspect-ratio: 1100 / 1516; margin-top: clamp(56px, 9vw, 124px);
+  -webkit-mask: linear-gradient(180deg, #000 72%, transparent 98%); mask: linear-gradient(180deg, #000 72%, transparent 98%); }
+.ade img { width: 100%; height: 100%; object-fit: contain; }
+.float { position: absolute; z-index: 2; display: grid; gap: 4px; justify-items: center; padding: 16px 20px; border-radius: var(--r); border: 1px solid var(--border);
+  background: linear-gradient(180deg, rgba(27, 27, 27, .92), rgba(19, 19, 19, .92)); box-shadow: 0 24px 60px -20px rgba(0,0,0,.8); min-width: 190px; }
+.float b { font: 600 34px/1 var(--f-display); background: var(--gold-text); -webkit-background-clip: text; background-clip: text; color: transparent; white-space: nowrap; }
+.float span { font-size: 13px; color: var(--muted); max-width: 18ch; line-height: 1.35; }
+.float.f1 { left: 2%; top: 44%; animation: bob 7s ease-in-out infinite; }
+.float.f2 { right: 2%; top: 30%; animation: bob 7s ease-in-out 1.5s infinite; }
+@keyframes bob { 50% { transform: translateY(-10px); } }
+.name-tag { position: absolute; z-index: 2; bottom: 14%; left: 50%; transform: translateX(-50%); display: grid; gap: 2px; padding: 12px 22px; border-radius: 999px; border: 1px solid rgba(201, 163, 90, .35); background: rgba(19, 19, 19, .85); white-space: nowrap; }
+.name-tag b { font: 600 17px/1.2 var(--f-display); }
+.name-tag span { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); }
+
+/* ficha do evento */
+.facts { position: relative; z-index: 3; margin: -28px auto 0; width: min(100%, 860px); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-radius: var(--r); border: 1px solid var(--border); background: rgba(27, 27, 27, .9); overflow: hidden; }
+.facts > div { display: grid; gap: 6px; justify-items: center; padding: 22px 14px; }
+.facts > div + div { border-left: 1px solid var(--border); }
+.facts dt { font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--gold); }
+.facts dd { margin: 0; font: 500 clamp(18px, 2.2vw, 24px)/1.15 var(--f-display); }
+.facts dd small { display: block; margin-top: 4px; font: 400 13px/1.3 var(--f-body); color: var(--muted); }
+.ico { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; border: 1px solid rgba(201, 163, 90, .4); color: var(--gold-light); }
+.ico svg { width: 16px; height: 16px; }
+.hero-cta { display: grid; justify-items: center; gap: 12px; padding: 34px 0 10px; }
+.hero-cta .price-line { font-size: 14px; color: var(--muted); }
+.hero-cta .price-line b { color: var(--text); font-weight: 600; }
+.count { display: flex; justify-content: center; gap: 10px; padding-bottom: 64px; }
+.count div { display: grid; gap: 2px; min-width: 78px; padding: 12px 8px 10px; border-radius: 12px; border: 1px solid var(--border); background: var(--surface); }
+.count b { font: 600 28px/1 var(--f-display); font-variant-numeric: lining-nums tabular-nums; background: var(--gold-text); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.count span { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+
+/* =================== NÚMEROS =================== */
+.numbers { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: linear-gradient(170deg, #0e0e0e 0%, #161616 50%, #0e0e0e 100%); }
+.stats { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.stats li { display: grid; gap: 10px; justify-items: center; align-content: start; padding: 14px 18px; }
+.stats li + li { border-left: 1px solid; border-image: linear-gradient(180deg, transparent, rgba(201, 163, 90, .5), transparent) 1; }
+.stats b { font: 600 clamp(54px, 7vw, 88px)/1 var(--f-display); font-variant-numeric: lining-nums; background: var(--gold-text); -webkit-background-clip: text; background-clip: text; color: transparent; white-space: nowrap; padding-inline: .05em; }
+.stats .arrow { font-style: italic; font-weight: 400; }
+.stats .k { font: 600 13px/1.3 var(--f-body); letter-spacing: .14em; text-transform: uppercase; }
+.stats .d { color: var(--muted); font-size: 15px; max-width: 26ch; }
+.disclaimer { margin: 40px auto 0; max-width: 64ch; font-size: 12px; color: var(--muted); opacity: .9; }
+
+/* =================== DIAGNÓSTICO (claro) =================== */
+.pains { list-style: none; margin: 0 auto; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.pains li { display: grid; gap: 10px; justify-items: center; align-content: start; padding: 28px 18px; border-radius: var(--r); background: #fff; border: 1px solid rgba(19, 19, 19, .08); box-shadow: 0 20px 40px -30px rgba(19, 19, 19, .35); }
+.pains .n { font: italic 500 30px/1 var(--f-display); color: var(--gold-deep); }
+.pains b { font: 600 17px/1.3 var(--f-display); }
+.pains span { font-size: 15px; color: var(--ink-muted); }
+.punch { margin: 48px auto 0; font: 500 clamp(26px, 3.2vw, 38px)/1.2 var(--f-display); max-width: 26ch; text-wrap: balance; }
+
+/* é / não é */
+.vs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; width: min(100%, 920px); margin: 0 auto; }
+.vs-col { display: grid; gap: 18px; justify-items: center; align-content: start; padding: 34px 26px; border-radius: var(--r); border: 1px solid var(--border); background: var(--surface); }
+.vs-col h3 { font: 500 26px/1 var(--f-display); }
+.vs-col ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+.vs-col li { max-width: 36ch; font-size: 15px; }
+.vs-no li { color: var(--muted); text-decoration: line-through; text-decoration-color: rgba(201, 163, 90, .55); }
+.vs-yes { position: relative; background: linear-gradient(180deg, #1f1b14, #161616); border-color: rgba(201, 163, 90, .45); box-shadow: 0 0 0 6px rgba(201, 163, 90, .06); }
+.vs-yes h3 { color: var(--gold-light); font-style: italic; }
+
+/* para quem (claro) */
+.who { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; width: min(100%, 920px); margin: 0 auto; }
+.who-col { display: grid; gap: 16px; justify-items: center; align-content: start; padding: 34px 26px; border-radius: var(--r); background: #fff; border: 1px solid rgba(19, 19, 19, .08); }
+.who-col h3 { font: 500 24px/1.1 var(--f-display); }
+.who-col ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+.who-col li { max-width: 38ch; font-size: 15px; display: grid; justify-items: center; gap: 6px; }
+.who-col li::before { content: ""; width: 18px; height: 18px; border-radius: 50%; background: var(--gold-grad) center / 100%;
+  -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18'><circle cx='9' cy='9' r='9'/></svg>"); }
+.who-col.not { background: transparent; border-style: dashed; border-color: rgba(19, 19, 19, .2); }
+.who-col.not li { color: var(--ink-muted); }
+.who-col.not li::before { background: rgba(19, 19, 19, .18); }
+
+/* =================== PROGRAMAÇÃO =================== */
+.steps { position: relative; width: min(100%, 1040px); margin: 0 auto 56px; }
+.steps ol { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px; position: relative; z-index: 1; }
+.steps li { display: grid; justify-items: center; gap: 12px; }
+.steps i { font: italic 500 22px/1 var(--f-display); font-style: italic; width: 58px; height: 58px; border-radius: 50%; display: grid; place-items: center; color: var(--gold-light); background: var(--bg); border: 1px solid rgba(201, 163, 90, .5); transition: background .4s, color .4s, box-shadow .4s; transition-delay: calc(var(--i) * 160ms + 300ms); }
+.steps.go i { background: var(--gold-grad); color: var(--ink); box-shadow: 0 0 0 6px rgba(201, 163, 90, .12); }
+.steps span { font-size: 14px; line-height: 1.35; max-width: 15ch; }
+.steps .rail { position: absolute; left: 8%; right: 8%; top: 29px; height: 1px; background: rgba(201, 163, 90, .2); z-index: 0; }
+.steps .rail::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, #b79040, #e5cb7b, #b79040); transform: scaleX(0); transform-origin: left; transition: transform 1.4s var(--ease); }
+.steps.go .rail::after { transform: scaleX(1); }
+.days { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; align-items: start; }
+.day { position: relative; overflow: hidden; display: grid; gap: 18px; justify-items: center; padding: 40px 26px 30px; border-radius: 20px; border: 1px solid var(--border); background: linear-gradient(180deg, var(--surface), #151515); }
+.day .roman { position: absolute; top: -34px; left: 50%; transform: translateX(-50%); font: italic 500 210px/1 var(--f-display); color: transparent; -webkit-text-stroke: 1px rgba(201, 163, 90, .18); pointer-events: none; }
+.day > * { position: relative; }
+.day-k { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); }
+.day h3 { font: 500 clamp(32px, 3.6vw, 42px)/1.05 var(--f-display); }
+.tags { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+.tags span { font-size: 12px; padding: 6px 12px; border-radius: 999px; border: 1px solid rgba(201, 163, 90, .4); color: var(--gold-light); }
+.topics { list-style: none; margin: 0; padding: 0; width: 100%; display: grid; }
+.topics li { display: grid; gap: 4px; justify-items: center; padding: 16px 4px; border-top: 1px solid var(--border); }
+.topics b { font: 600 16px/1.3 var(--f-body); }
+.topics span { font-size: 14px; color: var(--muted); max-width: 42ch; }
+.prog-foot { display: grid; gap: 10px; justify-items: center; margin-top: 30px; font-size: 13px; color: var(--muted); }
+
+/* =================== QUEM CONDUZ =================== */
+.bio { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 56px; align-items: center; width: min(100%, 1000px); margin: 0 auto; }
+.portrait { position: relative; justify-self: center; width: min(100%, 380px); }
+.portrait::before { content: ""; position: absolute; inset: -14px; border-radius: 26px; border: 1px solid rgba(201, 163, 90, .35); }
+.portrait img { width: 100%; aspect-ratio: 539 / 792; height: auto; object-fit: cover; border-radius: 18px; }
+.portrait .seal { position: absolute; right: -22px; bottom: 34px; width: 92px; height: 92px; border-radius: 50%; display: grid; place-items: center; background: var(--bg); border: 1px solid rgba(201, 163, 90, .45); }
+.portrait .seal img { width: 54px; height: auto; aspect-ratio: auto; border-radius: 0; }
+.bio-txt { display: grid; gap: 18px; justify-items: center; }
+.bio-txt h3 { font: 500 clamp(40px, 5vw, 60px)/1 var(--f-display); }
+.quote { font: italic 400 clamp(22px, 2.4vw, 28px)/1.35 var(--f-display); max-width: 30ch; text-wrap: balance; color: var(--gold-light); }
+.bio-txt p { max-width: 54ch; color: #cfcfd2; font-size: 15.5px; }
+.bio-txt p b { color: var(--text); font-weight: 600; }
+.trail { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; width: min(100%, 1040px); margin: 72px auto 0; }
+.moment { display: grid; gap: 12px; justify-items: center; padding: 12px 12px 22px; border-radius: var(--r); border: 1px solid var(--border); background: var(--surface); }
+.moment .ph-img { width: 100%; overflow: hidden; border-radius: 10px; }
+.moment img { width: 100%; height: auto; aspect-ratio: 5 / 4; object-fit: cover; filter: sepia(.35) saturate(.85) contrast(1.02); transition: filter .6s var(--ease), transform .8s var(--ease); }
+.moment:hover img { filter: none; transform: scale(1.03); }
+.moment .when { font: italic 500 22px/1 var(--f-display); background: var(--gold-text); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.moment b { font-weight: 600; font-size: 15px; }
+.moment p { font-size: 14px; color: var(--muted); max-width: 30ch; }
+
+/* depoimentos (placeholder) */
+.testi { list-style: none; margin: 0 auto; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; width: min(100%, 980px); }
+.testi .ph { max-width: 90%; }
+.testi li { position: relative; aspect-ratio: 9 / 13; max-height: 360px; display: grid; place-items: center; align-content: center; gap: 16px; border-radius: var(--r); border: 1px dashed rgba(201, 163, 90, .35); background: radial-gradient(circle at 50% 40%, rgba(201, 163, 90, .1), transparent 60%), var(--surface); }
+.testi .play { width: 54px; height: 54px; border-radius: 50%; display: grid; place-items: center; border: 1px solid rgba(201, 163, 90, .5); color: var(--gold-light); }
+.testi .play svg { width: 18px; height: 18px; margin-left: 3px; }
+
+/* o que você vê (claro) */
+.kit { list-style: none; margin: 0 auto; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; width: min(100%, 1000px); border-top: 1px solid rgba(19, 19, 19, .1); }
+.kit li { display: grid; gap: 8px; justify-items: center; align-content: start; padding: 32px 22px; border-bottom: 1px solid rgba(19, 19, 19, .1); }
+.kit li:not(:nth-child(3n + 1)) { border-left: 1px solid rgba(19, 19, 19, .1); }
+.kit .n { font: italic 500 34px/1 var(--f-display); color: var(--gold-deep); }
+.kit b { font: 600 18px/1.25 var(--f-display); }
+.kit span { font-size: 15px; color: var(--ink-muted); max-width: 30ch; }
+.kit-foot { margin-top: 28px; }
+
+/* =================== INGRESSOS =================== */
+.lots { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; width: min(100%, 1000px); margin: 0 auto; align-items: stretch; }
+.lot { position: relative; display: grid; gap: 14px; justify-items: center; align-content: start; padding: 36px 22px 28px; border-radius: 20px; border: 1px solid var(--border); background: var(--surface); }
+.lot-k { font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+.lot h3 { font: 500 26px/1 var(--f-display); }
+.price { font: 600 clamp(54px, 6vw, 70px)/1 var(--f-display); font-variant-numeric: lining-nums; white-space: nowrap; }
+.price small { font-size: .36em; vertical-align: 1.05em; margin-right: .12em; font-weight: 500; }
+.lot ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; font-size: 14px; color: var(--muted); }
+.lot .btn { width: 100%; margin-top: 4px; }
+.lot.first { background: linear-gradient(180deg, #221d14 0%, #171511 100%); border-color: rgba(201, 163, 90, .6); box-shadow: 0 30px 80px -30px rgba(217, 180, 106, .4), 0 0 0 6px rgba(201, 163, 90, .07); }
+.lot.first .lot-k { color: var(--gold-light); }
+.lot.first .price { background: var(--gold-text); -webkit-background-clip: text; background-clip: text; color: transparent; padding-inline: .04em; }
+.lot.first .badge { position: absolute; top: -13px; left: 50%; transform: translateX(-50%); font: 600 11px/1 var(--f-body); letter-spacing: .14em; text-transform: uppercase; padding: 7px 14px; border-radius: 999px; background: var(--gold-grad); color: var(--ink); white-space: nowrap; }
+.lot.later { opacity: .82; }
+.lot.later .price { color: #d4d4d6; }
+.guarantee { margin: 34px auto 0; width: min(100%, 620px); display: grid; gap: 12px; justify-items: center; padding: 26px 22px; border-radius: var(--r); border: 1px solid var(--border); background: var(--surface); }
+.guarantee h3 { font: 500 22px/1 var(--f-display); }
+
+/* =================== DÚVIDAS =================== */
+.faq { width: min(100%, 780px); margin: 0 auto; display: grid; gap: 10px; }
+.faq details { border-radius: 12px; border: 1px solid var(--border); background: var(--surface); transition: background .3s, border-color .3s; }
+.faq details[open] { background: #fff; color: var(--ink); border-color: #fff; }
+.faq summary { list-style: none; cursor: pointer; position: relative; padding: 18px 56px; min-height: 58px; font: 500 17px/1.35 var(--f-display); }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: ""; position: absolute; right: 22px; top: 50%; width: 9px; height: 9px; border-right: 1.5px solid var(--gold); border-bottom: 1.5px solid var(--gold); transform: translateY(-70%) rotate(45deg); transition: transform .3s var(--ease); }
+.faq details[open] summary::after { transform: translateY(-30%) rotate(-135deg); border-color: var(--gold-deep); }
+.faq details > div { padding: 0 24px 22px; display: grid; justify-items: center; gap: 8px; }
+.faq details > div p { max-width: 58ch; font-size: 15px; color: var(--ink-muted); }
+.faq details[open] .ph { color: var(--ink-muted); border-color: rgba(138, 98, 38, .4); background: rgba(201, 163, 90, .06); }
+
+/* =================== FIM =================== */
+.final { position: relative; overflow: hidden; isolation: isolate; padding-block: clamp(96px, 12vw, 150px); border-top: 1px solid var(--border); }
+.final .rays { top: 50%; }
+.final .watermark { position: absolute; left: 50%; top: 50%; width: min(620px, 120vw); transform: translate(-50%, -50%); opacity: .06; z-index: -1; pointer-events: none; }
+.final-in { display: grid; justify-items: center; gap: 22px; }
+.final h2 { font: 500 clamp(34px, 5vw, 62px)/1.08 var(--f-display); max-width: 20ch; text-wrap: balance; }
+.closing { font: italic 400 clamp(20px, 2.2vw, 26px)/1.3 var(--f-display); color: var(--gold-light); margin-top: 10px; }
+footer { padding: 46px 0 120px; border-top: 1px solid var(--border); display: grid; justify-items: center; gap: 14px; }
+footer .logo { width: 120px; }
+footer p { font-size: 13px; color: var(--muted); }
+
+/* barra fixa no celular */
+.bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; display: none; align-items: center; justify-content: center; gap: 16px;
+  padding: 10px max(14px, env(safe-area-inset-right, 0px)) calc(10px + env(safe-area-inset-bottom, 0px)) max(14px, env(safe-area-inset-left, 0px));
+  background: rgba(19, 19, 19, .96); border-top: 1px solid rgba(201, 163, 90, .35); translate: 0 110%; visibility: hidden; transition: translate .35s var(--ease), visibility 0s linear .35s; }
+.bar.on { translate: 0 0; visibility: visible; transition: translate .35s var(--ease); }
+.bar > div { display: grid; gap: 2px; justify-items: center; }
+.bar small { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.bar b { font: 600 22px/1 var(--f-display); background: var(--gold-text); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.bar .btn { min-height: 48px; padding: 12px 16px; font-size: 13px; }
+
+/* =================== CELULAR =================== */
+@media (max-width: 900px) {
+  .pains { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .bio { grid-template-columns: 1fr; gap: 48px; }
+  .float.f1 { left: -4px; } .float.f2 { right: -4px; }
+}
+@media (max-width: 760px) {
+  .vs, .who, .days, .lots, .testi, .trail, .stats { grid-template-columns: 1fr; }
+  .stats li + li { border-left: 0; border-top: 1px solid; border-image: linear-gradient(90deg, transparent, rgba(201, 163, 90, .5), transparent) 1; padding-top: 34px; margin-top: 20px; }
+  .lot.first { order: -1; }
+  .lots { gap: 26px; }
+  .kit { grid-template-columns: 1fr; }
+  .kit li:not(:nth-child(3n + 1)) { border-left: 0; }
+  .steps ol { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 26px; }
+  .steps .rail { display: none; }
+  .steps i { transition-delay: calc(var(--i) * 110ms + 150ms); }
+  .testi li { aspect-ratio: auto; min-height: 170px; }
+  .trail { width: min(100%, 380px); }
+  .bar { display: flex; }
+}
+@media (max-width: 520px) {
+  .logo { width: 128px; }
+  .chip { font-size: 12px; padding: 8px 14px; }
+  .chip .sep { display: none; }
+  .chip b { width: 100%; }
+  .h1 { margin-top: 20px; }
+  .stage { margin-top: 18px; }
+  .wordmark { top: 3%; font-size: 12.4vw; }
+  .ade { width: 82%; margin-top: 64px; }
+  .float { min-width: 0; padding: 10px 12px; border-radius: 12px; }
+  .float b { font-size: 24px; }
+  .float span { font-size: 12px; max-width: 13ch; }
+  .float.f1 { left: 0; top: 50%; } .float.f2 { right: 0; top: 33%; }
+  .name-tag { bottom: 12%; padding: 10px 16px; }
+  .facts { margin-top: -18px; }
+  .facts > div { padding: 18px 6px; gap: 5px; }
+  .facts dd { font-size: 16px; }
+  .facts dd small { font-size: 12px; }
+  .ico { width: 30px; height: 30px; }
+  .count div { min-width: 70px; }
+  .pains { grid-template-columns: 1fr; }
+  .steps span { font-size: 13px; }
+  .portrait .seal { right: -6px; width: 76px; height: 76px; }
+  .portrait .seal img { width: 44px; }
+  .faq summary { padding: 16px 46px; font-size: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .rays, .float, .btn::after { animation: none; }
+  .js [data-rv] { opacity: 1; transform: none; transition: none; }
+  .steps .rail::after, .steps i { transition: none; }
+  .bar { transition: none; }
+}
+</style>
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+
+<!-- =================== TOPO =================== -->
+<header class="hero">
+  <div class="rays" aria-hidden="true"></div>
+  <div class="orbit o1" aria-hidden="true"></div>
+  <div class="orbit o2" aria-hidden="true"></div>
+  <div class="glow" aria-hidden="true"></div>
+  <div class="wrap">
+    <img class="logo" src="assets/kos-logo.svg" alt="Instituto Kós" width="364" height="161">
+    <div class="chip"><b>Tração Experience</b><span class="sep" aria-hidden="true"></span><span>Evento presencial · 18 e 19 de dezembro · São Paulo</span></div>
+    <h1 class="h1">O método por trás de <span class="gold-it big">R$ 5 milhões</span> por mês, aberto em 2 dias.</h1>
+    <p class="lead">Marketing, vendas e gestão para <b>médicos donos de clínica</b>, do jeito que rodam hoje no Instituto Kós. Aberto também a outros profissionais da saúde.</p>
+
+    <div class="stage">
+      <div class="wordmark" aria-hidden="true"><span>Tração</span><span>Experience</span></div>
+      <figure class="ade"><img src="assets/ade-recorte.webp" alt="Dr. Ade Salami" width="1100" height="1516" fetchpriority="high"></figure>
+      <div class="float f1"><b>4 → 60</b><span>pacientes por mês, depois do método</span></div>
+      <div class="float f2"><b>R$ 5 mi</b><span>de faturamento por mês no Instituto Kós</span></div>
+      <div class="name-tag"><b>Dr. Ade Salami</b><span>Fundador e presidente do Instituto Kós</span></div>
+    </div>
+
+    <dl class="facts">
+      <div><span class="ico" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2" y="3" width="12" height="11" rx="2"/><path d="M2 6.5h12M5.5 1.5v3M10.5 1.5v3"/></svg></span><dt>Quando</dt><dd>18 e 19 de dezembro<small>sexta e sábado</small></dd></div>
+      <div><span class="ico" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="8" cy="8" r="6.2"/><path d="M8 4.5V8l2.4 1.6"/></svg></span><dt>Horário</dt><dd>8h às 18h<small>nos dois dias</small></dd></div>
+      <div><span class="ico" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M8 14.5s4.8-4.4 4.8-8.1A4.8 4.8 0 0 0 3.2 6.4c0 3.7 4.8 8.1 4.8 8.1Z"/><circle cx="8" cy="6.4" r="1.7"/></svg></span><dt>Onde</dt><dd>Edifício Itália<small>São Paulo · SP · presencial</small></dd></div>
+    </dl>
+
+    <div class="hero-cta">
+      <a class="btn" data-checkout aria-disabled="true">Ingressos do 1º lote <span class="soon">em breve</span></a>
+      <p class="price-line">1º lote <b>R$ 197</b> · depois R$ 497 e R$ 997</p>
+    </div>
+    <div class="count" id="count" aria-label="Contagem até o evento">
+      <div><b data-c="d">--</b><span>dias</span></div>
+      <div><b data-c="h">--</b><span>horas</span></div>
+      <div><b data-c="m">--</b><span>min</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- =================== NÚMEROS =================== -->
+<section class="sec numbers" aria-labelledby="t-num">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="label">Instituto Kós<span class="sep"></span>A operação por trás do método</p>
+      <h2 class="h2" id="t-num">Não é teoria de professor. É <span class="gold-it">operação rodando.</span></h2>
+    </div>
+    <ul class="stats">
+      <li data-rv><b>100</b><span class="k">pacientes por dia</span><span class="d">no começo, quando ele vendia pouco e indicava muito</span></li>
+      <li data-rv style="--d:1"><b>4 <span class="arrow">→</span> 60</b><span class="k">pacientes por mês</span><span class="d">depois que ele criou o próprio método</span></li>
+      <li data-rv style="--d:2"><b>R$ 5 mi</b><span class="k">de faturamento por mês</span><span class="d">no Instituto Kós, hoje</span></li>
+    </ul>
+    <p class="disclaimer">Números históricos da própria operação do Dr. Ade Salami e do Instituto Kós. Não são projeção, garantia ou promessa de resultado para quem participa.</p>
+  </div>
+</section>
+
+<!-- =================== DIAGNÓSTICO =================== -->
+<section class="sec light" aria-labelledby="t-diag">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="label">01<span class="sep"></span>O diagnóstico</p>
+      <h2 class="h2" id="t-diag">Não falta técnica. <span class="gold-it">Falta sistema.</span></h2>
+      <p class="sub">Nenhum médico trava porque opera mal. Trava porque a clínica depende inteiramente dele para vender, cobrar, decidir e crescer.</p>
+    </div>
+    <ul class="pains">
+      <li data-rv><span class="n">i</span><b>Lead que não agenda</b><span>Você paga anúncio, o WhatsApp enche e a agenda não enche junto.</span></li>
+      <li data-rv style="--d:1"><span class="n">ii</span><b>Equipe que depende de você</b><span>Sem roteiro e sem rotina, cada atendimento é um improviso.</span></li>
+      <li data-rv style="--d:2"><span class="n">iii</span><b>Faturamento que oscila</b><span>Um mês excelente, dois medianos. Nenhum explicado por número.</span></li>
+      <li data-rv style="--d:3"><span class="n">iv</span><b>Conteúdo que começa e para</b><span>Você sabe que precisa aparecer. A rotina da clínica sempre ganha.</span></li>
+    </ul>
+    <p class="punch" data-rv>Ninguém cresce trabalhando mais. <span class="gold-it">Cresce quando para de improvisar.</span></p>
+  </div>
+</section>
+
+<!-- =================== O QUE É =================== -->
+<section class="sec" aria-labelledby="t-oque">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="label">02<span class="sep"></span>O que é o evento</p>
+      <h2 class="h2" id="t-oque">2 dias abrindo <span class="gold-it">o método inteiro.</span></h2>
+    </div>
+    <div class="vs">
+      <div class="vs-col vs-no" data-rv>
+        <h3>Não é</h3>
+        <ul>
+          <li>Palestra que empolga na sexta e não muda nada na segunda</li>
+          <li>Curso que deixa a aplicação inteira no seu colo</li>
+          <li>Promessa de resultado rápido sem mudar a rotina da clínica</li>
+        </ul>
+      </div>
+      <div class="vs-col vs-yes" data-rv style="--d:1">
+        <h3>É</h3>
+        <ul>
+          <li>O método de marketing, vendas e gestão que o Dr. Ade construiu dentro do próprio consultório</li>
+          <li>Campanha, roteiros, indicadores e checklist mostrados como sequência, para levar à sua clínica</li>
+          <li>Dentro do que a Resolução CFM 2.336/2023 permite na publicidade médica</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== PARA QUEM =================== -->
+<section class="sec light" aria-labelledby="t-quem">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="label">03<span class="sep"></span>Para quem é</p>
+      <h2 class="h2" id="t-quem">Feito para o <span class="gold-it">médico dono de clínica.</span></h2>
+      <p class="sub">E aberto a todo profissional da saúde com consultório ou clínica.</p>
+    </div>
+    <div class="who">
+      <div class="who-col" data-rv>
+        <h3>É para você se</h3>
+        <ul>
+          <li>Você é médico e tem clínica ou consultório que quer profissionalizar</li>
+          <li>Você é da saúde, tem consultório ou clínica e quer o mesmo método no seu negócio</li>
+          <li>Você investe (ou quer investir) em anúncio e quer que isso vire agenda</li>
+          <li>Você aceita seguir processo, prazo e indicador</li>
+        </ul>
+      </div>
+      <div class="who-col not" data-rv style="--d:1">
+        <h3>Não é para você se</h3>
+        <ul>
+          <li>Você procura resultado rápido sem mudar a rotina</li>
+          <li>Você quer terceirizar a gestão e não participar</li>
+          <li>Você espera garantia de faturamento</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== PROGRAMAÇÃO =================== -->
+<section class="sec" id="programa" aria-labelledby="t-prog">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="label">04<span class="sep"></span>A programação</p>
+      <h2 class="h2" id="t-prog">Marketing e vendas na sexta. <span class="gold-it">Gestão no sábado.</span></h2>
+      <p class="sub">A Fórmula de Tração, em 6 etapas.</p>
+    </div>
+    <div class="steps" id="steps">
+      <div class="rail" aria-hidden="true"></div>
+      <ol>
+        <li style="--i:0"><i>I</i><span>Isca com incentivo ético</span></li>
+        <li style="--i:1"><i>II</i><span>Relacionamento e aproximação</span></li>
+        <li style="--i:2"><i>III</i><span>Apresentação da oportunidade</span></li>
+        <li style="--i:3"><i>IV</i><span>Evento ou consulta</span></li>
+        <li style="--i:4"><i>V</i><span>Procedimento e cuidado</span></li>
+        <li style="--i:5"><i>VI</i><span>Nova venda e indicação</span></li>
+      </ol>
+    </div>
+    <div class="days">
+      <article class="day" data-rv>
+        <span class="roman" aria-hidden="true">I</span>
+        <p class="day-k">Dia 1 · sexta · 18.12 · 8h às 18h</p>
+        <h3>Fórmula de <span class="gold-it">Tração</span></h3>
+        <div class="tags"><span>Marketing</span><span>Vendas</span></div>
+        <ul class="topics">
+          <li><b>A campanha em 6 etapas</b><span>O paciente não decide no anúncio. Decide depois de entender.</span></li>
+          <li><b>A isca com incentivo ético</b><span>O anúncio que troca informação por conversa e os modelos de texto que geram a primeira mensagem no WhatsApp.</span></li>
+          <li><b>Relacionamento em 3 vídeos</b><span>A transformação, o ensinamento e o como fazer: a estrutura de cada vídeo.</span></li>
+          <li><b>Os 9 gatilhos e o limite ético de cada um</b><span>Reciprocidade, curiosidade, autoridade, história, prova social, antecipação, compromisso e coerência, escassez e pertencimento.</span></li>
+          <li><b>A consulta que leva à decisão</b><span>Da identificação da necessidade ao convite.</span></li>
+          <li><b>Segunda janela e plano de indicação</b><span>Como retomar quem não agendou e organizar indicações com regras claras.</span></li>
+          <li><b>Compliance e indicadores</b><span>O que a Resolução CFM 2.336/2023 permite, o indicador de cada etapa e o checklist antes de pôr a campanha no ar.</span></li>
+        </ul>
+      </article>
+      <article class="day" data-rv style="--d:1">
+        <span class="roman" aria-hidden="true">II</span>
+        <p class="day-k">Dia 2 · sábado · 19.12 · 8h às 18h</p>
+        <h3>Gestão <span class="gold-it">Inteligente</span></h3>
+        <div class="tags"><span>Gestão</span><span>Tecnologia e IA</span></div>
+        <ul class="topics">
+          <li><b>Os 3 pilares</b><span>Pessoas preparadas, processos otimizados e tecnologias apropriadas.</span></li>
+          <li><b>CRM de atendimentos</b><span>Pacientes, atendimento, follow-up, tratamento, tarefas, fluxo, automação e indicadores.</span></li>
+          <li><b>Inteligência artificial no atendimento</b><span>O paciente não espera o horário comercial. A sua concorrência também não.</span></li>
+          <li><b>Cadastro e agenda</b><span>Ficha única de cada paciente e menos buraco na agenda.</span></li>
+          <li><b>Prontuário, tarefas e financeiro</b><span>Prontuário centralizado, tarefas do time e fluxo de caixa com conciliação.</span></li>
+          <li><b>Encerramento: o processo de criação</b><span>Do desejo à decisão, ao planejamento e à ação.</span></li>
+        </ul>
+      </article>
+    </div>
+    <div class="prog-foot">
+      <p>Das 8h às 18h nos dois dias. Ordem dos temas sujeita a ajuste.</p>
+      <span class="ph">Horário de cada bloco e intervalos · a definir</span>
+    </div>
+  </div>
+</section>
+
+<!-- =================== QUEM CONDUZ =================== -->
+<section class="sec numbers" aria-labelledby="t-ade">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="label">05<span class="sep"></span>Quem conduz</p>
+    </div>
+    <div class="bio">
+      <figure class="portrait" data-rv>
+        <img src="assets/ade-retrato.webp" alt="Retrato do Dr. Ade Salami" width="539" height="792" loading="lazy">
+        <span class="seal" aria-hidden="true"><img src="assets/kos-simbolo.svg" alt="" width="54" height="52"></span>
+      </figure>
+      <div class="bio-txt" data-rv style="--d:1">
+        <p class="label">Médico<span class="sep"></span>Fundador e presidente do Instituto Kós</p>
+        <h3 id="t-ade">Dr. Ade Salami</h3>
+        <p class="quote">“Esta fórmula não nasceu em um livro. Nasceu dentro do meu consultório, com a conta da clínica para pagar no fim do mês.”</p>
+        <p>Decidiu fazer medicina aos 14 anos. Formado, foi para o plantão fazer os primeiros salários. Na oftalmologia, abriu a própria clínica sozinho: <b>sem mentor, sem sistema, sem sócio rico</b>. Os custos eram altos e, para sustentar a clínica, voltou ao plantão.</p>
+        <p>Juntou experiência em vendas, marketing digital, gatilhos mentais e canais de aquisição de pacientes, com a medicina na essência, e criou o próprio método. Foi de <b>4 para 60 pacientes por mês</b>. Hoje o Instituto Kós fatura <b>R$ 5 milhões por mês</b>.</p>
+        <span class="ph">CRM / RQE · a confirmar</span>
+      </div>
+    </div>
+    <div class="trail">
+      <figure class="moment" data-rv>
+        <div class="ph-img"><img src="assets/trajetoria-14-anos.jpg" alt="Ade Salami criança, em frente a um carro vermelho" width="1000" height="800" loading="lazy"></div>
+        <span class="when">14 anos</span><b>O sonho</b>
+        <p>Decide fazer medicina. Aos 19, entra na faculdade.</p>
+      </figure>
+      <figure class="moment" data-rv style="--d:1">
+        <div class="ph-img"><img src="assets/trajetoria-plantao.jpg" alt="Ade Salami de jaleco, no plantão, ao lado de uma colega" width="1000" height="800" loading="lazy"></div>
+        <span class="when">2015 · 2016</span><b>Formado, no plantão</b>
+        <p>Os primeiros salários, ao lado de colegas exaustos e mal remunerados.</p>
+      </figure>
+      <figure class="moment" data-rv style="--d:2">
+        <div class="ph-img"><img src="assets/trajetoria-primeira-clinica.jpg" alt="Inauguração da primeira clínica, com balões na fachada" width="1000" height="800" loading="lazy"></div>
+        <span class="when">2018 · 2019</span><b>A primeira clínica</b>
+        <p>Oftalmologia. Sozinho. “Meu primeiro filho.”</p>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- =================== DEPOIMENTOS (placeholder) =================== -->
+<section class="sec" aria-labelledby="t-dep">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="label">06<span class="sep"></span>Quem já aplicou</p>
+      <h2 class="h2" id="t-dep">Depoimentos</h2>
+    </div>
+    <ul class="testi">
+      <li><span class="play" aria-hidden="true"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M4 2.5v11l9-5.5z"/></svg></span><span class="ph">Depoimento 1 · com autorização · em breve</span></li>
+      <li><span class="play" aria-hidden="true"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M4 2.5v11l9-5.5z"/></svg></span><span class="ph">Depoimento 2 · com autorização · em breve</span></li>
+      <li><span class="play" aria-hidden="true"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M4 2.5v11l9-5.5z"/></svg></span><span class="ph">Depoimento 3 · com autorização · em breve</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- =================== O QUE VOCÊ VÊ =================== -->
+<section class="sec light" aria-labelledby="t-kit">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="label">07<span class="sep"></span>O que você vê na prática</p>
+      <h2 class="h2" id="t-kit">Você não sai com anotação. <span class="gold-it">Sai com plano.</span></h2>
+    </div>
+    <ul class="kit">
+      <li data-rv><span class="n">i</span><b>A campanha desenhada</b><span>As 6 etapas da Fórmula de Tração aplicadas ao seu procedimento principal.</span></li>
+      <li data-rv style="--d:1"><span class="n">ii</span><b>Modelos de anúncio</b><span>Textos de isca nas versões direta e consultiva, com o gatilho de cada uma.</span></li>
+      <li data-rv style="--d:2"><span class="n">iii</span><b>Roteiro dos 3 vídeos</b><span>A estrutura de cada vídeo de relacionamento, do gancho ao convite.</span></li>
+      <li data-rv><span class="n">iv</span><b>Controle de indicações</b><span>Uma linha por indicação, atualizada pela equipe a cada contato.</span></li>
+      <li data-rv style="--d:1"><span class="n">v</span><b>Indicadores</b><span>A pergunta que cada número responde, da mensagem à indicação.</span></li>
+      <li data-rv style="--d:2"><span class="n">vi</span><b>Checklist de gestão</b><span>Cadastro, agenda, prontuário, tarefas e financeiro.</span></li>
+    </ul>
+    <p class="kit-foot"><span class="ph">Quais materiais vão impressos ou em arquivo para o participante · a confirmar</span></p>
+  </div>
+</section>
+
+<!-- =================== INGRESSOS =================== -->
+<section class="sec" id="ingressos" aria-labelledby="t-ing">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="label">08<span class="sep"></span>Ingressos</p>
+      <h2 class="h2" id="t-ing">Três lotes. <span class="gold-it">O preço sobe a cada virada.</span></h2>
+      <p class="sub">Mesmo evento e mesmo conteúdo nos três lotes. O que muda é quando você entra.</p>
+    </div>
+    <div class="lots">
+      <article class="lot first" data-rv>
+        <span class="badge">Primeiro lote</span>
+        <p class="lot-k">Abre em breve</p>
+        <h3>1º lote</h3>
+        <p class="price"><small>R$</small>197</p>
+        <ul>
+          <li>Os 2 dias completos, sexta e sábado</li>
+          <li>Marketing, vendas e gestão com o Dr. Ade Salami</li>
+          <li>Edifício Itália, São Paulo</li>
+        </ul>
+        <a class="btn" data-checkout aria-disabled="true">Garantir <span class="soon">em breve</span></a>
+        <span class="ph">Forma de pagamento e parcelamento · a definir</span>
+      </article>
+      <article class="lot later" data-rv style="--d:1">
+        <p class="lot-k">Depois</p>
+        <h3>2º lote</h3>
+        <p class="price"><small>R$</small>497</p>
+        <ul><li>Abre quando o 1º lote fechar</li></ul>
+        <span class="ph">Data de virada · a definir</span>
+      </article>
+      <article class="lot later" data-rv style="--d:2">
+        <p class="lot-k">Por último</p>
+        <h3>3º lote</h3>
+        <p class="price"><small>R$</small>997</p>
+        <ul><li>Último lote</li></ul>
+        <span class="ph">Data de virada · a definir</span>
+      </article>
+    </div>
+    <div class="guarantee" data-rv>
+      <h3>Garantia</h3>
+      <span class="ph">Prazo e regras de garantia e reembolso · a definir</span>
+    </div>
+  </div>
+</section>
+
+<!-- =================== DÚVIDAS =================== -->
+<section class="sec numbers" aria-labelledby="t-faq">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="label">09<span class="sep"></span>Dúvidas</p>
+      <h2 class="h2" id="t-faq">Dúvidas <span class="gold-it">frequentes</span></h2>
+    </div>
+    <div class="faq">
+      <details><summary>Quando e onde vai ser?</summary><div><p>Presencial, nos dias 18 e 19 de dezembro de 2026, sexta e sábado, das 8h às 18h nos dois dias, no Edifício Itália, em São Paulo (SP).</p></div></details>
+      <details><summary>Para quem é o evento?</summary><div><p>O foco é o médico dono de clínica. O evento é aberto a outros profissionais da saúde com consultório ou clínica.</p></div></details>
+      <details><summary>Não sou médico. Serve para mim?</summary><div><p>Serve. A sequência da campanha, a consulta que leva à decisão, o CRM e a gestão se aplicam a qualquer negócio de saúde. Os exemplos vêm da operação do Instituto Kós, e cada profissional segue as regras do próprio conselho.</p></div></details>
+      <details><summary>O método respeita as regras do CFM?</summary><div><p>Cada gatilho da Fórmula de Tração vem com o seu limite ético, e o evento passa pelo que a Resolução CFM 2.336/2023 permite e veda na publicidade médica.</p></div></details>
+      <details><summary>Qual a diferença entre os lotes?</summary><div><p>Nenhuma no conteúdo. O preço sobe a cada virada: R$ 197 no 1º, R$ 497 no 2º e R$ 997 no 3º.</p></div></details>
+      <details><summary>Como funciona o pagamento?</summary><div><span class="ph">Formas de pagamento e parcelamento · a definir</span></div></details>
+      <details><summary>O evento vai ser gravado?</summary><div><span class="ph">Gravação · a definir</span></div></details>
+    </div>
+  </div>
+</section>
+
+<!-- =================== FIM =================== -->
+<section class="final" aria-labelledby="t-fim">
+  <div class="rays" aria-hidden="true"></div>
+  <img class="watermark" src="assets/kos-simbolo.svg" alt="" aria-hidden="true" width="2557" height="2479">
+  <div class="wrap final-in">
+    <p class="label">18 e 19.12<span class="sep"></span>Edifício Itália · São Paulo</p>
+    <h2 id="t-fim">Você pode seguir construindo por tentativa. Ou <span class="gold-it">aprender o que já funciona.</span></h2>
+    <p class="sub">2 dias presenciais com o Dr. Ade Salami, das 8h às 18h.</p>
+    <a class="btn" data-checkout aria-disabled="true">1º lote · R$ 197 <span class="soon">em breve</span></a>
+    <p class="closing">Tudo que é grande, um dia foi pequeno.</p>
+  </div>
+</section>
+
+<footer>
+  <img class="logo" src="assets/kos-logo.svg" alt="Instituto Kós" width="364" height="161" loading="lazy">
+  <p>Tração Experience · um evento do Dr. Ade Salami · Edifício Itália, São Paulo · SP</p>
+  <span class="ph">CNPJ · contato · política de privacidade · a definir</span>
+</footer>
+
+<div class="bar" id="bar" aria-hidden="true">
+  <div><small>1º lote</small><b>R$ 197</b></div>
+  <a class="btn" data-checkout aria-disabled="true" tabindex="-1">Ingressos <span class="soon">em breve</span></a>
+</div>
+
+<script>
+(function () {
+  // Quando o checkout existir: ponha o link aqui e os botões passam a levar para ele.
+  var CHECKOUT = '';
+  var INICIO = new Date('2026-12-18T08:00:00-03:00').getTime();
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (CHECKOUT) document.querySelectorAll('[data-checkout]').forEach(function (a) {
+    a.href = CHECKOUT; a.removeAttribute('aria-disabled'); a.removeAttribute('tabindex');
+    var s = a.querySelector('.soon'); if (s) s.remove();
+  });
+
+  // contagem
+  var c = document.getElementById('count');
+  function tick() { var ms = Math.max(0, INICIO - Date.now()), m = Math.floor(ms / 60000);
+    var v = { d: Math.floor(m / 1440), h: Math.floor(m / 60) % 24, m: m % 60 };
+    c.querySelectorAll('[data-c]').forEach(function (b) { b.textContent = String(v[b.dataset.c]).padStart(2, '0'); });
+    if (ms === 0) c.hidden = true; }
+  tick(); setInterval(tick, 20000);
+
+  // entradas por rolagem
+  function on(el, fn, t) { if (reduce || !('IntersectionObserver' in window)) return fn(el);
+    var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { io.unobserve(e.target); fn(e.target); } }); }, { threshold: t || .15 });
+    io.observe(el); }
+  document.querySelectorAll('[data-rv]').forEach(function (el) { on(el, function (e) { e.classList.add('in'); }); });
+  on(document.getElementById('steps'), function (e) { e.classList.add('go'); }, .4);
+
+  // barra fixa (celular): aparece depois do botão do topo, some na seção de ingressos
+  var bar = document.getElementById('bar'), hero = document.querySelector('.hero-cta'), ing = document.getElementById('ingressos');
+  function upd() { var h = hero.getBoundingClientRect(), r = ing.getBoundingClientRect();
+    bar.classList.toggle('on', h.bottom < 0 && !(r.top < innerHeight && r.bottom > 0)); }
+  addEventListener('scroll', upd, { passive: true }); addEventListener('resize', upd); upd();
+})();
+</script>
+</body>
+</html>
