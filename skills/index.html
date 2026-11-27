@@ -47,6 +47,56 @@ fbq('track', 'PageView');
   }, true);
 })();
 </script>
+<script>
+/* Medição da página (27/11/2026): até onde a pessoa rola, que seção vê, qual botão "Quero" clica e quanto tempo fica.
+   Só nas páginas da Fábrica e do Clipador. Vai para o mesmo pixel como eventos personalizados. */
+(function () {
+  var pasta = location.pathname.split("/").filter(Boolean)[0] || "";
+  if (pasta !== "fabricadevideosdeia" && pasta !== "clipadorcomia") return;
+  var enviado = {};
+  function manda(nome, dados, chave) {
+    if (chave) { if (enviado[chave]) return; enviado[chave] = 1; }
+    dados = dados || {}; dados.pagina = pasta;
+    try { fbq("trackCustom", nome, dados); } catch (e) {}
+  }
+  function rolagem() {
+    var total = document.documentElement.scrollHeight - innerHeight;
+    if (total <= 0) return;
+    var pct = (scrollY / total) * 100;
+    [25, 50, 75, 100].forEach(function (m) { if (pct >= m - 2) manda("Rolagem", { porcentagem: m }, "r" + m); });
+  }
+  addEventListener("scroll", rolagem, { passive: true });
+  [15, 45, 90, 180].forEach(function (s) {
+    setTimeout(function () { if (!document.hidden) manda("TempoNaPagina", { segundos: s }, "t" + s); }, s * 1000);
+  });
+  function pronto() {
+    var titulos = [].slice.call(document.querySelectorAll("h1, h2"));
+    function nome(el) { return (el.textContent || "").replace(/\s+/g, " ").trim().slice(0, 60); }
+    if ("IntersectionObserver" in window) {
+      var io = new IntersectionObserver(function (es) {
+        es.forEach(function (e) {
+          if (!e.isIntersecting) return;
+          var i = titulos.indexOf(e.target);
+          manda("ViuSecao", { secao: (i + 1) + ". " + nome(e.target) }, "s" + i);
+          io.unobserve(e.target);
+        });
+      }, { threshold: 0.6 });
+      titulos.forEach(function (t) { io.observe(t); });
+    }
+    document.addEventListener("click", function (ev) {
+      var a = ev.target.closest && ev.target.closest("a, button");
+      if (!a) return;
+      var txt = (a.textContent || "").replace(/\s+/g, " ").trim();
+      if (!/quero/i.test(txt) && !/pay\.kiwify/.test(a.href || "")) return;
+      var y = a.getBoundingClientRect().top + scrollY, sec = "topo";
+      titulos.forEach(function (t, i) { if (t.getBoundingClientRect().top + scrollY <= y) sec = (i + 1) + ". " + nome(t); });
+      if (a.closest(".barra")) sec = "barra fixa";
+      manda("CliqueQuero", { secao: sec, texto: txt.slice(0, 40) });
+    }, true);
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", pronto); else pronto();
+})();
+</script>
 <noscript><img height="1" width="1" style="display:none" alt=""
 src="https://www.facebook.com/tr?id=1674928984046943&ev=PageView&noscript=1"></noscript>
 <title>5 skills pro Claude · presente do Matheus</title>
